@@ -150,6 +150,12 @@ _APPKIT_PRIVATE_DEF_SEL( setSubmenu_,
 _APPKIT_PRIVATE_DEF_SEL( setTitle_,
 						"setTitle:" );
 
+_APPKIT_PRIVATE_DEF_SEL( layer_,
+                         "layer");
+
+_APPKIT_PRIVATE_DEF_SEL( setLayer_,
+                        "setLayer:" );
+
 _APPKIT_PRIVATE_DEF_SEL( windows,
 						"windows" );
 
