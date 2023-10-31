@@ -78,6 +78,7 @@ namespace Private
         _NS_PRIVATE_DEF_CLS(NSAutoreleasePool);
         _NS_PRIVATE_DEF_CLS(NSBundle);
         _NS_PRIVATE_DEF_CLS(NSCondition);
+		_NS_PRIVATE_DEF_CLS(NSData);
         _NS_PRIVATE_DEF_CLS(NSDate);
         _NS_PRIVATE_DEF_CLS(NSDictionary);
         _NS_PRIVATE_DEF_CLS(NSError);
@@ -500,6 +501,12 @@ namespace Private
             "wait");
         _NS_PRIVATE_DEF_SEL(waitUntilDate_,
             "waitUntilDate:");
+		_NS_PRIVATE_DEF_SEL(dataWithContentsOfURL_,
+			"dataWithContentsOfURL:");
+		_NS_PRIVATE_DEF_SEL(dataWithContentsOfFile_,
+			"dataWithContentsOfFile:");
+		_NS_PRIVATE_DEF_SEL(bytes,
+			"bytes");
     } // Class
 } // Private
 } // MTL
