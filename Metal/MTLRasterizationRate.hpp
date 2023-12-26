@@ -31,111 +31,108 @@
 
 namespace MTL
 {
-    class RasterizationRateSampleArray : public NS::Referencing<RasterizationRateSampleArray>
-    {
-    public:
-        static class RasterizationRateSampleArray* alloc();
+class RasterizationRateSampleArray : public NS::Referencing<RasterizationRateSampleArray>
+{
+public:
+    static class RasterizationRateSampleArray* alloc();
 
-        class RasterizationRateSampleArray* init();
+    class RasterizationRateSampleArray*        init();
 
-        NS::Number* object(NS::UInteger index);
+    NS::Number*                                object(NS::UInteger index);
 
-        void setObject(const NS::Number* value, NS::UInteger index);
-    };
+    void                                       setObject(const NS::Number* value, NS::UInteger index);
+};
 
-    class RasterizationRateLayerDescriptor : public NS::Copying<RasterizationRateLayerDescriptor>
-    {
-    public:
-        static class RasterizationRateLayerDescriptor* alloc();
+class RasterizationRateLayerDescriptor : public NS::Copying<RasterizationRateLayerDescriptor>
+{
+public:
+    static class RasterizationRateLayerDescriptor* alloc();
 
-        MTL::RasterizationRateLayerDescriptor* init();
+    MTL::RasterizationRateLayerDescriptor*         init();
 
-        MTL::RasterizationRateLayerDescriptor* init(MTL::Size sampleCount);
+    MTL::RasterizationRateLayerDescriptor*         init(MTL::Size sampleCount);
 
-        MTL::RasterizationRateLayerDescriptor* init(MTL::Size sampleCount, const float* horizontal,
-                                                    const float* vertical);
+    MTL::RasterizationRateLayerDescriptor*         init(MTL::Size sampleCount, const float* horizontal, const float* vertical);
 
-        [[nodiscard]] MTL::Size sampleCount() const;
+    MTL::Size                                      sampleCount() const;
 
-        [[nodiscard]] MTL::Size maxSampleCount() const;
+    MTL::Size                                      maxSampleCount() const;
 
-        [[nodiscard]] float* horizontalSampleStorage() const;
+    float*                                         horizontalSampleStorage() const;
 
-        [[nodiscard]] float* verticalSampleStorage() const;
+    float*                                         verticalSampleStorage() const;
 
-        [[nodiscard]] class RasterizationRateSampleArray* horizontal() const;
+    class RasterizationRateSampleArray*            horizontal() const;
 
-        [[nodiscard]] class RasterizationRateSampleArray* vertical() const;
+    class RasterizationRateSampleArray*            vertical() const;
 
-        void setSampleCount(MTL::Size sampleCount);
-    };
+    void                                           setSampleCount(MTL::Size sampleCount);
+};
 
-    class RasterizationRateLayerArray : public NS::Referencing<RasterizationRateLayerArray>
-    {
-    public:
-        static class RasterizationRateLayerArray* alloc();
+class RasterizationRateLayerArray : public NS::Referencing<RasterizationRateLayerArray>
+{
+public:
+    static class RasterizationRateLayerArray* alloc();
 
-        class RasterizationRateLayerArray* init();
+    class RasterizationRateLayerArray*        init();
 
-        class RasterizationRateLayerDescriptor* object(NS::UInteger layerIndex);
+    class RasterizationRateLayerDescriptor*   object(NS::UInteger layerIndex);
 
-        void setObject(const class RasterizationRateLayerDescriptor* layer, NS::UInteger layerIndex);
-    };
+    void                                      setObject(const class RasterizationRateLayerDescriptor* layer, NS::UInteger layerIndex);
+};
 
-    class RasterizationRateMapDescriptor : public NS::Copying<RasterizationRateMapDescriptor>
-    {
-    public:
-        static class RasterizationRateMapDescriptor* alloc();
+class RasterizationRateMapDescriptor : public NS::Copying<RasterizationRateMapDescriptor>
+{
+public:
+    static class RasterizationRateMapDescriptor* alloc();
 
-        class RasterizationRateMapDescriptor* init();
+    class RasterizationRateMapDescriptor*        init();
 
-        static class RasterizationRateMapDescriptor* rasterizationRateMapDescriptor(MTL::Size screenSize);
+    static class RasterizationRateMapDescriptor* rasterizationRateMapDescriptor(MTL::Size screenSize);
 
-        static class RasterizationRateMapDescriptor* rasterizationRateMapDescriptor(
-            MTL::Size screenSize, const class RasterizationRateLayerDescriptor* layer);
+    static class RasterizationRateMapDescriptor* rasterizationRateMapDescriptor(MTL::Size screenSize, const class RasterizationRateLayerDescriptor* layer);
 
-        static class RasterizationRateMapDescriptor* rasterizationRateMapDescriptor(
-            MTL::Size screenSize, NS::UInteger layerCount, const class RasterizationRateLayerDescriptor* const* layers);
+    static class RasterizationRateMapDescriptor* rasterizationRateMapDescriptor(MTL::Size screenSize, NS::UInteger layerCount, const class RasterizationRateLayerDescriptor* const* layers);
 
-        class RasterizationRateLayerDescriptor* layer(NS::UInteger layerIndex);
+    class RasterizationRateLayerDescriptor*      layer(NS::UInteger layerIndex);
 
-        void setLayer(const class RasterizationRateLayerDescriptor* layer, NS::UInteger layerIndex);
+    void                                         setLayer(const class RasterizationRateLayerDescriptor* layer, NS::UInteger layerIndex);
 
-        [[nodiscard]] class RasterizationRateLayerArray* layers() const;
+    class RasterizationRateLayerArray*           layers() const;
 
-        [[nodiscard]] MTL::Size screenSize() const;
-        void setScreenSize(MTL::Size screenSize);
+    MTL::Size                                    screenSize() const;
+    void                                         setScreenSize(MTL::Size screenSize);
 
-        [[nodiscard]] NS::String* label() const;
-        void setLabel(const NS::String* label);
+    NS::String*                                  label() const;
+    void                                         setLabel(const NS::String* label);
 
-        [[nodiscard]] NS::UInteger layerCount() const;
-    };
+    NS::UInteger                                 layerCount() const;
+};
 
-    class RasterizationRateMap : public NS::Referencing<RasterizationRateMap>
-    {
-    public:
-        [[nodiscard]] class Device* device() const;
+class RasterizationRateMap : public NS::Referencing<RasterizationRateMap>
+{
+public:
+    class Device*     device() const;
 
-        [[nodiscard]] NS::String* label() const;
+    NS::String*       label() const;
 
-        [[nodiscard]] MTL::Size screenSize() const;
+    MTL::Size         screenSize() const;
 
-        [[nodiscard]] MTL::Size physicalGranularity() const;
+    MTL::Size         physicalGranularity() const;
 
-        [[nodiscard]] NS::UInteger layerCount() const;
+    NS::UInteger      layerCount() const;
 
-        [[nodiscard]] MTL::SizeAndAlign parameterBufferSizeAndAlign() const;
+    MTL::SizeAndAlign parameterBufferSizeAndAlign() const;
 
-        void copyParameterDataToBuffer(const class Buffer* buffer, NS::UInteger offset);
+    void              copyParameterDataToBuffer(const class Buffer* buffer, NS::UInteger offset);
 
-        MTL::Size physicalSize(NS::UInteger layerIndex);
+    MTL::Size         physicalSize(NS::UInteger layerIndex);
 
-        MTL::Coordinate2D mapScreenToPhysicalCoordinates(MTL::Coordinate2D screenCoordinates, NS::UInteger layerIndex);
+    MTL::Coordinate2D mapScreenToPhysicalCoordinates(MTL::Coordinate2D screenCoordinates, NS::UInteger layerIndex);
 
-        MTL::Coordinate2D
-        mapPhysicalToScreenCoordinates(MTL::Coordinate2D physicalCoordinates, NS::UInteger layerIndex);
-    };
+    MTL::Coordinate2D mapPhysicalToScreenCoordinates(MTL::Coordinate2D physicalCoordinates, NS::UInteger layerIndex);
+};
+
 }
 
 // static method: alloc
@@ -165,8 +162,7 @@ _MTL_INLINE void MTL::RasterizationRateSampleArray::setObject(const NS::Number* 
 // static method: alloc
 _MTL_INLINE MTL::RasterizationRateLayerDescriptor* MTL::RasterizationRateLayerDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL::RasterizationRateLayerDescriptor>(
-        _MTL_PRIVATE_CLS(MTLRasterizationRateLayerDescriptor));
+    return NS::Object::alloc<MTL::RasterizationRateLayerDescriptor>(_MTL_PRIVATE_CLS(MTLRasterizationRateLayerDescriptor));
 }
 
 // method: init
@@ -178,16 +174,13 @@ _MTL_INLINE MTL::RasterizationRateLayerDescriptor* MTL::RasterizationRateLayerDe
 // method: initWithSampleCount:
 _MTL_INLINE MTL::RasterizationRateLayerDescriptor* MTL::RasterizationRateLayerDescriptor::init(MTL::Size sampleCount)
 {
-    return Object::sendMessage<MTL::RasterizationRateLayerDescriptor*>(this, _MTL_PRIVATE_SEL(initWithSampleCount_),
-                                                                       sampleCount);
+    return Object::sendMessage<MTL::RasterizationRateLayerDescriptor*>(this, _MTL_PRIVATE_SEL(initWithSampleCount_), sampleCount);
 }
 
 // method: initWithSampleCount:horizontal:vertical:
-_MTL_INLINE MTL::RasterizationRateLayerDescriptor* MTL::RasterizationRateLayerDescriptor::init(
-    MTL::Size sampleCount, const float* horizontal, const float* vertical)
+_MTL_INLINE MTL::RasterizationRateLayerDescriptor* MTL::RasterizationRateLayerDescriptor::init(MTL::Size sampleCount, const float* horizontal, const float* vertical)
 {
-    return Object::sendMessage<MTL::RasterizationRateLayerDescriptor*>(
-        this, _MTL_PRIVATE_SEL(initWithSampleCount_horizontal_vertical_), sampleCount, horizontal, vertical);
+    return Object::sendMessage<MTL::RasterizationRateLayerDescriptor*>(this, _MTL_PRIVATE_SEL(initWithSampleCount_horizontal_vertical_), sampleCount, horizontal, vertical);
 }
 
 // property: sampleCount
@@ -247,13 +240,11 @@ _MTL_INLINE MTL::RasterizationRateLayerArray* MTL::RasterizationRateLayerArray::
 // method: objectAtIndexedSubscript:
 _MTL_INLINE MTL::RasterizationRateLayerDescriptor* MTL::RasterizationRateLayerArray::object(NS::UInteger layerIndex)
 {
-    return Object::sendMessage<MTL::RasterizationRateLayerDescriptor*>(
-        this, _MTL_PRIVATE_SEL(objectAtIndexedSubscript_), layerIndex);
+    return Object::sendMessage<MTL::RasterizationRateLayerDescriptor*>(this, _MTL_PRIVATE_SEL(objectAtIndexedSubscript_), layerIndex);
 }
 
 // method: setObject:atIndexedSubscript:
-_MTL_INLINE void MTL::RasterizationRateLayerArray::setObject(const MTL::RasterizationRateLayerDescriptor* layer,
-                                                             NS::UInteger layerIndex)
+_MTL_INLINE void MTL::RasterizationRateLayerArray::setObject(const MTL::RasterizationRateLayerDescriptor* layer, NS::UInteger layerIndex)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setObject_atIndexedSubscript_), layer, layerIndex);
 }
@@ -271,43 +262,31 @@ _MTL_INLINE MTL::RasterizationRateMapDescriptor* MTL::RasterizationRateMapDescri
 }
 
 // static method: rasterizationRateMapDescriptorWithScreenSize:
-_MTL_INLINE MTL::RasterizationRateMapDescriptor* MTL::RasterizationRateMapDescriptor::rasterizationRateMapDescriptor(
-    MTL::Size screenSize)
+_MTL_INLINE MTL::RasterizationRateMapDescriptor* MTL::RasterizationRateMapDescriptor::rasterizationRateMapDescriptor(MTL::Size screenSize)
 {
-    return Object::sendMessage<MTL::RasterizationRateMapDescriptor*>(
-        _MTL_PRIVATE_CLS(MTLRasterizationRateMapDescriptor),
-        _MTL_PRIVATE_SEL(rasterizationRateMapDescriptorWithScreenSize_), screenSize);
+    return Object::sendMessage<MTL::RasterizationRateMapDescriptor*>(_MTL_PRIVATE_CLS(MTLRasterizationRateMapDescriptor), _MTL_PRIVATE_SEL(rasterizationRateMapDescriptorWithScreenSize_), screenSize);
 }
 
 // static method: rasterizationRateMapDescriptorWithScreenSize:layer:
-_MTL_INLINE MTL::RasterizationRateMapDescriptor* MTL::RasterizationRateMapDescriptor::rasterizationRateMapDescriptor(
-    MTL::Size screenSize, const MTL::RasterizationRateLayerDescriptor* layer)
+_MTL_INLINE MTL::RasterizationRateMapDescriptor* MTL::RasterizationRateMapDescriptor::rasterizationRateMapDescriptor(MTL::Size screenSize, const MTL::RasterizationRateLayerDescriptor* layer)
 {
-    return Object::sendMessage<MTL::RasterizationRateMapDescriptor*>(
-        _MTL_PRIVATE_CLS(MTLRasterizationRateMapDescriptor),
-        _MTL_PRIVATE_SEL(rasterizationRateMapDescriptorWithScreenSize_layer_), screenSize, layer);
+    return Object::sendMessage<MTL::RasterizationRateMapDescriptor*>(_MTL_PRIVATE_CLS(MTLRasterizationRateMapDescriptor), _MTL_PRIVATE_SEL(rasterizationRateMapDescriptorWithScreenSize_layer_), screenSize, layer);
 }
 
 // static method: rasterizationRateMapDescriptorWithScreenSize:layerCount:layers:
-_MTL_INLINE MTL::RasterizationRateMapDescriptor* MTL::RasterizationRateMapDescriptor::rasterizationRateMapDescriptor(
-    MTL::Size screenSize, NS::UInteger layerCount, const MTL::RasterizationRateLayerDescriptor* const* layers)
+_MTL_INLINE MTL::RasterizationRateMapDescriptor* MTL::RasterizationRateMapDescriptor::rasterizationRateMapDescriptor(MTL::Size screenSize, NS::UInteger layerCount, const MTL::RasterizationRateLayerDescriptor* const* layers)
 {
-    return Object::sendMessage<MTL::RasterizationRateMapDescriptor*>(
-        _MTL_PRIVATE_CLS(MTLRasterizationRateMapDescriptor),
-        _MTL_PRIVATE_SEL(rasterizationRateMapDescriptorWithScreenSize_layerCount_layers_), screenSize, layerCount,
-        layers);
+    return Object::sendMessage<MTL::RasterizationRateMapDescriptor*>(_MTL_PRIVATE_CLS(MTLRasterizationRateMapDescriptor), _MTL_PRIVATE_SEL(rasterizationRateMapDescriptorWithScreenSize_layerCount_layers_), screenSize, layerCount, layers);
 }
 
 // method: layerAtIndex:
 _MTL_INLINE MTL::RasterizationRateLayerDescriptor* MTL::RasterizationRateMapDescriptor::layer(NS::UInteger layerIndex)
 {
-    return Object::sendMessage<MTL::RasterizationRateLayerDescriptor*>(this, _MTL_PRIVATE_SEL(layerAtIndex_),
-                                                                       layerIndex);
+    return Object::sendMessage<MTL::RasterizationRateLayerDescriptor*>(this, _MTL_PRIVATE_SEL(layerAtIndex_), layerIndex);
 }
 
 // method: setLayer:atIndex:
-_MTL_INLINE void MTL::RasterizationRateMapDescriptor::setLayer(const MTL::RasterizationRateLayerDescriptor* layer,
-                                                               NS::UInteger layerIndex)
+_MTL_INLINE void MTL::RasterizationRateMapDescriptor::setLayer(const MTL::RasterizationRateLayerDescriptor* layer, NS::UInteger layerIndex)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setLayer_atIndex_), layer, layerIndex);
 }
@@ -395,17 +374,13 @@ _MTL_INLINE MTL::Size MTL::RasterizationRateMap::physicalSize(NS::UInteger layer
 }
 
 // method: mapScreenToPhysicalCoordinates:forLayer:
-_MTL_INLINE MTL::Coordinate2D MTL::RasterizationRateMap::mapScreenToPhysicalCoordinates(
-    MTL::Coordinate2D screenCoordinates, NS::UInteger layerIndex)
+_MTL_INLINE MTL::Coordinate2D MTL::RasterizationRateMap::mapScreenToPhysicalCoordinates(MTL::Coordinate2D screenCoordinates, NS::UInteger layerIndex)
 {
-    return Object::sendMessage<MTL::Coordinate2D>(this, _MTL_PRIVATE_SEL(mapScreenToPhysicalCoordinates_forLayer_),
-                                                  screenCoordinates, layerIndex);
+    return Object::sendMessage<MTL::Coordinate2D>(this, _MTL_PRIVATE_SEL(mapScreenToPhysicalCoordinates_forLayer_), screenCoordinates, layerIndex);
 }
 
 // method: mapPhysicalToScreenCoordinates:forLayer:
-_MTL_INLINE MTL::Coordinate2D MTL::RasterizationRateMap::mapPhysicalToScreenCoordinates(
-    MTL::Coordinate2D physicalCoordinates, NS::UInteger layerIndex)
+_MTL_INLINE MTL::Coordinate2D MTL::RasterizationRateMap::mapPhysicalToScreenCoordinates(MTL::Coordinate2D physicalCoordinates, NS::UInteger layerIndex)
 {
-    return Object::sendMessage<MTL::Coordinate2D>(this, _MTL_PRIVATE_SEL(mapPhysicalToScreenCoordinates_forLayer_),
-                                                  physicalCoordinates, layerIndex);
+    return Object::sendMessage<MTL::Coordinate2D>(this, _MTL_PRIVATE_SEL(mapPhysicalToScreenCoordinates_forLayer_), physicalCoordinates, layerIndex);
 }

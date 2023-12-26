@@ -31,18 +31,18 @@
 
 namespace NS
 {
-    class URL : public Copying<URL>
-    {
-    public:
-        static URL* fileURLWithPath(const class String* pPath);
+class URL : public Copying<URL>
+{
+public:
+    static URL* fileURLWithPath(const class String* pPath);
 
-        static URL* alloc();
-        URL* init();
-        URL* init(const class String* pString);
-        URL* initFileURLWithPath(const class String* pPath);
+    static URL* alloc();
+    URL*        init();
+    URL*        init(const class String* pString);
+    URL*        initFileURLWithPath(const class String* pPath);
 
-        [[nodiscard]] const char* fileSystemRepresentation() const;
-    };
+    const char* fileSystemRepresentation() const;
+};
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------

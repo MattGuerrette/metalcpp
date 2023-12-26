@@ -35,66 +35,67 @@
 
 namespace NS
 {
-    template <class _Class, class _Base = class Object>
-    class _NS_EXPORT Referencing : public _Base
-    {
-    public:
-        _Class* retain();
-        void release();
+template <class _Class, class _Base = class Object>
+class _NS_EXPORT Referencing : public _Base
+{
+public:
+    _Class*  retain();
+    void     release();
 
-        _Class* autorelease();
+    _Class*  autorelease();
 
-        [[nodiscard]] UInteger retainCount() const;
-    };
+    UInteger retainCount() const;
+};
 
-    template <class _Class, class _Base = class Object>
-    class Copying : public Referencing<_Class, _Base>
-    {
-    public:
-        _Class* copy() const;
-    };
+template <class _Class, class _Base = class Object>
+class Copying : public Referencing<_Class, _Base>
+{
+public:
+    _Class* copy() const;
+};
 
-    template <class _Class, class _Base = class Object>
-    class SecureCoding : public Referencing<_Class, _Base>
-    {
-    };
+template <class _Class, class _Base = class Object>
+class SecureCoding : public Referencing<_Class, _Base>
+{
+};
 
-    class Object : public Referencing<Object, objc_object>
-    {
-    public:
-        Object() = delete;
-        Object(const Object&) = delete;
-        ~Object() = delete;
+class Object : public Referencing<Object, objc_object>
+{
+public:
+    UInteger      hash() const;
+    bool          isEqual(const Object* pObject) const;
 
-        Object& operator=(const Object&) = delete;
+    class String* description() const;
+    class String* debugDescription() const;
 
-        [[nodiscard]] UInteger hash() const;
-        bool isEqual(const Object* pObject) const;
+protected:
+    friend class Referencing<Object, objc_object>;
 
-        [[nodiscard]] class String* description() const;
-        [[nodiscard]] class String* debugDescription() const;
+    template <class _Class>
+    static _Class* alloc(const char* pClassName);
+    template <class _Class>
+    static _Class* alloc(const void* pClass);
+    template <class _Class>
+    _Class* init();
 
-    protected:
-        friend class Referencing<Object, objc_object>;
+    template <class _Dst>
+    static _Dst                   bridgingCast(const void* pObj);
+    static class MethodSignature* methodSignatureForSelector(const void* pObj, SEL selector);
+    static bool                   respondsToSelector(const void* pObj, SEL selector);
+    template <typename _Type>
+    static constexpr bool doesRequireMsgSendStret();
+    template <typename _Ret, typename... _Args>
+    static _Ret sendMessage(const void* pObj, SEL selector, _Args... args);
+    template <typename _Ret, typename... _Args>
+    static _Ret sendMessageSafe(const void* pObj, SEL selector, _Args... args);
 
-        template <class _Class>
-        static _Class* alloc(const char* pClassName);
-        template <class _Class>
-        static _Class* alloc(const void* pClass);
-        template <class _Class>
-        _Class* init();
+private:
+    Object() = delete;
+    Object(const Object&) = delete;
+    ~Object() = delete;
 
-        template <class _Dst>
-        static _Dst bridgingCast(const void* pObj);
-        static class MethodSignature* methodSignatureForSelector(const void* pObj, SEL selector);
-        static bool respondsToSelector(const void* pObj, SEL selector);
-        template <typename _Type>
-        static constexpr bool doesRequireMsgSendStret();
-        template <typename _Ret, typename... _Args>
-        static _Ret sendMessage(const void* pObj, SEL selector, _Args... args);
-        template <typename _Ret, typename... _Args>
-        static _Ret sendMessageSafe(const void* pObj, SEL selector, _Args... args);
-    };
+    Object& operator=(const Object&) = delete;
+};
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -145,7 +146,7 @@ _NS_INLINE _Dst NS::Object::bridgingCast(const void* pObj)
 #ifdef __OBJC__
     return (__bridge _Dst)pObj;
 #else
-    return reinterpret_cast<_Dst>(pObj);
+    return (_Dst)pObj;
 #endif // __OBJC__
 }
 
@@ -187,7 +188,7 @@ _NS_INLINE _Ret NS::Object::sendMessage(const void* pObj, SEL selector, _Args...
     {
         using SendMessageProcFpret = _Ret (*)(const void*, SEL, _Args...);
 
-        const auto pProc = reinterpret_cast<SendMessageProcFpret>(&objc_msgSend_fpret);
+        const SendMessageProcFpret pProc = reinterpret_cast<SendMessageProcFpret>(&objc_msgSend_fpret);
 
         return (*pProc)(pObj, selector, args...);
     }
@@ -198,7 +199,7 @@ _NS_INLINE _Ret NS::Object::sendMessage(const void* pObj, SEL selector, _Args...
     {
         using SendMessageProcStret = void (*)(_Ret*, const void*, SEL, _Args...);
 
-        const auto pProc = reinterpret_cast<SendMessageProcStret>(&objc_msgSend_stret);
+        const SendMessageProcStret pProc = reinterpret_cast<SendMessageProcStret>(&objc_msgSend_stret);
         _Ret                       ret;
 
         (*pProc)(&ret, pObj, selector, args...);
@@ -210,7 +211,7 @@ _NS_INLINE _Ret NS::Object::sendMessage(const void* pObj, SEL selector, _Args...
     {
         using SendMessageProc = _Ret (*)(const void*, SEL, _Args...);
 
-        const auto pProc = reinterpret_cast<SendMessageProc>(&objc_msgSend);
+        const SendMessageProc pProc = reinterpret_cast<SendMessageProc>(&objc_msgSend);
 
         return (*pProc)(pObj, selector, args...);
     }
@@ -240,7 +241,7 @@ _NS_INLINE _Ret NS::Object::sendMessageSafe(const void* pObj, SEL selector, _Arg
         return sendMessage<_Ret>(pObj, selector, args...);
     }
 
-    if constexpr (!std::is_void_v<_Ret>)
+    if constexpr (!std::is_void<_Ret>::value)
     {
         return _Ret(0);
     }

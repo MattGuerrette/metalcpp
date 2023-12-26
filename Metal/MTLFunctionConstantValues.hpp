@@ -30,21 +30,22 @@
 
 namespace MTL
 {
-    class FunctionConstantValues : public NS::Copying<FunctionConstantValues>
-    {
-    public:
-        static class FunctionConstantValues* alloc();
+class FunctionConstantValues : public NS::Copying<FunctionConstantValues>
+{
+public:
+    static class FunctionConstantValues* alloc();
 
-        class FunctionConstantValues* init();
+    class FunctionConstantValues*        init();
 
-        void setConstantValue(const void* value, MTL::DataType type, NS::UInteger index);
+    void                                 setConstantValue(const void* value, MTL::DataType type, NS::UInteger index);
 
-        void setConstantValues(const void* values, MTL::DataType type, NS::Range range);
+    void                                 setConstantValues(const void* values, MTL::DataType type, NS::Range range);
 
-        void setConstantValue(const void* value, MTL::DataType type, const NS::String* name);
+    void                                 setConstantValue(const void* value, MTL::DataType type, const NS::String* name);
 
-        void reset();
-    };
+    void                                 reset();
+};
+
 }
 
 // static method: alloc
@@ -60,8 +61,7 @@ _MTL_INLINE MTL::FunctionConstantValues* MTL::FunctionConstantValues::init()
 }
 
 // method: setConstantValue:type:atIndex:
-_MTL_INLINE void MTL::FunctionConstantValues::setConstantValue(const void* value, MTL::DataType type,
-                                                               NS::UInteger index)
+_MTL_INLINE void MTL::FunctionConstantValues::setConstantValue(const void* value, MTL::DataType type, NS::UInteger index)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setConstantValue_type_atIndex_), value, type, index);
 }
@@ -73,8 +73,7 @@ _MTL_INLINE void MTL::FunctionConstantValues::setConstantValues(const void* valu
 }
 
 // method: setConstantValue:type:withName:
-_MTL_INLINE void MTL::FunctionConstantValues::setConstantValue(const void* value, MTL::DataType type,
-                                                               const NS::String* name)
+_MTL_INLINE void MTL::FunctionConstantValues::setConstantValue(const void* value, MTL::DataType type, const NS::String* name)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setConstantValue_type_withName_), value, type, name);
 }

@@ -28,36 +28,35 @@
 
 namespace MTL
 {
-    _MTL_OPTIONS(NS::UInteger, ResourceUsage)
-    {
-        ResourceUsageRead = 1,
-        ResourceUsageWrite = 2,
-        ResourceUsageSample = 4,
-    };
+_MTL_OPTIONS(NS::UInteger, ResourceUsage) {
+    ResourceUsageRead = 1,
+    ResourceUsageWrite = 2,
+    ResourceUsageSample = 4,
+};
 
-    _MTL_OPTIONS(NS::UInteger, BarrierScope)
-    {
-        BarrierScopeBuffers = 1,
-        BarrierScopeTextures = 2,
-        BarrierScopeRenderTargets = 4,
-    };
+_MTL_OPTIONS(NS::UInteger, BarrierScope) {
+    BarrierScopeBuffers = 1,
+    BarrierScopeTextures = 2,
+    BarrierScopeRenderTargets = 4,
+};
 
-    class CommandEncoder : public NS::Referencing<CommandEncoder>
-    {
-    public:
-        [[nodiscard]] class Device* device() const;
+class CommandEncoder : public NS::Referencing<CommandEncoder>
+{
+public:
+    class Device* device() const;
 
-        [[nodiscard]] NS::String* label() const;
-        void setLabel(const NS::String* label);
+    NS::String*   label() const;
+    void          setLabel(const NS::String* label);
 
-        void endEncoding();
+    void          endEncoding();
 
-        void insertDebugSignpost(const NS::String* string);
+    void          insertDebugSignpost(const NS::String* string);
 
-        void pushDebugGroup(const NS::String* string);
+    void          pushDebugGroup(const NS::String* string);
 
-        void popDebugGroup();
-    };
+    void          popDebugGroup();
+};
+
 }
 
 // property: device

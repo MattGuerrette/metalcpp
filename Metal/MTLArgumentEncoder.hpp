@@ -28,64 +28,64 @@
 
 namespace MTL
 {
-    static constexpr NS::UInteger AttributeStrideStatic = NS::UIntegerMax;
 
-    class ArgumentEncoder : public NS::Referencing<ArgumentEncoder>
-    {
-    public:
-        [[nodiscard]] class Device* device() const;
+static const NS::UInteger AttributeStrideStatic = NS::UIntegerMax;
 
-        [[nodiscard]] NS::String* label() const;
-        void setLabel(const NS::String* label);
+class ArgumentEncoder : public NS::Referencing<ArgumentEncoder>
+{
+public:
+    class Device*          device() const;
 
-        [[nodiscard]] NS::UInteger encodedLength() const;
+    NS::String*            label() const;
+    void                   setLabel(const NS::String* label);
 
-        [[nodiscard]] NS::UInteger alignment() const;
+    NS::UInteger           encodedLength() const;
 
-        void setArgumentBuffer(const class Buffer* argumentBuffer, NS::UInteger offset);
+    NS::UInteger           alignment() const;
 
-        void setArgumentBuffer(const class Buffer* argumentBuffer, NS::UInteger startOffset, NS::UInteger arrayElement);
+    void                   setArgumentBuffer(const class Buffer* argumentBuffer, NS::UInteger offset);
 
-        void setBuffer(const class Buffer* buffer, NS::UInteger offset, NS::UInteger index);
+    void                   setArgumentBuffer(const class Buffer* argumentBuffer, NS::UInteger startOffset, NS::UInteger arrayElement);
 
-        void setBuffers(const class Buffer* const buffers[], const NS::UInteger offsets[], NS::Range range);
+    void                   setBuffer(const class Buffer* buffer, NS::UInteger offset, NS::UInteger index);
 
-        void setTexture(const class Texture* texture, NS::UInteger index);
+    void                   setBuffers(const class Buffer* const buffers[], const NS::UInteger offsets[], NS::Range range);
 
-        void setTextures(const class Texture* const textures[], NS::Range range);
+    void                   setTexture(const class Texture* texture, NS::UInteger index);
 
-        void setSamplerState(const class SamplerState* sampler, NS::UInteger index);
+    void                   setTextures(const class Texture* const textures[], NS::Range range);
 
-        void setSamplerStates(const class SamplerState* const samplers[], NS::Range range);
+    void                   setSamplerState(const class SamplerState* sampler, NS::UInteger index);
 
-        void* constantData(NS::UInteger index);
+    void                   setSamplerStates(const class SamplerState* const samplers[], NS::Range range);
 
-        void setRenderPipelineState(const class RenderPipelineState* pipeline, NS::UInteger index);
+    void*                  constantData(NS::UInteger index);
 
-        void setRenderPipelineStates(const class RenderPipelineState* const pipelines[], NS::Range range);
+    void                   setRenderPipelineState(const class RenderPipelineState* pipeline, NS::UInteger index);
 
-        void setComputePipelineState(const class ComputePipelineState* pipeline, NS::UInteger index);
+    void                   setRenderPipelineStates(const class RenderPipelineState* const pipelines[], NS::Range range);
 
-        void setComputePipelineStates(const class ComputePipelineState* const pipelines[], NS::Range range);
+    void                   setComputePipelineState(const class ComputePipelineState* pipeline, NS::UInteger index);
 
-        void setIndirectCommandBuffer(const class IndirectCommandBuffer* indirectCommandBuffer, NS::UInteger index);
+    void                   setComputePipelineStates(const class ComputePipelineState* const pipelines[], NS::Range range);
 
-        void setIndirectCommandBuffers(const class IndirectCommandBuffer* const buffers[], NS::Range range);
+    void                   setIndirectCommandBuffer(const class IndirectCommandBuffer* indirectCommandBuffer, NS::UInteger index);
 
-        void setAccelerationStructure(const class AccelerationStructure* accelerationStructure, NS::UInteger index);
+    void                   setIndirectCommandBuffers(const class IndirectCommandBuffer* const buffers[], NS::Range range);
 
-        class ArgumentEncoder* newArgumentEncoder(NS::UInteger index);
+    void                   setAccelerationStructure(const class AccelerationStructure* accelerationStructure, NS::UInteger index);
 
-        void setVisibleFunctionTable(const class VisibleFunctionTable* visibleFunctionTable, NS::UInteger index);
+    class ArgumentEncoder* newArgumentEncoder(NS::UInteger index);
 
-        void setVisibleFunctionTables(const class VisibleFunctionTable* const visibleFunctionTables[], NS::Range range);
+    void                   setVisibleFunctionTable(const class VisibleFunctionTable* visibleFunctionTable, NS::UInteger index);
 
-        void setIntersectionFunctionTable(const class IntersectionFunctionTable* intersectionFunctionTable,
-                                          NS::UInteger index);
+    void                   setVisibleFunctionTables(const class VisibleFunctionTable* const visibleFunctionTables[], NS::Range range);
 
-        void setIntersectionFunctionTables(const class IntersectionFunctionTable* const intersectionFunctionTables[],
-                                           NS::Range range);
-    };
+    void                   setIntersectionFunctionTable(const class IntersectionFunctionTable* intersectionFunctionTable, NS::UInteger index);
+
+    void                   setIntersectionFunctionTables(const class IntersectionFunctionTable* const intersectionFunctionTables[], NS::Range range);
+};
+
 }
 
 // property: device
@@ -124,11 +124,9 @@ _MTL_INLINE void MTL::ArgumentEncoder::setArgumentBuffer(const MTL::Buffer* argu
 }
 
 // method: setArgumentBuffer:startOffset:arrayElement:
-_MTL_INLINE void MTL::ArgumentEncoder::setArgumentBuffer(const MTL::Buffer* argumentBuffer, NS::UInteger startOffset,
-                                                         NS::UInteger arrayElement)
+_MTL_INLINE void MTL::ArgumentEncoder::setArgumentBuffer(const MTL::Buffer* argumentBuffer, NS::UInteger startOffset, NS::UInteger arrayElement)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setArgumentBuffer_startOffset_arrayElement_), argumentBuffer,
-                              startOffset, arrayElement);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setArgumentBuffer_startOffset_arrayElement_), argumentBuffer, startOffset, arrayElement);
 }
 
 // method: setBuffer:offset:atIndex:
@@ -138,8 +136,7 @@ _MTL_INLINE void MTL::ArgumentEncoder::setBuffer(const MTL::Buffer* buffer, NS::
 }
 
 // method: setBuffers:offsets:withRange:
-_MTL_INLINE void MTL::ArgumentEncoder::setBuffers(const MTL::Buffer* const buffers[], const NS::UInteger offsets[],
-                                                  NS::Range range)
+_MTL_INLINE void MTL::ArgumentEncoder::setBuffers(const MTL::Buffer* const buffers[], const NS::UInteger offsets[], NS::Range range)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setBuffers_offsets_withRange_), buffers, offsets, range);
 }
@@ -175,50 +172,43 @@ _MTL_INLINE void* MTL::ArgumentEncoder::constantData(NS::UInteger index)
 }
 
 // method: setRenderPipelineState:atIndex:
-_MTL_INLINE void MTL::ArgumentEncoder::setRenderPipelineState(const MTL::RenderPipelineState* pipeline,
-                                                              NS::UInteger index)
+_MTL_INLINE void MTL::ArgumentEncoder::setRenderPipelineState(const MTL::RenderPipelineState* pipeline, NS::UInteger index)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setRenderPipelineState_atIndex_), pipeline, index);
 }
 
 // method: setRenderPipelineStates:withRange:
-_MTL_INLINE void MTL::ArgumentEncoder::setRenderPipelineStates(const MTL::RenderPipelineState* const pipelines[],
-                                                               NS::Range range)
+_MTL_INLINE void MTL::ArgumentEncoder::setRenderPipelineStates(const MTL::RenderPipelineState* const pipelines[], NS::Range range)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setRenderPipelineStates_withRange_), pipelines, range);
 }
 
 // method: setComputePipelineState:atIndex:
-_MTL_INLINE void MTL::ArgumentEncoder::setComputePipelineState(const MTL::ComputePipelineState* pipeline,
-                                                               NS::UInteger index)
+_MTL_INLINE void MTL::ArgumentEncoder::setComputePipelineState(const MTL::ComputePipelineState* pipeline, NS::UInteger index)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setComputePipelineState_atIndex_), pipeline, index);
 }
 
 // method: setComputePipelineStates:withRange:
-_MTL_INLINE void MTL::ArgumentEncoder::setComputePipelineStates(const MTL::ComputePipelineState* const pipelines[],
-                                                                NS::Range range)
+_MTL_INLINE void MTL::ArgumentEncoder::setComputePipelineStates(const MTL::ComputePipelineState* const pipelines[], NS::Range range)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setComputePipelineStates_withRange_), pipelines, range);
 }
 
 // method: setIndirectCommandBuffer:atIndex:
-_MTL_INLINE void MTL::ArgumentEncoder::setIndirectCommandBuffer(const MTL::IndirectCommandBuffer* indirectCommandBuffer,
-                                                                NS::UInteger index)
+_MTL_INLINE void MTL::ArgumentEncoder::setIndirectCommandBuffer(const MTL::IndirectCommandBuffer* indirectCommandBuffer, NS::UInteger index)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setIndirectCommandBuffer_atIndex_), indirectCommandBuffer, index);
 }
 
 // method: setIndirectCommandBuffers:withRange:
-_MTL_INLINE void MTL::ArgumentEncoder::setIndirectCommandBuffers(const MTL::IndirectCommandBuffer* const buffers[],
-                                                                 NS::Range range)
+_MTL_INLINE void MTL::ArgumentEncoder::setIndirectCommandBuffers(const MTL::IndirectCommandBuffer* const buffers[], NS::Range range)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setIndirectCommandBuffers_withRange_), buffers, range);
 }
 
 // method: setAccelerationStructure:atIndex:
-_MTL_INLINE void MTL::ArgumentEncoder::setAccelerationStructure(const MTL::AccelerationStructure* accelerationStructure,
-                                                                NS::UInteger index)
+_MTL_INLINE void MTL::ArgumentEncoder::setAccelerationStructure(const MTL::AccelerationStructure* accelerationStructure, NS::UInteger index)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setAccelerationStructure_atIndex_), accelerationStructure, index);
 }
@@ -226,37 +216,29 @@ _MTL_INLINE void MTL::ArgumentEncoder::setAccelerationStructure(const MTL::Accel
 // method: newArgumentEncoderForBufferAtIndex:
 _MTL_INLINE MTL::ArgumentEncoder* MTL::ArgumentEncoder::newArgumentEncoder(NS::UInteger index)
 {
-    return Object::sendMessage<MTL::ArgumentEncoder*>(this, _MTL_PRIVATE_SEL(newArgumentEncoderForBufferAtIndex_),
-                                                      index);
+    return Object::sendMessage<MTL::ArgumentEncoder*>(this, _MTL_PRIVATE_SEL(newArgumentEncoderForBufferAtIndex_), index);
 }
 
 // method: setVisibleFunctionTable:atIndex:
-_MTL_INLINE void MTL::ArgumentEncoder::setVisibleFunctionTable(const MTL::VisibleFunctionTable* visibleFunctionTable,
-                                                               NS::UInteger index)
+_MTL_INLINE void MTL::ArgumentEncoder::setVisibleFunctionTable(const MTL::VisibleFunctionTable* visibleFunctionTable, NS::UInteger index)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setVisibleFunctionTable_atIndex_), visibleFunctionTable, index);
 }
 
 // method: setVisibleFunctionTables:withRange:
-_MTL_INLINE void MTL::ArgumentEncoder::setVisibleFunctionTables(
-    const MTL::VisibleFunctionTable* const visibleFunctionTables[], NS::Range range)
+_MTL_INLINE void MTL::ArgumentEncoder::setVisibleFunctionTables(const MTL::VisibleFunctionTable* const visibleFunctionTables[], NS::Range range)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setVisibleFunctionTables_withRange_), visibleFunctionTables,
-                              range);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setVisibleFunctionTables_withRange_), visibleFunctionTables, range);
 }
 
 // method: setIntersectionFunctionTable:atIndex:
-_MTL_INLINE void MTL::ArgumentEncoder::setIntersectionFunctionTable(
-    const MTL::IntersectionFunctionTable* intersectionFunctionTable, NS::UInteger index)
+_MTL_INLINE void MTL::ArgumentEncoder::setIntersectionFunctionTable(const MTL::IntersectionFunctionTable* intersectionFunctionTable, NS::UInteger index)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setIntersectionFunctionTable_atIndex_), intersectionFunctionTable,
-                              index);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setIntersectionFunctionTable_atIndex_), intersectionFunctionTable, index);
 }
 
 // method: setIntersectionFunctionTables:withRange:
-_MTL_INLINE void MTL::ArgumentEncoder::setIntersectionFunctionTables(
-    const MTL::IntersectionFunctionTable* const intersectionFunctionTables[], NS::Range range)
+_MTL_INLINE void MTL::ArgumentEncoder::setIntersectionFunctionTables(const MTL::IntersectionFunctionTable* const intersectionFunctionTables[], NS::Range range)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setIntersectionFunctionTables_withRange_),
-                              intersectionFunctionTables, range);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setIntersectionFunctionTables_withRange_), intersectionFunctionTables, range);
 }

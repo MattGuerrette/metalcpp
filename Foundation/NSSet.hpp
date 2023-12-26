@@ -29,17 +29,18 @@
 
 namespace NS
 {
-    class Set : public NS::Copying<Set>
+    class Set : public NS::Copying <Set>
     {
-    public:
-        [[nodiscard]] UInteger count() const;
-        [[nodiscard]] Enumerator<Object>* objectEnumerator() const;
+        public:
+            UInteger count() const;
+            Enumerator<Object>* objectEnumerator() const;
 
-        static Set* alloc();
+            static Set* alloc();
 
-        Set* init();
-        Set* init(const Object* const* pObjects, UInteger count);
-        Set* init(const class Coder* pCoder);
+            Set* init();
+            Set* init(const Object* const* pObjects, UInteger count);
+            Set* init(const class Coder* pCoder);
+
     };
 }
 

@@ -32,87 +32,86 @@
 
 namespace MTL
 {
-    _MTL_ENUM(NS::Integer, HeapType)
-    {
-        HeapTypeAutomatic = 0,
-        HeapTypePlacement = 1,
-        HeapTypeSparse = 2,
-    };
+_MTL_ENUM(NS::Integer, HeapType) {
+    HeapTypeAutomatic = 0,
+    HeapTypePlacement = 1,
+    HeapTypeSparse = 2,
+};
 
-    class HeapDescriptor : public NS::Copying<HeapDescriptor>
-    {
-    public:
-        static class HeapDescriptor* alloc();
+class HeapDescriptor : public NS::Copying<HeapDescriptor>
+{
+public:
+    static class HeapDescriptor* alloc();
 
-        class HeapDescriptor* init();
+    class HeapDescriptor*        init();
 
-        [[nodiscard]] NS::UInteger size() const;
-        void setSize(NS::UInteger size);
+    NS::UInteger                 size() const;
+    void                         setSize(NS::UInteger size);
 
-        [[nodiscard]] MTL::StorageMode storageMode() const;
-        void setStorageMode(MTL::StorageMode storageMode);
+    MTL::StorageMode             storageMode() const;
+    void                         setStorageMode(MTL::StorageMode storageMode);
 
-        [[nodiscard]] MTL::CPUCacheMode cpuCacheMode() const;
-        void setCpuCacheMode(MTL::CPUCacheMode cpuCacheMode);
+    MTL::CPUCacheMode            cpuCacheMode() const;
+    void                         setCpuCacheMode(MTL::CPUCacheMode cpuCacheMode);
 
-        [[nodiscard]] MTL::SparsePageSize sparsePageSize() const;
-        void setSparsePageSize(MTL::SparsePageSize sparsePageSize);
+    MTL::SparsePageSize          sparsePageSize() const;
+    void                         setSparsePageSize(MTL::SparsePageSize sparsePageSize);
 
-        [[nodiscard]] MTL::HazardTrackingMode hazardTrackingMode() const;
-        void setHazardTrackingMode(MTL::HazardTrackingMode hazardTrackingMode);
+    MTL::HazardTrackingMode      hazardTrackingMode() const;
+    void                         setHazardTrackingMode(MTL::HazardTrackingMode hazardTrackingMode);
 
-        [[nodiscard]] MTL::ResourceOptions resourceOptions() const;
-        void setResourceOptions(MTL::ResourceOptions resourceOptions);
+    MTL::ResourceOptions         resourceOptions() const;
+    void                         setResourceOptions(MTL::ResourceOptions resourceOptions);
 
-        [[nodiscard]] MTL::HeapType type() const;
-        void setType(MTL::HeapType type);
-    };
+    MTL::HeapType                type() const;
+    void                         setType(MTL::HeapType type);
+};
 
-    class Heap : public NS::Referencing<Heap>
-    {
-    public:
-        [[nodiscard]] NS::String* label() const;
-        void setLabel(const NS::String* label);
+class Heap : public NS::Referencing<Heap>
+{
+public:
+    NS::String*                  label() const;
+    void                         setLabel(const NS::String* label);
 
-        [[nodiscard]] class Device* device() const;
+    class Device*                device() const;
 
-        [[nodiscard]] MTL::StorageMode storageMode() const;
+    MTL::StorageMode             storageMode() const;
 
-        [[nodiscard]] MTL::CPUCacheMode cpuCacheMode() const;
+    MTL::CPUCacheMode            cpuCacheMode() const;
 
-        [[nodiscard]] MTL::HazardTrackingMode hazardTrackingMode() const;
+    MTL::HazardTrackingMode      hazardTrackingMode() const;
 
-        [[nodiscard]] MTL::ResourceOptions resourceOptions() const;
+    MTL::ResourceOptions         resourceOptions() const;
 
-        [[nodiscard]] NS::UInteger size() const;
+    NS::UInteger                 size() const;
 
-        [[nodiscard]] NS::UInteger usedSize() const;
+    NS::UInteger                 usedSize() const;
 
-        [[nodiscard]] NS::UInteger currentAllocatedSize() const;
+    NS::UInteger                 currentAllocatedSize() const;
 
-        NS::UInteger maxAvailableSize(NS::UInteger alignment);
+    NS::UInteger                 maxAvailableSize(NS::UInteger alignment);
 
-        class Buffer* newBuffer(NS::UInteger length, MTL::ResourceOptions options);
+    class Buffer*                newBuffer(NS::UInteger length, MTL::ResourceOptions options);
 
-        class Texture* newTexture(const class TextureDescriptor* descriptor);
+    class Texture*               newTexture(const class TextureDescriptor* descriptor);
 
-        MTL::PurgeableState setPurgeableState(MTL::PurgeableState state);
+    MTL::PurgeableState          setPurgeableState(MTL::PurgeableState state);
 
-        [[nodiscard]] MTL::HeapType type() const;
+    MTL::HeapType                type() const;
 
-        class Buffer* newBuffer(NS::UInteger length, MTL::ResourceOptions options, NS::UInteger offset);
+    class Buffer*                newBuffer(NS::UInteger length, MTL::ResourceOptions options, NS::UInteger offset);
 
-        class Texture* newTexture(const class TextureDescriptor* descriptor, NS::UInteger offset);
+    class Texture*               newTexture(const class TextureDescriptor* descriptor, NS::UInteger offset);
 
-        class AccelerationStructure* newAccelerationStructure(NS::UInteger size);
+    class AccelerationStructure* newAccelerationStructure(NS::UInteger size);
 
-        class AccelerationStructure* newAccelerationStructure(const class AccelerationStructureDescriptor* descriptor);
+    class AccelerationStructure* newAccelerationStructure(const class AccelerationStructureDescriptor* descriptor);
 
-        class AccelerationStructure* newAccelerationStructure(NS::UInteger size, NS::UInteger offset);
+    class AccelerationStructure* newAccelerationStructure(NS::UInteger size, NS::UInteger offset);
 
-        class AccelerationStructure* newAccelerationStructure(const class AccelerationStructureDescriptor* descriptor,
-                                                              NS::UInteger offset);
-    };
+    class AccelerationStructure* newAccelerationStructure(const class AccelerationStructureDescriptor* descriptor, NS::UInteger offset);
+};
+
 }
 
 // static method: alloc
@@ -296,43 +295,35 @@ _MTL_INLINE MTL::HeapType MTL::Heap::type() const
 // method: newBufferWithLength:options:offset:
 _MTL_INLINE MTL::Buffer* MTL::Heap::newBuffer(NS::UInteger length, MTL::ResourceOptions options, NS::UInteger offset)
 {
-    return Object::sendMessage<MTL::Buffer*>(this, _MTL_PRIVATE_SEL(newBufferWithLength_options_offset_), length,
-                                             options, offset);
+    return Object::sendMessage<MTL::Buffer*>(this, _MTL_PRIVATE_SEL(newBufferWithLength_options_offset_), length, options, offset);
 }
 
 // method: newTextureWithDescriptor:offset:
 _MTL_INLINE MTL::Texture* MTL::Heap::newTexture(const MTL::TextureDescriptor* descriptor, NS::UInteger offset)
 {
-    return Object::sendMessage<MTL::Texture*>(this, _MTL_PRIVATE_SEL(newTextureWithDescriptor_offset_), descriptor,
-                                              offset);
+    return Object::sendMessage<MTL::Texture*>(this, _MTL_PRIVATE_SEL(newTextureWithDescriptor_offset_), descriptor, offset);
 }
 
 // method: newAccelerationStructureWithSize:
 _MTL_INLINE MTL::AccelerationStructure* MTL::Heap::newAccelerationStructure(NS::UInteger size)
 {
-    return Object::sendMessage<MTL::AccelerationStructure*>(this, _MTL_PRIVATE_SEL(newAccelerationStructureWithSize_),
-                                                            size);
+    return Object::sendMessage<MTL::AccelerationStructure*>(this, _MTL_PRIVATE_SEL(newAccelerationStructureWithSize_), size);
 }
 
 // method: newAccelerationStructureWithDescriptor:
-_MTL_INLINE MTL::AccelerationStructure* MTL::Heap::newAccelerationStructure(
-    const MTL::AccelerationStructureDescriptor* descriptor)
+_MTL_INLINE MTL::AccelerationStructure* MTL::Heap::newAccelerationStructure(const MTL::AccelerationStructureDescriptor* descriptor)
 {
-    return Object::sendMessage<MTL::AccelerationStructure*>(
-        this, _MTL_PRIVATE_SEL(newAccelerationStructureWithDescriptor_), descriptor);
+    return Object::sendMessage<MTL::AccelerationStructure*>(this, _MTL_PRIVATE_SEL(newAccelerationStructureWithDescriptor_), descriptor);
 }
 
 // method: newAccelerationStructureWithSize:offset:
 _MTL_INLINE MTL::AccelerationStructure* MTL::Heap::newAccelerationStructure(NS::UInteger size, NS::UInteger offset)
 {
-    return Object::sendMessage<MTL::AccelerationStructure*>(
-        this, _MTL_PRIVATE_SEL(newAccelerationStructureWithSize_offset_), size, offset);
+    return Object::sendMessage<MTL::AccelerationStructure*>(this, _MTL_PRIVATE_SEL(newAccelerationStructureWithSize_offset_), size, offset);
 }
 
 // method: newAccelerationStructureWithDescriptor:offset:
-_MTL_INLINE MTL::AccelerationStructure* MTL::Heap::newAccelerationStructure(
-    const MTL::AccelerationStructureDescriptor* descriptor, NS::UInteger offset)
+_MTL_INLINE MTL::AccelerationStructure* MTL::Heap::newAccelerationStructure(const MTL::AccelerationStructureDescriptor* descriptor, NS::UInteger offset)
 {
-    return Object::sendMessage<MTL::AccelerationStructure*>(
-        this, _MTL_PRIVATE_SEL(newAccelerationStructureWithDescriptor_offset_), descriptor, offset);
+    return Object::sendMessage<MTL::AccelerationStructure*>(this, _MTL_PRIVATE_SEL(newAccelerationStructureWithDescriptor_offset_), descriptor, offset);
 }

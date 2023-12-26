@@ -30,78 +30,74 @@
 
 namespace MTL
 {
-    _MTL_ENUM(NS::UInteger, PurgeableState)
-    {
-        PurgeableStateKeepCurrent = 1,
-        PurgeableStateNonVolatile = 2,
-        PurgeableStateVolatile = 3,
-        PurgeableStateEmpty = 4,
-    };
+_MTL_ENUM(NS::UInteger, PurgeableState) {
+    PurgeableStateKeepCurrent = 1,
+    PurgeableStateNonVolatile = 2,
+    PurgeableStateVolatile = 3,
+    PurgeableStateEmpty = 4,
+};
 
-    _MTL_ENUM(NS::UInteger, CPUCacheMode)
-    {
-        CPUCacheModeDefaultCache = 0,
-        CPUCacheModeWriteCombined = 1,
-    };
+_MTL_ENUM(NS::UInteger, CPUCacheMode) {
+    CPUCacheModeDefaultCache = 0,
+    CPUCacheModeWriteCombined = 1,
+};
 
-    _MTL_ENUM(NS::UInteger, StorageMode)
-    {
-        StorageModeShared = 0,
-        StorageModeManaged = 1,
-        StorageModePrivate = 2,
-        StorageModeMemoryless = 3,
-    };
+_MTL_ENUM(NS::UInteger, StorageMode) {
+    StorageModeShared = 0,
+    StorageModeManaged = 1,
+    StorageModePrivate = 2,
+    StorageModeMemoryless = 3,
+};
 
-    _MTL_ENUM(NS::UInteger, HazardTrackingMode)
-    {
-        HazardTrackingModeDefault = 0,
-        HazardTrackingModeUntracked = 1,
-        HazardTrackingModeTracked = 2,
-    };
+_MTL_ENUM(NS::UInteger, HazardTrackingMode) {
+    HazardTrackingModeDefault = 0,
+    HazardTrackingModeUntracked = 1,
+    HazardTrackingModeTracked = 2,
+};
 
-    _MTL_OPTIONS(NS::UInteger, ResourceOptions)
-    {
-        ResourceCPUCacheModeDefaultCache = 0,
-        ResourceCPUCacheModeWriteCombined = 1,
-        ResourceStorageModeShared = 0,
-        ResourceStorageModeManaged = 16,
-        ResourceStorageModePrivate = 32,
-        ResourceStorageModeMemoryless = 48,
-        ResourceHazardTrackingModeDefault = 0,
-        ResourceHazardTrackingModeUntracked = 256,
-        ResourceHazardTrackingModeTracked = 512,
-        ResourceOptionCPUCacheModeDefault = 0,
-        ResourceOptionCPUCacheModeWriteCombined = 1,
-    };
+_MTL_OPTIONS(NS::UInteger, ResourceOptions) {
+    ResourceCPUCacheModeDefaultCache = 0,
+    ResourceCPUCacheModeWriteCombined = 1,
+    ResourceStorageModeShared = 0,
+    ResourceStorageModeManaged = 16,
+    ResourceStorageModePrivate = 32,
+    ResourceStorageModeMemoryless = 48,
+    ResourceHazardTrackingModeDefault = 0,
+    ResourceHazardTrackingModeUntracked = 256,
+    ResourceHazardTrackingModeTracked = 512,
+    ResourceOptionCPUCacheModeDefault = 0,
+    ResourceOptionCPUCacheModeWriteCombined = 1,
+};
 
-    class Resource : public NS::Referencing<Resource>
-    {
-    public:
-        [[nodiscard]] NS::String* label() const;
-        void setLabel(const NS::String* label);
+class Resource : public NS::Referencing<Resource>
+{
+public:
+    NS::String*             label() const;
+    void                    setLabel(const NS::String* label);
 
-        [[nodiscard]] class Device* device() const;
+    class Device*           device() const;
 
-        [[nodiscard]] MTL::CPUCacheMode cpuCacheMode() const;
+    MTL::CPUCacheMode       cpuCacheMode() const;
 
-        [[nodiscard]] MTL::StorageMode storageMode() const;
+    MTL::StorageMode        storageMode() const;
 
-        [[nodiscard]] MTL::HazardTrackingMode hazardTrackingMode() const;
+    MTL::HazardTrackingMode hazardTrackingMode() const;
 
-        [[nodiscard]] MTL::ResourceOptions resourceOptions() const;
+    MTL::ResourceOptions    resourceOptions() const;
 
-        MTL::PurgeableState setPurgeableState(MTL::PurgeableState state);
+    MTL::PurgeableState     setPurgeableState(MTL::PurgeableState state);
 
-        [[nodiscard]] class Heap* heap() const;
+    class Heap*             heap() const;
 
-        [[nodiscard]] NS::UInteger heapOffset() const;
+    NS::UInteger            heapOffset() const;
 
-        [[nodiscard]] NS::UInteger allocatedSize() const;
+    NS::UInteger            allocatedSize() const;
 
-        void makeAliasable();
+    void                    makeAliasable();
 
-        bool isAliasable();
-    };
+    bool                    isAliasable();
+};
+
 }
 
 // property: label

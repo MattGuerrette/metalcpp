@@ -31,349 +31,346 @@
 
 namespace MTL
 {
-    _MTL_ENUM(NS::UInteger, DataType)
-    {
-        DataTypeNone = 0,
-        DataTypeStruct = 1,
-        DataTypeArray = 2,
-        DataTypeFloat = 3,
-        DataTypeFloat2 = 4,
-        DataTypeFloat3 = 5,
-        DataTypeFloat4 = 6,
-        DataTypeFloat2x2 = 7,
-        DataTypeFloat2x3 = 8,
-        DataTypeFloat2x4 = 9,
-        DataTypeFloat3x2 = 10,
-        DataTypeFloat3x3 = 11,
-        DataTypeFloat3x4 = 12,
-        DataTypeFloat4x2 = 13,
-        DataTypeFloat4x3 = 14,
-        DataTypeFloat4x4 = 15,
-        DataTypeHalf = 16,
-        DataTypeHalf2 = 17,
-        DataTypeHalf3 = 18,
-        DataTypeHalf4 = 19,
-        DataTypeHalf2x2 = 20,
-        DataTypeHalf2x3 = 21,
-        DataTypeHalf2x4 = 22,
-        DataTypeHalf3x2 = 23,
-        DataTypeHalf3x3 = 24,
-        DataTypeHalf3x4 = 25,
-        DataTypeHalf4x2 = 26,
-        DataTypeHalf4x3 = 27,
-        DataTypeHalf4x4 = 28,
-        DataTypeInt = 29,
-        DataTypeInt2 = 30,
-        DataTypeInt3 = 31,
-        DataTypeInt4 = 32,
-        DataTypeUInt = 33,
-        DataTypeUInt2 = 34,
-        DataTypeUInt3 = 35,
-        DataTypeUInt4 = 36,
-        DataTypeShort = 37,
-        DataTypeShort2 = 38,
-        DataTypeShort3 = 39,
-        DataTypeShort4 = 40,
-        DataTypeUShort = 41,
-        DataTypeUShort2 = 42,
-        DataTypeUShort3 = 43,
-        DataTypeUShort4 = 44,
-        DataTypeChar = 45,
-        DataTypeChar2 = 46,
-        DataTypeChar3 = 47,
-        DataTypeChar4 = 48,
-        DataTypeUChar = 49,
-        DataTypeUChar2 = 50,
-        DataTypeUChar3 = 51,
-        DataTypeUChar4 = 52,
-        DataTypeBool = 53,
-        DataTypeBool2 = 54,
-        DataTypeBool3 = 55,
-        DataTypeBool4 = 56,
-        DataTypeTexture = 58,
-        DataTypeSampler = 59,
-        DataTypePointer = 60,
-        DataTypeR8Unorm = 62,
-        DataTypeR8Snorm = 63,
-        DataTypeR16Unorm = 64,
-        DataTypeR16Snorm = 65,
-        DataTypeRG8Unorm = 66,
-        DataTypeRG8Snorm = 67,
-        DataTypeRG16Unorm = 68,
-        DataTypeRG16Snorm = 69,
-        DataTypeRGBA8Unorm = 70,
-        DataTypeRGBA8Unorm_sRGB = 71,
-        DataTypeRGBA8Snorm = 72,
-        DataTypeRGBA16Unorm = 73,
-        DataTypeRGBA16Snorm = 74,
-        DataTypeRGB10A2Unorm = 75,
-        DataTypeRG11B10Float = 76,
-        DataTypeRGB9E5Float = 77,
-        DataTypeRenderPipeline = 78,
-        DataTypeComputePipeline = 79,
-        DataTypeIndirectCommandBuffer = 80,
-        DataTypeLong = 81,
-        DataTypeLong2 = 82,
-        DataTypeLong3 = 83,
-        DataTypeLong4 = 84,
-        DataTypeULong = 85,
-        DataTypeULong2 = 86,
-        DataTypeULong3 = 87,
-        DataTypeULong4 = 88,
-        DataTypeVisibleFunctionTable = 115,
-        DataTypeIntersectionFunctionTable = 116,
-        DataTypePrimitiveAccelerationStructure = 117,
-        DataTypeInstanceAccelerationStructure = 118,
-        DataTypeBFloat = 121,
-        DataTypeBFloat2 = 122,
-        DataTypeBFloat3 = 123,
-        DataTypeBFloat4 = 124,
-    };
-
-    _MTL_ENUM(NS::Integer, BindingType)
-    {
-        BindingTypeBuffer = 0,
-        BindingTypeThreadgroupMemory = 1,
-        BindingTypeTexture = 2,
-        BindingTypeSampler = 3,
-        BindingTypeImageblockData = 16,
-        BindingTypeImageblock = 17,
-        BindingTypeVisibleFunctionTable = 24,
-        BindingTypePrimitiveAccelerationStructure = 25,
-        BindingTypeInstanceAccelerationStructure = 26,
-        BindingTypeIntersectionFunctionTable = 27,
-        BindingTypeObjectPayload = 34,
-    };
+_MTL_ENUM(NS::UInteger, DataType) {
+    DataTypeNone = 0,
+    DataTypeStruct = 1,
+    DataTypeArray = 2,
+    DataTypeFloat = 3,
+    DataTypeFloat2 = 4,
+    DataTypeFloat3 = 5,
+    DataTypeFloat4 = 6,
+    DataTypeFloat2x2 = 7,
+    DataTypeFloat2x3 = 8,
+    DataTypeFloat2x4 = 9,
+    DataTypeFloat3x2 = 10,
+    DataTypeFloat3x3 = 11,
+    DataTypeFloat3x4 = 12,
+    DataTypeFloat4x2 = 13,
+    DataTypeFloat4x3 = 14,
+    DataTypeFloat4x4 = 15,
+    DataTypeHalf = 16,
+    DataTypeHalf2 = 17,
+    DataTypeHalf3 = 18,
+    DataTypeHalf4 = 19,
+    DataTypeHalf2x2 = 20,
+    DataTypeHalf2x3 = 21,
+    DataTypeHalf2x4 = 22,
+    DataTypeHalf3x2 = 23,
+    DataTypeHalf3x3 = 24,
+    DataTypeHalf3x4 = 25,
+    DataTypeHalf4x2 = 26,
+    DataTypeHalf4x3 = 27,
+    DataTypeHalf4x4 = 28,
+    DataTypeInt = 29,
+    DataTypeInt2 = 30,
+    DataTypeInt3 = 31,
+    DataTypeInt4 = 32,
+    DataTypeUInt = 33,
+    DataTypeUInt2 = 34,
+    DataTypeUInt3 = 35,
+    DataTypeUInt4 = 36,
+    DataTypeShort = 37,
+    DataTypeShort2 = 38,
+    DataTypeShort3 = 39,
+    DataTypeShort4 = 40,
+    DataTypeUShort = 41,
+    DataTypeUShort2 = 42,
+    DataTypeUShort3 = 43,
+    DataTypeUShort4 = 44,
+    DataTypeChar = 45,
+    DataTypeChar2 = 46,
+    DataTypeChar3 = 47,
+    DataTypeChar4 = 48,
+    DataTypeUChar = 49,
+    DataTypeUChar2 = 50,
+    DataTypeUChar3 = 51,
+    DataTypeUChar4 = 52,
+    DataTypeBool = 53,
+    DataTypeBool2 = 54,
+    DataTypeBool3 = 55,
+    DataTypeBool4 = 56,
+    DataTypeTexture = 58,
+    DataTypeSampler = 59,
+    DataTypePointer = 60,
+    DataTypeR8Unorm = 62,
+    DataTypeR8Snorm = 63,
+    DataTypeR16Unorm = 64,
+    DataTypeR16Snorm = 65,
+    DataTypeRG8Unorm = 66,
+    DataTypeRG8Snorm = 67,
+    DataTypeRG16Unorm = 68,
+    DataTypeRG16Snorm = 69,
+    DataTypeRGBA8Unorm = 70,
+    DataTypeRGBA8Unorm_sRGB = 71,
+    DataTypeRGBA8Snorm = 72,
+    DataTypeRGBA16Unorm = 73,
+    DataTypeRGBA16Snorm = 74,
+    DataTypeRGB10A2Unorm = 75,
+    DataTypeRG11B10Float = 76,
+    DataTypeRGB9E5Float = 77,
+    DataTypeRenderPipeline = 78,
+    DataTypeComputePipeline = 79,
+    DataTypeIndirectCommandBuffer = 80,
+    DataTypeLong = 81,
+    DataTypeLong2 = 82,
+    DataTypeLong3 = 83,
+    DataTypeLong4 = 84,
+    DataTypeULong = 85,
+    DataTypeULong2 = 86,
+    DataTypeULong3 = 87,
+    DataTypeULong4 = 88,
+    DataTypeVisibleFunctionTable = 115,
+    DataTypeIntersectionFunctionTable = 116,
+    DataTypePrimitiveAccelerationStructure = 117,
+    DataTypeInstanceAccelerationStructure = 118,
+    DataTypeBFloat = 121,
+    DataTypeBFloat2 = 122,
+    DataTypeBFloat3 = 123,
+    DataTypeBFloat4 = 124,
+};
+
+_MTL_ENUM(NS::Integer, BindingType) {
+    BindingTypeBuffer = 0,
+    BindingTypeThreadgroupMemory = 1,
+    BindingTypeTexture = 2,
+    BindingTypeSampler = 3,
+    BindingTypeImageblockData = 16,
+    BindingTypeImageblock = 17,
+    BindingTypeVisibleFunctionTable = 24,
+    BindingTypePrimitiveAccelerationStructure = 25,
+    BindingTypeInstanceAccelerationStructure = 26,
+    BindingTypeIntersectionFunctionTable = 27,
+    BindingTypeObjectPayload = 34,
+};
 
-    _MTL_ENUM(NS::UInteger, ArgumentType)
-    {
-        ArgumentTypeBuffer = 0,
-        ArgumentTypeThreadgroupMemory = 1,
-        ArgumentTypeTexture = 2,
-        ArgumentTypeSampler = 3,
-        ArgumentTypeImageblockData = 16,
-        ArgumentTypeImageblock = 17,
-        ArgumentTypeVisibleFunctionTable = 24,
-        ArgumentTypePrimitiveAccelerationStructure = 25,
-        ArgumentTypeInstanceAccelerationStructure = 26,
-        ArgumentTypeIntersectionFunctionTable = 27,
-    };
+_MTL_ENUM(NS::UInteger, ArgumentType) {
+    ArgumentTypeBuffer = 0,
+    ArgumentTypeThreadgroupMemory = 1,
+    ArgumentTypeTexture = 2,
+    ArgumentTypeSampler = 3,
+    ArgumentTypeImageblockData = 16,
+    ArgumentTypeImageblock = 17,
+    ArgumentTypeVisibleFunctionTable = 24,
+    ArgumentTypePrimitiveAccelerationStructure = 25,
+    ArgumentTypeInstanceAccelerationStructure = 26,
+    ArgumentTypeIntersectionFunctionTable = 27,
+};
 
-    _MTL_ENUM(NS::UInteger, BindingAccess)
-    {
-        BindingAccessReadOnly = 0,
-        BindingAccessReadWrite = 1,
-        BindingAccessWriteOnly = 2,
-        ArgumentAccessReadOnly = 0,
-        ArgumentAccessReadWrite = 1,
-        ArgumentAccessWriteOnly = 2,
-    };
+_MTL_ENUM(NS::UInteger, BindingAccess) {
+    BindingAccessReadOnly = 0,
+    BindingAccessReadWrite = 1,
+    BindingAccessWriteOnly = 2,
+    ArgumentAccessReadOnly = 0,
+    ArgumentAccessReadWrite = 1,
+    ArgumentAccessWriteOnly = 2,
+};
 
-    class Type : public NS::Referencing<Type>
-    {
-    public:
-        static class Type* alloc();
+class Type : public NS::Referencing<Type>
+{
+public:
+    static class Type* alloc();
 
-        class Type* init();
+    class Type*        init();
 
-        [[nodiscard]] MTL::DataType dataType() const;
-    };
+    MTL::DataType      dataType() const;
+};
 
-    class StructMember : public NS::Referencing<StructMember>
-    {
-    public:
-        static class StructMember* alloc();
+class StructMember : public NS::Referencing<StructMember>
+{
+public:
+    static class StructMember*  alloc();
 
-        class StructMember* init();
+    class StructMember*         init();
 
-        [[nodiscard]] NS::String* name() const;
+    NS::String*                 name() const;
 
-        [[nodiscard]] NS::UInteger offset() const;
+    NS::UInteger                offset() const;
 
-        [[nodiscard]] MTL::DataType dataType() const;
+    MTL::DataType               dataType() const;
 
-        class StructType* structType();
+    class StructType*           structType();
 
-        class ArrayType* arrayType();
+    class ArrayType*            arrayType();
 
-        class TextureReferenceType* textureReferenceType();
+    class TextureReferenceType* textureReferenceType();
 
-        class PointerType* pointerType();
+    class PointerType*          pointerType();
 
-        [[nodiscard]] NS::UInteger argumentIndex() const;
-    };
+    NS::UInteger                argumentIndex() const;
+};
 
-    class StructType : public NS::Referencing<StructType, Type>
-    {
-    public:
-        static class StructType* alloc();
+class StructType : public NS::Referencing<StructType, Type>
+{
+public:
+    static class StructType* alloc();
 
-        class StructType* init();
+    class StructType*        init();
 
-        [[nodiscard]] NS::Array* members() const;
+    NS::Array*               members() const;
 
-        class StructMember* memberByName(const NS::String* name);
-    };
+    class StructMember*      memberByName(const NS::String* name);
+};
 
-    class ArrayType : public NS::Referencing<ArrayType, Type>
-    {
-    public:
-        static class ArrayType* alloc();
+class ArrayType : public NS::Referencing<ArrayType, Type>
+{
+public:
+    static class ArrayType*     alloc();
 
-        class ArrayType* init();
+    class ArrayType*            init();
 
-        [[nodiscard]] MTL::DataType elementType() const;
+    MTL::DataType               elementType() const;
 
-        [[nodiscard]] NS::UInteger arrayLength() const;
+    NS::UInteger                arrayLength() const;
 
-        [[nodiscard]] NS::UInteger stride() const;
+    NS::UInteger                stride() const;
 
-        [[nodiscard]] NS::UInteger argumentIndexStride() const;
+    NS::UInteger                argumentIndexStride() const;
 
-        class StructType* elementStructType();
+    class StructType*           elementStructType();
 
-        class ArrayType* elementArrayType();
+    class ArrayType*            elementArrayType();
 
-        class TextureReferenceType* elementTextureReferenceType();
+    class TextureReferenceType* elementTextureReferenceType();
 
-        class PointerType* elementPointerType();
-    };
+    class PointerType*          elementPointerType();
+};
 
-    class PointerType : public NS::Referencing<PointerType, Type>
-    {
-    public:
-        static class PointerType* alloc();
+class PointerType : public NS::Referencing<PointerType, Type>
+{
+public:
+    static class PointerType* alloc();
 
-        class PointerType* init();
+    class PointerType*        init();
 
-        [[nodiscard]] MTL::DataType elementType() const;
+    MTL::DataType             elementType() const;
 
-        [[nodiscard]] MTL::BindingAccess access() const;
+    MTL::BindingAccess        access() const;
 
-        [[nodiscard]] NS::UInteger alignment() const;
+    NS::UInteger              alignment() const;
 
-        [[nodiscard]] NS::UInteger dataSize() const;
+    NS::UInteger              dataSize() const;
 
-        [[nodiscard]] bool elementIsArgumentBuffer() const;
+    bool                      elementIsArgumentBuffer() const;
 
-        class StructType* elementStructType();
+    class StructType*         elementStructType();
 
-        class ArrayType* elementArrayType();
-    };
+    class ArrayType*          elementArrayType();
+};
 
-    class TextureReferenceType : public NS::Referencing<TextureReferenceType, Type>
-    {
-    public:
-        static class TextureReferenceType* alloc();
+class TextureReferenceType : public NS::Referencing<TextureReferenceType, Type>
+{
+public:
+    static class TextureReferenceType* alloc();
 
-        class TextureReferenceType* init();
+    class TextureReferenceType*        init();
 
-        [[nodiscard]] MTL::DataType textureDataType() const;
+    MTL::DataType                      textureDataType() const;
 
-        [[nodiscard]] MTL::TextureType textureType() const;
+    MTL::TextureType                   textureType() const;
 
-        [[nodiscard]] MTL::BindingAccess access() const;
+    MTL::BindingAccess                 access() const;
 
-        [[nodiscard]] bool isDepthTexture() const;
-    };
+    bool                               isDepthTexture() const;
+};
 
-    class Argument : public NS::Referencing<Argument>
-    {
-    public:
-        static class Argument* alloc();
+class Argument : public NS::Referencing<Argument>
+{
+public:
+    static class Argument* alloc();
 
-        class Argument* init();
+    class Argument*        init();
 
-        [[nodiscard]] NS::String* name() const;
+    NS::String*            name() const;
 
-        [[nodiscard]] MTL::ArgumentType type() const;
+    MTL::ArgumentType      type() const;
 
-        [[nodiscard]] MTL::BindingAccess access() const;
+    MTL::BindingAccess     access() const;
 
-        [[nodiscard]] NS::UInteger index() const;
+    NS::UInteger           index() const;
 
-        [[nodiscard]] bool active() const;
+    bool                   active() const;
 
-        [[nodiscard]] NS::UInteger bufferAlignment() const;
+    NS::UInteger           bufferAlignment() const;
 
-        [[nodiscard]] NS::UInteger bufferDataSize() const;
+    NS::UInteger           bufferDataSize() const;
 
-        [[nodiscard]] MTL::DataType bufferDataType() const;
+    MTL::DataType          bufferDataType() const;
 
-        [[nodiscard]] class StructType* bufferStructType() const;
+    class StructType*      bufferStructType() const;
 
-        [[nodiscard]] class PointerType* bufferPointerType() const;
+    class PointerType*     bufferPointerType() const;
 
-        [[nodiscard]] NS::UInteger threadgroupMemoryAlignment() const;
+    NS::UInteger           threadgroupMemoryAlignment() const;
 
-        [[nodiscard]] NS::UInteger threadgroupMemoryDataSize() const;
+    NS::UInteger           threadgroupMemoryDataSize() const;
 
-        [[nodiscard]] MTL::TextureType textureType() const;
+    MTL::TextureType       textureType() const;
 
-        [[nodiscard]] MTL::DataType textureDataType() const;
+    MTL::DataType          textureDataType() const;
 
-        [[nodiscard]] bool isDepthTexture() const;
+    bool                   isDepthTexture() const;
 
-        [[nodiscard]] NS::UInteger arrayLength() const;
-    };
+    NS::UInteger           arrayLength() const;
+};
 
-    class Binding : public NS::Referencing<Binding>
-    {
-    public:
-        [[nodiscard]] NS::String* name() const;
+class Binding : public NS::Referencing<Binding>
+{
+public:
+    NS::String*        name() const;
 
-        [[nodiscard]] MTL::BindingType type() const;
+    MTL::BindingType   type() const;
 
-        [[nodiscard]] MTL::BindingAccess access() const;
+    MTL::BindingAccess access() const;
 
-        [[nodiscard]] NS::UInteger index() const;
+    NS::UInteger       index() const;
 
-        [[nodiscard]] bool used() const;
+    bool               used() const;
 
-        [[nodiscard]] bool argument() const;
-    };
+    bool               argument() const;
+};
 
-    class BufferBinding : public NS::Referencing<BufferBinding, Binding>
-    {
-    public:
-        [[nodiscard]] NS::UInteger bufferAlignment() const;
+class BufferBinding : public NS::Referencing<BufferBinding, Binding>
+{
+public:
+    NS::UInteger       bufferAlignment() const;
 
-        [[nodiscard]] NS::UInteger bufferDataSize() const;
+    NS::UInteger       bufferDataSize() const;
 
-        [[nodiscard]] MTL::DataType bufferDataType() const;
+    MTL::DataType      bufferDataType() const;
 
-        [[nodiscard]] class StructType* bufferStructType() const;
+    class StructType*  bufferStructType() const;
 
-        [[nodiscard]] class PointerType* bufferPointerType() const;
-    };
+    class PointerType* bufferPointerType() const;
+};
 
-    class ThreadgroupBinding : public NS::Referencing<ThreadgroupBinding, Binding>
-    {
-    public:
-        [[nodiscard]] NS::UInteger threadgroupMemoryAlignment() const;
+class ThreadgroupBinding : public NS::Referencing<ThreadgroupBinding, Binding>
+{
+public:
+    NS::UInteger threadgroupMemoryAlignment() const;
 
-        [[nodiscard]] NS::UInteger threadgroupMemoryDataSize() const;
-    };
+    NS::UInteger threadgroupMemoryDataSize() const;
+};
 
-    class TextureBinding : public NS::Referencing<TextureBinding, Binding>
-    {
-    public:
-        [[nodiscard]] MTL::TextureType textureType() const;
+class TextureBinding : public NS::Referencing<TextureBinding, Binding>
+{
+public:
+    MTL::TextureType textureType() const;
 
-        [[nodiscard]] MTL::DataType textureDataType() const;
+    MTL::DataType    textureDataType() const;
 
-        [[nodiscard]] bool depthTexture() const;
+    bool             depthTexture() const;
 
-        [[nodiscard]] NS::UInteger arrayLength() const;
-    };
+    NS::UInteger     arrayLength() const;
+};
 
-    class ObjectPayloadBinding : public NS::Referencing<ObjectPayloadBinding, Binding>
-    {
-    public:
-        [[nodiscard]] NS::UInteger objectPayloadAlignment() const;
+class ObjectPayloadBinding : public NS::Referencing<ObjectPayloadBinding, Binding>
+{
+public:
+    NS::UInteger objectPayloadAlignment() const;
 
-        [[nodiscard]] NS::UInteger objectPayloadDataSize() const;
-    };
+    NS::UInteger objectPayloadDataSize() const;
+};
+
 }
 
 // static method: alloc

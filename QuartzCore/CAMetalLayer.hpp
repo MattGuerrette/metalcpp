@@ -34,25 +34,26 @@
 
 namespace CA
 {
-    class MetalLayer : public NS::Referencing<MetalLayer>
-    {
-    public:
-        static class MetalLayer* layer();
 
-        [[nodiscard]] MTL::Device* device() const;
-        void setDevice(MTL::Device* device);
+class MetalLayer : public NS::Referencing<MetalLayer>
+{
+public:
+    static class MetalLayer* layer();
 
-        [[nodiscard]] MTL::PixelFormat pixelFormat() const;
-        void setPixelFormat(MTL::PixelFormat pixelFormat);
+    MTL::Device*             device() const;
+    void                     setDevice(MTL::Device* device);
 
-        [[nodiscard]] bool framebufferOnly() const;
-        void setFramebufferOnly(bool framebufferOnly);
+    MTL::PixelFormat         pixelFormat() const;
+    void                     setPixelFormat(MTL::PixelFormat pixelFormat);
 
-        [[nodiscard]] CGSize drawableSize() const;
-        void setDrawableSize(CGSize drawableSize);
+    bool                     framebufferOnly() const;
+    void                     setFramebufferOnly(bool framebufferOnly);
 
-        class MetalDrawable* nextDrawable();
-    };
+    CGSize                   drawableSize() const;
+    void                     setDrawableSize(CGSize drawableSize);
+
+    class MetalDrawable*     nextDrawable();
+};
 } // namespace CA
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -60,7 +61,6 @@ _CA_INLINE CA::MetalLayer* CA::MetalLayer::layer()
 {
     return Object::sendMessage<CA::MetalLayer*>(_CA_PRIVATE_CLS(CAMetalLayer), _CA_PRIVATE_SEL(layer));
 }
-
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -69,7 +69,6 @@ _CA_INLINE MTL::Device* CA::MetalLayer::device() const
 {
     return Object::sendMessage<MTL::Device*>(this, _CA_PRIVATE_SEL(device));
 }
-
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 _CA_INLINE void CA::MetalLayer::setDevice(MTL::Device* device)
@@ -82,7 +81,7 @@ _CA_INLINE void CA::MetalLayer::setDevice(MTL::Device* device)
 _CA_INLINE MTL::PixelFormat CA::MetalLayer::pixelFormat() const
 {
     return Object::sendMessage<MTL::PixelFormat>(this,
-                                                 _CA_PRIVATE_SEL(pixelFormat));
+        _CA_PRIVATE_SEL(pixelFormat));
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -90,7 +89,7 @@ _CA_INLINE MTL::PixelFormat CA::MetalLayer::pixelFormat() const
 _CA_INLINE void CA::MetalLayer::setPixelFormat(MTL::PixelFormat pixelFormat)
 {
     return Object::sendMessage<void>(this, _CA_PRIVATE_SEL(setPixelFormat_),
-                                     pixelFormat);
+        pixelFormat);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -105,7 +104,7 @@ _CA_INLINE bool CA::MetalLayer::framebufferOnly() const
 _CA_INLINE void CA::MetalLayer::setFramebufferOnly(bool framebufferOnly)
 {
     return Object::sendMessage<void>(this, _CA_PRIVATE_SEL(setFramebufferOnly_),
-                                     framebufferOnly);
+        framebufferOnly);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -120,7 +119,7 @@ _CA_INLINE CGSize CA::MetalLayer::drawableSize() const
 _CA_INLINE void CA::MetalLayer::setDrawableSize(CGSize drawableSize)
 {
     return Object::sendMessage<void>(this, _CA_PRIVATE_SEL(setDrawableSize_),
-                                     drawableSize);
+        drawableSize);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -128,5 +127,5 @@ _CA_INLINE void CA::MetalLayer::setDrawableSize(CGSize drawableSize)
 _CA_INLINE CA::MetalDrawable* CA::MetalLayer::nextDrawable()
 {
     return Object::sendMessage<MetalDrawable*>(this,
-                                               _CA_PRIVATE_SEL(nextDrawable));
+        _CA_PRIVATE_SEL(nextDrawable));
 }

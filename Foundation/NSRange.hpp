@@ -29,27 +29,26 @@
 
 namespace NS
 {
-    struct Range
-    {
-        static Range Make(UInteger loc, UInteger len);
+struct Range
+{
+    static Range Make(UInteger loc, UInteger len);
 
-        Range(UInteger loc, UInteger len);
+    Range(UInteger loc, UInteger len);
 
-        [[nodiscard]] bool Equal(const Range& range) const;
-        [[nodiscard]] bool LocationInRange(UInteger loc) const;
-        [[nodiscard]] UInteger Max() const;
+    bool     Equal(const Range& range) const;
+    bool     LocationInRange(UInteger loc) const;
+    UInteger Max() const;
 
-        UInteger location;
-        UInteger length;
-    }
-        _NS_PACKED;
+    UInteger location;
+    UInteger length;
+} _NS_PACKED;
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 _NS_INLINE NS::Range::Range(UInteger loc, UInteger len)
     : location(loc)
-      , length(len)
+    , length(len)
 {
 }
 
@@ -57,7 +56,7 @@ _NS_INLINE NS::Range::Range(UInteger loc, UInteger len)
 
 _NS_INLINE NS::Range NS::Range::Make(UInteger loc, UInteger len)
 {
-    return {loc, len};
+    return Range(loc, len);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------

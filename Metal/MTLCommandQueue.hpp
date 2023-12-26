@@ -28,22 +28,23 @@
 
 namespace MTL
 {
-    class CommandQueue : public NS::Referencing<CommandQueue>
-    {
-    public:
-        [[nodiscard]] NS::String* label() const;
-        void setLabel(const NS::String* label);
+class CommandQueue : public NS::Referencing<CommandQueue>
+{
+public:
+    NS::String*          label() const;
+    void                 setLabel(const NS::String* label);
 
-        [[nodiscard]] class Device* device() const;
+    class Device*        device() const;
 
-        class CommandBuffer* commandBuffer();
+    class CommandBuffer* commandBuffer();
 
-        class CommandBuffer* commandBuffer(const class CommandBufferDescriptor* descriptor);
+    class CommandBuffer* commandBuffer(const class CommandBufferDescriptor* descriptor);
 
-        class CommandBuffer* commandBufferWithUnretainedReferences();
+    class CommandBuffer* commandBufferWithUnretainedReferences();
 
-        void insertDebugCaptureBoundary();
-    };
+    void                 insertDebugCaptureBoundary();
+};
+
 }
 
 // property: label

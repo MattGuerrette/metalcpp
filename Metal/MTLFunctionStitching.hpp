@@ -30,102 +30,98 @@
 
 namespace MTL
 {
-    class FunctionStitchingAttribute : public NS::Referencing<FunctionStitchingAttribute>
-    {
-    public:
-    };
+class FunctionStitchingAttribute : public NS::Referencing<FunctionStitchingAttribute>
+{
+public:
+};
 
-    class FunctionStitchingAttributeAlwaysInline : public NS::Referencing<
-            FunctionStitchingAttributeAlwaysInline, FunctionStitchingAttribute>
-    {
-    public:
-        static class FunctionStitchingAttributeAlwaysInline* alloc();
+class FunctionStitchingAttributeAlwaysInline : public NS::Referencing<FunctionStitchingAttributeAlwaysInline, FunctionStitchingAttribute>
+{
+public:
+    static class FunctionStitchingAttributeAlwaysInline* alloc();
 
-        class FunctionStitchingAttributeAlwaysInline* init();
-    };
+    class FunctionStitchingAttributeAlwaysInline*        init();
+};
 
-    class FunctionStitchingNode : public NS::Copying<FunctionStitchingNode>
-    {
-    public:
-    };
+class FunctionStitchingNode : public NS::Copying<FunctionStitchingNode>
+{
+public:
+};
 
-    class FunctionStitchingInputNode : public NS::Referencing<FunctionStitchingInputNode, FunctionStitchingNode>
-    {
-    public:
-        static class FunctionStitchingInputNode* alloc();
+class FunctionStitchingInputNode : public NS::Referencing<FunctionStitchingInputNode, FunctionStitchingNode>
+{
+public:
+    static class FunctionStitchingInputNode* alloc();
 
-        class FunctionStitchingInputNode* init();
+    class FunctionStitchingInputNode*        init();
 
-        [[nodiscard]] NS::UInteger argumentIndex() const;
-        void setArgumentIndex(NS::UInteger argumentIndex);
+    NS::UInteger                             argumentIndex() const;
+    void                                     setArgumentIndex(NS::UInteger argumentIndex);
 
-        MTL::FunctionStitchingInputNode* init(NS::UInteger argument);
-    };
+    MTL::FunctionStitchingInputNode*         init(NS::UInteger argument);
+};
 
-    class FunctionStitchingFunctionNode : public NS::Referencing<FunctionStitchingFunctionNode, FunctionStitchingNode>
-    {
-    public:
-        static class FunctionStitchingFunctionNode* alloc();
+class FunctionStitchingFunctionNode : public NS::Referencing<FunctionStitchingFunctionNode, FunctionStitchingNode>
+{
+public:
+    static class FunctionStitchingFunctionNode* alloc();
 
-        class FunctionStitchingFunctionNode* init();
+    class FunctionStitchingFunctionNode*        init();
 
-        [[nodiscard]] NS::String* name() const;
-        void setName(const NS::String* name);
+    NS::String*                                 name() const;
+    void                                        setName(const NS::String* name);
 
-        [[nodiscard]] NS::Array* arguments() const;
-        void setArguments(const NS::Array* arguments);
+    NS::Array*                                  arguments() const;
+    void                                        setArguments(const NS::Array* arguments);
 
-        [[nodiscard]] NS::Array* controlDependencies() const;
-        void setControlDependencies(const NS::Array* controlDependencies);
+    NS::Array*                                  controlDependencies() const;
+    void                                        setControlDependencies(const NS::Array* controlDependencies);
 
-        MTL::FunctionStitchingFunctionNode* init(const NS::String* name, const NS::Array* arguments,
-                                                 const NS::Array* controlDependencies);
-    };
+    MTL::FunctionStitchingFunctionNode*         init(const NS::String* name, const NS::Array* arguments, const NS::Array* controlDependencies);
+};
 
-    class FunctionStitchingGraph : public NS::Copying<FunctionStitchingGraph>
-    {
-    public:
-        static class FunctionStitchingGraph* alloc();
+class FunctionStitchingGraph : public NS::Copying<FunctionStitchingGraph>
+{
+public:
+    static class FunctionStitchingGraph* alloc();
 
-        class FunctionStitchingGraph* init();
+    class FunctionStitchingGraph*        init();
 
-        [[nodiscard]] NS::String* functionName() const;
-        void setFunctionName(const NS::String* functionName);
+    NS::String*                          functionName() const;
+    void                                 setFunctionName(const NS::String* functionName);
 
-        [[nodiscard]] NS::Array* nodes() const;
-        void setNodes(const NS::Array* nodes);
+    NS::Array*                           nodes() const;
+    void                                 setNodes(const NS::Array* nodes);
 
-        [[nodiscard]] class FunctionStitchingFunctionNode* outputNode() const;
-        void setOutputNode(const class FunctionStitchingFunctionNode* outputNode);
+    class FunctionStitchingFunctionNode* outputNode() const;
+    void                                 setOutputNode(const class FunctionStitchingFunctionNode* outputNode);
 
-        [[nodiscard]] NS::Array* attributes() const;
-        void setAttributes(const NS::Array* attributes);
+    NS::Array*                           attributes() const;
+    void                                 setAttributes(const NS::Array* attributes);
 
-        MTL::FunctionStitchingGraph* init(const NS::String* functionName, const NS::Array* nodes,
-                                          const class FunctionStitchingFunctionNode* outputNode,
-                                          const NS::Array* attributes);
-    };
+    MTL::FunctionStitchingGraph*         init(const NS::String* functionName, const NS::Array* nodes, const class FunctionStitchingFunctionNode* outputNode, const NS::Array* attributes);
+};
 
-    class StitchedLibraryDescriptor : public NS::Copying<StitchedLibraryDescriptor>
-    {
-    public:
-        static class StitchedLibraryDescriptor* alloc();
+class StitchedLibraryDescriptor : public NS::Copying<StitchedLibraryDescriptor>
+{
+public:
+    static class StitchedLibraryDescriptor* alloc();
 
-        class StitchedLibraryDescriptor* init();
+    class StitchedLibraryDescriptor*        init();
 
-        [[nodiscard]] NS::Array* functionGraphs() const;
-        void setFunctionGraphs(const NS::Array* functionGraphs);
+    NS::Array*                              functionGraphs() const;
+    void                                    setFunctionGraphs(const NS::Array* functionGraphs);
 
-        [[nodiscard]] NS::Array* functions() const;
-        void setFunctions(const NS::Array* functions);
-    };
+    NS::Array*                              functions() const;
+    void                                    setFunctions(const NS::Array* functions);
+};
+
 }
 
 // static method: alloc
 _MTL_INLINE MTL::FunctionStitchingAttributeAlwaysInline* MTL::FunctionStitchingAttributeAlwaysInline::alloc()
 {
-    return NS::Object::alloc<MTL::FunctionStitchingAttributeAlwaysInline>(
-        _MTL_PRIVATE_CLS(MTLFunctionStitchingAttributeAlwaysInline));
+    return NS::Object::alloc<MTL::FunctionStitchingAttributeAlwaysInline>(_MTL_PRIVATE_CLS(MTLFunctionStitchingAttributeAlwaysInline));
 }
 
 // method: init
@@ -160,8 +156,7 @@ _MTL_INLINE void MTL::FunctionStitchingInputNode::setArgumentIndex(NS::UInteger 
 // method: initWithArgumentIndex:
 _MTL_INLINE MTL::FunctionStitchingInputNode* MTL::FunctionStitchingInputNode::init(NS::UInteger argument)
 {
-    return Object::sendMessage<MTL::FunctionStitchingInputNode*>(this, _MTL_PRIVATE_SEL(initWithArgumentIndex_),
-                                                                 argument);
+    return Object::sendMessage<MTL::FunctionStitchingInputNode*>(this, _MTL_PRIVATE_SEL(initWithArgumentIndex_), argument);
 }
 
 // static method: alloc
@@ -210,11 +205,9 @@ _MTL_INLINE void MTL::FunctionStitchingFunctionNode::setControlDependencies(cons
 }
 
 // method: initWithName:arguments:controlDependencies:
-_MTL_INLINE MTL::FunctionStitchingFunctionNode* MTL::FunctionStitchingFunctionNode::init(
-    const NS::String* name, const NS::Array* arguments, const NS::Array* controlDependencies)
+_MTL_INLINE MTL::FunctionStitchingFunctionNode* MTL::FunctionStitchingFunctionNode::init(const NS::String* name, const NS::Array* arguments, const NS::Array* controlDependencies)
 {
-    return Object::sendMessage<MTL::FunctionStitchingFunctionNode*>(
-        this, _MTL_PRIVATE_SEL(initWithName_arguments_controlDependencies_), name, arguments, controlDependencies);
+    return Object::sendMessage<MTL::FunctionStitchingFunctionNode*>(this, _MTL_PRIVATE_SEL(initWithName_arguments_controlDependencies_), name, arguments, controlDependencies);
 }
 
 // static method: alloc
@@ -274,13 +267,9 @@ _MTL_INLINE void MTL::FunctionStitchingGraph::setAttributes(const NS::Array* att
 }
 
 // method: initWithFunctionName:nodes:outputNode:attributes:
-_MTL_INLINE MTL::FunctionStitchingGraph* MTL::FunctionStitchingGraph::init(
-    const NS::String* functionName, const NS::Array* nodes, const MTL::FunctionStitchingFunctionNode* outputNode,
-    const NS::Array* attributes)
+_MTL_INLINE MTL::FunctionStitchingGraph* MTL::FunctionStitchingGraph::init(const NS::String* functionName, const NS::Array* nodes, const MTL::FunctionStitchingFunctionNode* outputNode, const NS::Array* attributes)
 {
-    return Object::sendMessage<MTL::FunctionStitchingGraph*>(
-        this, _MTL_PRIVATE_SEL(initWithFunctionName_nodes_outputNode_attributes_), functionName, nodes, outputNode,
-        attributes);
+    return Object::sendMessage<MTL::FunctionStitchingGraph*>(this, _MTL_PRIVATE_SEL(initWithFunctionName_nodes_outputNode_attributes_), functionName, nodes, outputNode, attributes);
 }
 
 // static method: alloc

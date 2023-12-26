@@ -33,238 +33,222 @@
 
 namespace MTL
 {
-    _MTL_ENUM(NS::UInteger, PatchType)
-    {
-        PatchTypeNone = 0,
-        PatchTypeTriangle = 1,
-        PatchTypeQuad = 2,
-    };
+_MTL_ENUM(NS::UInteger, PatchType) {
+    PatchTypeNone = 0,
+    PatchTypeTriangle = 1,
+    PatchTypeQuad = 2,
+};
 
-    class VertexAttribute : public NS::Referencing<VertexAttribute>
-    {
-    public:
-        static class VertexAttribute* alloc();
+class VertexAttribute : public NS::Referencing<VertexAttribute>
+{
+public:
+    static class VertexAttribute* alloc();
 
-        class VertexAttribute* init();
+    class VertexAttribute*        init();
 
-        [[nodiscard]] NS::String* name() const;
+    NS::String*                   name() const;
 
-        [[nodiscard]] NS::UInteger attributeIndex() const;
+    NS::UInteger                  attributeIndex() const;
 
-        [[nodiscard]] MTL::DataType attributeType() const;
+    MTL::DataType                 attributeType() const;
 
-        [[nodiscard]] bool active() const;
+    bool                          active() const;
 
-        [[nodiscard]] bool patchData() const;
+    bool                          patchData() const;
 
-        [[nodiscard]] bool patchControlPointData() const;
-    };
+    bool                          patchControlPointData() const;
+};
 
-    class Attribute : public NS::Referencing<Attribute>
-    {
-    public:
-        static class Attribute* alloc();
+class Attribute : public NS::Referencing<Attribute>
+{
+public:
+    static class Attribute* alloc();
 
-        class Attribute* init();
+    class Attribute*        init();
 
-        [[nodiscard]] NS::String* name() const;
+    NS::String*             name() const;
 
-        [[nodiscard]] NS::UInteger attributeIndex() const;
+    NS::UInteger            attributeIndex() const;
 
-        [[nodiscard]] MTL::DataType attributeType() const;
+    MTL::DataType           attributeType() const;
 
-        [[nodiscard]] bool active() const;
+    bool                    active() const;
 
-        [[nodiscard]] bool patchData() const;
+    bool                    patchData() const;
 
-        [[nodiscard]] bool patchControlPointData() const;
-    };
+    bool                    patchControlPointData() const;
+};
 
-    _MTL_ENUM(NS::UInteger, FunctionType)
-    {
-        FunctionTypeVertex = 1,
-        FunctionTypeFragment = 2,
-        FunctionTypeKernel = 3,
-        FunctionTypeVisible = 5,
-        FunctionTypeIntersection = 6,
-        FunctionTypeMesh = 7,
-        FunctionTypeObject = 8,
-    };
+_MTL_ENUM(NS::UInteger, FunctionType) {
+    FunctionTypeVertex = 1,
+    FunctionTypeFragment = 2,
+    FunctionTypeKernel = 3,
+    FunctionTypeVisible = 5,
+    FunctionTypeIntersection = 6,
+    FunctionTypeMesh = 7,
+    FunctionTypeObject = 8,
+};
 
-    class FunctionConstant : public NS::Referencing<FunctionConstant>
-    {
-    public:
-        static class FunctionConstant* alloc();
+class FunctionConstant : public NS::Referencing<FunctionConstant>
+{
+public:
+    static class FunctionConstant* alloc();
 
-        class FunctionConstant* init();
+    class FunctionConstant*        init();
 
-        [[nodiscard]] NS::String* name() const;
+    NS::String*                    name() const;
 
-        [[nodiscard]] MTL::DataType type() const;
+    MTL::DataType                  type() const;
 
-        [[nodiscard]] NS::UInteger index() const;
+    NS::UInteger                   index() const;
 
-        [[nodiscard]] bool required() const;
-    };
+    bool                           required() const;
+};
 
-    using AutoreleasedArgument = class Argument*;
+using AutoreleasedArgument = class Argument*;
 
-    class Function : public NS::Referencing<Function>
-    {
-    public:
-        [[nodiscard]] NS::String* label() const;
-        void setLabel(const NS::String* label);
+class Function : public NS::Referencing<Function>
+{
+public:
+    NS::String*            label() const;
+    void                   setLabel(const NS::String* label);
 
-        [[nodiscard]] class Device* device() const;
+    class Device*          device() const;
 
-        [[nodiscard]] MTL::FunctionType functionType() const;
+    MTL::FunctionType      functionType() const;
 
-        [[nodiscard]] MTL::PatchType patchType() const;
+    MTL::PatchType         patchType() const;
 
-        [[nodiscard]] NS::Integer patchControlPointCount() const;
+    NS::Integer            patchControlPointCount() const;
 
-        [[nodiscard]] NS::Array* vertexAttributes() const;
+    NS::Array*             vertexAttributes() const;
 
-        [[nodiscard]] NS::Array* stageInputAttributes() const;
+    NS::Array*             stageInputAttributes() const;
 
-        [[nodiscard]] NS::String* name() const;
+    NS::String*            name() const;
 
-        [[nodiscard]] NS::Dictionary* functionConstantsDictionary() const;
+    NS::Dictionary*        functionConstantsDictionary() const;
 
-        class ArgumentEncoder* newArgumentEncoder(NS::UInteger bufferIndex);
+    class ArgumentEncoder* newArgumentEncoder(NS::UInteger bufferIndex);
 
-        class ArgumentEncoder*
-        newArgumentEncoder(NS::UInteger bufferIndex, const MTL::AutoreleasedArgument* reflection);
-
-        [[nodiscard]] MTL::FunctionOptions options() const;
-    };
-
-    _MTL_ENUM(NS::UInteger, LanguageVersion)
-    {
-        LanguageVersion1_0 = 65536,
-        LanguageVersion1_1 = 65537,
-        LanguageVersion1_2 = 65538,
-        LanguageVersion2_0 = 131072,
-        LanguageVersion2_1 = 131073,
-        LanguageVersion2_2 = 131074,
-        LanguageVersion2_3 = 131075,
-        LanguageVersion2_4 = 131076,
-        LanguageVersion3_0 = 196608,
-        LanguageVersion3_1 = 196609,
-    };
-
-    _MTL_ENUM(NS::Integer, LibraryType)
-    {
-        LibraryTypeExecutable = 0,
-        LibraryTypeDynamic = 1,
-    };
-
-    _MTL_ENUM(NS::Integer, LibraryOptimizationLevel)
-    {
-        LibraryOptimizationLevelDefault = 0,
-        LibraryOptimizationLevelSize = 1,
-    };
+    class ArgumentEncoder* newArgumentEncoder(NS::UInteger bufferIndex, const MTL::AutoreleasedArgument* reflection);
 
-    _MTL_ENUM(NS::Integer, CompileSymbolVisibility)
-    {
-        CompileSymbolVisibilityDefault = 0,
-        CompileSymbolVisibilityHidden = 1,
-    };
+    MTL::FunctionOptions   options() const;
+};
 
-    class CompileOptions : public NS::Copying<CompileOptions>
-    {
-    public:
-        static class CompileOptions* alloc();
+_MTL_ENUM(NS::UInteger, LanguageVersion) {
+    LanguageVersion1_0 = 65536,
+    LanguageVersion1_1 = 65537,
+    LanguageVersion1_2 = 65538,
+    LanguageVersion2_0 = 131072,
+    LanguageVersion2_1 = 131073,
+    LanguageVersion2_2 = 131074,
+    LanguageVersion2_3 = 131075,
+    LanguageVersion2_4 = 131076,
+    LanguageVersion3_0 = 196608,
+    LanguageVersion3_1 = 196609,
+};
 
-        class CompileOptions* init();
+_MTL_ENUM(NS::Integer, LibraryType) {
+    LibraryTypeExecutable = 0,
+    LibraryTypeDynamic = 1,
+};
 
-        [[nodiscard]] NS::Dictionary* preprocessorMacros() const;
-        void setPreprocessorMacros(const NS::Dictionary* preprocessorMacros);
+_MTL_ENUM(NS::Integer, LibraryOptimizationLevel) {
+    LibraryOptimizationLevelDefault = 0,
+    LibraryOptimizationLevelSize = 1,
+};
 
-        [[nodiscard]] bool fastMathEnabled() const;
-        void setFastMathEnabled(bool fastMathEnabled);
+_MTL_ENUM(NS::Integer, CompileSymbolVisibility) {
+    CompileSymbolVisibilityDefault = 0,
+    CompileSymbolVisibilityHidden = 1,
+};
 
-        [[nodiscard]] MTL::LanguageVersion languageVersion() const;
-        void setLanguageVersion(MTL::LanguageVersion languageVersion);
+class CompileOptions : public NS::Copying<CompileOptions>
+{
+public:
+    static class CompileOptions*  alloc();
 
-        [[nodiscard]] MTL::LibraryType libraryType() const;
-        void setLibraryType(MTL::LibraryType libraryType);
+    class CompileOptions*         init();
 
-        [[nodiscard]] NS::String* installName() const;
-        void setInstallName(const NS::String* installName);
+    NS::Dictionary*               preprocessorMacros() const;
+    void                          setPreprocessorMacros(const NS::Dictionary* preprocessorMacros);
 
-        [[nodiscard]] NS::Array* libraries() const;
-        void setLibraries(const NS::Array* libraries);
+    bool                          fastMathEnabled() const;
+    void                          setFastMathEnabled(bool fastMathEnabled);
 
-        [[nodiscard]] bool preserveInvariance() const;
-        void setPreserveInvariance(bool preserveInvariance);
+    MTL::LanguageVersion          languageVersion() const;
+    void                          setLanguageVersion(MTL::LanguageVersion languageVersion);
 
-        [[nodiscard]] MTL::LibraryOptimizationLevel optimizationLevel() const;
-        void setOptimizationLevel(MTL::LibraryOptimizationLevel optimizationLevel);
+    MTL::LibraryType              libraryType() const;
+    void                          setLibraryType(MTL::LibraryType libraryType);
 
-        [[nodiscard]] MTL::CompileSymbolVisibility compileSymbolVisibility() const;
-        void setCompileSymbolVisibility(MTL::CompileSymbolVisibility compileSymbolVisibility);
+    NS::String*                   installName() const;
+    void                          setInstallName(const NS::String* installName);
 
-        [[nodiscard]] bool allowReferencingUndefinedSymbols() const;
-        void setAllowReferencingUndefinedSymbols(bool allowReferencingUndefinedSymbols);
+    NS::Array*                    libraries() const;
+    void                          setLibraries(const NS::Array* libraries);
 
-        [[nodiscard]] NS::UInteger maxTotalThreadsPerThreadgroup() const;
-        void setMaxTotalThreadsPerThreadgroup(NS::UInteger maxTotalThreadsPerThreadgroup);
-    };
+    bool                          preserveInvariance() const;
+    void                          setPreserveInvariance(bool preserveInvariance);
 
-    _MTL_ENUM(NS::UInteger, LibraryError)
-    {
-        LibraryErrorUnsupported = 1,
-        LibraryErrorInternal = 2,
-        LibraryErrorCompileFailure = 3,
-        LibraryErrorCompileWarning = 4,
-        LibraryErrorFunctionNotFound = 5,
-        LibraryErrorFileNotFound = 6,
-    };
+    MTL::LibraryOptimizationLevel optimizationLevel() const;
+    void                          setOptimizationLevel(MTL::LibraryOptimizationLevel optimizationLevel);
 
-    class Library : public NS::Referencing<Library>
-    {
-    public:
-        void newFunction(const NS::String* pFunctionName, const class FunctionConstantValues* pConstantValues,
-                         const std::function<void(Function* pFunction, NS::Error* pError)>& completionHandler);
+    MTL::CompileSymbolVisibility  compileSymbolVisibility() const;
+    void                          setCompileSymbolVisibility(MTL::CompileSymbolVisibility compileSymbolVisibility);
 
-        void newFunction(const class FunctionDescriptor* pDescriptor,
-                         const std::function<void(Function* pFunction, NS::Error* pError)>& completionHandler);
+    bool                          allowReferencingUndefinedSymbols() const;
+    void                          setAllowReferencingUndefinedSymbols(bool allowReferencingUndefinedSymbols);
 
-        void newIntersectionFunction(const class IntersectionFunctionDescriptor* pDescriptor,
-                                     const std::function<void(Function* pFunction, NS::Error* pError)>&
-                                     completionHandler);
+    NS::UInteger                  maxTotalThreadsPerThreadgroup() const;
+    void                          setMaxTotalThreadsPerThreadgroup(NS::UInteger maxTotalThreadsPerThreadgroup);
+};
 
-        [[nodiscard]] NS::String* label() const;
-        void setLabel(const NS::String* label);
+_MTL_ENUM(NS::UInteger, LibraryError) {
+    LibraryErrorUnsupported = 1,
+    LibraryErrorInternal = 2,
+    LibraryErrorCompileFailure = 3,
+    LibraryErrorCompileWarning = 4,
+    LibraryErrorFunctionNotFound = 5,
+    LibraryErrorFileNotFound = 6,
+};
 
-        [[nodiscard]] class Device* device() const;
+class Library : public NS::Referencing<Library>
+{
+public:
+    void             newFunction(const NS::String* pFunctionName, const class FunctionConstantValues* pConstantValues, const std::function<void(Function* pFunction, NS::Error* pError)>& completionHandler);
 
-        class Function* newFunction(const NS::String* functionName);
+    void             newFunction(const class FunctionDescriptor* pDescriptor, const std::function<void(Function* pFunction, NS::Error* pError)>& completionHandler);
 
-        class Function* newFunction(const NS::String* name, const class FunctionConstantValues* constantValues,
-                                    NS::Error** error);
+    void             newIntersectionFunction(const class IntersectionFunctionDescriptor* pDescriptor, const std::function<void(Function* pFunction, NS::Error* pError)>& completionHandler);
 
-        void newFunction(const NS::String* name, const class FunctionConstantValues* constantValues,
-                         void (*completionHandler)(MTL::Function*, NS::Error*));
+    NS::String*      label() const;
+    void             setLabel(const NS::String* label);
 
-        void newFunction(const class FunctionDescriptor* descriptor,
-                         void (*completionHandler)(MTL::Function*, NS::Error*));
+    class Device*    device() const;
 
-        class Function* newFunction(const class FunctionDescriptor* descriptor, NS::Error** error);
+    class Function*  newFunction(const NS::String* functionName);
 
-        void newIntersectionFunction(const class IntersectionFunctionDescriptor* descriptor,
-                                     void (*completionHandler)(MTL::Function*, NS::Error*));
+    class Function*  newFunction(const NS::String* name, const class FunctionConstantValues* constantValues, NS::Error** error);
 
-        class Function* newIntersectionFunction(const class IntersectionFunctionDescriptor* descriptor,
-                                                NS::Error** error);
+    void             newFunction(const NS::String* name, const class FunctionConstantValues* constantValues, void (^completionHandler)(MTL::Function*, NS::Error*));
 
-        [[nodiscard]] NS::Array* functionNames() const;
+    void             newFunction(const class FunctionDescriptor* descriptor, void (^completionHandler)(MTL::Function*, NS::Error*));
 
-        [[nodiscard]] MTL::LibraryType type() const;
+    class Function*  newFunction(const class FunctionDescriptor* descriptor, NS::Error** error);
 
-        [[nodiscard]] NS::String* installName() const;
-    };
+    void             newIntersectionFunction(const class IntersectionFunctionDescriptor* descriptor, void (^completionHandler)(MTL::Function*, NS::Error*));
+
+    class Function*  newIntersectionFunction(const class IntersectionFunctionDescriptor* descriptor, NS::Error** error);
+
+    NS::Array*       functionNames() const;
+
+    MTL::LibraryType type() const;
+
+    NS::String*      installName() const;
+};
+
 }
 
 // static method: alloc
@@ -461,16 +445,13 @@ _MTL_INLINE NS::Dictionary* MTL::Function::functionConstantsDictionary() const
 // method: newArgumentEncoderWithBufferIndex:
 _MTL_INLINE MTL::ArgumentEncoder* MTL::Function::newArgumentEncoder(NS::UInteger bufferIndex)
 {
-    return Object::sendMessage<MTL::ArgumentEncoder*>(this, _MTL_PRIVATE_SEL(newArgumentEncoderWithBufferIndex_),
-                                                      bufferIndex);
+    return Object::sendMessage<MTL::ArgumentEncoder*>(this, _MTL_PRIVATE_SEL(newArgumentEncoderWithBufferIndex_), bufferIndex);
 }
 
 // method: newArgumentEncoderWithBufferIndex:reflection:
-_MTL_INLINE MTL::ArgumentEncoder* MTL::Function::newArgumentEncoder(NS::UInteger bufferIndex,
-                                                                    const MTL::AutoreleasedArgument* reflection)
+_MTL_INLINE MTL::ArgumentEncoder* MTL::Function::newArgumentEncoder(NS::UInteger bufferIndex, const MTL::AutoreleasedArgument* reflection)
 {
-    return Object::sendMessage<MTL::ArgumentEncoder*>(
-        this, _MTL_PRIVATE_SEL(newArgumentEncoderWithBufferIndex_reflection_), bufferIndex, reflection);
+    return Object::sendMessage<MTL::ArgumentEncoder*>(this, _MTL_PRIVATE_SEL(newArgumentEncoderWithBufferIndex_reflection_), bufferIndex, reflection);
 }
 
 // property: options
@@ -598,8 +579,7 @@ _MTL_INLINE bool MTL::CompileOptions::allowReferencingUndefinedSymbols() const
 
 _MTL_INLINE void MTL::CompileOptions::setAllowReferencingUndefinedSymbols(bool allowReferencingUndefinedSymbols)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setAllowReferencingUndefinedSymbols_),
-                              allowReferencingUndefinedSymbols);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setAllowReferencingUndefinedSymbols_), allowReferencingUndefinedSymbols);
 }
 
 // property: maxTotalThreadsPerThreadgroup
@@ -613,41 +593,25 @@ _MTL_INLINE void MTL::CompileOptions::setMaxTotalThreadsPerThreadgroup(NS::UInte
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMaxTotalThreadsPerThreadgroup_), maxTotalThreadsPerThreadgroup);
 }
 
-_MTL_INLINE void MTL::Library::newFunction(const NS::String* pFunctionName,
-                                           const FunctionConstantValues* pConstantValues,
-                                           const std::function<void(Function* pFunction, NS::Error* pError)>&
-                                           completionHandler)
+_MTL_INLINE void MTL::Library::newFunction(const NS::String* pFunctionName, const FunctionConstantValues* pConstantValues, const std::function<void(Function* pFunction, NS::Error* pError)>& completionHandler)
 {
-    __block std::function<void(Function* pFunction, NS::Error* pError)> blockCompletionHandler = completionHandler;
+    __block std::function<void(Function * pFunction, NS::Error * pError)> blockCompletionHandler = completionHandler;
 
-    newFunction(pFunctionName, pConstantValues, [blockCompletionHandler](Function* pFunction, NS::Error* pError)
-    {
-        blockCompletionHandler(pFunction, pError);
-    });
+    newFunction(pFunctionName, pConstantValues, ^(Function* pFunction, NS::Error* pError) { blockCompletionHandler(pFunction, pError); });
 }
 
-_MTL_INLINE void MTL::Library::newFunction(const FunctionDescriptor* pDescriptor,
-                                           const std::function<void(Function* pFunction, NS::Error* pError)>&
-                                           completionHandler)
+_MTL_INLINE void MTL::Library::newFunction(const FunctionDescriptor* pDescriptor, const std::function<void(Function* pFunction, NS::Error* pError)>& completionHandler)
 {
-    __block std::function<void(Function* pFunction, NS::Error* pError)> blockCompletionHandler = completionHandler;
+    __block std::function<void(Function * pFunction, NS::Error * pError)> blockCompletionHandler = completionHandler;
 
-    newFunction(pDescriptor, [blockCompletionHandler](Function* pFunction, NS::Error* pError)
-    {
-        blockCompletionHandler(pFunction, pError);
-    });
+    newFunction(pDescriptor, ^(Function* pFunction, NS::Error* pError) { blockCompletionHandler(pFunction, pError); });
 }
 
-_MTL_INLINE void MTL::Library::newIntersectionFunction(const IntersectionFunctionDescriptor* pDescriptor,
-                                                       const std::function<void(Function* pFunction, NS::Error* pError)>
-                                                       & completionHandler)
+_MTL_INLINE void MTL::Library::newIntersectionFunction(const IntersectionFunctionDescriptor* pDescriptor, const std::function<void(Function* pFunction, NS::Error* pError)>& completionHandler)
 {
-    __block std::function<void(Function* pFunction, NS::Error* pError)> blockCompletionHandler = completionHandler;
+    __block std::function<void(Function * pFunction, NS::Error * pError)> blockCompletionHandler = completionHandler;
 
-    newIntersectionFunction(pDescriptor, [blockCompletionHandler](Function* pFunction, NS::Error* pError)
-    {
-        blockCompletionHandler(pFunction, pError);
-    });
+    newIntersectionFunction(pDescriptor, ^(Function* pFunction, NS::Error* pError) { blockCompletionHandler(pFunction, pError); });
 }
 
 // property: label
@@ -674,56 +638,39 @@ _MTL_INLINE MTL::Function* MTL::Library::newFunction(const NS::String* functionN
 }
 
 // method: newFunctionWithName:constantValues:error:
-_MTL_INLINE MTL::Function* MTL::Library::newFunction(const NS::String* name,
-                                                     const MTL::FunctionConstantValues* constantValues,
-                                                     NS::Error** error)
+_MTL_INLINE MTL::Function* MTL::Library::newFunction(const NS::String* name, const MTL::FunctionConstantValues* constantValues, NS::Error** error)
 {
-    return Object::sendMessage<MTL::Function*>(this, _MTL_PRIVATE_SEL(newFunctionWithName_constantValues_error_), name,
-                                               constantValues, error);
+    return Object::sendMessage<MTL::Function*>(this, _MTL_PRIVATE_SEL(newFunctionWithName_constantValues_error_), name, constantValues, error);
 }
 
 // method: newFunctionWithName:constantValues:completionHandler:
-_MTL_INLINE void MTL::Library::newFunction(const NS::String* name, const MTL::FunctionConstantValues* constantValues,
-                                           void (*completionHandler)(MTL::Function*, NS::Error*)
-)
+_MTL_INLINE void MTL::Library::newFunction(const NS::String* name, const MTL::FunctionConstantValues* constantValues, void (^completionHandler)(MTL::Function*, NS::Error*))
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(
-                                  newFunctionWithName_constantValues_completionHandler_), name, constantValues,
-                              completionHandler);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(newFunctionWithName_constantValues_completionHandler_), name, constantValues, completionHandler);
 }
 
 // method: newFunctionWithDescriptor:completionHandler:
-_MTL_INLINE void MTL::Library::newFunction(const MTL::FunctionDescriptor* descriptor, void (*completionHandler)(
-                                               MTL::Function*, NS::Error*)
-)
+_MTL_INLINE void MTL::Library::newFunction(const MTL::FunctionDescriptor* descriptor, void (^completionHandler)(MTL::Function*, NS::Error*))
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(
-                                  newFunctionWithDescriptor_completionHandler_), descriptor, completionHandler);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(newFunctionWithDescriptor_completionHandler_), descriptor, completionHandler);
 }
 
 // method: newFunctionWithDescriptor:error:
 _MTL_INLINE MTL::Function* MTL::Library::newFunction(const MTL::FunctionDescriptor* descriptor, NS::Error** error)
 {
-    return Object::sendMessage<MTL::Function*>(this, _MTL_PRIVATE_SEL(newFunctionWithDescriptor_error_), descriptor,
-                                               error);
+    return Object::sendMessage<MTL::Function*>(this, _MTL_PRIVATE_SEL(newFunctionWithDescriptor_error_), descriptor, error);
 }
 
 // method: newIntersectionFunctionWithDescriptor:completionHandler:
-_MTL_INLINE void MTL::Library::newIntersectionFunction(const MTL::IntersectionFunctionDescriptor* descriptor,
-                                                       void (*completionHandler)(MTL::Function*, NS::Error*)
-)
+_MTL_INLINE void MTL::Library::newIntersectionFunction(const MTL::IntersectionFunctionDescriptor* descriptor, void (^completionHandler)(MTL::Function*, NS::Error*))
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(
-                                  newIntersectionFunctionWithDescriptor_completionHandler_), descriptor,
-                              completionHandler);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(newIntersectionFunctionWithDescriptor_completionHandler_), descriptor, completionHandler);
 }
 
 // method: newIntersectionFunctionWithDescriptor:error:
-_MTL_INLINE MTL::Function* MTL::Library::newIntersectionFunction(const MTL::IntersectionFunctionDescriptor* descriptor,
-                                                                 NS::Error** error)
+_MTL_INLINE MTL::Function* MTL::Library::newIntersectionFunction(const MTL::IntersectionFunctionDescriptor* descriptor, NS::Error** error)
 {
-    return Object::sendMessage<MTL::Function*>(this, _MTL_PRIVATE_SEL(newIntersectionFunctionWithDescriptor_error_),
-                                               descriptor, error);
+    return Object::sendMessage<MTL::Function*>(this, _MTL_PRIVATE_SEL(newIntersectionFunctionWithDescriptor_error_), descriptor, error);
 }
 
 // property: functionNames

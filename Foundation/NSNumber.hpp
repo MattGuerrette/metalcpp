@@ -30,88 +30,87 @@
 
 namespace NS
 {
-    class Value : public Copying<Value>
-    {
-    public:
-        static Value* value(const void* pValue, const char* pType);
-        static Value* value(const void* pPointer);
+class Value : public Copying<Value>
+{
+public:
+    static Value* value(const void* pValue, const char* pType);
+    static Value* value(const void* pPointer);
 
-        static Value* alloc();
+    static Value* alloc();
 
-        Value* init(const void* pValue, const char* pType);
-        Value* init(const class Coder* pCoder);
+    Value*        init(const void* pValue, const char* pType);
+    Value*        init(const class Coder* pCoder);
 
-        void getValue(void* pValue, UInteger size) const;
-        [[nodiscard]] const char* objCType() const;
+    void          getValue(void* pValue, UInteger size) const;
+    const char*   objCType() const;
 
-        bool isEqualToValue(Value* pValue) const;
-        [[nodiscard]] void* pointerValue() const;
-    };
+    bool          isEqualToValue(Value* pValue) const;
+    void*         pointerValue() const;
+};
 
-    class Number : public Copying<Number, Value>
-    {
-    public:
-        static Number* number(char value);
-        static Number* number(unsigned char value);
-        static Number* number(short value);
-        static Number* number(unsigned short value);
-        static Number* number(int value);
-        static Number* number(unsigned int value);
-        static Number* number(long value);
-        static Number* number(unsigned long value);
-        static Number* number(long long value);
-        static Number* number(unsigned long long value);
-        static Number* number(float value);
-        static Number* number(double value);
-        static Number* number(bool value);
+class Number : public Copying<Number, Value>
+{
+public:
+    static Number*     number(char value);
+    static Number*     number(unsigned char value);
+    static Number*     number(short value);
+    static Number*     number(unsigned short value);
+    static Number*     number(int value);
+    static Number*     number(unsigned int value);
+    static Number*     number(long value);
+    static Number*     number(unsigned long value);
+    static Number*     number(long long value);
+    static Number*     number(unsigned long long value);
+    static Number*     number(float value);
+    static Number*     number(double value);
+    static Number*     number(bool value);
 
-        static Number* alloc();
+    static Number*     alloc();
 
-        Number* init(const class Coder* pCoder);
-        Number* init(char value);
-        Number* init(unsigned char value);
-        Number* init(short value);
-        Number* init(unsigned short value);
-        Number* init(int value);
-        Number* init(unsigned int value);
-        Number* init(long value);
-        Number* init(unsigned long value);
-        Number* init(long long value);
-        Number* init(unsigned long long value);
-        Number* init(float value);
-        Number* init(double value);
-        Number* init(bool value);
+    Number*            init(const class Coder* pCoder);
+    Number*            init(char value);
+    Number*            init(unsigned char value);
+    Number*            init(short value);
+    Number*            init(unsigned short value);
+    Number*            init(int value);
+    Number*            init(unsigned int value);
+    Number*            init(long value);
+    Number*            init(unsigned long value);
+    Number*            init(long long value);
+    Number*            init(unsigned long long value);
+    Number*            init(float value);
+    Number*            init(double value);
+    Number*            init(bool value);
 
-        [[nodiscard]] char charValue() const;
-        [[nodiscard]] unsigned char unsignedCharValue() const;
-        [[nodiscard]] short shortValue() const;
-        [[nodiscard]] unsigned short unsignedShortValue() const;
-        [[nodiscard]] int intValue() const;
-        [[nodiscard]] unsigned int unsignedIntValue() const;
-        [[nodiscard]] long longValue() const;
-        [[nodiscard]] unsigned long unsignedLongValue() const;
-        [[nodiscard]] long long longLongValue() const;
-        [[nodiscard]] unsigned long long unsignedLongLongValue() const;
-        [[nodiscard]] float floatValue() const;
-        [[nodiscard]] double doubleValue() const;
-        [[nodiscard]] bool boolValue() const;
-        [[nodiscard]] Integer integerValue() const;
-        [[nodiscard]] UInteger unsignedIntegerValue() const;
-        [[nodiscard]] class String* stringValue() const;
+    char               charValue() const;
+    unsigned char      unsignedCharValue() const;
+    short              shortValue() const;
+    unsigned short     unsignedShortValue() const;
+    int                intValue() const;
+    unsigned int       unsignedIntValue() const;
+    long               longValue() const;
+    unsigned long      unsignedLongValue() const;
+    long long          longLongValue() const;
+    unsigned long long unsignedLongLongValue() const;
+    float              floatValue() const;
+    double             doubleValue() const;
+    bool               boolValue() const;
+    Integer            integerValue() const;
+    UInteger           unsignedIntegerValue() const;
+    class String*      stringValue() const;
 
-        ComparisonResult compare(const Number* pOtherNumber) const;
-        bool isEqualToNumber(const Number* pNumber) const;
+    ComparisonResult   compare(const Number* pOtherNumber) const;
+    bool               isEqualToNumber(const Number* pNumber) const;
 
-        class String* descriptionWithLocale(const Object* pLocale) const;
-    };
+    class String*      descriptionWithLocale(const Object* pLocale) const;
+};
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 _NS_INLINE NS::Value* NS::Value::value(const void* pValue, const char* pType)
 {
-    return Object::sendMessage<Value*>(_NS_PRIVATE_CLS(NSValue), _NS_PRIVATE_SEL(valueWithBytes_objCType_), pValue,
-                                       pType);
+    return Object::sendMessage<Value*>(_NS_PRIVATE_CLS(NSValue), _NS_PRIVATE_SEL(valueWithBytes_objCType_), pValue, pType);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------

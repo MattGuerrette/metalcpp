@@ -30,15 +30,16 @@
 
 namespace MTL
 {
-    class FunctionHandle : public NS::Referencing<FunctionHandle>
-    {
-    public:
-        [[nodiscard]] MTL::FunctionType functionType() const;
+class FunctionHandle : public NS::Referencing<FunctionHandle>
+{
+public:
+    MTL::FunctionType functionType() const;
 
-        [[nodiscard]] NS::String* name() const;
+    NS::String*       name() const;
 
-        [[nodiscard]] class Device* device() const;
-    };
+    class Device*     device() const;
+};
+
 }
 
 // property: functionType

@@ -31,18 +31,18 @@
 
 namespace NS
 {
-    class AutoreleasePool : public Object
-    {
-    public:
-        static AutoreleasePool* alloc();
-        AutoreleasePool* init();
+class AutoreleasePool : public Object
+{
+public:
+    static AutoreleasePool* alloc();
+    AutoreleasePool*        init();
 
-        void drain();
+    void                    drain();
 
-        void addObject(Object* pObject);
+    void                    addObject(Object* pObject);
 
-        static void showPools();
-    };
+    static void             showPools();
+};
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------

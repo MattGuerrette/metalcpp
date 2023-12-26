@@ -30,255 +30,245 @@
 
 namespace MTL
 {
-    struct ClearColor
-    {
-        static ClearColor Make(double red, double green, double blue, double alpha);
-
-        ClearColor() = default;
-
-        ClearColor(double red, double green, double blue, double alpha);
-
-        double red;
-        double green;
-        double blue;
-        double alpha;
-    }
-        _MTL_PACKED;
-
-    _MTL_ENUM(NS::UInteger, LoadAction)
-    {
-        LoadActionDontCare = 0,
-        LoadActionLoad = 1,
-        LoadActionClear = 2,
-    };
-
-    _MTL_ENUM(NS::UInteger, StoreAction)
-    {
-        StoreActionDontCare = 0,
-        StoreActionStore = 1,
-        StoreActionMultisampleResolve = 2,
-        StoreActionStoreAndMultisampleResolve = 3,
-        StoreActionUnknown = 4,
-        StoreActionCustomSampleDepthStore = 5,
-    };
-
-    _MTL_OPTIONS(NS::UInteger, StoreActionOptions)
-    {
-        StoreActionOptionNone = 0,
-        StoreActionOptionCustomSamplePositions = 1,
-        StoreActionOptionValidMask = 1,
-    };
-
-    class RenderPassAttachmentDescriptor : public NS::Copying<RenderPassAttachmentDescriptor>
-    {
-    public:
-        static class RenderPassAttachmentDescriptor* alloc();
-
-        class RenderPassAttachmentDescriptor* init();
-
-        [[nodiscard]] class Texture* texture() const;
-        void setTexture(const class Texture* texture);
+struct ClearColor
+{
+    static ClearColor Make(double red, double green, double blue, double alpha);
 
-        [[nodiscard]] NS::UInteger level() const;
-        void setLevel(NS::UInteger level);
-
-        [[nodiscard]] NS::UInteger slice() const;
-        void setSlice(NS::UInteger slice);
+    ClearColor() = default;
 
-        [[nodiscard]] NS::UInteger depthPlane() const;
-        void setDepthPlane(NS::UInteger depthPlane);
+    ClearColor(double red, double green, double blue, double alpha);
 
-        [[nodiscard]] class Texture* resolveTexture() const;
-        void setResolveTexture(const class Texture* resolveTexture);
+    double red;
+    double green;
+    double blue;
+    double alpha;
+} _MTL_PACKED;
 
-        [[nodiscard]] NS::UInteger resolveLevel() const;
-        void setResolveLevel(NS::UInteger resolveLevel);
+_MTL_ENUM(NS::UInteger, LoadAction) {
+    LoadActionDontCare = 0,
+    LoadActionLoad = 1,
+    LoadActionClear = 2,
+};
 
-        [[nodiscard]] NS::UInteger resolveSlice() const;
-        void setResolveSlice(NS::UInteger resolveSlice);
+_MTL_ENUM(NS::UInteger, StoreAction) {
+    StoreActionDontCare = 0,
+    StoreActionStore = 1,
+    StoreActionMultisampleResolve = 2,
+    StoreActionStoreAndMultisampleResolve = 3,
+    StoreActionUnknown = 4,
+    StoreActionCustomSampleDepthStore = 5,
+};
 
-        [[nodiscard]] NS::UInteger resolveDepthPlane() const;
-        void setResolveDepthPlane(NS::UInteger resolveDepthPlane);
+_MTL_OPTIONS(NS::UInteger, StoreActionOptions) {
+    StoreActionOptionNone = 0,
+    StoreActionOptionCustomSamplePositions = 1,
+    StoreActionOptionValidMask = 1,
+};
 
-        [[nodiscard]] MTL::LoadAction loadAction() const;
-        void setLoadAction(MTL::LoadAction loadAction);
+class RenderPassAttachmentDescriptor : public NS::Copying<RenderPassAttachmentDescriptor>
+{
+public:
+    static class RenderPassAttachmentDescriptor* alloc();
 
-        [[nodiscard]] MTL::StoreAction storeAction() const;
-        void setStoreAction(MTL::StoreAction storeAction);
+    class RenderPassAttachmentDescriptor*        init();
 
-        [[nodiscard]] MTL::StoreActionOptions storeActionOptions() const;
-        void setStoreActionOptions(MTL::StoreActionOptions storeActionOptions);
-    };
+    class Texture*                               texture() const;
+    void                                         setTexture(const class Texture* texture);
 
-    class RenderPassColorAttachmentDescriptor : public NS::Copying<
-            RenderPassColorAttachmentDescriptor, MTL::RenderPassAttachmentDescriptor>
-    {
-    public:
-        static class RenderPassColorAttachmentDescriptor* alloc();
+    NS::UInteger                                 level() const;
+    void                                         setLevel(NS::UInteger level);
 
-        class RenderPassColorAttachmentDescriptor* init();
+    NS::UInteger                                 slice() const;
+    void                                         setSlice(NS::UInteger slice);
 
-        [[nodiscard]] MTL::ClearColor clearColor() const;
-        void setClearColor(MTL::ClearColor clearColor);
-    };
+    NS::UInteger                                 depthPlane() const;
+    void                                         setDepthPlane(NS::UInteger depthPlane);
 
-    _MTL_ENUM(NS::UInteger, MultisampleDepthResolveFilter)
-    {
-        MultisampleDepthResolveFilterSample0 = 0,
-        MultisampleDepthResolveFilterMin = 1,
-        MultisampleDepthResolveFilterMax = 2,
-    };
+    class Texture*                               resolveTexture() const;
+    void                                         setResolveTexture(const class Texture* resolveTexture);
 
-    class RenderPassDepthAttachmentDescriptor : public NS::Copying<
-            RenderPassDepthAttachmentDescriptor, MTL::RenderPassAttachmentDescriptor>
-    {
-    public:
-        static class RenderPassDepthAttachmentDescriptor* alloc();
+    NS::UInteger                                 resolveLevel() const;
+    void                                         setResolveLevel(NS::UInteger resolveLevel);
 
-        class RenderPassDepthAttachmentDescriptor* init();
+    NS::UInteger                                 resolveSlice() const;
+    void                                         setResolveSlice(NS::UInteger resolveSlice);
 
-        [[nodiscard]] double clearDepth() const;
-        void setClearDepth(double clearDepth);
+    NS::UInteger                                 resolveDepthPlane() const;
+    void                                         setResolveDepthPlane(NS::UInteger resolveDepthPlane);
 
-        [[nodiscard]] MTL::MultisampleDepthResolveFilter depthResolveFilter() const;
-        void setDepthResolveFilter(MTL::MultisampleDepthResolveFilter depthResolveFilter);
-    };
+    MTL::LoadAction                              loadAction() const;
+    void                                         setLoadAction(MTL::LoadAction loadAction);
 
-    _MTL_ENUM(NS::UInteger, MultisampleStencilResolveFilter)
-    {
-        MultisampleStencilResolveFilterSample0 = 0,
-        MultisampleStencilResolveFilterDepthResolvedSample = 1,
-    };
+    MTL::StoreAction                             storeAction() const;
+    void                                         setStoreAction(MTL::StoreAction storeAction);
 
-    class RenderPassStencilAttachmentDescriptor : public NS::Copying<
-            RenderPassStencilAttachmentDescriptor, MTL::RenderPassAttachmentDescriptor>
-    {
-    public:
-        static class RenderPassStencilAttachmentDescriptor* alloc();
+    MTL::StoreActionOptions                      storeActionOptions() const;
+    void                                         setStoreActionOptions(MTL::StoreActionOptions storeActionOptions);
+};
 
-        class RenderPassStencilAttachmentDescriptor* init();
+class RenderPassColorAttachmentDescriptor : public NS::Copying<RenderPassColorAttachmentDescriptor, MTL::RenderPassAttachmentDescriptor>
+{
+public:
+    static class RenderPassColorAttachmentDescriptor* alloc();
 
-        [[nodiscard]] uint32_t clearStencil() const;
-        void setClearStencil(uint32_t clearStencil);
+    class RenderPassColorAttachmentDescriptor*        init();
 
-        [[nodiscard]] MTL::MultisampleStencilResolveFilter stencilResolveFilter() const;
-        void setStencilResolveFilter(MTL::MultisampleStencilResolveFilter stencilResolveFilter);
-    };
+    MTL::ClearColor                                   clearColor() const;
+    void                                              setClearColor(MTL::ClearColor clearColor);
+};
 
-    class RenderPassColorAttachmentDescriptorArray : public NS::Referencing<RenderPassColorAttachmentDescriptorArray>
-    {
-    public:
-        static class RenderPassColorAttachmentDescriptorArray* alloc();
+_MTL_ENUM(NS::UInteger, MultisampleDepthResolveFilter) {
+    MultisampleDepthResolveFilterSample0 = 0,
+    MultisampleDepthResolveFilterMin = 1,
+    MultisampleDepthResolveFilterMax = 2,
+};
 
-        class RenderPassColorAttachmentDescriptorArray* init();
+class RenderPassDepthAttachmentDescriptor : public NS::Copying<RenderPassDepthAttachmentDescriptor, MTL::RenderPassAttachmentDescriptor>
+{
+public:
+    static class RenderPassDepthAttachmentDescriptor* alloc();
 
-        class RenderPassColorAttachmentDescriptor* object(NS::UInteger attachmentIndex);
+    class RenderPassDepthAttachmentDescriptor*        init();
 
-        void setObject(const class RenderPassColorAttachmentDescriptor* attachment, NS::UInteger attachmentIndex);
-    };
+    double                                            clearDepth() const;
+    void                                              setClearDepth(double clearDepth);
 
-    class RenderPassSampleBufferAttachmentDescriptor : public NS::Copying<RenderPassSampleBufferAttachmentDescriptor>
-    {
-    public:
-        static class RenderPassSampleBufferAttachmentDescriptor* alloc();
+    MTL::MultisampleDepthResolveFilter                depthResolveFilter() const;
+    void                                              setDepthResolveFilter(MTL::MultisampleDepthResolveFilter depthResolveFilter);
+};
 
-        class RenderPassSampleBufferAttachmentDescriptor* init();
+_MTL_ENUM(NS::UInteger, MultisampleStencilResolveFilter) {
+    MultisampleStencilResolveFilterSample0 = 0,
+    MultisampleStencilResolveFilterDepthResolvedSample = 1,
+};
 
-        [[nodiscard]] class CounterSampleBuffer* sampleBuffer() const;
-        void setSampleBuffer(const class CounterSampleBuffer* sampleBuffer);
+class RenderPassStencilAttachmentDescriptor : public NS::Copying<RenderPassStencilAttachmentDescriptor, MTL::RenderPassAttachmentDescriptor>
+{
+public:
+    static class RenderPassStencilAttachmentDescriptor* alloc();
 
-        [[nodiscard]] NS::UInteger startOfVertexSampleIndex() const;
-        void setStartOfVertexSampleIndex(NS::UInteger startOfVertexSampleIndex);
+    class RenderPassStencilAttachmentDescriptor*        init();
 
-        [[nodiscard]] NS::UInteger endOfVertexSampleIndex() const;
-        void setEndOfVertexSampleIndex(NS::UInteger endOfVertexSampleIndex);
+    uint32_t                                            clearStencil() const;
+    void                                                setClearStencil(uint32_t clearStencil);
 
-        [[nodiscard]] NS::UInteger startOfFragmentSampleIndex() const;
-        void setStartOfFragmentSampleIndex(NS::UInteger startOfFragmentSampleIndex);
+    MTL::MultisampleStencilResolveFilter                stencilResolveFilter() const;
+    void                                                setStencilResolveFilter(MTL::MultisampleStencilResolveFilter stencilResolveFilter);
+};
 
-        [[nodiscard]] NS::UInteger endOfFragmentSampleIndex() const;
-        void setEndOfFragmentSampleIndex(NS::UInteger endOfFragmentSampleIndex);
-    };
+class RenderPassColorAttachmentDescriptorArray : public NS::Referencing<RenderPassColorAttachmentDescriptorArray>
+{
+public:
+    static class RenderPassColorAttachmentDescriptorArray* alloc();
 
-    class RenderPassSampleBufferAttachmentDescriptorArray : public NS::Referencing<
-            RenderPassSampleBufferAttachmentDescriptorArray>
-    {
-    public:
-        static class RenderPassSampleBufferAttachmentDescriptorArray* alloc();
+    class RenderPassColorAttachmentDescriptorArray*        init();
 
-        class RenderPassSampleBufferAttachmentDescriptorArray* init();
+    class RenderPassColorAttachmentDescriptor*             object(NS::UInteger attachmentIndex);
 
-        class RenderPassSampleBufferAttachmentDescriptor* object(NS::UInteger attachmentIndex);
+    void                                                   setObject(const class RenderPassColorAttachmentDescriptor* attachment, NS::UInteger attachmentIndex);
+};
 
-        void setObject(const class RenderPassSampleBufferAttachmentDescriptor* attachment,
-                       NS::UInteger attachmentIndex);
-    };
+class RenderPassSampleBufferAttachmentDescriptor : public NS::Copying<RenderPassSampleBufferAttachmentDescriptor>
+{
+public:
+    static class RenderPassSampleBufferAttachmentDescriptor* alloc();
 
-    class RenderPassDescriptor : public NS::Copying<RenderPassDescriptor>
-    {
-    public:
-        static class RenderPassDescriptor* alloc();
+    class RenderPassSampleBufferAttachmentDescriptor*        init();
 
-        class RenderPassDescriptor* init();
+    class CounterSampleBuffer*                               sampleBuffer() const;
+    void                                                     setSampleBuffer(const class CounterSampleBuffer* sampleBuffer);
 
-        static class RenderPassDescriptor* renderPassDescriptor();
+    NS::UInteger                                             startOfVertexSampleIndex() const;
+    void                                                     setStartOfVertexSampleIndex(NS::UInteger startOfVertexSampleIndex);
 
-        [[nodiscard]] class RenderPassColorAttachmentDescriptorArray* colorAttachments() const;
+    NS::UInteger                                             endOfVertexSampleIndex() const;
+    void                                                     setEndOfVertexSampleIndex(NS::UInteger endOfVertexSampleIndex);
 
-        [[nodiscard]] class RenderPassDepthAttachmentDescriptor* depthAttachment() const;
-        void setDepthAttachment(const class RenderPassDepthAttachmentDescriptor* depthAttachment);
+    NS::UInteger                                             startOfFragmentSampleIndex() const;
+    void                                                     setStartOfFragmentSampleIndex(NS::UInteger startOfFragmentSampleIndex);
 
-        [[nodiscard]] class RenderPassStencilAttachmentDescriptor* stencilAttachment() const;
-        void setStencilAttachment(const class RenderPassStencilAttachmentDescriptor* stencilAttachment);
+    NS::UInteger                                             endOfFragmentSampleIndex() const;
+    void                                                     setEndOfFragmentSampleIndex(NS::UInteger endOfFragmentSampleIndex);
+};
 
-        [[nodiscard]] class Buffer* visibilityResultBuffer() const;
-        void setVisibilityResultBuffer(const class Buffer* visibilityResultBuffer);
+class RenderPassSampleBufferAttachmentDescriptorArray : public NS::Referencing<RenderPassSampleBufferAttachmentDescriptorArray>
+{
+public:
+    static class RenderPassSampleBufferAttachmentDescriptorArray* alloc();
 
-        [[nodiscard]] NS::UInteger renderTargetArrayLength() const;
-        void setRenderTargetArrayLength(NS::UInteger renderTargetArrayLength);
+    class RenderPassSampleBufferAttachmentDescriptorArray*        init();
 
-        [[nodiscard]] NS::UInteger imageblockSampleLength() const;
-        void setImageblockSampleLength(NS::UInteger imageblockSampleLength);
+    class RenderPassSampleBufferAttachmentDescriptor*             object(NS::UInteger attachmentIndex);
 
-        [[nodiscard]] NS::UInteger threadgroupMemoryLength() const;
-        void setThreadgroupMemoryLength(NS::UInteger threadgroupMemoryLength);
+    void                                                          setObject(const class RenderPassSampleBufferAttachmentDescriptor* attachment, NS::UInteger attachmentIndex);
+};
 
-        [[nodiscard]] NS::UInteger tileWidth() const;
-        void setTileWidth(NS::UInteger tileWidth);
+class RenderPassDescriptor : public NS::Copying<RenderPassDescriptor>
+{
+public:
+    static class RenderPassDescriptor*                     alloc();
 
-        [[nodiscard]] NS::UInteger tileHeight() const;
-        void setTileHeight(NS::UInteger tileHeight);
+    class RenderPassDescriptor*                            init();
 
-        [[nodiscard]] NS::UInteger defaultRasterSampleCount() const;
-        void setDefaultRasterSampleCount(NS::UInteger defaultRasterSampleCount);
+    static class RenderPassDescriptor*                     renderPassDescriptor();
 
-        [[nodiscard]] NS::UInteger renderTargetWidth() const;
-        void setRenderTargetWidth(NS::UInteger renderTargetWidth);
+    class RenderPassColorAttachmentDescriptorArray*        colorAttachments() const;
 
-        [[nodiscard]] NS::UInteger renderTargetHeight() const;
-        void setRenderTargetHeight(NS::UInteger renderTargetHeight);
+    class RenderPassDepthAttachmentDescriptor*             depthAttachment() const;
+    void                                                   setDepthAttachment(const class RenderPassDepthAttachmentDescriptor* depthAttachment);
 
-        void setSamplePositions(const MTL::SamplePosition* positions, NS::UInteger count);
+    class RenderPassStencilAttachmentDescriptor*           stencilAttachment() const;
+    void                                                   setStencilAttachment(const class RenderPassStencilAttachmentDescriptor* stencilAttachment);
 
-        NS::UInteger getSamplePositions(MTL::SamplePosition* positions, NS::UInteger count);
+    class Buffer*                                          visibilityResultBuffer() const;
+    void                                                   setVisibilityResultBuffer(const class Buffer* visibilityResultBuffer);
 
-        [[nodiscard]] class RasterizationRateMap* rasterizationRateMap() const;
-        void setRasterizationRateMap(const class RasterizationRateMap* rasterizationRateMap);
+    NS::UInteger                                           renderTargetArrayLength() const;
+    void                                                   setRenderTargetArrayLength(NS::UInteger renderTargetArrayLength);
 
-        [[nodiscard]] class RenderPassSampleBufferAttachmentDescriptorArray* sampleBufferAttachments() const;
-    };
+    NS::UInteger                                           imageblockSampleLength() const;
+    void                                                   setImageblockSampleLength(NS::UInteger imageblockSampleLength);
+
+    NS::UInteger                                           threadgroupMemoryLength() const;
+    void                                                   setThreadgroupMemoryLength(NS::UInteger threadgroupMemoryLength);
+
+    NS::UInteger                                           tileWidth() const;
+    void                                                   setTileWidth(NS::UInteger tileWidth);
+
+    NS::UInteger                                           tileHeight() const;
+    void                                                   setTileHeight(NS::UInteger tileHeight);
+
+    NS::UInteger                                           defaultRasterSampleCount() const;
+    void                                                   setDefaultRasterSampleCount(NS::UInteger defaultRasterSampleCount);
+
+    NS::UInteger                                           renderTargetWidth() const;
+    void                                                   setRenderTargetWidth(NS::UInteger renderTargetWidth);
+
+    NS::UInteger                                           renderTargetHeight() const;
+    void                                                   setRenderTargetHeight(NS::UInteger renderTargetHeight);
+
+    void                                                   setSamplePositions(const MTL::SamplePosition* positions, NS::UInteger count);
+
+    NS::UInteger                                           getSamplePositions(MTL::SamplePosition* positions, NS::UInteger count);
+
+    class RasterizationRateMap*                            rasterizationRateMap() const;
+    void                                                   setRasterizationRateMap(const class RasterizationRateMap* rasterizationRateMap);
+
+    class RenderPassSampleBufferAttachmentDescriptorArray* sampleBufferAttachments() const;
+};
+
 }
 
 _MTL_INLINE MTL::ClearColor MTL::ClearColor::Make(double red, double green, double blue, double alpha)
 {
-    return {red, green, blue, alpha};
+    return ClearColor(red, green, blue, alpha);
 }
 
 _MTL_INLINE MTL::ClearColor::ClearColor(double _red, double _green, double _blue, double _alpha)
     : red(_red)
-      , green(_green)
-      , blue(_blue)
-      , alpha(_alpha)
+    , green(_green)
+    , blue(_blue)
+    , alpha(_alpha)
 {
 }
 
@@ -418,8 +408,7 @@ _MTL_INLINE void MTL::RenderPassAttachmentDescriptor::setStoreActionOptions(MTL:
 // static method: alloc
 _MTL_INLINE MTL::RenderPassColorAttachmentDescriptor* MTL::RenderPassColorAttachmentDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL::RenderPassColorAttachmentDescriptor>(
-        _MTL_PRIVATE_CLS(MTLRenderPassColorAttachmentDescriptor));
+    return NS::Object::alloc<MTL::RenderPassColorAttachmentDescriptor>(_MTL_PRIVATE_CLS(MTLRenderPassColorAttachmentDescriptor));
 }
 
 // method: init
@@ -442,8 +431,7 @@ _MTL_INLINE void MTL::RenderPassColorAttachmentDescriptor::setClearColor(MTL::Cl
 // static method: alloc
 _MTL_INLINE MTL::RenderPassDepthAttachmentDescriptor* MTL::RenderPassDepthAttachmentDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL::RenderPassDepthAttachmentDescriptor>(
-        _MTL_PRIVATE_CLS(MTLRenderPassDepthAttachmentDescriptor));
+    return NS::Object::alloc<MTL::RenderPassDepthAttachmentDescriptor>(_MTL_PRIVATE_CLS(MTLRenderPassDepthAttachmentDescriptor));
 }
 
 // method: init
@@ -469,8 +457,7 @@ _MTL_INLINE MTL::MultisampleDepthResolveFilter MTL::RenderPassDepthAttachmentDes
     return Object::sendMessage<MTL::MultisampleDepthResolveFilter>(this, _MTL_PRIVATE_SEL(depthResolveFilter));
 }
 
-_MTL_INLINE void MTL::RenderPassDepthAttachmentDescriptor::setDepthResolveFilter(
-    MTL::MultisampleDepthResolveFilter depthResolveFilter)
+_MTL_INLINE void MTL::RenderPassDepthAttachmentDescriptor::setDepthResolveFilter(MTL::MultisampleDepthResolveFilter depthResolveFilter)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setDepthResolveFilter_), depthResolveFilter);
 }
@@ -478,8 +465,7 @@ _MTL_INLINE void MTL::RenderPassDepthAttachmentDescriptor::setDepthResolveFilter
 // static method: alloc
 _MTL_INLINE MTL::RenderPassStencilAttachmentDescriptor* MTL::RenderPassStencilAttachmentDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL::RenderPassStencilAttachmentDescriptor>(
-        _MTL_PRIVATE_CLS(MTLRenderPassStencilAttachmentDescriptor));
+    return NS::Object::alloc<MTL::RenderPassStencilAttachmentDescriptor>(_MTL_PRIVATE_CLS(MTLRenderPassStencilAttachmentDescriptor));
 }
 
 // method: init
@@ -500,14 +486,12 @@ _MTL_INLINE void MTL::RenderPassStencilAttachmentDescriptor::setClearStencil(uin
 }
 
 // property: stencilResolveFilter
-_MTL_INLINE MTL::MultisampleStencilResolveFilter
-MTL::RenderPassStencilAttachmentDescriptor::stencilResolveFilter() const
+_MTL_INLINE MTL::MultisampleStencilResolveFilter MTL::RenderPassStencilAttachmentDescriptor::stencilResolveFilter() const
 {
     return Object::sendMessage<MTL::MultisampleStencilResolveFilter>(this, _MTL_PRIVATE_SEL(stencilResolveFilter));
 }
 
-_MTL_INLINE void MTL::RenderPassStencilAttachmentDescriptor::setStencilResolveFilter(
-    MTL::MultisampleStencilResolveFilter stencilResolveFilter)
+_MTL_INLINE void MTL::RenderPassStencilAttachmentDescriptor::setStencilResolveFilter(MTL::MultisampleStencilResolveFilter stencilResolveFilter)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setStencilResolveFilter_), stencilResolveFilter);
 }
@@ -515,8 +499,7 @@ _MTL_INLINE void MTL::RenderPassStencilAttachmentDescriptor::setStencilResolveFi
 // static method: alloc
 _MTL_INLINE MTL::RenderPassColorAttachmentDescriptorArray* MTL::RenderPassColorAttachmentDescriptorArray::alloc()
 {
-    return NS::Object::alloc<MTL::RenderPassColorAttachmentDescriptorArray>(
-        _MTL_PRIVATE_CLS(MTLRenderPassColorAttachmentDescriptorArray));
+    return NS::Object::alloc<MTL::RenderPassColorAttachmentDescriptorArray>(_MTL_PRIVATE_CLS(MTLRenderPassColorAttachmentDescriptorArray));
 }
 
 // method: init
@@ -526,16 +509,13 @@ _MTL_INLINE MTL::RenderPassColorAttachmentDescriptorArray* MTL::RenderPassColorA
 }
 
 // method: objectAtIndexedSubscript:
-_MTL_INLINE MTL::RenderPassColorAttachmentDescriptor* MTL::RenderPassColorAttachmentDescriptorArray::object(
-    NS::UInteger attachmentIndex)
+_MTL_INLINE MTL::RenderPassColorAttachmentDescriptor* MTL::RenderPassColorAttachmentDescriptorArray::object(NS::UInteger attachmentIndex)
 {
-    return Object::sendMessage<MTL::RenderPassColorAttachmentDescriptor*>(
-        this, _MTL_PRIVATE_SEL(objectAtIndexedSubscript_), attachmentIndex);
+    return Object::sendMessage<MTL::RenderPassColorAttachmentDescriptor*>(this, _MTL_PRIVATE_SEL(objectAtIndexedSubscript_), attachmentIndex);
 }
 
 // method: setObject:atIndexedSubscript:
-_MTL_INLINE void MTL::RenderPassColorAttachmentDescriptorArray::setObject(
-    const MTL::RenderPassColorAttachmentDescriptor* attachment, NS::UInteger attachmentIndex)
+_MTL_INLINE void MTL::RenderPassColorAttachmentDescriptorArray::setObject(const MTL::RenderPassColorAttachmentDescriptor* attachment, NS::UInteger attachmentIndex)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setObject_atIndexedSubscript_), attachment, attachmentIndex);
 }
@@ -543,8 +523,7 @@ _MTL_INLINE void MTL::RenderPassColorAttachmentDescriptorArray::setObject(
 // static method: alloc
 _MTL_INLINE MTL::RenderPassSampleBufferAttachmentDescriptor* MTL::RenderPassSampleBufferAttachmentDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL::RenderPassSampleBufferAttachmentDescriptor>(
-        _MTL_PRIVATE_CLS(MTLRenderPassSampleBufferAttachmentDescriptor));
+    return NS::Object::alloc<MTL::RenderPassSampleBufferAttachmentDescriptor>(_MTL_PRIVATE_CLS(MTLRenderPassSampleBufferAttachmentDescriptor));
 }
 
 // method: init
@@ -559,8 +538,7 @@ _MTL_INLINE MTL::CounterSampleBuffer* MTL::RenderPassSampleBufferAttachmentDescr
     return Object::sendMessage<MTL::CounterSampleBuffer*>(this, _MTL_PRIVATE_SEL(sampleBuffer));
 }
 
-_MTL_INLINE void MTL::RenderPassSampleBufferAttachmentDescriptor::setSampleBuffer(
-    const MTL::CounterSampleBuffer* sampleBuffer)
+_MTL_INLINE void MTL::RenderPassSampleBufferAttachmentDescriptor::setSampleBuffer(const MTL::CounterSampleBuffer* sampleBuffer)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setSampleBuffer_), sampleBuffer);
 }
@@ -571,8 +549,7 @@ _MTL_INLINE NS::UInteger MTL::RenderPassSampleBufferAttachmentDescriptor::startO
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(startOfVertexSampleIndex));
 }
 
-_MTL_INLINE void MTL::RenderPassSampleBufferAttachmentDescriptor::setStartOfVertexSampleIndex(
-    NS::UInteger startOfVertexSampleIndex)
+_MTL_INLINE void MTL::RenderPassSampleBufferAttachmentDescriptor::setStartOfVertexSampleIndex(NS::UInteger startOfVertexSampleIndex)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setStartOfVertexSampleIndex_), startOfVertexSampleIndex);
 }
@@ -583,8 +560,7 @@ _MTL_INLINE NS::UInteger MTL::RenderPassSampleBufferAttachmentDescriptor::endOfV
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(endOfVertexSampleIndex));
 }
 
-_MTL_INLINE void MTL::RenderPassSampleBufferAttachmentDescriptor::setEndOfVertexSampleIndex(
-    NS::UInteger endOfVertexSampleIndex)
+_MTL_INLINE void MTL::RenderPassSampleBufferAttachmentDescriptor::setEndOfVertexSampleIndex(NS::UInteger endOfVertexSampleIndex)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setEndOfVertexSampleIndex_), endOfVertexSampleIndex);
 }
@@ -595,8 +571,7 @@ _MTL_INLINE NS::UInteger MTL::RenderPassSampleBufferAttachmentDescriptor::startO
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(startOfFragmentSampleIndex));
 }
 
-_MTL_INLINE void MTL::RenderPassSampleBufferAttachmentDescriptor::setStartOfFragmentSampleIndex(
-    NS::UInteger startOfFragmentSampleIndex)
+_MTL_INLINE void MTL::RenderPassSampleBufferAttachmentDescriptor::setStartOfFragmentSampleIndex(NS::UInteger startOfFragmentSampleIndex)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setStartOfFragmentSampleIndex_), startOfFragmentSampleIndex);
 }
@@ -607,38 +582,31 @@ _MTL_INLINE NS::UInteger MTL::RenderPassSampleBufferAttachmentDescriptor::endOfF
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(endOfFragmentSampleIndex));
 }
 
-_MTL_INLINE void MTL::RenderPassSampleBufferAttachmentDescriptor::setEndOfFragmentSampleIndex(
-    NS::UInteger endOfFragmentSampleIndex)
+_MTL_INLINE void MTL::RenderPassSampleBufferAttachmentDescriptor::setEndOfFragmentSampleIndex(NS::UInteger endOfFragmentSampleIndex)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setEndOfFragmentSampleIndex_), endOfFragmentSampleIndex);
 }
 
 // static method: alloc
-_MTL_INLINE MTL::RenderPassSampleBufferAttachmentDescriptorArray*
-MTL::RenderPassSampleBufferAttachmentDescriptorArray::alloc()
+_MTL_INLINE MTL::RenderPassSampleBufferAttachmentDescriptorArray* MTL::RenderPassSampleBufferAttachmentDescriptorArray::alloc()
 {
-    return NS::Object::alloc<MTL::RenderPassSampleBufferAttachmentDescriptorArray>(
-        _MTL_PRIVATE_CLS(MTLRenderPassSampleBufferAttachmentDescriptorArray));
+    return NS::Object::alloc<MTL::RenderPassSampleBufferAttachmentDescriptorArray>(_MTL_PRIVATE_CLS(MTLRenderPassSampleBufferAttachmentDescriptorArray));
 }
 
 // method: init
-_MTL_INLINE MTL::RenderPassSampleBufferAttachmentDescriptorArray*
-MTL::RenderPassSampleBufferAttachmentDescriptorArray::init()
+_MTL_INLINE MTL::RenderPassSampleBufferAttachmentDescriptorArray* MTL::RenderPassSampleBufferAttachmentDescriptorArray::init()
 {
     return NS::Object::init<MTL::RenderPassSampleBufferAttachmentDescriptorArray>();
 }
 
 // method: objectAtIndexedSubscript:
-_MTL_INLINE MTL::RenderPassSampleBufferAttachmentDescriptor*
-MTL::RenderPassSampleBufferAttachmentDescriptorArray::object(NS::UInteger attachmentIndex)
+_MTL_INLINE MTL::RenderPassSampleBufferAttachmentDescriptor* MTL::RenderPassSampleBufferAttachmentDescriptorArray::object(NS::UInteger attachmentIndex)
 {
-    return Object::sendMessage<MTL::RenderPassSampleBufferAttachmentDescriptor*>(
-        this, _MTL_PRIVATE_SEL(objectAtIndexedSubscript_), attachmentIndex);
+    return Object::sendMessage<MTL::RenderPassSampleBufferAttachmentDescriptor*>(this, _MTL_PRIVATE_SEL(objectAtIndexedSubscript_), attachmentIndex);
 }
 
 // method: setObject:atIndexedSubscript:
-_MTL_INLINE void MTL::RenderPassSampleBufferAttachmentDescriptorArray::setObject(
-    const MTL::RenderPassSampleBufferAttachmentDescriptor* attachment, NS::UInteger attachmentIndex)
+_MTL_INLINE void MTL::RenderPassSampleBufferAttachmentDescriptorArray::setObject(const MTL::RenderPassSampleBufferAttachmentDescriptor* attachment, NS::UInteger attachmentIndex)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setObject_atIndexedSubscript_), attachment, attachmentIndex);
 }
@@ -658,15 +626,13 @@ _MTL_INLINE MTL::RenderPassDescriptor* MTL::RenderPassDescriptor::init()
 // static method: renderPassDescriptor
 _MTL_INLINE MTL::RenderPassDescriptor* MTL::RenderPassDescriptor::renderPassDescriptor()
 {
-    return Object::sendMessage<MTL::RenderPassDescriptor*>(
-        _MTL_PRIVATE_CLS(MTLRenderPassDescriptor), _MTL_PRIVATE_SEL(renderPassDescriptor));
+    return Object::sendMessage<MTL::RenderPassDescriptor*>(_MTL_PRIVATE_CLS(MTLRenderPassDescriptor), _MTL_PRIVATE_SEL(renderPassDescriptor));
 }
 
 // property: colorAttachments
 _MTL_INLINE MTL::RenderPassColorAttachmentDescriptorArray* MTL::RenderPassDescriptor::colorAttachments() const
 {
-    return Object::sendMessage<MTL::RenderPassColorAttachmentDescriptorArray
-        *>(this, _MTL_PRIVATE_SEL(colorAttachments));
+    return Object::sendMessage<MTL::RenderPassColorAttachmentDescriptorArray*>(this, _MTL_PRIVATE_SEL(colorAttachments));
 }
 
 // property: depthAttachment
@@ -675,8 +641,7 @@ _MTL_INLINE MTL::RenderPassDepthAttachmentDescriptor* MTL::RenderPassDescriptor:
     return Object::sendMessage<MTL::RenderPassDepthAttachmentDescriptor*>(this, _MTL_PRIVATE_SEL(depthAttachment));
 }
 
-_MTL_INLINE void MTL::RenderPassDescriptor::setDepthAttachment(
-    const MTL::RenderPassDepthAttachmentDescriptor* depthAttachment)
+_MTL_INLINE void MTL::RenderPassDescriptor::setDepthAttachment(const MTL::RenderPassDepthAttachmentDescriptor* depthAttachment)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setDepthAttachment_), depthAttachment);
 }
@@ -687,8 +652,7 @@ _MTL_INLINE MTL::RenderPassStencilAttachmentDescriptor* MTL::RenderPassDescripto
     return Object::sendMessage<MTL::RenderPassStencilAttachmentDescriptor*>(this, _MTL_PRIVATE_SEL(stencilAttachment));
 }
 
-_MTL_INLINE void MTL::RenderPassDescriptor::setStencilAttachment(
-    const MTL::RenderPassStencilAttachmentDescriptor* stencilAttachment)
+_MTL_INLINE void MTL::RenderPassDescriptor::setStencilAttachment(const MTL::RenderPassStencilAttachmentDescriptor* stencilAttachment)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setStencilAttachment_), stencilAttachment);
 }
@@ -799,8 +763,7 @@ _MTL_INLINE void MTL::RenderPassDescriptor::setSamplePositions(const MTL::Sample
 }
 
 // method: getSamplePositions:count:
-_MTL_INLINE NS::UInteger MTL::RenderPassDescriptor::getSamplePositions(MTL::SamplePosition* positions,
-                                                                       NS::UInteger count)
+_MTL_INLINE NS::UInteger MTL::RenderPassDescriptor::getSamplePositions(MTL::SamplePosition* positions, NS::UInteger count)
 {
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(getSamplePositions_count_), positions, count);
 }
@@ -811,16 +774,13 @@ _MTL_INLINE MTL::RasterizationRateMap* MTL::RenderPassDescriptor::rasterizationR
     return Object::sendMessage<MTL::RasterizationRateMap*>(this, _MTL_PRIVATE_SEL(rasterizationRateMap));
 }
 
-_MTL_INLINE void MTL::RenderPassDescriptor::setRasterizationRateMap(
-    const MTL::RasterizationRateMap* rasterizationRateMap)
+_MTL_INLINE void MTL::RenderPassDescriptor::setRasterizationRateMap(const MTL::RasterizationRateMap* rasterizationRateMap)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setRasterizationRateMap_), rasterizationRateMap);
 }
 
 // property: sampleBufferAttachments
-_MTL_INLINE MTL::RenderPassSampleBufferAttachmentDescriptorArray*
-MTL::RenderPassDescriptor::sampleBufferAttachments() const
+_MTL_INLINE MTL::RenderPassSampleBufferAttachmentDescriptorArray* MTL::RenderPassDescriptor::sampleBufferAttachments() const
 {
-    return Object::sendMessage<MTL::RenderPassSampleBufferAttachmentDescriptorArray*>(
-        this, _MTL_PRIVATE_SEL(sampleBufferAttachments));
+    return Object::sendMessage<MTL::RenderPassSampleBufferAttachmentDescriptorArray*>(this, _MTL_PRIVATE_SEL(sampleBufferAttachments));
 }

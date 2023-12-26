@@ -34,78 +34,74 @@
 
 namespace NS
 {
-    _NS_CONST(NotificationName, ProcessInfoThermalStateDidChangeNotification);
-    _NS_CONST(NotificationName, ProcessInfoPowerStateDidChangeNotification);
+_NS_CONST(NotificationName, ProcessInfoThermalStateDidChangeNotification);
+_NS_CONST(NotificationName, ProcessInfoPowerStateDidChangeNotification);
 
-    _NS_ENUM(NS::Integer, ProcessInfoThermalState)
-    {
-        ProcessInfoThermalStateNominal = 0,
-        ProcessInfoThermalStateFair = 1,
-        ProcessInfoThermalStateSerious = 2,
-        ProcessInfoThermalStateCritical = 3
-    };
+_NS_ENUM(NS::Integer, ProcessInfoThermalState) {
+    ProcessInfoThermalStateNominal = 0,
+    ProcessInfoThermalStateFair = 1,
+    ProcessInfoThermalStateSerious = 2,
+    ProcessInfoThermalStateCritical = 3
+};
 
-    _NS_OPTIONS(std::uint64_t, ActivityOptions)
-    {
-        ActivityIdleDisplaySleepDisabled = (1ULL << 40),
-        ActivityIdleSystemSleepDisabled = (1ULL << 20),
-        ActivitySuddenTerminationDisabled = (1ULL << 14),
-        ActivityAutomaticTerminationDisabled = (1ULL << 15),
-        ActivityUserInitiated = (0x00FFFFFFULL | ActivityIdleSystemSleepDisabled),
-        ActivityUserInitiatedAllowingIdleSystemSleep = (ActivityUserInitiated & ~ActivityIdleSystemSleepDisabled),
-        ActivityBackground = 0x000000FFULL,
-        ActivityLatencyCritical = 0xFF00000000ULL,
-    };
+_NS_OPTIONS(std::uint64_t, ActivityOptions) {
+    ActivityIdleDisplaySleepDisabled = (1ULL << 40),
+    ActivityIdleSystemSleepDisabled = (1ULL << 20),
+    ActivitySuddenTerminationDisabled = (1ULL << 14),
+    ActivityAutomaticTerminationDisabled = (1ULL << 15),
+    ActivityUserInitiated = (0x00FFFFFFULL | ActivityIdleSystemSleepDisabled),
+    ActivityUserInitiatedAllowingIdleSystemSleep = (ActivityUserInitiated & ~ActivityIdleSystemSleepDisabled),
+    ActivityBackground = 0x000000FFULL,
+    ActivityLatencyCritical = 0xFF00000000ULL,
+};
 
-    class ProcessInfo : public Referencing<ProcessInfo>
-    {
-    public:
-        static ProcessInfo* processInfo();
+class ProcessInfo : public Referencing<ProcessInfo>
+{
+public:
+    static ProcessInfo*     processInfo();
 
-        class Array* arguments() const;
-        class Dictionary* environment() const;
-        class String* hostName() const;
-        class String* processName() const;
-        void setProcessName(const String* pString);
-        int processIdentifier() const;
-        class String* globallyUniqueString() const;
+    class Array*            arguments() const;
+    class Dictionary*       environment() const;
+    class String*           hostName() const;
+    class String*           processName() const;
+    void                    setProcessName(const String* pString);
+    int                     processIdentifier() const;
+    class String*           globallyUniqueString() const;
 
-        class String* userName() const;
-        class String* fullUserName() const;
+    class String*           userName() const;
+    class String*           fullUserName() const;
 
-        UInteger operatingSystem() const;
-        OperatingSystemVersion operatingSystemVersion() const;
-        class String* operatingSystemVersionString() const;
-        bool isOperatingSystemAtLeastVersion(OperatingSystemVersion version) const;
+    UInteger                operatingSystem() const;
+    OperatingSystemVersion  operatingSystemVersion() const;
+    class String*           operatingSystemVersionString() const;
+    bool                    isOperatingSystemAtLeastVersion(OperatingSystemVersion version) const;
 
-        UInteger processorCount() const;
-        UInteger activeProcessorCount() const;
-        unsigned long long physicalMemory() const;
-        TimeInterval systemUptime() const;
+    UInteger                processorCount() const;
+    UInteger                activeProcessorCount() const;
+    unsigned long long      physicalMemory() const;
+    TimeInterval            systemUptime() const;
 
-        void disableSuddenTermination();
-        void enableSuddenTermination();
+    void                    disableSuddenTermination();
+    void                    enableSuddenTermination();
 
-        void disableAutomaticTermination(const class String* pReason);
-        void enableAutomaticTermination(const class String* pReason);
-        bool automaticTerminationSupportEnabled() const;
-        void setAutomaticTerminationSupportEnabled(bool enabled);
+    void                    disableAutomaticTermination(const class String* pReason);
+    void                    enableAutomaticTermination(const class String* pReason);
+    bool                    automaticTerminationSupportEnabled() const;
+    void                    setAutomaticTerminationSupportEnabled(bool enabled);
 
-        class Object* beginActivity(ActivityOptions options, const class String* pReason);
-        void endActivity(class Object* pActivity);
-        void performActivity(ActivityOptions options, const class String* pReason, void (*block)(void)
-        );
-        void performActivity(ActivityOptions options, const class String* pReason, const std::function<void()>& func);
-        void performExpiringActivity(const class String* pReason, void (*block)(bool expired)
-        );
-        void performExpiringActivity(const class String* pReason, const std::function<void(bool expired)>& func);
+    class Object*           beginActivity(ActivityOptions options, const class String* pReason);
+    void                    endActivity(class Object* pActivity);
+    void                    performActivity(ActivityOptions options, const class String* pReason, void (^block)(void));
+    void                    performActivity(ActivityOptions options, const class String* pReason, const std::function<void()>& func);
+    void                    performExpiringActivity(const class String* pReason, void (^block)(bool expired));
+    void                    performExpiringActivity(const class String* pReason, const std::function<void(bool expired)>& func);
 
-        ProcessInfoThermalState thermalState() const;
-        bool isLowPowerModeEnabled() const;
+    ProcessInfoThermalState thermalState() const;
+    bool                    isLowPowerModeEnabled() const;
 
-        bool isiOSAppOnMac() const;
-        bool isMacCatalystApp() const;
-    };
+    bool                    isiOSAppOnMac() const;
+    bool                    isMacCatalystApp() const;
+};
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -297,47 +293,34 @@ _NS_INLINE void NS::ProcessInfo::endActivity(Object* pActivity)
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE void NS::ProcessInfo::performActivity(ActivityOptions options, const String* pReason, void (*block)(void)
-)
+_NS_INLINE void NS::ProcessInfo::performActivity(ActivityOptions options, const String* pReason, void (^block)(void))
 {
-    Object::sendMessage<void>(this, _NS_PRIVATE_SEL(
-                                  performActivityWithOptions_reason_usingBlock_), options, pReason, block);
+    Object::sendMessage<void>(this, _NS_PRIVATE_SEL(performActivityWithOptions_reason_usingBlock_), options, pReason, block);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE void NS::ProcessInfo::performActivity(ActivityOptions options, const String* pReason,
-                                                 const std::function<void()>& function)
+_NS_INLINE void NS::ProcessInfo::performActivity(ActivityOptions options, const String* pReason, const std::function<void()>& function)
 {
     __block std::function<void()> blockFunction = function;
 
-    performActivity(options, pReason, [blockFunction]()
-                    {
-                        blockFunction();
-                    }
-    );
+    performActivity(options, pReason, ^() { blockFunction(); });
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE void NS::ProcessInfo::performExpiringActivity(const String* pReason, void (*block)(bool expired)
-)
+_NS_INLINE void NS::ProcessInfo::performExpiringActivity(const String* pReason, void (^block)(bool expired))
 {
     Object::sendMessageSafe<void>(this, _NS_PRIVATE_SEL(performExpiringActivityWithReason_usingBlock_), pReason, block);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE void NS::ProcessInfo::performExpiringActivity(const String* pReason,
-                                                         const std::function<void(bool expired)>& function)
+_NS_INLINE void NS::ProcessInfo::performExpiringActivity(const String* pReason, const std::function<void(bool expired)>& function)
 {
     __block std::function<void(bool expired)> blockFunction = function;
 
-    performExpiringActivity(pReason, [blockFunction](bool expired)
-                            {
-                                blockFunction(expired);
-                            }
-    );
+    performExpiringActivity(pReason, ^(bool expired) { blockFunction(expired); });
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------

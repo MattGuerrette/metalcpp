@@ -28,14 +28,15 @@
 
 namespace MTL
 {
-    class Fence : public NS::Referencing<Fence>
-    {
-    public:
-        [[nodiscard]] class Device* device() const;
+class Fence : public NS::Referencing<Fence>
+{
+public:
+    class Device* device() const;
 
-        [[nodiscard]] NS::String* label() const;
-        void setLabel(const NS::String* label);
-    };
+    NS::String*   label() const;
+    void          setLabel(const NS::String* label);
+};
+
 }
 
 // property: device

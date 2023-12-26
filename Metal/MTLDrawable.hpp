@@ -31,34 +31,35 @@
 
 namespace MTL
 {
-    using DrawablePresentedHandler = void (*)(class Drawable*);
+using DrawablePresentedHandler = void (^)(class Drawable*);
 
-    using DrawablePresentedHandlerFunction = std::function<void(class Drawable*)>;
+using DrawablePresentedHandlerFunction = std::function<void(class Drawable*)>;
 
-    class Drawable : public NS::Referencing<Drawable>
-    {
-    public:
-        void addPresentedHandler(const MTL::DrawablePresentedHandlerFunction& function);
+class Drawable : public NS::Referencing<Drawable>
+{
+public:
+    void           addPresentedHandler(const MTL::DrawablePresentedHandlerFunction& function);
 
-        void present();
+    void           present();
 
-        void presentAtTime(CFTimeInterval presentationTime);
+    void           presentAtTime(CFTimeInterval presentationTime);
 
-        void presentAfterMinimumDuration(CFTimeInterval duration);
+    void           presentAfterMinimumDuration(CFTimeInterval duration);
 
-        void addPresentedHandler(const MTL::DrawablePresentedHandler block);
+    void           addPresentedHandler(const MTL::DrawablePresentedHandler block);
 
-        [[nodiscard]] CFTimeInterval presentedTime() const;
+    CFTimeInterval presentedTime() const;
 
-        [[nodiscard]] NS::UInteger drawableID() const;
-    };
+    NS::UInteger   drawableID() const;
+};
+
 }
 
 _MTL_INLINE void MTL::Drawable::addPresentedHandler(const MTL::DrawablePresentedHandlerFunction& function)
 {
     __block DrawablePresentedHandlerFunction blockFunction = function;
 
-    addPresentedHandler([blockFunction](Drawable* pDrawable) { blockFunction(pDrawable); });
+    addPresentedHandler(^(Drawable* pDrawable) { blockFunction(pDrawable); });
 }
 
 // method: present
