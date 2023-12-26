@@ -69,64 +69,49 @@
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-namespace CA
+
+namespace CA::Private::Class
 {
-namespace Private
-{
-    namespace Class
-    {
-        _CA_PRIVATE_DEF_CLS(CAMetalLayer);
-    } // Class
-} // Private
-} // CA
+    _CA_PRIVATE_DEF_CLS(CAMetalLayer);
+}
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-namespace CA
-{
-namespace Private
-{
-    namespace Protocol
-    {
 
-        _CA_PRIVATE_DEF_PRO(CAMetalDrawable);
-
-    } // Protocol
-} // Private
-} // CA
+namespace CA::Private::Protocol
+{
+    _CA_PRIVATE_DEF_PRO(CAMetalDrawable);
+} // Protocol
+// Private
+// CA
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-namespace CA
+
+namespace CA::Private::Selector
 {
-namespace Private
-{
-    namespace Selector
-    {
-        _CA_PRIVATE_DEF_SEL(device,
-            "device");
-        _CA_PRIVATE_DEF_SEL(drawableSize,
-            "drawableSize");
-        _CA_PRIVATE_DEF_SEL(framebufferOnly,
-            "framebufferOnly");
-        _CA_PRIVATE_DEF_SEL(layer,
-            "layer");
-        _CA_PRIVATE_DEF_SEL(nextDrawable,
-            "nextDrawable");
-        _CA_PRIVATE_DEF_SEL(pixelFormat,
-            "pixelFormat");
-        _CA_PRIVATE_DEF_SEL(setDevice_,
-            "setDevice:");
-        _CA_PRIVATE_DEF_SEL(setDrawableSize_,
-            "setDrawableSize:");
-        _CA_PRIVATE_DEF_SEL(setFramebufferOnly_,
-            "setFramebufferOnly:");
-        _CA_PRIVATE_DEF_SEL(setPixelFormat_,
-            "setPixelFormat:");
-        _CA_PRIVATE_DEF_SEL(texture,
-            "texture");
-    } // Class
-} // Private
-} // CA
+    _CA_PRIVATE_DEF_SEL(device,
+                        "device");
+    _CA_PRIVATE_DEF_SEL(drawableSize,
+                        "drawableSize");
+    _CA_PRIVATE_DEF_SEL(framebufferOnly,
+                        "framebufferOnly");
+    _CA_PRIVATE_DEF_SEL(layer,
+                        "layer");
+    _CA_PRIVATE_DEF_SEL(nextDrawable,
+                        "nextDrawable");
+    _CA_PRIVATE_DEF_SEL(pixelFormat,
+                        "pixelFormat");
+    _CA_PRIVATE_DEF_SEL(setDevice_,
+                        "setDevice:");
+    _CA_PRIVATE_DEF_SEL(setDrawableSize_,
+                        "setDrawableSize:");
+    _CA_PRIVATE_DEF_SEL(setFramebufferOnly_,
+                        "setFramebufferOnly:");
+    _CA_PRIVATE_DEF_SEL(setPixelFormat_,
+                        "setPixelFormat:");
+    _CA_PRIVATE_DEF_SEL(texture,
+                        "texture");
+}
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------

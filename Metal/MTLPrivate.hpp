@@ -99,6 +99,7 @@ namespace MTL::Private
 
 #endif // defined(__MAC_10_16) || defined(__MAC_11_0) || defined(__MAC_12_0) || defined(__MAC_13_0) || defined(__MAC_14_0) || defined(__IPHONE_14_0) || defined(__IPHONE_15_0) || defined(__IPHONE_16_0) || defined(__IPHONE_17_0) || defined(__TVOS_14_0) || defined(__TVOS_15_0) || defined(__TVOS_16_0) || defined(__TVOS_17_0)
 
+
 #else
 
 #define _MTL_PRIVATE_DEF_CLS(symbol) extern void* s_k##symbol
@@ -114,43 +115,40 @@ namespace MTL::Private
 
 namespace MTL
 {
-namespace Private
-{
-    namespace Class
+    namespace Private
     {
-
-    } // Class
-} // Private
+        namespace Class
+        {
+        } // Class
+    } // Private
 } // MTL
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 namespace MTL
 {
-namespace Private
-{
-    namespace Protocol
+    namespace Private
     {
-
-    } // Protocol
-} // Private
+        namespace Protocol
+        {
+        } // Protocol
+    } // Private
 } // MTL
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 namespace MTL
 {
-namespace Private
-{
-    namespace Selector
+    namespace Private
     {
-
-        _MTL_PRIVATE_DEF_SEL(beginScope,
-            "beginScope");
-        _MTL_PRIVATE_DEF_SEL(endScope,
-            "endScope");
-    } // Class
-} // Private
+        namespace Selector
+        {
+            _MTL_PRIVATE_DEF_SEL(beginScope,
+                                 "beginScope");
+            _MTL_PRIVATE_DEF_SEL(endScope,
+                                 "endScope");
+        } // Class
+    } // Private
 } // MTL
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -28,28 +28,28 @@
 
 namespace MTL
 {
-_MTL_ENUM(NS::UInteger, DynamicLibraryError) {
-    DynamicLibraryErrorNone = 0,
-    DynamicLibraryErrorInvalidFile = 1,
-    DynamicLibraryErrorCompilationFailure = 2,
-    DynamicLibraryErrorUnresolvedInstallName = 3,
-    DynamicLibraryErrorDependencyLoadFailure = 4,
-    DynamicLibraryErrorUnsupported = 5,
-};
+    _MTL_ENUM(NS::UInteger, DynamicLibraryError)
+    {
+        DynamicLibraryErrorNone = 0,
+        DynamicLibraryErrorInvalidFile = 1,
+        DynamicLibraryErrorCompilationFailure = 2,
+        DynamicLibraryErrorUnresolvedInstallName = 3,
+        DynamicLibraryErrorDependencyLoadFailure = 4,
+        DynamicLibraryErrorUnsupported = 5,
+    };
 
-class DynamicLibrary : public NS::Referencing<DynamicLibrary>
-{
-public:
-    NS::String*   label() const;
-    void          setLabel(const NS::String* label);
+    class DynamicLibrary : public NS::Referencing<DynamicLibrary>
+    {
+    public:
+        [[nodiscard]] NS::String* label() const;
+        void setLabel(const NS::String* label);
 
-    class Device* device() const;
+        [[nodiscard]] class Device* device() const;
 
-    NS::String*   installName() const;
+        [[nodiscard]] NS::String* installName() const;
 
-    bool          serializeToURL(const NS::URL* url, NS::Error** error);
-};
-
+        bool serializeToURL(const NS::URL* url, NS::Error** error);
+    };
 }
 
 // property: label

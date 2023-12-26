@@ -32,19 +32,19 @@
 
 namespace MTL
 {
-class CaptureScope : public NS::Referencing<CaptureScope>
-{
-public:
-    class Device*       device() const;
+    class CaptureScope : public NS::Referencing<CaptureScope>
+    {
+    public:
+        [[nodiscard]] class Device* device() const;
 
-    NS::String*         label() const;
-    void                setLabel(const NS::String* pLabel);
+        [[nodiscard]] NS::String* label() const;
+        void setLabel(const NS::String* pLabel);
 
-    class CommandQueue* commandQueue() const;
+        [[nodiscard]] class CommandQueue* commandQueue() const;
 
-    void                beginScope();
-    void                endScope();
-};
+        void beginScope();
+        void endScope();
+    };
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------

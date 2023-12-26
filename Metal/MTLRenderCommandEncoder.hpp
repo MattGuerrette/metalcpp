@@ -34,372 +34,436 @@
 
 namespace MTL
 {
-_MTL_ENUM(NS::UInteger, PrimitiveType) {
-    PrimitiveTypePoint = 0,
-    PrimitiveTypeLine = 1,
-    PrimitiveTypeLineStrip = 2,
-    PrimitiveTypeTriangle = 3,
-    PrimitiveTypeTriangleStrip = 4,
-};
-
-_MTL_ENUM(NS::UInteger, VisibilityResultMode) {
-    VisibilityResultModeDisabled = 0,
-    VisibilityResultModeBoolean = 1,
-    VisibilityResultModeCounting = 2,
-};
-
-struct ScissorRect
-{
-    NS::UInteger x;
-    NS::UInteger y;
-    NS::UInteger width;
-    NS::UInteger height;
-} _MTL_PACKED;
-
-struct Viewport
-{
-    double originX;
-    double originY;
-    double width;
-    double height;
-    double znear;
-    double zfar;
-} _MTL_PACKED;
-
-_MTL_ENUM(NS::UInteger, CullMode) {
-    CullModeNone = 0,
-    CullModeFront = 1,
-    CullModeBack = 2,
-};
-
-_MTL_ENUM(NS::UInteger, Winding) {
-    WindingClockwise = 0,
-    WindingCounterClockwise = 1,
-};
-
-_MTL_ENUM(NS::UInteger, DepthClipMode) {
-    DepthClipModeClip = 0,
-    DepthClipModeClamp = 1,
-};
-
-_MTL_ENUM(NS::UInteger, TriangleFillMode) {
-    TriangleFillModeFill = 0,
-    TriangleFillModeLines = 1,
-};
-
-struct DrawPrimitivesIndirectArguments
-{
-    uint32_t vertexCount;
-    uint32_t instanceCount;
-    uint32_t vertexStart;
-    uint32_t baseInstance;
-} _MTL_PACKED;
+    _MTL_ENUM(NS::UInteger, PrimitiveType)
+    {
+        PrimitiveTypePoint = 0,
+        PrimitiveTypeLine = 1,
+        PrimitiveTypeLineStrip = 2,
+        PrimitiveTypeTriangle = 3,
+        PrimitiveTypeTriangleStrip = 4,
+    };
+
+    _MTL_ENUM(NS::UInteger, VisibilityResultMode)
+    {
+        VisibilityResultModeDisabled = 0,
+        VisibilityResultModeBoolean = 1,
+        VisibilityResultModeCounting = 2,
+    };
+
+    struct ScissorRect
+    {
+        NS::UInteger x;
+        NS::UInteger y;
+        NS::UInteger width;
+        NS::UInteger height;
+    }
+        _MTL_PACKED;
+
+    struct Viewport
+    {
+        double originX;
+        double originY;
+        double width;
+        double height;
+        double znear;
+        double zfar;
+    }
+        _MTL_PACKED;
+
+    _MTL_ENUM(NS::UInteger, CullMode)
+    {
+        CullModeNone = 0,
+        CullModeFront = 1,
+        CullModeBack = 2,
+    };
+
+    _MTL_ENUM(NS::UInteger, Winding)
+    {
+        WindingClockwise = 0,
+        WindingCounterClockwise = 1,
+    };
+
+    _MTL_ENUM(NS::UInteger, DepthClipMode)
+    {
+        DepthClipModeClip = 0,
+        DepthClipModeClamp = 1,
+    };
+
+    _MTL_ENUM(NS::UInteger, TriangleFillMode)
+    {
+        TriangleFillModeFill = 0,
+        TriangleFillModeLines = 1,
+    };
+
+    struct DrawPrimitivesIndirectArguments
+    {
+        uint32_t vertexCount;
+        uint32_t instanceCount;
+        uint32_t vertexStart;
+        uint32_t baseInstance;
+    }
+        _MTL_PACKED;
+
+    struct DrawIndexedPrimitivesIndirectArguments
+    {
+        uint32_t indexCount;
+        uint32_t instanceCount;
+        uint32_t indexStart;
+        int32_t baseVertex;
+        uint32_t baseInstance;
+    }
+        _MTL_PACKED;
+
+    struct VertexAmplificationViewMapping
+    {
+        uint32_t viewportArrayIndexOffset;
+        uint32_t renderTargetArrayIndexOffset;
+    }
+        _MTL_PACKED;
+
+    struct DrawPatchIndirectArguments
+    {
+        uint32_t patchCount;
+        uint32_t instanceCount;
+        uint32_t patchStart;
+        uint32_t baseInstance;
+    }
+        _MTL_PACKED;
+
+    struct QuadTessellationFactorsHalf
+    {
+        uint16_t edgeTessellationFactor[4];
+        uint16_t insideTessellationFactor[2];
+    }
+        _MTL_PACKED;
 
-struct DrawIndexedPrimitivesIndirectArguments
-{
-    uint32_t indexCount;
-    uint32_t instanceCount;
-    uint32_t indexStart;
-    int32_t  baseVertex;
-    uint32_t baseInstance;
-} _MTL_PACKED;
+    struct TriangleTessellationFactorsHalf
+    {
+        uint16_t edgeTessellationFactor[3];
+        uint16_t insideTessellationFactor;
+    }
+        _MTL_PACKED;
 
-struct VertexAmplificationViewMapping
-{
-    uint32_t viewportArrayIndexOffset;
-    uint32_t renderTargetArrayIndexOffset;
-} _MTL_PACKED;
+    _MTL_OPTIONS(NS::UInteger, RenderStages)
+    {
+        RenderStageVertex = 1,
+        RenderStageFragment = 2,
+        RenderStageTile = 4,
+        RenderStageObject = 8,
+        RenderStageMesh = 16,
+    };
 
-struct DrawPatchIndirectArguments
-{
-    uint32_t patchCount;
-    uint32_t instanceCount;
-    uint32_t patchStart;
-    uint32_t baseInstance;
-} _MTL_PACKED;
+    class RenderCommandEncoder : public NS::Referencing<RenderCommandEncoder, CommandEncoder>
+    {
+    public:
+        void setRenderPipelineState(const class RenderPipelineState* pipelineState);
 
-struct QuadTessellationFactorsHalf
-{
-    uint16_t edgeTessellationFactor[4];
-    uint16_t insideTessellationFactor[2];
-} _MTL_PACKED;
+        void setVertexBytes(const void* bytes, NS::UInteger length, NS::UInteger index);
 
-struct TriangleTessellationFactorsHalf
-{
-    uint16_t edgeTessellationFactor[3];
-    uint16_t insideTessellationFactor;
-} _MTL_PACKED;
+        void setVertexBuffer(const class Buffer* buffer, NS::UInteger offset, NS::UInteger index);
 
-_MTL_OPTIONS(NS::UInteger, RenderStages) {
-    RenderStageVertex = 1,
-    RenderStageFragment = 2,
-    RenderStageTile = 4,
-    RenderStageObject = 8,
-    RenderStageMesh = 16,
-};
+        void setVertexBufferOffset(NS::UInteger offset, NS::UInteger index);
 
-class RenderCommandEncoder : public NS::Referencing<RenderCommandEncoder, CommandEncoder>
-{
-public:
-    void         setRenderPipelineState(const class RenderPipelineState* pipelineState);
+        void setVertexBuffers(const class Buffer* const buffers[], const NS::UInteger offsets[], NS::Range range);
 
-    void         setVertexBytes(const void* bytes, NS::UInteger length, NS::UInteger index);
+        void setVertexBuffer(const class Buffer* buffer, NS::UInteger offset, NS::UInteger stride, NS::UInteger index);
 
-    void         setVertexBuffer(const class Buffer* buffer, NS::UInteger offset, NS::UInteger index);
+        void setVertexBuffers(const class Buffer* const buffers[], const NS::UInteger* offsets,
+                              const NS::UInteger* strides, NS::Range range);
 
-    void         setVertexBufferOffset(NS::UInteger offset, NS::UInteger index);
+        void setVertexBufferOffset(NS::UInteger offset, NS::UInteger stride, NS::UInteger index);
 
-    void         setVertexBuffers(const class Buffer* const buffers[], const NS::UInteger offsets[], NS::Range range);
+        void setVertexBytes(const void* bytes, NS::UInteger length, NS::UInteger stride, NS::UInteger index);
 
-    void         setVertexBuffer(const class Buffer* buffer, NS::UInteger offset, NS::UInteger stride, NS::UInteger index);
+        void setVertexTexture(const class Texture* texture, NS::UInteger index);
 
-    void         setVertexBuffers(const class Buffer* const buffers[], const NS::UInteger* offsets, const NS::UInteger* strides, NS::Range range);
+        void setVertexTextures(const class Texture* const textures[], NS::Range range);
 
-    void         setVertexBufferOffset(NS::UInteger offset, NS::UInteger stride, NS::UInteger index);
+        void setVertexSamplerState(const class SamplerState* sampler, NS::UInteger index);
 
-    void         setVertexBytes(const void* bytes, NS::UInteger length, NS::UInteger stride, NS::UInteger index);
+        void setVertexSamplerStates(const class SamplerState* const samplers[], NS::Range range);
 
-    void         setVertexTexture(const class Texture* texture, NS::UInteger index);
+        void setVertexSamplerState(const class SamplerState* sampler, float lodMinClamp, float lodMaxClamp,
+                                   NS::UInteger index);
 
-    void         setVertexTextures(const class Texture* const textures[], NS::Range range);
+        void setVertexSamplerStates(const class SamplerState* const samplers[], const float lodMinClamps[],
+                                    const float lodMaxClamps[], NS::Range range);
 
-    void         setVertexSamplerState(const class SamplerState* sampler, NS::UInteger index);
+        void setVertexVisibleFunctionTable(const class VisibleFunctionTable* functionTable, NS::UInteger bufferIndex);
 
-    void         setVertexSamplerStates(const class SamplerState* const samplers[], NS::Range range);
+        void setVertexVisibleFunctionTables(const class VisibleFunctionTable* const functionTables[], NS::Range range);
 
-    void         setVertexSamplerState(const class SamplerState* sampler, float lodMinClamp, float lodMaxClamp, NS::UInteger index);
+        void setVertexIntersectionFunctionTable(const class IntersectionFunctionTable* intersectionFunctionTable,
+                                                NS::UInteger bufferIndex);
 
-    void         setVertexSamplerStates(const class SamplerState* const samplers[], const float lodMinClamps[], const float lodMaxClamps[], NS::Range range);
+        void setVertexIntersectionFunctionTables(
+            const class IntersectionFunctionTable* const intersectionFunctionTables[], NS::Range range);
 
-    void         setVertexVisibleFunctionTable(const class VisibleFunctionTable* functionTable, NS::UInteger bufferIndex);
+        void setVertexAccelerationStructure(const class AccelerationStructure* accelerationStructure,
+                                            NS::UInteger bufferIndex);
 
-    void         setVertexVisibleFunctionTables(const class VisibleFunctionTable* const functionTables[], NS::Range range);
+        void setViewport(MTL::Viewport viewport);
 
-    void         setVertexIntersectionFunctionTable(const class IntersectionFunctionTable* intersectionFunctionTable, NS::UInteger bufferIndex);
+        void setViewports(const MTL::Viewport* viewports, NS::UInteger count);
 
-    void         setVertexIntersectionFunctionTables(const class IntersectionFunctionTable* const intersectionFunctionTables[], NS::Range range);
+        void setFrontFacingWinding(MTL::Winding frontFacingWinding);
 
-    void         setVertexAccelerationStructure(const class AccelerationStructure* accelerationStructure, NS::UInteger bufferIndex);
+        void setVertexAmplificationCount(NS::UInteger count, const MTL::VertexAmplificationViewMapping* viewMappings);
 
-    void         setViewport(MTL::Viewport viewport);
+        void setCullMode(MTL::CullMode cullMode);
 
-    void         setViewports(const MTL::Viewport* viewports, NS::UInteger count);
+        void setDepthClipMode(MTL::DepthClipMode depthClipMode);
 
-    void         setFrontFacingWinding(MTL::Winding frontFacingWinding);
+        void setDepthBias(float depthBias, float slopeScale, float clamp);
 
-    void         setVertexAmplificationCount(NS::UInteger count, const MTL::VertexAmplificationViewMapping* viewMappings);
+        void setScissorRect(MTL::ScissorRect rect);
 
-    void         setCullMode(MTL::CullMode cullMode);
+        void setScissorRects(const MTL::ScissorRect* scissorRects, NS::UInteger count);
 
-    void         setDepthClipMode(MTL::DepthClipMode depthClipMode);
+        void setTriangleFillMode(MTL::TriangleFillMode fillMode);
 
-    void         setDepthBias(float depthBias, float slopeScale, float clamp);
+        void setFragmentBytes(const void* bytes, NS::UInteger length, NS::UInteger index);
 
-    void         setScissorRect(MTL::ScissorRect rect);
+        void setFragmentBuffer(const class Buffer* buffer, NS::UInteger offset, NS::UInteger index);
 
-    void         setScissorRects(const MTL::ScissorRect* scissorRects, NS::UInteger count);
+        void setFragmentBufferOffset(NS::UInteger offset, NS::UInteger index);
 
-    void         setTriangleFillMode(MTL::TriangleFillMode fillMode);
+        void setFragmentBuffers(const class Buffer* const buffers[], const NS::UInteger offsets[], NS::Range range);
 
-    void         setFragmentBytes(const void* bytes, NS::UInteger length, NS::UInteger index);
+        void setFragmentTexture(const class Texture* texture, NS::UInteger index);
 
-    void         setFragmentBuffer(const class Buffer* buffer, NS::UInteger offset, NS::UInteger index);
+        void setFragmentTextures(const class Texture* const textures[], NS::Range range);
 
-    void         setFragmentBufferOffset(NS::UInteger offset, NS::UInteger index);
+        void setFragmentSamplerState(const class SamplerState* sampler, NS::UInteger index);
 
-    void         setFragmentBuffers(const class Buffer* const buffers[], const NS::UInteger offsets[], NS::Range range);
+        void setFragmentSamplerStates(const class SamplerState* const samplers[], NS::Range range);
 
-    void         setFragmentTexture(const class Texture* texture, NS::UInteger index);
+        void setFragmentSamplerState(const class SamplerState* sampler, float lodMinClamp, float lodMaxClamp,
+                                     NS::UInteger index);
 
-    void         setFragmentTextures(const class Texture* const textures[], NS::Range range);
+        void setFragmentSamplerStates(const class SamplerState* const samplers[], const float lodMinClamps[],
+                                      const float lodMaxClamps[], NS::Range range);
 
-    void         setFragmentSamplerState(const class SamplerState* sampler, NS::UInteger index);
+        void setFragmentVisibleFunctionTable(const class VisibleFunctionTable* functionTable, NS::UInteger bufferIndex);
 
-    void         setFragmentSamplerStates(const class SamplerState* const samplers[], NS::Range range);
+        void setFragmentVisibleFunctionTables(const class VisibleFunctionTable* const functionTables[],
+                                              NS::Range range);
 
-    void         setFragmentSamplerState(const class SamplerState* sampler, float lodMinClamp, float lodMaxClamp, NS::UInteger index);
+        void setFragmentIntersectionFunctionTable(const class IntersectionFunctionTable* intersectionFunctionTable,
+                                                  NS::UInteger bufferIndex);
 
-    void         setFragmentSamplerStates(const class SamplerState* const samplers[], const float lodMinClamps[], const float lodMaxClamps[], NS::Range range);
+        void setFragmentIntersectionFunctionTables(
+            const class IntersectionFunctionTable* const intersectionFunctionTables[], NS::Range range);
 
-    void         setFragmentVisibleFunctionTable(const class VisibleFunctionTable* functionTable, NS::UInteger bufferIndex);
+        void setFragmentAccelerationStructure(const class AccelerationStructure* accelerationStructure,
+                                              NS::UInteger bufferIndex);
 
-    void         setFragmentVisibleFunctionTables(const class VisibleFunctionTable* const functionTables[], NS::Range range);
+        void setBlendColor(float red, float green, float blue, float alpha);
 
-    void         setFragmentIntersectionFunctionTable(const class IntersectionFunctionTable* intersectionFunctionTable, NS::UInteger bufferIndex);
+        void setDepthStencilState(const class DepthStencilState* depthStencilState);
 
-    void         setFragmentIntersectionFunctionTables(const class IntersectionFunctionTable* const intersectionFunctionTables[], NS::Range range);
+        void setStencilReferenceValue(uint32_t referenceValue);
 
-    void         setFragmentAccelerationStructure(const class AccelerationStructure* accelerationStructure, NS::UInteger bufferIndex);
+        void setStencilReferenceValues(uint32_t frontReferenceValue, uint32_t backReferenceValue);
 
-    void         setBlendColor(float red, float green, float blue, float alpha);
+        void setVisibilityResultMode(MTL::VisibilityResultMode mode, NS::UInteger offset);
 
-    void         setDepthStencilState(const class DepthStencilState* depthStencilState);
+        void setColorStoreAction(MTL::StoreAction storeAction, NS::UInteger colorAttachmentIndex);
 
-    void         setStencilReferenceValue(uint32_t referenceValue);
+        void setDepthStoreAction(MTL::StoreAction storeAction);
 
-    void         setStencilReferenceValues(uint32_t frontReferenceValue, uint32_t backReferenceValue);
+        void setStencilStoreAction(MTL::StoreAction storeAction);
 
-    void         setVisibilityResultMode(MTL::VisibilityResultMode mode, NS::UInteger offset);
+        void setColorStoreActionOptions(MTL::StoreActionOptions storeActionOptions, NS::UInteger colorAttachmentIndex);
 
-    void         setColorStoreAction(MTL::StoreAction storeAction, NS::UInteger colorAttachmentIndex);
+        void setDepthStoreActionOptions(MTL::StoreActionOptions storeActionOptions);
 
-    void         setDepthStoreAction(MTL::StoreAction storeAction);
+        void setStencilStoreActionOptions(MTL::StoreActionOptions storeActionOptions);
 
-    void         setStencilStoreAction(MTL::StoreAction storeAction);
+        void setObjectBytes(const void* bytes, NS::UInteger length, NS::UInteger index);
 
-    void         setColorStoreActionOptions(MTL::StoreActionOptions storeActionOptions, NS::UInteger colorAttachmentIndex);
+        void setObjectBuffer(const class Buffer* buffer, NS::UInteger offset, NS::UInteger index);
 
-    void         setDepthStoreActionOptions(MTL::StoreActionOptions storeActionOptions);
+        void setObjectBufferOffset(NS::UInteger offset, NS::UInteger index);
 
-    void         setStencilStoreActionOptions(MTL::StoreActionOptions storeActionOptions);
+        void setObjectBuffers(const class Buffer* const buffers[], const NS::UInteger* offsets, NS::Range range);
 
-    void         setObjectBytes(const void* bytes, NS::UInteger length, NS::UInteger index);
+        void setObjectTexture(const class Texture* texture, NS::UInteger index);
 
-    void         setObjectBuffer(const class Buffer* buffer, NS::UInteger offset, NS::UInteger index);
+        void setObjectTextures(const class Texture* const textures[], NS::Range range);
 
-    void         setObjectBufferOffset(NS::UInteger offset, NS::UInteger index);
+        void setObjectSamplerState(const class SamplerState* sampler, NS::UInteger index);
 
-    void         setObjectBuffers(const class Buffer* const buffers[], const NS::UInteger* offsets, NS::Range range);
+        void setObjectSamplerStates(const class SamplerState* const samplers[], NS::Range range);
 
-    void         setObjectTexture(const class Texture* texture, NS::UInteger index);
+        void setObjectSamplerState(const class SamplerState* sampler, float lodMinClamp, float lodMaxClamp,
+                                   NS::UInteger index);
 
-    void         setObjectTextures(const class Texture* const textures[], NS::Range range);
+        void setObjectSamplerStates(const class SamplerState* const samplers[], const float* lodMinClamps,
+                                    const float* lodMaxClamps, NS::Range range);
 
-    void         setObjectSamplerState(const class SamplerState* sampler, NS::UInteger index);
+        void setObjectThreadgroupMemoryLength(NS::UInteger length, NS::UInteger index);
 
-    void         setObjectSamplerStates(const class SamplerState* const samplers[], NS::Range range);
+        void setMeshBytes(const void* bytes, NS::UInteger length, NS::UInteger index);
 
-    void         setObjectSamplerState(const class SamplerState* sampler, float lodMinClamp, float lodMaxClamp, NS::UInteger index);
+        void setMeshBuffer(const class Buffer* buffer, NS::UInteger offset, NS::UInteger index);
 
-    void         setObjectSamplerStates(const class SamplerState* const samplers[], const float* lodMinClamps, const float* lodMaxClamps, NS::Range range);
+        void setMeshBufferOffset(NS::UInteger offset, NS::UInteger index);
 
-    void         setObjectThreadgroupMemoryLength(NS::UInteger length, NS::UInteger index);
+        void setMeshBuffers(const class Buffer* const buffers[], const NS::UInteger* offsets, NS::Range range);
 
-    void         setMeshBytes(const void* bytes, NS::UInteger length, NS::UInteger index);
+        void setMeshTexture(const class Texture* texture, NS::UInteger index);
 
-    void         setMeshBuffer(const class Buffer* buffer, NS::UInteger offset, NS::UInteger index);
+        void setMeshTextures(const class Texture* const textures[], NS::Range range);
 
-    void         setMeshBufferOffset(NS::UInteger offset, NS::UInteger index);
+        void setMeshSamplerState(const class SamplerState* sampler, NS::UInteger index);
 
-    void         setMeshBuffers(const class Buffer* const buffers[], const NS::UInteger* offsets, NS::Range range);
+        void setMeshSamplerStates(const class SamplerState* const samplers[], NS::Range range);
 
-    void         setMeshTexture(const class Texture* texture, NS::UInteger index);
+        void setMeshSamplerState(const class SamplerState* sampler, float lodMinClamp, float lodMaxClamp,
+                                 NS::UInteger index);
 
-    void         setMeshTextures(const class Texture* const textures[], NS::Range range);
+        void setMeshSamplerStates(const class SamplerState* const samplers[], const float* lodMinClamps,
+                                  const float* lodMaxClamps, NS::Range range);
 
-    void         setMeshSamplerState(const class SamplerState* sampler, NS::UInteger index);
+        void drawMeshThreadgroups(MTL::Size threadgroupsPerGrid, MTL::Size threadsPerObjectThreadgroup,
+                                  MTL::Size threadsPerMeshThreadgroup);
 
-    void         setMeshSamplerStates(const class SamplerState* const samplers[], NS::Range range);
+        void drawMeshThreads(MTL::Size threadsPerGrid, MTL::Size threadsPerObjectThreadgroup,
+                             MTL::Size threadsPerMeshThreadgroup);
 
-    void         setMeshSamplerState(const class SamplerState* sampler, float lodMinClamp, float lodMaxClamp, NS::UInteger index);
+        void drawMeshThreadgroups(const class Buffer* indirectBuffer, NS::UInteger indirectBufferOffset,
+                                  MTL::Size threadsPerObjectThreadgroup, MTL::Size threadsPerMeshThreadgroup);
 
-    void         setMeshSamplerStates(const class SamplerState* const samplers[], const float* lodMinClamps, const float* lodMaxClamps, NS::Range range);
+        void drawPrimitives(MTL::PrimitiveType primitiveType, NS::UInteger vertexStart, NS::UInteger vertexCount,
+                            NS::UInteger instanceCount);
 
-    void         drawMeshThreadgroups(MTL::Size threadgroupsPerGrid, MTL::Size threadsPerObjectThreadgroup, MTL::Size threadsPerMeshThreadgroup);
+        void drawPrimitives(MTL::PrimitiveType primitiveType, NS::UInteger vertexStart, NS::UInteger vertexCount);
 
-    void         drawMeshThreads(MTL::Size threadsPerGrid, MTL::Size threadsPerObjectThreadgroup, MTL::Size threadsPerMeshThreadgroup);
+        void drawIndexedPrimitives(MTL::PrimitiveType primitiveType, NS::UInteger indexCount, MTL::IndexType indexType,
+                                   const class Buffer* indexBuffer, NS::UInteger indexBufferOffset,
+                                   NS::UInteger instanceCount);
 
-    void         drawMeshThreadgroups(const class Buffer* indirectBuffer, NS::UInteger indirectBufferOffset, MTL::Size threadsPerObjectThreadgroup, MTL::Size threadsPerMeshThreadgroup);
+        void drawIndexedPrimitives(MTL::PrimitiveType primitiveType, NS::UInteger indexCount, MTL::IndexType indexType,
+                                   const class Buffer* indexBuffer, NS::UInteger indexBufferOffset);
 
-    void         drawPrimitives(MTL::PrimitiveType primitiveType, NS::UInteger vertexStart, NS::UInteger vertexCount, NS::UInteger instanceCount);
+        void drawPrimitives(MTL::PrimitiveType primitiveType, NS::UInteger vertexStart, NS::UInteger vertexCount,
+                            NS::UInteger instanceCount, NS::UInteger baseInstance);
 
-    void         drawPrimitives(MTL::PrimitiveType primitiveType, NS::UInteger vertexStart, NS::UInteger vertexCount);
+        void drawIndexedPrimitives(MTL::PrimitiveType primitiveType, NS::UInteger indexCount, MTL::IndexType indexType,
+                                   const class Buffer* indexBuffer, NS::UInteger indexBufferOffset,
+                                   NS::UInteger instanceCount, NS::Integer baseVertex, NS::UInteger baseInstance);
 
-    void         drawIndexedPrimitives(MTL::PrimitiveType primitiveType, NS::UInteger indexCount, MTL::IndexType indexType, const class Buffer* indexBuffer, NS::UInteger indexBufferOffset, NS::UInteger instanceCount);
+        void drawPrimitives(MTL::PrimitiveType primitiveType, const class Buffer* indirectBuffer,
+                            NS::UInteger indirectBufferOffset);
 
-    void         drawIndexedPrimitives(MTL::PrimitiveType primitiveType, NS::UInteger indexCount, MTL::IndexType indexType, const class Buffer* indexBuffer, NS::UInteger indexBufferOffset);
+        void drawIndexedPrimitives(MTL::PrimitiveType primitiveType, MTL::IndexType indexType,
+                                   const class Buffer* indexBuffer, NS::UInteger indexBufferOffset,
+                                   const class Buffer* indirectBuffer, NS::UInteger indirectBufferOffset);
 
-    void         drawPrimitives(MTL::PrimitiveType primitiveType, NS::UInteger vertexStart, NS::UInteger vertexCount, NS::UInteger instanceCount, NS::UInteger baseInstance);
+        void textureBarrier();
 
-    void         drawIndexedPrimitives(MTL::PrimitiveType primitiveType, NS::UInteger indexCount, MTL::IndexType indexType, const class Buffer* indexBuffer, NS::UInteger indexBufferOffset, NS::UInteger instanceCount, NS::Integer baseVertex, NS::UInteger baseInstance);
+        void updateFence(const class Fence* fence, MTL::RenderStages stages);
 
-    void         drawPrimitives(MTL::PrimitiveType primitiveType, const class Buffer* indirectBuffer, NS::UInteger indirectBufferOffset);
+        void waitForFence(const class Fence* fence, MTL::RenderStages stages);
 
-    void         drawIndexedPrimitives(MTL::PrimitiveType primitiveType, MTL::IndexType indexType, const class Buffer* indexBuffer, NS::UInteger indexBufferOffset, const class Buffer* indirectBuffer, NS::UInteger indirectBufferOffset);
+        void setTessellationFactorBuffer(const class Buffer* buffer, NS::UInteger offset, NS::UInteger instanceStride);
 
-    void         textureBarrier();
+        void setTessellationFactorScale(float scale);
 
-    void         updateFence(const class Fence* fence, MTL::RenderStages stages);
+        void drawPatches(NS::UInteger numberOfPatchControlPoints, NS::UInteger patchStart, NS::UInteger patchCount,
+                         const class Buffer* patchIndexBuffer, NS::UInteger patchIndexBufferOffset,
+                         NS::UInteger instanceCount, NS::UInteger baseInstance);
 
-    void         waitForFence(const class Fence* fence, MTL::RenderStages stages);
+        void drawPatches(NS::UInteger numberOfPatchControlPoints, const class Buffer* patchIndexBuffer,
+                         NS::UInteger patchIndexBufferOffset, const class Buffer* indirectBuffer,
+                         NS::UInteger indirectBufferOffset);
 
-    void         setTessellationFactorBuffer(const class Buffer* buffer, NS::UInteger offset, NS::UInteger instanceStride);
+        void drawIndexedPatches(NS::UInteger numberOfPatchControlPoints, NS::UInteger patchStart,
+                                NS::UInteger patchCount, const class Buffer* patchIndexBuffer,
+                                NS::UInteger patchIndexBufferOffset, const class Buffer* controlPointIndexBuffer,
+                                NS::UInteger controlPointIndexBufferOffset, NS::UInteger instanceCount,
+                                NS::UInteger baseInstance);
 
-    void         setTessellationFactorScale(float scale);
+        void drawIndexedPatches(NS::UInteger numberOfPatchControlPoints, const class Buffer* patchIndexBuffer,
+                                NS::UInteger patchIndexBufferOffset, const class Buffer* controlPointIndexBuffer,
+                                NS::UInteger controlPointIndexBufferOffset, const class Buffer* indirectBuffer,
+                                NS::UInteger indirectBufferOffset);
 
-    void         drawPatches(NS::UInteger numberOfPatchControlPoints, NS::UInteger patchStart, NS::UInteger patchCount, const class Buffer* patchIndexBuffer, NS::UInteger patchIndexBufferOffset, NS::UInteger instanceCount, NS::UInteger baseInstance);
+        [[nodiscard]] NS::UInteger tileWidth() const;
 
-    void         drawPatches(NS::UInteger numberOfPatchControlPoints, const class Buffer* patchIndexBuffer, NS::UInteger patchIndexBufferOffset, const class Buffer* indirectBuffer, NS::UInteger indirectBufferOffset);
+        [[nodiscard]] NS::UInteger tileHeight() const;
 
-    void         drawIndexedPatches(NS::UInteger numberOfPatchControlPoints, NS::UInteger patchStart, NS::UInteger patchCount, const class Buffer* patchIndexBuffer, NS::UInteger patchIndexBufferOffset, const class Buffer* controlPointIndexBuffer, NS::UInteger controlPointIndexBufferOffset, NS::UInteger instanceCount, NS::UInteger baseInstance);
+        void setTileBytes(const void* bytes, NS::UInteger length, NS::UInteger index);
 
-    void         drawIndexedPatches(NS::UInteger numberOfPatchControlPoints, const class Buffer* patchIndexBuffer, NS::UInteger patchIndexBufferOffset, const class Buffer* controlPointIndexBuffer, NS::UInteger controlPointIndexBufferOffset, const class Buffer* indirectBuffer, NS::UInteger indirectBufferOffset);
+        void setTileBuffer(const class Buffer* buffer, NS::UInteger offset, NS::UInteger index);
 
-    NS::UInteger tileWidth() const;
+        void setTileBufferOffset(NS::UInteger offset, NS::UInteger index);
 
-    NS::UInteger tileHeight() const;
+        void setTileBuffers(const class Buffer* const buffers[], const NS::UInteger* offsets, NS::Range range);
 
-    void         setTileBytes(const void* bytes, NS::UInteger length, NS::UInteger index);
+        void setTileTexture(const class Texture* texture, NS::UInteger index);
 
-    void         setTileBuffer(const class Buffer* buffer, NS::UInteger offset, NS::UInteger index);
+        void setTileTextures(const class Texture* const textures[], NS::Range range);
 
-    void         setTileBufferOffset(NS::UInteger offset, NS::UInteger index);
+        void setTileSamplerState(const class SamplerState* sampler, NS::UInteger index);
 
-    void         setTileBuffers(const class Buffer* const buffers[], const NS::UInteger* offsets, NS::Range range);
+        void setTileSamplerStates(const class SamplerState* const samplers[], NS::Range range);
 
-    void         setTileTexture(const class Texture* texture, NS::UInteger index);
+        void setTileSamplerState(const class SamplerState* sampler, float lodMinClamp, float lodMaxClamp,
+                                 NS::UInteger index);
 
-    void         setTileTextures(const class Texture* const textures[], NS::Range range);
+        void setTileSamplerStates(const class SamplerState* const samplers[], const float lodMinClamps[],
+                                  const float lodMaxClamps[], NS::Range range);
 
-    void         setTileSamplerState(const class SamplerState* sampler, NS::UInteger index);
+        void setTileVisibleFunctionTable(const class VisibleFunctionTable* functionTable, NS::UInteger bufferIndex);
 
-    void         setTileSamplerStates(const class SamplerState* const samplers[], NS::Range range);
+        void setTileVisibleFunctionTables(const class VisibleFunctionTable* const functionTables[], NS::Range range);
 
-    void         setTileSamplerState(const class SamplerState* sampler, float lodMinClamp, float lodMaxClamp, NS::UInteger index);
+        void setTileIntersectionFunctionTable(const class IntersectionFunctionTable* intersectionFunctionTable,
+                                              NS::UInteger bufferIndex);
 
-    void         setTileSamplerStates(const class SamplerState* const samplers[], const float lodMinClamps[], const float lodMaxClamps[], NS::Range range);
+        void setTileIntersectionFunctionTables(
+            const class IntersectionFunctionTable* const intersectionFunctionTables[], NS::Range range);
 
-    void         setTileVisibleFunctionTable(const class VisibleFunctionTable* functionTable, NS::UInteger bufferIndex);
+        void setTileAccelerationStructure(const class AccelerationStructure* accelerationStructure,
+                                          NS::UInteger bufferIndex);
 
-    void         setTileVisibleFunctionTables(const class VisibleFunctionTable* const functionTables[], NS::Range range);
+        void dispatchThreadsPerTile(MTL::Size threadsPerTile);
 
-    void         setTileIntersectionFunctionTable(const class IntersectionFunctionTable* intersectionFunctionTable, NS::UInteger bufferIndex);
+        void setThreadgroupMemoryLength(NS::UInteger length, NS::UInteger offset, NS::UInteger index);
 
-    void         setTileIntersectionFunctionTables(const class IntersectionFunctionTable* const intersectionFunctionTables[], NS::Range range);
+        void useResource(const class Resource* resource, MTL::ResourceUsage usage);
 
-    void         setTileAccelerationStructure(const class AccelerationStructure* accelerationStructure, NS::UInteger bufferIndex);
+        void useResources(const class Resource* const resources[], NS::UInteger count, MTL::ResourceUsage usage);
 
-    void         dispatchThreadsPerTile(MTL::Size threadsPerTile);
+        void useResource(const class Resource* resource, MTL::ResourceUsage usage, MTL::RenderStages stages);
 
-    void         setThreadgroupMemoryLength(NS::UInteger length, NS::UInteger offset, NS::UInteger index);
+        void useResources(const class Resource* const resources[], NS::UInteger count, MTL::ResourceUsage usage,
+                          MTL::RenderStages stages);
 
-    void         useResource(const class Resource* resource, MTL::ResourceUsage usage);
+        void useHeap(const class Heap* heap);
 
-    void         useResources(const class Resource* const resources[], NS::UInteger count, MTL::ResourceUsage usage);
+        void useHeaps(const class Heap* const heaps[], NS::UInteger count);
 
-    void         useResource(const class Resource* resource, MTL::ResourceUsage usage, MTL::RenderStages stages);
+        void useHeap(const class Heap* heap, MTL::RenderStages stages);
 
-    void         useResources(const class Resource* const resources[], NS::UInteger count, MTL::ResourceUsage usage, MTL::RenderStages stages);
+        void useHeaps(const class Heap* const heaps[], NS::UInteger count, MTL::RenderStages stages);
 
-    void         useHeap(const class Heap* heap);
+        void executeCommandsInBuffer(const class IndirectCommandBuffer* indirectCommandBuffer,
+                                     NS::Range executionRange);
 
-    void         useHeaps(const class Heap* const heaps[], NS::UInteger count);
+        void executeCommandsInBuffer(const class IndirectCommandBuffer* indirectCommandbuffer,
+                                     const class Buffer* indirectRangeBuffer, NS::UInteger indirectBufferOffset);
 
-    void         useHeap(const class Heap* heap, MTL::RenderStages stages);
+        void memoryBarrier(MTL::BarrierScope scope, MTL::RenderStages after, MTL::RenderStages before);
 
-    void         useHeaps(const class Heap* const heaps[], NS::UInteger count, MTL::RenderStages stages);
+        void memoryBarrier(const class Resource* const resources[], NS::UInteger count, MTL::RenderStages after,
+                           MTL::RenderStages before);
 
-    void         executeCommandsInBuffer(const class IndirectCommandBuffer* indirectCommandBuffer, NS::Range executionRange);
-
-    void         executeCommandsInBuffer(const class IndirectCommandBuffer* indirectCommandbuffer, const class Buffer* indirectRangeBuffer, NS::UInteger indirectBufferOffset);
-
-    void         memoryBarrier(MTL::BarrierScope scope, MTL::RenderStages after, MTL::RenderStages before);
-
-    void         memoryBarrier(const class Resource* const resources[], NS::UInteger count, MTL::RenderStages after, MTL::RenderStages before);
-
-    void         sampleCountersInBuffer(const class CounterSampleBuffer* sampleBuffer, NS::UInteger sampleIndex, bool barrier);
-};
-
+        void sampleCountersInBuffer(const class CounterSampleBuffer* sampleBuffer, NS::UInteger sampleIndex,
+                                    bool barrier);
+    };
 }
 
 // method: setRenderPipelineState:
@@ -415,7 +479,8 @@ _MTL_INLINE void MTL::RenderCommandEncoder::setVertexBytes(const void* bytes, NS
 }
 
 // method: setVertexBuffer:offset:atIndex:
-_MTL_INLINE void MTL::RenderCommandEncoder::setVertexBuffer(const MTL::Buffer* buffer, NS::UInteger offset, NS::UInteger index)
+_MTL_INLINE void MTL::RenderCommandEncoder::setVertexBuffer(const MTL::Buffer* buffer, NS::UInteger offset,
+                                                            NS::UInteger index)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setVertexBuffer_offset_atIndex_), buffer, offset, index);
 }
@@ -427,33 +492,43 @@ _MTL_INLINE void MTL::RenderCommandEncoder::setVertexBufferOffset(NS::UInteger o
 }
 
 // method: setVertexBuffers:offsets:withRange:
-_MTL_INLINE void MTL::RenderCommandEncoder::setVertexBuffers(const MTL::Buffer* const buffers[], const NS::UInteger offsets[], NS::Range range)
+_MTL_INLINE void MTL::RenderCommandEncoder::setVertexBuffers(const MTL::Buffer* const buffers[],
+                                                             const NS::UInteger offsets[], NS::Range range)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setVertexBuffers_offsets_withRange_), buffers, offsets, range);
 }
 
 // method: setVertexBuffer:offset:attributeStride:atIndex:
-_MTL_INLINE void MTL::RenderCommandEncoder::setVertexBuffer(const MTL::Buffer* buffer, NS::UInteger offset, NS::UInteger stride, NS::UInteger index)
+_MTL_INLINE void MTL::RenderCommandEncoder::setVertexBuffer(const MTL::Buffer* buffer, NS::UInteger offset,
+                                                            NS::UInteger stride, NS::UInteger index)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setVertexBuffer_offset_attributeStride_atIndex_), buffer, offset, stride, index);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setVertexBuffer_offset_attributeStride_atIndex_), buffer, offset,
+                              stride, index);
 }
 
 // method: setVertexBuffers:offsets:attributeStrides:withRange:
-_MTL_INLINE void MTL::RenderCommandEncoder::setVertexBuffers(const MTL::Buffer* const buffers[], const NS::UInteger* offsets, const NS::UInteger* strides, NS::Range range)
+_MTL_INLINE void MTL::RenderCommandEncoder::setVertexBuffers(const MTL::Buffer* const buffers[],
+                                                             const NS::UInteger* offsets, const NS::UInteger* strides,
+                                                             NS::Range range)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setVertexBuffers_offsets_attributeStrides_withRange_), buffers, offsets, strides, range);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setVertexBuffers_offsets_attributeStrides_withRange_), buffers,
+                              offsets, strides, range);
 }
 
 // method: setVertexBufferOffset:attributeStride:atIndex:
-_MTL_INLINE void MTL::RenderCommandEncoder::setVertexBufferOffset(NS::UInteger offset, NS::UInteger stride, NS::UInteger index)
+_MTL_INLINE void MTL::RenderCommandEncoder::setVertexBufferOffset(NS::UInteger offset, NS::UInteger stride,
+                                                                  NS::UInteger index)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setVertexBufferOffset_attributeStride_atIndex_), offset, stride, index);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setVertexBufferOffset_attributeStride_atIndex_), offset, stride,
+                              index);
 }
 
 // method: setVertexBytes:length:attributeStride:atIndex:
-_MTL_INLINE void MTL::RenderCommandEncoder::setVertexBytes(const void* bytes, NS::UInteger length, NS::UInteger stride, NS::UInteger index)
+_MTL_INLINE void MTL::RenderCommandEncoder::setVertexBytes(const void* bytes, NS::UInteger length, NS::UInteger stride,
+                                                           NS::UInteger index)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setVertexBytes_length_attributeStride_atIndex_), bytes, length, stride, index);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setVertexBytes_length_attributeStride_atIndex_), bytes, length,
+                              stride, index);
 }
 
 // method: setVertexTexture:atIndex:
@@ -475,51 +550,67 @@ _MTL_INLINE void MTL::RenderCommandEncoder::setVertexSamplerState(const MTL::Sam
 }
 
 // method: setVertexSamplerStates:withRange:
-_MTL_INLINE void MTL::RenderCommandEncoder::setVertexSamplerStates(const MTL::SamplerState* const samplers[], NS::Range range)
+_MTL_INLINE void MTL::RenderCommandEncoder::setVertexSamplerStates(const MTL::SamplerState* const samplers[],
+                                                                   NS::Range range)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setVertexSamplerStates_withRange_), samplers, range);
 }
 
 // method: setVertexSamplerState:lodMinClamp:lodMaxClamp:atIndex:
-_MTL_INLINE void MTL::RenderCommandEncoder::setVertexSamplerState(const MTL::SamplerState* sampler, float lodMinClamp, float lodMaxClamp, NS::UInteger index)
+_MTL_INLINE void MTL::RenderCommandEncoder::setVertexSamplerState(const MTL::SamplerState* sampler, float lodMinClamp,
+                                                                  float lodMaxClamp, NS::UInteger index)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setVertexSamplerState_lodMinClamp_lodMaxClamp_atIndex_), sampler, lodMinClamp, lodMaxClamp, index);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setVertexSamplerState_lodMinClamp_lodMaxClamp_atIndex_), sampler,
+                              lodMinClamp, lodMaxClamp, index);
 }
 
 // method: setVertexSamplerStates:lodMinClamps:lodMaxClamps:withRange:
-_MTL_INLINE void MTL::RenderCommandEncoder::setVertexSamplerStates(const MTL::SamplerState* const samplers[], const float lodMinClamps[], const float lodMaxClamps[], NS::Range range)
+_MTL_INLINE void MTL::RenderCommandEncoder::setVertexSamplerStates(const MTL::SamplerState* const samplers[],
+                                                                   const float lodMinClamps[],
+                                                                   const float lodMaxClamps[], NS::Range range)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setVertexSamplerStates_lodMinClamps_lodMaxClamps_withRange_), samplers, lodMinClamps, lodMaxClamps, range);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setVertexSamplerStates_lodMinClamps_lodMaxClamps_withRange_),
+                              samplers, lodMinClamps, lodMaxClamps, range);
 }
 
 // method: setVertexVisibleFunctionTable:atBufferIndex:
-_MTL_INLINE void MTL::RenderCommandEncoder::setVertexVisibleFunctionTable(const MTL::VisibleFunctionTable* functionTable, NS::UInteger bufferIndex)
+_MTL_INLINE void MTL::RenderCommandEncoder::setVertexVisibleFunctionTable(
+    const MTL::VisibleFunctionTable* functionTable, NS::UInteger bufferIndex)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setVertexVisibleFunctionTable_atBufferIndex_), functionTable, bufferIndex);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setVertexVisibleFunctionTable_atBufferIndex_), functionTable,
+                              bufferIndex);
 }
 
 // method: setVertexVisibleFunctionTables:withBufferRange:
-_MTL_INLINE void MTL::RenderCommandEncoder::setVertexVisibleFunctionTables(const MTL::VisibleFunctionTable* const functionTables[], NS::Range range)
+_MTL_INLINE void MTL::RenderCommandEncoder::setVertexVisibleFunctionTables(
+    const MTL::VisibleFunctionTable* const functionTables[], NS::Range range)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setVertexVisibleFunctionTables_withBufferRange_), functionTables, range);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setVertexVisibleFunctionTables_withBufferRange_), functionTables,
+                              range);
 }
 
 // method: setVertexIntersectionFunctionTable:atBufferIndex:
-_MTL_INLINE void MTL::RenderCommandEncoder::setVertexIntersectionFunctionTable(const MTL::IntersectionFunctionTable* intersectionFunctionTable, NS::UInteger bufferIndex)
+_MTL_INLINE void MTL::RenderCommandEncoder::setVertexIntersectionFunctionTable(
+    const MTL::IntersectionFunctionTable* intersectionFunctionTable, NS::UInteger bufferIndex)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setVertexIntersectionFunctionTable_atBufferIndex_), intersectionFunctionTable, bufferIndex);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setVertexIntersectionFunctionTable_atBufferIndex_),
+                              intersectionFunctionTable, bufferIndex);
 }
 
 // method: setVertexIntersectionFunctionTables:withBufferRange:
-_MTL_INLINE void MTL::RenderCommandEncoder::setVertexIntersectionFunctionTables(const MTL::IntersectionFunctionTable* const intersectionFunctionTables[], NS::Range range)
+_MTL_INLINE void MTL::RenderCommandEncoder::setVertexIntersectionFunctionTables(
+    const MTL::IntersectionFunctionTable* const intersectionFunctionTables[], NS::Range range)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setVertexIntersectionFunctionTables_withBufferRange_), intersectionFunctionTables, range);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setVertexIntersectionFunctionTables_withBufferRange_),
+                              intersectionFunctionTables, range);
 }
 
 // method: setVertexAccelerationStructure:atBufferIndex:
-_MTL_INLINE void MTL::RenderCommandEncoder::setVertexAccelerationStructure(const MTL::AccelerationStructure* accelerationStructure, NS::UInteger bufferIndex)
+_MTL_INLINE void MTL::RenderCommandEncoder::setVertexAccelerationStructure(
+    const MTL::AccelerationStructure* accelerationStructure, NS::UInteger bufferIndex)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setVertexAccelerationStructure_atBufferIndex_), accelerationStructure, bufferIndex);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setVertexAccelerationStructure_atBufferIndex_),
+                              accelerationStructure, bufferIndex);
 }
 
 // method: setViewport:
@@ -541,7 +632,8 @@ _MTL_INLINE void MTL::RenderCommandEncoder::setFrontFacingWinding(MTL::Winding f
 }
 
 // method: setVertexAmplificationCount:viewMappings:
-_MTL_INLINE void MTL::RenderCommandEncoder::setVertexAmplificationCount(NS::UInteger count, const MTL::VertexAmplificationViewMapping* viewMappings)
+_MTL_INLINE void MTL::RenderCommandEncoder::setVertexAmplificationCount(
+    NS::UInteger count, const MTL::VertexAmplificationViewMapping* viewMappings)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setVertexAmplificationCount_viewMappings_), count, viewMappings);
 }
@@ -589,7 +681,8 @@ _MTL_INLINE void MTL::RenderCommandEncoder::setFragmentBytes(const void* bytes, 
 }
 
 // method: setFragmentBuffer:offset:atIndex:
-_MTL_INLINE void MTL::RenderCommandEncoder::setFragmentBuffer(const MTL::Buffer* buffer, NS::UInteger offset, NS::UInteger index)
+_MTL_INLINE void MTL::RenderCommandEncoder::setFragmentBuffer(const MTL::Buffer* buffer, NS::UInteger offset,
+                                                              NS::UInteger index)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setFragmentBuffer_offset_atIndex_), buffer, offset, index);
 }
@@ -601,7 +694,8 @@ _MTL_INLINE void MTL::RenderCommandEncoder::setFragmentBufferOffset(NS::UInteger
 }
 
 // method: setFragmentBuffers:offsets:withRange:
-_MTL_INLINE void MTL::RenderCommandEncoder::setFragmentBuffers(const MTL::Buffer* const buffers[], const NS::UInteger offsets[], NS::Range range)
+_MTL_INLINE void MTL::RenderCommandEncoder::setFragmentBuffers(const MTL::Buffer* const buffers[],
+                                                               const NS::UInteger offsets[], NS::Range range)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setFragmentBuffers_offsets_withRange_), buffers, offsets, range);
 }
@@ -619,57 +713,74 @@ _MTL_INLINE void MTL::RenderCommandEncoder::setFragmentTextures(const MTL::Textu
 }
 
 // method: setFragmentSamplerState:atIndex:
-_MTL_INLINE void MTL::RenderCommandEncoder::setFragmentSamplerState(const MTL::SamplerState* sampler, NS::UInteger index)
+_MTL_INLINE void MTL::RenderCommandEncoder::setFragmentSamplerState(const MTL::SamplerState* sampler,
+                                                                    NS::UInteger index)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setFragmentSamplerState_atIndex_), sampler, index);
 }
 
 // method: setFragmentSamplerStates:withRange:
-_MTL_INLINE void MTL::RenderCommandEncoder::setFragmentSamplerStates(const MTL::SamplerState* const samplers[], NS::Range range)
+_MTL_INLINE void MTL::RenderCommandEncoder::setFragmentSamplerStates(const MTL::SamplerState* const samplers[],
+                                                                     NS::Range range)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setFragmentSamplerStates_withRange_), samplers, range);
 }
 
 // method: setFragmentSamplerState:lodMinClamp:lodMaxClamp:atIndex:
-_MTL_INLINE void MTL::RenderCommandEncoder::setFragmentSamplerState(const MTL::SamplerState* sampler, float lodMinClamp, float lodMaxClamp, NS::UInteger index)
+_MTL_INLINE void MTL::RenderCommandEncoder::setFragmentSamplerState(const MTL::SamplerState* sampler, float lodMinClamp,
+                                                                    float lodMaxClamp, NS::UInteger index)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setFragmentSamplerState_lodMinClamp_lodMaxClamp_atIndex_), sampler, lodMinClamp, lodMaxClamp, index);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setFragmentSamplerState_lodMinClamp_lodMaxClamp_atIndex_), sampler,
+                              lodMinClamp, lodMaxClamp, index);
 }
 
 // method: setFragmentSamplerStates:lodMinClamps:lodMaxClamps:withRange:
-_MTL_INLINE void MTL::RenderCommandEncoder::setFragmentSamplerStates(const MTL::SamplerState* const samplers[], const float lodMinClamps[], const float lodMaxClamps[], NS::Range range)
+_MTL_INLINE void MTL::RenderCommandEncoder::setFragmentSamplerStates(const MTL::SamplerState* const samplers[],
+                                                                     const float lodMinClamps[],
+                                                                     const float lodMaxClamps[], NS::Range range)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setFragmentSamplerStates_lodMinClamps_lodMaxClamps_withRange_), samplers, lodMinClamps, lodMaxClamps, range);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setFragmentSamplerStates_lodMinClamps_lodMaxClamps_withRange_),
+                              samplers, lodMinClamps, lodMaxClamps, range);
 }
 
 // method: setFragmentVisibleFunctionTable:atBufferIndex:
-_MTL_INLINE void MTL::RenderCommandEncoder::setFragmentVisibleFunctionTable(const MTL::VisibleFunctionTable* functionTable, NS::UInteger bufferIndex)
+_MTL_INLINE void MTL::RenderCommandEncoder::setFragmentVisibleFunctionTable(
+    const MTL::VisibleFunctionTable* functionTable, NS::UInteger bufferIndex)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setFragmentVisibleFunctionTable_atBufferIndex_), functionTable, bufferIndex);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setFragmentVisibleFunctionTable_atBufferIndex_), functionTable,
+                              bufferIndex);
 }
 
 // method: setFragmentVisibleFunctionTables:withBufferRange:
-_MTL_INLINE void MTL::RenderCommandEncoder::setFragmentVisibleFunctionTables(const MTL::VisibleFunctionTable* const functionTables[], NS::Range range)
+_MTL_INLINE void MTL::RenderCommandEncoder::setFragmentVisibleFunctionTables(
+    const MTL::VisibleFunctionTable* const functionTables[], NS::Range range)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setFragmentVisibleFunctionTables_withBufferRange_), functionTables, range);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setFragmentVisibleFunctionTables_withBufferRange_), functionTables,
+                              range);
 }
 
 // method: setFragmentIntersectionFunctionTable:atBufferIndex:
-_MTL_INLINE void MTL::RenderCommandEncoder::setFragmentIntersectionFunctionTable(const MTL::IntersectionFunctionTable* intersectionFunctionTable, NS::UInteger bufferIndex)
+_MTL_INLINE void MTL::RenderCommandEncoder::setFragmentIntersectionFunctionTable(
+    const MTL::IntersectionFunctionTable* intersectionFunctionTable, NS::UInteger bufferIndex)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setFragmentIntersectionFunctionTable_atBufferIndex_), intersectionFunctionTable, bufferIndex);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setFragmentIntersectionFunctionTable_atBufferIndex_),
+                              intersectionFunctionTable, bufferIndex);
 }
 
 // method: setFragmentIntersectionFunctionTables:withBufferRange:
-_MTL_INLINE void MTL::RenderCommandEncoder::setFragmentIntersectionFunctionTables(const MTL::IntersectionFunctionTable* const intersectionFunctionTables[], NS::Range range)
+_MTL_INLINE void MTL::RenderCommandEncoder::setFragmentIntersectionFunctionTables(
+    const MTL::IntersectionFunctionTable* const intersectionFunctionTables[], NS::Range range)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setFragmentIntersectionFunctionTables_withBufferRange_), intersectionFunctionTables, range);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setFragmentIntersectionFunctionTables_withBufferRange_),
+                              intersectionFunctionTables, range);
 }
 
 // method: setFragmentAccelerationStructure:atBufferIndex:
-_MTL_INLINE void MTL::RenderCommandEncoder::setFragmentAccelerationStructure(const MTL::AccelerationStructure* accelerationStructure, NS::UInteger bufferIndex)
+_MTL_INLINE void MTL::RenderCommandEncoder::setFragmentAccelerationStructure(
+    const MTL::AccelerationStructure* accelerationStructure, NS::UInteger bufferIndex)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setFragmentAccelerationStructure_atBufferIndex_), accelerationStructure, bufferIndex);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setFragmentAccelerationStructure_atBufferIndex_),
+                              accelerationStructure, bufferIndex);
 }
 
 // method: setBlendColorRed:green:blue:alpha:
@@ -691,9 +802,11 @@ _MTL_INLINE void MTL::RenderCommandEncoder::setStencilReferenceValue(uint32_t re
 }
 
 // method: setStencilFrontReferenceValue:backReferenceValue:
-_MTL_INLINE void MTL::RenderCommandEncoder::setStencilReferenceValues(uint32_t frontReferenceValue, uint32_t backReferenceValue)
+_MTL_INLINE void MTL::RenderCommandEncoder::setStencilReferenceValues(uint32_t frontReferenceValue,
+                                                                      uint32_t backReferenceValue)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setStencilFrontReferenceValue_backReferenceValue_), frontReferenceValue, backReferenceValue);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setStencilFrontReferenceValue_backReferenceValue_),
+                              frontReferenceValue, backReferenceValue);
 }
 
 // method: setVisibilityResultMode:offset:
@@ -703,7 +816,8 @@ _MTL_INLINE void MTL::RenderCommandEncoder::setVisibilityResultMode(MTL::Visibil
 }
 
 // method: setColorStoreAction:atIndex:
-_MTL_INLINE void MTL::RenderCommandEncoder::setColorStoreAction(MTL::StoreAction storeAction, NS::UInteger colorAttachmentIndex)
+_MTL_INLINE void MTL::RenderCommandEncoder::setColorStoreAction(MTL::StoreAction storeAction,
+                                                                NS::UInteger colorAttachmentIndex)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setColorStoreAction_atIndex_), storeAction, colorAttachmentIndex);
 }
@@ -721,9 +835,11 @@ _MTL_INLINE void MTL::RenderCommandEncoder::setStencilStoreAction(MTL::StoreActi
 }
 
 // method: setColorStoreActionOptions:atIndex:
-_MTL_INLINE void MTL::RenderCommandEncoder::setColorStoreActionOptions(MTL::StoreActionOptions storeActionOptions, NS::UInteger colorAttachmentIndex)
+_MTL_INLINE void MTL::RenderCommandEncoder::setColorStoreActionOptions(MTL::StoreActionOptions storeActionOptions,
+                                                                       NS::UInteger colorAttachmentIndex)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setColorStoreActionOptions_atIndex_), storeActionOptions, colorAttachmentIndex);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setColorStoreActionOptions_atIndex_), storeActionOptions,
+                              colorAttachmentIndex);
 }
 
 // method: setDepthStoreActionOptions:
@@ -745,7 +861,8 @@ _MTL_INLINE void MTL::RenderCommandEncoder::setObjectBytes(const void* bytes, NS
 }
 
 // method: setObjectBuffer:offset:atIndex:
-_MTL_INLINE void MTL::RenderCommandEncoder::setObjectBuffer(const MTL::Buffer* buffer, NS::UInteger offset, NS::UInteger index)
+_MTL_INLINE void MTL::RenderCommandEncoder::setObjectBuffer(const MTL::Buffer* buffer, NS::UInteger offset,
+                                                            NS::UInteger index)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setObjectBuffer_offset_atIndex_), buffer, offset, index);
 }
@@ -757,7 +874,8 @@ _MTL_INLINE void MTL::RenderCommandEncoder::setObjectBufferOffset(NS::UInteger o
 }
 
 // method: setObjectBuffers:offsets:withRange:
-_MTL_INLINE void MTL::RenderCommandEncoder::setObjectBuffers(const MTL::Buffer* const buffers[], const NS::UInteger* offsets, NS::Range range)
+_MTL_INLINE void MTL::RenderCommandEncoder::setObjectBuffers(const MTL::Buffer* const buffers[],
+                                                             const NS::UInteger* offsets, NS::Range range)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setObjectBuffers_offsets_withRange_), buffers, offsets, range);
 }
@@ -781,21 +899,27 @@ _MTL_INLINE void MTL::RenderCommandEncoder::setObjectSamplerState(const MTL::Sam
 }
 
 // method: setObjectSamplerStates:withRange:
-_MTL_INLINE void MTL::RenderCommandEncoder::setObjectSamplerStates(const MTL::SamplerState* const samplers[], NS::Range range)
+_MTL_INLINE void MTL::RenderCommandEncoder::setObjectSamplerStates(const MTL::SamplerState* const samplers[],
+                                                                   NS::Range range)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setObjectSamplerStates_withRange_), samplers, range);
 }
 
 // method: setObjectSamplerState:lodMinClamp:lodMaxClamp:atIndex:
-_MTL_INLINE void MTL::RenderCommandEncoder::setObjectSamplerState(const MTL::SamplerState* sampler, float lodMinClamp, float lodMaxClamp, NS::UInteger index)
+_MTL_INLINE void MTL::RenderCommandEncoder::setObjectSamplerState(const MTL::SamplerState* sampler, float lodMinClamp,
+                                                                  float lodMaxClamp, NS::UInteger index)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setObjectSamplerState_lodMinClamp_lodMaxClamp_atIndex_), sampler, lodMinClamp, lodMaxClamp, index);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setObjectSamplerState_lodMinClamp_lodMaxClamp_atIndex_), sampler,
+                              lodMinClamp, lodMaxClamp, index);
 }
 
 // method: setObjectSamplerStates:lodMinClamps:lodMaxClamps:withRange:
-_MTL_INLINE void MTL::RenderCommandEncoder::setObjectSamplerStates(const MTL::SamplerState* const samplers[], const float* lodMinClamps, const float* lodMaxClamps, NS::Range range)
+_MTL_INLINE void MTL::RenderCommandEncoder::setObjectSamplerStates(const MTL::SamplerState* const samplers[],
+                                                                   const float* lodMinClamps, const float* lodMaxClamps,
+                                                                   NS::Range range)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setObjectSamplerStates_lodMinClamps_lodMaxClamps_withRange_), samplers, lodMinClamps, lodMaxClamps, range);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setObjectSamplerStates_lodMinClamps_lodMaxClamps_withRange_),
+                              samplers, lodMinClamps, lodMaxClamps, range);
 }
 
 // method: setObjectThreadgroupMemoryLength:atIndex:
@@ -811,7 +935,8 @@ _MTL_INLINE void MTL::RenderCommandEncoder::setMeshBytes(const void* bytes, NS::
 }
 
 // method: setMeshBuffer:offset:atIndex:
-_MTL_INLINE void MTL::RenderCommandEncoder::setMeshBuffer(const MTL::Buffer* buffer, NS::UInteger offset, NS::UInteger index)
+_MTL_INLINE void MTL::RenderCommandEncoder::setMeshBuffer(const MTL::Buffer* buffer, NS::UInteger offset,
+                                                          NS::UInteger index)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMeshBuffer_offset_atIndex_), buffer, offset, index);
 }
@@ -823,7 +948,8 @@ _MTL_INLINE void MTL::RenderCommandEncoder::setMeshBufferOffset(NS::UInteger off
 }
 
 // method: setMeshBuffers:offsets:withRange:
-_MTL_INLINE void MTL::RenderCommandEncoder::setMeshBuffers(const MTL::Buffer* const buffers[], const NS::UInteger* offsets, NS::Range range)
+_MTL_INLINE void MTL::RenderCommandEncoder::setMeshBuffers(const MTL::Buffer* const buffers[],
+                                                           const NS::UInteger* offsets, NS::Range range)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMeshBuffers_offsets_withRange_), buffers, offsets, range);
 }
@@ -847,87 +973,145 @@ _MTL_INLINE void MTL::RenderCommandEncoder::setMeshSamplerState(const MTL::Sampl
 }
 
 // method: setMeshSamplerStates:withRange:
-_MTL_INLINE void MTL::RenderCommandEncoder::setMeshSamplerStates(const MTL::SamplerState* const samplers[], NS::Range range)
+_MTL_INLINE void MTL::RenderCommandEncoder::setMeshSamplerStates(const MTL::SamplerState* const samplers[],
+                                                                 NS::Range range)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMeshSamplerStates_withRange_), samplers, range);
 }
 
 // method: setMeshSamplerState:lodMinClamp:lodMaxClamp:atIndex:
-_MTL_INLINE void MTL::RenderCommandEncoder::setMeshSamplerState(const MTL::SamplerState* sampler, float lodMinClamp, float lodMaxClamp, NS::UInteger index)
+_MTL_INLINE void MTL::RenderCommandEncoder::setMeshSamplerState(const MTL::SamplerState* sampler, float lodMinClamp,
+                                                                float lodMaxClamp, NS::UInteger index)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMeshSamplerState_lodMinClamp_lodMaxClamp_atIndex_), sampler, lodMinClamp, lodMaxClamp, index);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMeshSamplerState_lodMinClamp_lodMaxClamp_atIndex_), sampler,
+                              lodMinClamp, lodMaxClamp, index);
 }
 
 // method: setMeshSamplerStates:lodMinClamps:lodMaxClamps:withRange:
-_MTL_INLINE void MTL::RenderCommandEncoder::setMeshSamplerStates(const MTL::SamplerState* const samplers[], const float* lodMinClamps, const float* lodMaxClamps, NS::Range range)
+_MTL_INLINE void MTL::RenderCommandEncoder::setMeshSamplerStates(const MTL::SamplerState* const samplers[],
+                                                                 const float* lodMinClamps, const float* lodMaxClamps,
+                                                                 NS::Range range)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMeshSamplerStates_lodMinClamps_lodMaxClamps_withRange_), samplers, lodMinClamps, lodMaxClamps, range);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMeshSamplerStates_lodMinClamps_lodMaxClamps_withRange_),
+                              samplers, lodMinClamps, lodMaxClamps, range);
 }
 
 // method: drawMeshThreadgroups:threadsPerObjectThreadgroup:threadsPerMeshThreadgroup:
-_MTL_INLINE void MTL::RenderCommandEncoder::drawMeshThreadgroups(MTL::Size threadgroupsPerGrid, MTL::Size threadsPerObjectThreadgroup, MTL::Size threadsPerMeshThreadgroup)
+_MTL_INLINE void MTL::RenderCommandEncoder::drawMeshThreadgroups(MTL::Size threadgroupsPerGrid,
+                                                                 MTL::Size threadsPerObjectThreadgroup,
+                                                                 MTL::Size threadsPerMeshThreadgroup)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(drawMeshThreadgroups_threadsPerObjectThreadgroup_threadsPerMeshThreadgroup_), threadgroupsPerGrid, threadsPerObjectThreadgroup, threadsPerMeshThreadgroup);
+    Object::sendMessage<void>(
+        this, _MTL_PRIVATE_SEL(drawMeshThreadgroups_threadsPerObjectThreadgroup_threadsPerMeshThreadgroup_),
+        threadgroupsPerGrid, threadsPerObjectThreadgroup, threadsPerMeshThreadgroup);
 }
 
 // method: drawMeshThreads:threadsPerObjectThreadgroup:threadsPerMeshThreadgroup:
-_MTL_INLINE void MTL::RenderCommandEncoder::drawMeshThreads(MTL::Size threadsPerGrid, MTL::Size threadsPerObjectThreadgroup, MTL::Size threadsPerMeshThreadgroup)
+_MTL_INLINE void MTL::RenderCommandEncoder::drawMeshThreads(MTL::Size threadsPerGrid,
+                                                            MTL::Size threadsPerObjectThreadgroup,
+                                                            MTL::Size threadsPerMeshThreadgroup)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(drawMeshThreads_threadsPerObjectThreadgroup_threadsPerMeshThreadgroup_), threadsPerGrid, threadsPerObjectThreadgroup, threadsPerMeshThreadgroup);
+    Object::sendMessage<void>(
+        this, _MTL_PRIVATE_SEL(drawMeshThreads_threadsPerObjectThreadgroup_threadsPerMeshThreadgroup_), threadsPerGrid,
+        threadsPerObjectThreadgroup, threadsPerMeshThreadgroup);
 }
 
 // method: drawMeshThreadgroupsWithIndirectBuffer:indirectBufferOffset:threadsPerObjectThreadgroup:threadsPerMeshThreadgroup:
-_MTL_INLINE void MTL::RenderCommandEncoder::drawMeshThreadgroups(const MTL::Buffer* indirectBuffer, NS::UInteger indirectBufferOffset, MTL::Size threadsPerObjectThreadgroup, MTL::Size threadsPerMeshThreadgroup)
+_MTL_INLINE void MTL::RenderCommandEncoder::drawMeshThreadgroups(const MTL::Buffer* indirectBuffer,
+                                                                 NS::UInteger indirectBufferOffset,
+                                                                 MTL::Size threadsPerObjectThreadgroup,
+                                                                 MTL::Size threadsPerMeshThreadgroup)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(drawMeshThreadgroupsWithIndirectBuffer_indirectBufferOffset_threadsPerObjectThreadgroup_threadsPerMeshThreadgroup_), indirectBuffer, indirectBufferOffset, threadsPerObjectThreadgroup, threadsPerMeshThreadgroup);
+    Object::sendMessage<void>(
+        this, _MTL_PRIVATE_SEL(
+            drawMeshThreadgroupsWithIndirectBuffer_indirectBufferOffset_threadsPerObjectThreadgroup_threadsPerMeshThreadgroup_),
+        indirectBuffer, indirectBufferOffset, threadsPerObjectThreadgroup, threadsPerMeshThreadgroup);
 }
 
 // method: drawPrimitives:vertexStart:vertexCount:instanceCount:
-_MTL_INLINE void MTL::RenderCommandEncoder::drawPrimitives(MTL::PrimitiveType primitiveType, NS::UInteger vertexStart, NS::UInteger vertexCount, NS::UInteger instanceCount)
+_MTL_INLINE void MTL::RenderCommandEncoder::drawPrimitives(MTL::PrimitiveType primitiveType, NS::UInteger vertexStart,
+                                                           NS::UInteger vertexCount, NS::UInteger instanceCount)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(drawPrimitives_vertexStart_vertexCount_instanceCount_), primitiveType, vertexStart, vertexCount, instanceCount);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(drawPrimitives_vertexStart_vertexCount_instanceCount_),
+                              primitiveType, vertexStart, vertexCount, instanceCount);
 }
 
 // method: drawPrimitives:vertexStart:vertexCount:
-_MTL_INLINE void MTL::RenderCommandEncoder::drawPrimitives(MTL::PrimitiveType primitiveType, NS::UInteger vertexStart, NS::UInteger vertexCount)
+_MTL_INLINE void MTL::RenderCommandEncoder::drawPrimitives(MTL::PrimitiveType primitiveType, NS::UInteger vertexStart,
+                                                           NS::UInteger vertexCount)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(drawPrimitives_vertexStart_vertexCount_), primitiveType, vertexStart, vertexCount);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(drawPrimitives_vertexStart_vertexCount_), primitiveType,
+                              vertexStart, vertexCount);
 }
 
 // method: drawIndexedPrimitives:indexCount:indexType:indexBuffer:indexBufferOffset:instanceCount:
-_MTL_INLINE void MTL::RenderCommandEncoder::drawIndexedPrimitives(MTL::PrimitiveType primitiveType, NS::UInteger indexCount, MTL::IndexType indexType, const MTL::Buffer* indexBuffer, NS::UInteger indexBufferOffset, NS::UInteger instanceCount)
+_MTL_INLINE void MTL::RenderCommandEncoder::drawIndexedPrimitives(MTL::PrimitiveType primitiveType,
+                                                                  NS::UInteger indexCount, MTL::IndexType indexType,
+                                                                  const MTL::Buffer* indexBuffer,
+                                                                  NS::UInteger indexBufferOffset,
+                                                                  NS::UInteger instanceCount)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferOffset_instanceCount_), primitiveType, indexCount, indexType, indexBuffer, indexBufferOffset, instanceCount);
+    Object::sendMessage<void>(
+        this, _MTL_PRIVATE_SEL(drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferOffset_instanceCount_),
+        primitiveType, indexCount, indexType, indexBuffer, indexBufferOffset, instanceCount);
 }
 
 // method: drawIndexedPrimitives:indexCount:indexType:indexBuffer:indexBufferOffset:
-_MTL_INLINE void MTL::RenderCommandEncoder::drawIndexedPrimitives(MTL::PrimitiveType primitiveType, NS::UInteger indexCount, MTL::IndexType indexType, const MTL::Buffer* indexBuffer, NS::UInteger indexBufferOffset)
+_MTL_INLINE void MTL::RenderCommandEncoder::drawIndexedPrimitives(MTL::PrimitiveType primitiveType,
+                                                                  NS::UInteger indexCount, MTL::IndexType indexType,
+                                                                  const MTL::Buffer* indexBuffer,
+                                                                  NS::UInteger indexBufferOffset)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferOffset_), primitiveType, indexCount, indexType, indexBuffer, indexBufferOffset);
+    Object::sendMessage<void>(
+        this, _MTL_PRIVATE_SEL(drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferOffset_),
+        primitiveType, indexCount, indexType, indexBuffer, indexBufferOffset);
 }
 
 // method: drawPrimitives:vertexStart:vertexCount:instanceCount:baseInstance:
-_MTL_INLINE void MTL::RenderCommandEncoder::drawPrimitives(MTL::PrimitiveType primitiveType, NS::UInteger vertexStart, NS::UInteger vertexCount, NS::UInteger instanceCount, NS::UInteger baseInstance)
+_MTL_INLINE void MTL::RenderCommandEncoder::drawPrimitives(MTL::PrimitiveType primitiveType, NS::UInteger vertexStart,
+                                                           NS::UInteger vertexCount, NS::UInteger instanceCount,
+                                                           NS::UInteger baseInstance)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(drawPrimitives_vertexStart_vertexCount_instanceCount_baseInstance_), primitiveType, vertexStart, vertexCount, instanceCount, baseInstance);
+    Object::sendMessage<void>(
+        this, _MTL_PRIVATE_SEL(drawPrimitives_vertexStart_vertexCount_instanceCount_baseInstance_), primitiveType,
+        vertexStart, vertexCount, instanceCount, baseInstance);
 }
 
 // method: drawIndexedPrimitives:indexCount:indexType:indexBuffer:indexBufferOffset:instanceCount:baseVertex:baseInstance:
-_MTL_INLINE void MTL::RenderCommandEncoder::drawIndexedPrimitives(MTL::PrimitiveType primitiveType, NS::UInteger indexCount, MTL::IndexType indexType, const MTL::Buffer* indexBuffer, NS::UInteger indexBufferOffset, NS::UInteger instanceCount, NS::Integer baseVertex, NS::UInteger baseInstance)
+_MTL_INLINE void MTL::RenderCommandEncoder::drawIndexedPrimitives(MTL::PrimitiveType primitiveType,
+                                                                  NS::UInteger indexCount, MTL::IndexType indexType,
+                                                                  const MTL::Buffer* indexBuffer,
+                                                                  NS::UInteger indexBufferOffset,
+                                                                  NS::UInteger instanceCount, NS::Integer baseVertex,
+                                                                  NS::UInteger baseInstance)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferOffset_instanceCount_baseVertex_baseInstance_), primitiveType, indexCount, indexType, indexBuffer, indexBufferOffset, instanceCount, baseVertex, baseInstance);
+    Object::sendMessage<void>(
+        this, _MTL_PRIVATE_SEL(
+            drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferOffset_instanceCount_baseVertex_baseInstance_),
+        primitiveType, indexCount, indexType, indexBuffer, indexBufferOffset, instanceCount, baseVertex, baseInstance);
 }
 
 // method: drawPrimitives:indirectBuffer:indirectBufferOffset:
-_MTL_INLINE void MTL::RenderCommandEncoder::drawPrimitives(MTL::PrimitiveType primitiveType, const MTL::Buffer* indirectBuffer, NS::UInteger indirectBufferOffset)
+_MTL_INLINE void MTL::RenderCommandEncoder::drawPrimitives(MTL::PrimitiveType primitiveType,
+                                                           const MTL::Buffer* indirectBuffer,
+                                                           NS::UInteger indirectBufferOffset)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(drawPrimitives_indirectBuffer_indirectBufferOffset_), primitiveType, indirectBuffer, indirectBufferOffset);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(drawPrimitives_indirectBuffer_indirectBufferOffset_),
+                              primitiveType, indirectBuffer, indirectBufferOffset);
 }
 
 // method: drawIndexedPrimitives:indexType:indexBuffer:indexBufferOffset:indirectBuffer:indirectBufferOffset:
-_MTL_INLINE void MTL::RenderCommandEncoder::drawIndexedPrimitives(MTL::PrimitiveType primitiveType, MTL::IndexType indexType, const MTL::Buffer* indexBuffer, NS::UInteger indexBufferOffset, const MTL::Buffer* indirectBuffer, NS::UInteger indirectBufferOffset)
+_MTL_INLINE void MTL::RenderCommandEncoder::drawIndexedPrimitives(MTL::PrimitiveType primitiveType,
+                                                                  MTL::IndexType indexType,
+                                                                  const MTL::Buffer* indexBuffer,
+                                                                  NS::UInteger indexBufferOffset,
+                                                                  const MTL::Buffer* indirectBuffer,
+                                                                  NS::UInteger indirectBufferOffset)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(drawIndexedPrimitives_indexType_indexBuffer_indexBufferOffset_indirectBuffer_indirectBufferOffset_), primitiveType, indexType, indexBuffer, indexBufferOffset, indirectBuffer, indirectBufferOffset);
+    Object::sendMessage<void>(
+        this, _MTL_PRIVATE_SEL(
+            drawIndexedPrimitives_indexType_indexBuffer_indexBufferOffset_indirectBuffer_indirectBufferOffset_),
+        primitiveType, indexType, indexBuffer, indexBufferOffset, indirectBuffer, indirectBufferOffset);
 }
 
 // method: textureBarrier
@@ -949,9 +1133,11 @@ _MTL_INLINE void MTL::RenderCommandEncoder::waitForFence(const MTL::Fence* fence
 }
 
 // method: setTessellationFactorBuffer:offset:instanceStride:
-_MTL_INLINE void MTL::RenderCommandEncoder::setTessellationFactorBuffer(const MTL::Buffer* buffer, NS::UInteger offset, NS::UInteger instanceStride)
+_MTL_INLINE void MTL::RenderCommandEncoder::setTessellationFactorBuffer(const MTL::Buffer* buffer, NS::UInteger offset,
+                                                                        NS::UInteger instanceStride)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setTessellationFactorBuffer_offset_instanceStride_), buffer, offset, instanceStride);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setTessellationFactorBuffer_offset_instanceStride_), buffer,
+                              offset, instanceStride);
 }
 
 // method: setTessellationFactorScale:
@@ -961,27 +1147,63 @@ _MTL_INLINE void MTL::RenderCommandEncoder::setTessellationFactorScale(float sca
 }
 
 // method: drawPatches:patchStart:patchCount:patchIndexBuffer:patchIndexBufferOffset:instanceCount:baseInstance:
-_MTL_INLINE void MTL::RenderCommandEncoder::drawPatches(NS::UInteger numberOfPatchControlPoints, NS::UInteger patchStart, NS::UInteger patchCount, const MTL::Buffer* patchIndexBuffer, NS::UInteger patchIndexBufferOffset, NS::UInteger instanceCount, NS::UInteger baseInstance)
+_MTL_INLINE void MTL::RenderCommandEncoder::drawPatches(NS::UInteger numberOfPatchControlPoints,
+                                                        NS::UInteger patchStart, NS::UInteger patchCount,
+                                                        const MTL::Buffer* patchIndexBuffer,
+                                                        NS::UInteger patchIndexBufferOffset, NS::UInteger instanceCount,
+                                                        NS::UInteger baseInstance)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(drawPatches_patchStart_patchCount_patchIndexBuffer_patchIndexBufferOffset_instanceCount_baseInstance_), numberOfPatchControlPoints, patchStart, patchCount, patchIndexBuffer, patchIndexBufferOffset, instanceCount, baseInstance);
+    Object::sendMessage<void>(
+        this,
+        _MTL_PRIVATE_SEL(
+            drawPatches_patchStart_patchCount_patchIndexBuffer_patchIndexBufferOffset_instanceCount_baseInstance_),
+        numberOfPatchControlPoints, patchStart, patchCount, patchIndexBuffer, patchIndexBufferOffset, instanceCount,
+        baseInstance);
 }
 
 // method: drawPatches:patchIndexBuffer:patchIndexBufferOffset:indirectBuffer:indirectBufferOffset:
-_MTL_INLINE void MTL::RenderCommandEncoder::drawPatches(NS::UInteger numberOfPatchControlPoints, const MTL::Buffer* patchIndexBuffer, NS::UInteger patchIndexBufferOffset, const MTL::Buffer* indirectBuffer, NS::UInteger indirectBufferOffset)
+_MTL_INLINE void MTL::RenderCommandEncoder::drawPatches(NS::UInteger numberOfPatchControlPoints,
+                                                        const MTL::Buffer* patchIndexBuffer,
+                                                        NS::UInteger patchIndexBufferOffset,
+                                                        const MTL::Buffer* indirectBuffer,
+                                                        NS::UInteger indirectBufferOffset)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(drawPatches_patchIndexBuffer_patchIndexBufferOffset_indirectBuffer_indirectBufferOffset_), numberOfPatchControlPoints, patchIndexBuffer, patchIndexBufferOffset, indirectBuffer, indirectBufferOffset);
+    Object::sendMessage<void>(
+        this,
+        _MTL_PRIVATE_SEL(drawPatches_patchIndexBuffer_patchIndexBufferOffset_indirectBuffer_indirectBufferOffset_),
+        numberOfPatchControlPoints, patchIndexBuffer, patchIndexBufferOffset, indirectBuffer, indirectBufferOffset);
 }
 
 // method: drawIndexedPatches:patchStart:patchCount:patchIndexBuffer:patchIndexBufferOffset:controlPointIndexBuffer:controlPointIndexBufferOffset:instanceCount:baseInstance:
-_MTL_INLINE void MTL::RenderCommandEncoder::drawIndexedPatches(NS::UInteger numberOfPatchControlPoints, NS::UInteger patchStart, NS::UInteger patchCount, const MTL::Buffer* patchIndexBuffer, NS::UInteger patchIndexBufferOffset, const MTL::Buffer* controlPointIndexBuffer, NS::UInteger controlPointIndexBufferOffset, NS::UInteger instanceCount, NS::UInteger baseInstance)
+_MTL_INLINE void MTL::RenderCommandEncoder::drawIndexedPatches(NS::UInteger numberOfPatchControlPoints,
+                                                               NS::UInteger patchStart, NS::UInteger patchCount,
+                                                               const MTL::Buffer* patchIndexBuffer,
+                                                               NS::UInteger patchIndexBufferOffset,
+                                                               const MTL::Buffer* controlPointIndexBuffer,
+                                                               NS::UInteger controlPointIndexBufferOffset,
+                                                               NS::UInteger instanceCount, NS::UInteger baseInstance)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(drawIndexedPatches_patchStart_patchCount_patchIndexBuffer_patchIndexBufferOffset_controlPointIndexBuffer_controlPointIndexBufferOffset_instanceCount_baseInstance_), numberOfPatchControlPoints, patchStart, patchCount, patchIndexBuffer, patchIndexBufferOffset, controlPointIndexBuffer, controlPointIndexBufferOffset, instanceCount, baseInstance);
+    Object::sendMessage<void>(
+        this, _MTL_PRIVATE_SEL(
+            drawIndexedPatches_patchStart_patchCount_patchIndexBuffer_patchIndexBufferOffset_controlPointIndexBuffer_controlPointIndexBufferOffset_instanceCount_baseInstance_),
+        numberOfPatchControlPoints, patchStart, patchCount, patchIndexBuffer, patchIndexBufferOffset,
+        controlPointIndexBuffer, controlPointIndexBufferOffset, instanceCount, baseInstance);
 }
 
 // method: drawIndexedPatches:patchIndexBuffer:patchIndexBufferOffset:controlPointIndexBuffer:controlPointIndexBufferOffset:indirectBuffer:indirectBufferOffset:
-_MTL_INLINE void MTL::RenderCommandEncoder::drawIndexedPatches(NS::UInteger numberOfPatchControlPoints, const MTL::Buffer* patchIndexBuffer, NS::UInteger patchIndexBufferOffset, const MTL::Buffer* controlPointIndexBuffer, NS::UInteger controlPointIndexBufferOffset, const MTL::Buffer* indirectBuffer, NS::UInteger indirectBufferOffset)
+_MTL_INLINE void MTL::RenderCommandEncoder::drawIndexedPatches(NS::UInteger numberOfPatchControlPoints,
+                                                               const MTL::Buffer* patchIndexBuffer,
+                                                               NS::UInteger patchIndexBufferOffset,
+                                                               const MTL::Buffer* controlPointIndexBuffer,
+                                                               NS::UInteger controlPointIndexBufferOffset,
+                                                               const MTL::Buffer* indirectBuffer,
+                                                               NS::UInteger indirectBufferOffset)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(drawIndexedPatches_patchIndexBuffer_patchIndexBufferOffset_controlPointIndexBuffer_controlPointIndexBufferOffset_indirectBuffer_indirectBufferOffset_), numberOfPatchControlPoints, patchIndexBuffer, patchIndexBufferOffset, controlPointIndexBuffer, controlPointIndexBufferOffset, indirectBuffer, indirectBufferOffset);
+    Object::sendMessage<void>(
+        this, _MTL_PRIVATE_SEL(
+            drawIndexedPatches_patchIndexBuffer_patchIndexBufferOffset_controlPointIndexBuffer_controlPointIndexBufferOffset_indirectBuffer_indirectBufferOffset_),
+        numberOfPatchControlPoints, patchIndexBuffer, patchIndexBufferOffset, controlPointIndexBuffer,
+        controlPointIndexBufferOffset, indirectBuffer, indirectBufferOffset);
 }
 
 // property: tileWidth
@@ -1003,7 +1225,8 @@ _MTL_INLINE void MTL::RenderCommandEncoder::setTileBytes(const void* bytes, NS::
 }
 
 // method: setTileBuffer:offset:atIndex:
-_MTL_INLINE void MTL::RenderCommandEncoder::setTileBuffer(const MTL::Buffer* buffer, NS::UInteger offset, NS::UInteger index)
+_MTL_INLINE void MTL::RenderCommandEncoder::setTileBuffer(const MTL::Buffer* buffer, NS::UInteger offset,
+                                                          NS::UInteger index)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setTileBuffer_offset_atIndex_), buffer, offset, index);
 }
@@ -1015,7 +1238,8 @@ _MTL_INLINE void MTL::RenderCommandEncoder::setTileBufferOffset(NS::UInteger off
 }
 
 // method: setTileBuffers:offsets:withRange:
-_MTL_INLINE void MTL::RenderCommandEncoder::setTileBuffers(const MTL::Buffer* const buffers[], const NS::UInteger* offsets, NS::Range range)
+_MTL_INLINE void MTL::RenderCommandEncoder::setTileBuffers(const MTL::Buffer* const buffers[],
+                                                           const NS::UInteger* offsets, NS::Range range)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setTileBuffers_offsets_withRange_), buffers, offsets, range);
 }
@@ -1039,51 +1263,67 @@ _MTL_INLINE void MTL::RenderCommandEncoder::setTileSamplerState(const MTL::Sampl
 }
 
 // method: setTileSamplerStates:withRange:
-_MTL_INLINE void MTL::RenderCommandEncoder::setTileSamplerStates(const MTL::SamplerState* const samplers[], NS::Range range)
+_MTL_INLINE void MTL::RenderCommandEncoder::setTileSamplerStates(const MTL::SamplerState* const samplers[],
+                                                                 NS::Range range)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setTileSamplerStates_withRange_), samplers, range);
 }
 
 // method: setTileSamplerState:lodMinClamp:lodMaxClamp:atIndex:
-_MTL_INLINE void MTL::RenderCommandEncoder::setTileSamplerState(const MTL::SamplerState* sampler, float lodMinClamp, float lodMaxClamp, NS::UInteger index)
+_MTL_INLINE void MTL::RenderCommandEncoder::setTileSamplerState(const MTL::SamplerState* sampler, float lodMinClamp,
+                                                                float lodMaxClamp, NS::UInteger index)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setTileSamplerState_lodMinClamp_lodMaxClamp_atIndex_), sampler, lodMinClamp, lodMaxClamp, index);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setTileSamplerState_lodMinClamp_lodMaxClamp_atIndex_), sampler,
+                              lodMinClamp, lodMaxClamp, index);
 }
 
 // method: setTileSamplerStates:lodMinClamps:lodMaxClamps:withRange:
-_MTL_INLINE void MTL::RenderCommandEncoder::setTileSamplerStates(const MTL::SamplerState* const samplers[], const float lodMinClamps[], const float lodMaxClamps[], NS::Range range)
+_MTL_INLINE void MTL::RenderCommandEncoder::setTileSamplerStates(const MTL::SamplerState* const samplers[],
+                                                                 const float lodMinClamps[], const float lodMaxClamps[],
+                                                                 NS::Range range)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setTileSamplerStates_lodMinClamps_lodMaxClamps_withRange_), samplers, lodMinClamps, lodMaxClamps, range);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setTileSamplerStates_lodMinClamps_lodMaxClamps_withRange_),
+                              samplers, lodMinClamps, lodMaxClamps, range);
 }
 
 // method: setTileVisibleFunctionTable:atBufferIndex:
-_MTL_INLINE void MTL::RenderCommandEncoder::setTileVisibleFunctionTable(const MTL::VisibleFunctionTable* functionTable, NS::UInteger bufferIndex)
+_MTL_INLINE void MTL::RenderCommandEncoder::setTileVisibleFunctionTable(const MTL::VisibleFunctionTable* functionTable,
+                                                                        NS::UInteger bufferIndex)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setTileVisibleFunctionTable_atBufferIndex_), functionTable, bufferIndex);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setTileVisibleFunctionTable_atBufferIndex_), functionTable,
+                              bufferIndex);
 }
 
 // method: setTileVisibleFunctionTables:withBufferRange:
-_MTL_INLINE void MTL::RenderCommandEncoder::setTileVisibleFunctionTables(const MTL::VisibleFunctionTable* const functionTables[], NS::Range range)
+_MTL_INLINE void MTL::RenderCommandEncoder::setTileVisibleFunctionTables(
+    const MTL::VisibleFunctionTable* const functionTables[], NS::Range range)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setTileVisibleFunctionTables_withBufferRange_), functionTables, range);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setTileVisibleFunctionTables_withBufferRange_), functionTables,
+                              range);
 }
 
 // method: setTileIntersectionFunctionTable:atBufferIndex:
-_MTL_INLINE void MTL::RenderCommandEncoder::setTileIntersectionFunctionTable(const MTL::IntersectionFunctionTable* intersectionFunctionTable, NS::UInteger bufferIndex)
+_MTL_INLINE void MTL::RenderCommandEncoder::setTileIntersectionFunctionTable(
+    const MTL::IntersectionFunctionTable* intersectionFunctionTable, NS::UInteger bufferIndex)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setTileIntersectionFunctionTable_atBufferIndex_), intersectionFunctionTable, bufferIndex);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setTileIntersectionFunctionTable_atBufferIndex_),
+                              intersectionFunctionTable, bufferIndex);
 }
 
 // method: setTileIntersectionFunctionTables:withBufferRange:
-_MTL_INLINE void MTL::RenderCommandEncoder::setTileIntersectionFunctionTables(const MTL::IntersectionFunctionTable* const intersectionFunctionTables[], NS::Range range)
+_MTL_INLINE void MTL::RenderCommandEncoder::setTileIntersectionFunctionTables(
+    const MTL::IntersectionFunctionTable* const intersectionFunctionTables[], NS::Range range)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setTileIntersectionFunctionTables_withBufferRange_), intersectionFunctionTables, range);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setTileIntersectionFunctionTables_withBufferRange_),
+                              intersectionFunctionTables, range);
 }
 
 // method: setTileAccelerationStructure:atBufferIndex:
-_MTL_INLINE void MTL::RenderCommandEncoder::setTileAccelerationStructure(const MTL::AccelerationStructure* accelerationStructure, NS::UInteger bufferIndex)
+_MTL_INLINE void MTL::RenderCommandEncoder::setTileAccelerationStructure(
+    const MTL::AccelerationStructure* accelerationStructure, NS::UInteger bufferIndex)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setTileAccelerationStructure_atBufferIndex_), accelerationStructure, bufferIndex);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setTileAccelerationStructure_atBufferIndex_),
+                              accelerationStructure, bufferIndex);
 }
 
 // method: dispatchThreadsPerTile:
@@ -1093,9 +1333,11 @@ _MTL_INLINE void MTL::RenderCommandEncoder::dispatchThreadsPerTile(MTL::Size thr
 }
 
 // method: setThreadgroupMemoryLength:offset:atIndex:
-_MTL_INLINE void MTL::RenderCommandEncoder::setThreadgroupMemoryLength(NS::UInteger length, NS::UInteger offset, NS::UInteger index)
+_MTL_INLINE void MTL::RenderCommandEncoder::setThreadgroupMemoryLength(NS::UInteger length, NS::UInteger offset,
+                                                                       NS::UInteger index)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setThreadgroupMemoryLength_offset_atIndex_), length, offset, index);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setThreadgroupMemoryLength_offset_atIndex_), length, offset,
+                              index);
 }
 
 // method: useResource:usage:
@@ -1105,21 +1347,25 @@ _MTL_INLINE void MTL::RenderCommandEncoder::useResource(const MTL::Resource* res
 }
 
 // method: useResources:count:usage:
-_MTL_INLINE void MTL::RenderCommandEncoder::useResources(const MTL::Resource* const resources[], NS::UInteger count, MTL::ResourceUsage usage)
+_MTL_INLINE void MTL::RenderCommandEncoder::useResources(const MTL::Resource* const resources[], NS::UInteger count,
+                                                         MTL::ResourceUsage usage)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(useResources_count_usage_), resources, count, usage);
 }
 
 // method: useResource:usage:stages:
-_MTL_INLINE void MTL::RenderCommandEncoder::useResource(const MTL::Resource* resource, MTL::ResourceUsage usage, MTL::RenderStages stages)
+_MTL_INLINE void MTL::RenderCommandEncoder::useResource(const MTL::Resource* resource, MTL::ResourceUsage usage,
+                                                        MTL::RenderStages stages)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(useResource_usage_stages_), resource, usage, stages);
 }
 
 // method: useResources:count:usage:stages:
-_MTL_INLINE void MTL::RenderCommandEncoder::useResources(const MTL::Resource* const resources[], NS::UInteger count, MTL::ResourceUsage usage, MTL::RenderStages stages)
+_MTL_INLINE void MTL::RenderCommandEncoder::useResources(const MTL::Resource* const resources[], NS::UInteger count,
+                                                         MTL::ResourceUsage usage, MTL::RenderStages stages)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(useResources_count_usage_stages_), resources, count, usage, stages);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(useResources_count_usage_stages_), resources, count, usage,
+                              stages);
 }
 
 // method: useHeap:
@@ -1141,37 +1387,49 @@ _MTL_INLINE void MTL::RenderCommandEncoder::useHeap(const MTL::Heap* heap, MTL::
 }
 
 // method: useHeaps:count:stages:
-_MTL_INLINE void MTL::RenderCommandEncoder::useHeaps(const MTL::Heap* const heaps[], NS::UInteger count, MTL::RenderStages stages)
+_MTL_INLINE void MTL::RenderCommandEncoder::useHeaps(const MTL::Heap* const heaps[], NS::UInteger count,
+                                                     MTL::RenderStages stages)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(useHeaps_count_stages_), heaps, count, stages);
 }
 
 // method: executeCommandsInBuffer:withRange:
-_MTL_INLINE void MTL::RenderCommandEncoder::executeCommandsInBuffer(const MTL::IndirectCommandBuffer* indirectCommandBuffer, NS::Range executionRange)
+_MTL_INLINE void MTL::RenderCommandEncoder::executeCommandsInBuffer(
+    const MTL::IndirectCommandBuffer* indirectCommandBuffer, NS::Range executionRange)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(executeCommandsInBuffer_withRange_), indirectCommandBuffer, executionRange);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(executeCommandsInBuffer_withRange_), indirectCommandBuffer,
+                              executionRange);
 }
 
 // method: executeCommandsInBuffer:indirectBuffer:indirectBufferOffset:
-_MTL_INLINE void MTL::RenderCommandEncoder::executeCommandsInBuffer(const MTL::IndirectCommandBuffer* indirectCommandbuffer, const MTL::Buffer* indirectRangeBuffer, NS::UInteger indirectBufferOffset)
+_MTL_INLINE void MTL::RenderCommandEncoder::executeCommandsInBuffer(
+    const MTL::IndirectCommandBuffer* indirectCommandbuffer, const MTL::Buffer* indirectRangeBuffer,
+    NS::UInteger indirectBufferOffset)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(executeCommandsInBuffer_indirectBuffer_indirectBufferOffset_), indirectCommandbuffer, indirectRangeBuffer, indirectBufferOffset);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(executeCommandsInBuffer_indirectBuffer_indirectBufferOffset_),
+                              indirectCommandbuffer, indirectRangeBuffer, indirectBufferOffset);
 }
 
 // method: memoryBarrierWithScope:afterStages:beforeStages:
-_MTL_INLINE void MTL::RenderCommandEncoder::memoryBarrier(MTL::BarrierScope scope, MTL::RenderStages after, MTL::RenderStages before)
+_MTL_INLINE void MTL::RenderCommandEncoder::memoryBarrier(MTL::BarrierScope scope, MTL::RenderStages after,
+                                                          MTL::RenderStages before)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(memoryBarrierWithScope_afterStages_beforeStages_), scope, after, before);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(memoryBarrierWithScope_afterStages_beforeStages_), scope, after,
+                              before);
 }
 
 // method: memoryBarrierWithResources:count:afterStages:beforeStages:
-_MTL_INLINE void MTL::RenderCommandEncoder::memoryBarrier(const MTL::Resource* const resources[], NS::UInteger count, MTL::RenderStages after, MTL::RenderStages before)
+_MTL_INLINE void MTL::RenderCommandEncoder::memoryBarrier(const MTL::Resource* const resources[], NS::UInteger count,
+                                                          MTL::RenderStages after, MTL::RenderStages before)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(memoryBarrierWithResources_count_afterStages_beforeStages_), resources, count, after, before);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(memoryBarrierWithResources_count_afterStages_beforeStages_),
+                              resources, count, after, before);
 }
 
 // method: sampleCountersInBuffer:atSampleIndex:withBarrier:
-_MTL_INLINE void MTL::RenderCommandEncoder::sampleCountersInBuffer(const MTL::CounterSampleBuffer* sampleBuffer, NS::UInteger sampleIndex, bool barrier)
+_MTL_INLINE void MTL::RenderCommandEncoder::sampleCountersInBuffer(const MTL::CounterSampleBuffer* sampleBuffer,
+                                                                   NS::UInteger sampleIndex, bool barrier)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(sampleCountersInBuffer_atSampleIndex_withBarrier_), sampleBuffer, sampleIndex, barrier);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(sampleCountersInBuffer_atSampleIndex_withBarrier_), sampleBuffer,
+                              sampleIndex, barrier);
 }

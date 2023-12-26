@@ -31,29 +31,28 @@
 
 namespace MTL
 {
-class VisibleFunctionTableDescriptor : public NS::Copying<VisibleFunctionTableDescriptor>
-{
-public:
-    static class VisibleFunctionTableDescriptor* alloc();
+    class VisibleFunctionTableDescriptor : public NS::Copying<VisibleFunctionTableDescriptor>
+    {
+    public:
+        static class VisibleFunctionTableDescriptor* alloc();
 
-    class VisibleFunctionTableDescriptor*        init();
+        class VisibleFunctionTableDescriptor* init();
 
-    static class VisibleFunctionTableDescriptor* visibleFunctionTableDescriptor();
+        static class VisibleFunctionTableDescriptor* visibleFunctionTableDescriptor();
 
-    NS::UInteger                                 functionCount() const;
-    void                                         setFunctionCount(NS::UInteger functionCount);
-};
+        [[nodiscard]] NS::UInteger functionCount() const;
+        void setFunctionCount(NS::UInteger functionCount);
+    };
 
-class VisibleFunctionTable : public NS::Referencing<VisibleFunctionTable, Resource>
-{
-public:
-    MTL::ResourceID gpuResourceID() const;
+    class VisibleFunctionTable : public NS::Referencing<VisibleFunctionTable, Resource>
+    {
+    public:
+        [[nodiscard]] MTL::ResourceID gpuResourceID() const;
 
-    void            setFunction(const class FunctionHandle* function, NS::UInteger index);
+        void setFunction(const class FunctionHandle* function, NS::UInteger index);
 
-    void            setFunctions(const class FunctionHandle* const functions[], NS::Range range);
-};
-
+        void setFunctions(const class FunctionHandle* const functions[], NS::Range range);
+    };
 }
 
 // static method: alloc
@@ -71,7 +70,8 @@ _MTL_INLINE MTL::VisibleFunctionTableDescriptor* MTL::VisibleFunctionTableDescri
 // static method: visibleFunctionTableDescriptor
 _MTL_INLINE MTL::VisibleFunctionTableDescriptor* MTL::VisibleFunctionTableDescriptor::visibleFunctionTableDescriptor()
 {
-    return Object::sendMessage<MTL::VisibleFunctionTableDescriptor*>(_MTL_PRIVATE_CLS(MTLVisibleFunctionTableDescriptor), _MTL_PRIVATE_SEL(visibleFunctionTableDescriptor));
+    return Object::sendMessage<MTL::VisibleFunctionTableDescriptor*>(
+        _MTL_PRIVATE_CLS(MTLVisibleFunctionTableDescriptor), _MTL_PRIVATE_SEL(visibleFunctionTableDescriptor));
 }
 
 // property: functionCount

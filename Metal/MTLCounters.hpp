@@ -30,111 +30,114 @@
 
 namespace MTL
 {
-struct CounterResultTimestamp
-{
-    uint64_t timestamp;
-} _MTL_PACKED;
+    struct CounterResultTimestamp
+    {
+        uint64_t timestamp;
+    }
+        _MTL_PACKED;
 
-struct CounterResultStageUtilization
-{
-    uint64_t totalCycles;
-    uint64_t vertexCycles;
-    uint64_t tessellationCycles;
-    uint64_t postTessellationVertexCycles;
-    uint64_t fragmentCycles;
-    uint64_t renderTargetCycles;
-} _MTL_PACKED;
+    struct CounterResultStageUtilization
+    {
+        uint64_t totalCycles;
+        uint64_t vertexCycles;
+        uint64_t tessellationCycles;
+        uint64_t postTessellationVertexCycles;
+        uint64_t fragmentCycles;
+        uint64_t renderTargetCycles;
+    }
+        _MTL_PACKED;
 
-struct CounterResultStatistic
-{
-    uint64_t tessellationInputPatches;
-    uint64_t vertexInvocations;
-    uint64_t postTessellationVertexInvocations;
-    uint64_t clipperInvocations;
-    uint64_t clipperPrimitivesOut;
-    uint64_t fragmentInvocations;
-    uint64_t fragmentsPassed;
-    uint64_t computeKernelInvocations;
-} _MTL_PACKED;
+    struct CounterResultStatistic
+    {
+        uint64_t tessellationInputPatches;
+        uint64_t vertexInvocations;
+        uint64_t postTessellationVertexInvocations;
+        uint64_t clipperInvocations;
+        uint64_t clipperPrimitivesOut;
+        uint64_t fragmentInvocations;
+        uint64_t fragmentsPassed;
+        uint64_t computeKernelInvocations;
+    }
+        _MTL_PACKED;
 
-_MTL_CONST(NS::ErrorDomain, CounterErrorDomain);
+    _MTL_CONST(NS::ErrorDomain, CounterErrorDomain);
 
-using CommonCounter = NS::String*;
+    using CommonCounter = NS::String*;
 
-_MTL_CONST(CommonCounter, CommonCounterTimestamp);
-_MTL_CONST(CommonCounter, CommonCounterTessellationInputPatches);
-_MTL_CONST(CommonCounter, CommonCounterVertexInvocations);
-_MTL_CONST(CommonCounter, CommonCounterPostTessellationVertexInvocations);
-_MTL_CONST(CommonCounter, CommonCounterClipperInvocations);
-_MTL_CONST(CommonCounter, CommonCounterClipperPrimitivesOut);
-_MTL_CONST(CommonCounter, CommonCounterFragmentInvocations);
-_MTL_CONST(CommonCounter, CommonCounterFragmentsPassed);
-_MTL_CONST(CommonCounter, CommonCounterComputeKernelInvocations);
-_MTL_CONST(CommonCounter, CommonCounterTotalCycles);
-_MTL_CONST(CommonCounter, CommonCounterVertexCycles);
-_MTL_CONST(CommonCounter, CommonCounterTessellationCycles);
-_MTL_CONST(CommonCounter, CommonCounterPostTessellationVertexCycles);
-_MTL_CONST(CommonCounter, CommonCounterFragmentCycles);
-_MTL_CONST(CommonCounter, CommonCounterRenderTargetWriteCycles);
+    _MTL_CONST(CommonCounter, CommonCounterTimestamp);
+    _MTL_CONST(CommonCounter, CommonCounterTessellationInputPatches);
+    _MTL_CONST(CommonCounter, CommonCounterVertexInvocations);
+    _MTL_CONST(CommonCounter, CommonCounterPostTessellationVertexInvocations);
+    _MTL_CONST(CommonCounter, CommonCounterClipperInvocations);
+    _MTL_CONST(CommonCounter, CommonCounterClipperPrimitivesOut);
+    _MTL_CONST(CommonCounter, CommonCounterFragmentInvocations);
+    _MTL_CONST(CommonCounter, CommonCounterFragmentsPassed);
+    _MTL_CONST(CommonCounter, CommonCounterComputeKernelInvocations);
+    _MTL_CONST(CommonCounter, CommonCounterTotalCycles);
+    _MTL_CONST(CommonCounter, CommonCounterVertexCycles);
+    _MTL_CONST(CommonCounter, CommonCounterTessellationCycles);
+    _MTL_CONST(CommonCounter, CommonCounterPostTessellationVertexCycles);
+    _MTL_CONST(CommonCounter, CommonCounterFragmentCycles);
+    _MTL_CONST(CommonCounter, CommonCounterRenderTargetWriteCycles);
 
-using CommonCounterSet = NS::String*;
+    using CommonCounterSet = NS::String*;
 
-_MTL_CONST(CommonCounterSet, CommonCounterSetTimestamp);
-_MTL_CONST(CommonCounterSet, CommonCounterSetStageUtilization);
-_MTL_CONST(CommonCounterSet, CommonCounterSetStatistic);
+    _MTL_CONST(CommonCounterSet, CommonCounterSetTimestamp);
+    _MTL_CONST(CommonCounterSet, CommonCounterSetStageUtilization);
+    _MTL_CONST(CommonCounterSet, CommonCounterSetStatistic);
 
-class Counter : public NS::Referencing<Counter>
-{
-public:
-    NS::String* name() const;
-};
+    class Counter : public NS::Referencing<Counter>
+    {
+    public:
+        [[nodiscard]] NS::String* name() const;
+    };
 
-class CounterSet : public NS::Referencing<CounterSet>
-{
-public:
-    NS::String* name() const;
+    class CounterSet : public NS::Referencing<CounterSet>
+    {
+    public:
+        [[nodiscard]] NS::String* name() const;
 
-    NS::Array*  counters() const;
-};
+        [[nodiscard]] NS::Array* counters() const;
+    };
 
-class CounterSampleBufferDescriptor : public NS::Copying<CounterSampleBufferDescriptor>
-{
-public:
-    static class CounterSampleBufferDescriptor* alloc();
+    class CounterSampleBufferDescriptor : public NS::Copying<CounterSampleBufferDescriptor>
+    {
+    public:
+        static class CounterSampleBufferDescriptor* alloc();
 
-    class CounterSampleBufferDescriptor*        init();
+        class CounterSampleBufferDescriptor* init();
 
-    class CounterSet*                           counterSet() const;
-    void                                        setCounterSet(const class CounterSet* counterSet);
+        [[nodiscard]] class CounterSet* counterSet() const;
+        void setCounterSet(const class CounterSet* counterSet);
 
-    NS::String*                                 label() const;
-    void                                        setLabel(const NS::String* label);
+        [[nodiscard]] NS::String* label() const;
+        void setLabel(const NS::String* label);
 
-    MTL::StorageMode                            storageMode() const;
-    void                                        setStorageMode(MTL::StorageMode storageMode);
+        [[nodiscard]] MTL::StorageMode storageMode() const;
+        void setStorageMode(MTL::StorageMode storageMode);
 
-    NS::UInteger                                sampleCount() const;
-    void                                        setSampleCount(NS::UInteger sampleCount);
-};
+        [[nodiscard]] NS::UInteger sampleCount() const;
+        void setSampleCount(NS::UInteger sampleCount);
+    };
 
-class CounterSampleBuffer : public NS::Referencing<CounterSampleBuffer>
-{
-public:
-    class Device* device() const;
+    class CounterSampleBuffer : public NS::Referencing<CounterSampleBuffer>
+    {
+    public:
+        [[nodiscard]] class Device* device() const;
 
-    NS::String*   label() const;
+        [[nodiscard]] NS::String* label() const;
 
-    NS::UInteger  sampleCount() const;
+        [[nodiscard]] NS::UInteger sampleCount() const;
 
-    NS::Data*     resolveCounterRange(NS::Range range);
-};
+        NS::Data* resolveCounterRange(NS::Range range);
+    };
 
-_MTL_ENUM(NS::Integer, CounterSampleBufferError) {
-    CounterSampleBufferErrorOutOfMemory = 0,
-    CounterSampleBufferErrorInvalid = 1,
-    CounterSampleBufferErrorInternal = 2,
-};
-
+    _MTL_ENUM(NS::Integer, CounterSampleBufferError)
+    {
+        CounterSampleBufferErrorOutOfMemory = 0,
+        CounterSampleBufferErrorInvalid = 1,
+        CounterSampleBufferErrorInternal = 2,
+    };
 }
 
 _MTL_PRIVATE_DEF_STR(NS::ErrorDomain, CounterErrorDomain);

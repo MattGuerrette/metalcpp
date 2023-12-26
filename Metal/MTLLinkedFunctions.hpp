@@ -28,28 +28,27 @@
 
 namespace MTL
 {
-class LinkedFunctions : public NS::Copying<LinkedFunctions>
-{
-public:
-    static class LinkedFunctions* alloc();
+    class LinkedFunctions : public NS::Copying<LinkedFunctions>
+    {
+    public:
+        static class LinkedFunctions* alloc();
 
-    class LinkedFunctions*        init();
+        class LinkedFunctions* init();
 
-    static class LinkedFunctions* linkedFunctions();
+        static class LinkedFunctions* linkedFunctions();
 
-    NS::Array*                    functions() const;
-    void                          setFunctions(const NS::Array* functions);
+        [[nodiscard]] NS::Array* functions() const;
+        void setFunctions(const NS::Array* functions);
 
-    NS::Array*                    binaryFunctions() const;
-    void                          setBinaryFunctions(const NS::Array* binaryFunctions);
+        [[nodiscard]] NS::Array* binaryFunctions() const;
+        void setBinaryFunctions(const NS::Array* binaryFunctions);
 
-    NS::Dictionary*               groups() const;
-    void                          setGroups(const NS::Dictionary* groups);
+        [[nodiscard]] NS::Dictionary* groups() const;
+        void setGroups(const NS::Dictionary* groups);
 
-    NS::Array*                    privateFunctions() const;
-    void                          setPrivateFunctions(const NS::Array* privateFunctions);
-};
-
+        [[nodiscard]] NS::Array* privateFunctions() const;
+        void setPrivateFunctions(const NS::Array* privateFunctions);
+    };
 }
 
 // static method: alloc
@@ -67,7 +66,8 @@ _MTL_INLINE MTL::LinkedFunctions* MTL::LinkedFunctions::init()
 // static method: linkedFunctions
 _MTL_INLINE MTL::LinkedFunctions* MTL::LinkedFunctions::linkedFunctions()
 {
-    return Object::sendMessage<MTL::LinkedFunctions*>(_MTL_PRIVATE_CLS(MTLLinkedFunctions), _MTL_PRIVATE_SEL(linkedFunctions));
+    return Object::sendMessage<MTL::LinkedFunctions*>(
+        _MTL_PRIVATE_CLS(MTLLinkedFunctions), _MTL_PRIVATE_SEL(linkedFunctions));
 }
 
 // property: functions

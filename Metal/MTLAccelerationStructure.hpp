@@ -34,529 +34,550 @@
 
 namespace MTL
 {
-_MTL_OPTIONS(NS::UInteger, AccelerationStructureUsage) {
-    AccelerationStructureUsageNone = 0,
-    AccelerationStructureUsageRefit = 1,
-    AccelerationStructureUsagePreferFastBuild = 2,
-    AccelerationStructureUsageExtendedLimits = 4,
-};
+    _MTL_OPTIONS(NS::UInteger, AccelerationStructureUsage)
+    {
+        AccelerationStructureUsageNone = 0,
+        AccelerationStructureUsageRefit = 1,
+        AccelerationStructureUsagePreferFastBuild = 2,
+        AccelerationStructureUsageExtendedLimits = 4,
+    };
 
-_MTL_OPTIONS(uint32_t, AccelerationStructureInstanceOptions) {
-    AccelerationStructureInstanceOptionNone = 0,
-    AccelerationStructureInstanceOptionDisableTriangleCulling = 1,
-    AccelerationStructureInstanceOptionTriangleFrontFacingWindingCounterClockwise = 2,
-    AccelerationStructureInstanceOptionOpaque = 4,
-    AccelerationStructureInstanceOptionNonOpaque = 8,
-};
+    _MTL_OPTIONS(uint32_t, AccelerationStructureInstanceOptions)
+    {
+        AccelerationStructureInstanceOptionNone = 0,
+        AccelerationStructureInstanceOptionDisableTriangleCulling = 1,
+        AccelerationStructureInstanceOptionTriangleFrontFacingWindingCounterClockwise = 2,
+        AccelerationStructureInstanceOptionOpaque = 4,
+        AccelerationStructureInstanceOptionNonOpaque = 8,
+    };
 
-class AccelerationStructureDescriptor : public NS::Copying<AccelerationStructureDescriptor>
-{
-public:
-    static class AccelerationStructureDescriptor* alloc();
+    class AccelerationStructureDescriptor : public NS::Copying<AccelerationStructureDescriptor>
+    {
+    public:
+        static class AccelerationStructureDescriptor* alloc();
 
-    class AccelerationStructureDescriptor*        init();
+        class AccelerationStructureDescriptor* init();
 
-    MTL::AccelerationStructureUsage               usage() const;
-    void                                          setUsage(MTL::AccelerationStructureUsage usage);
-};
+        [[nodiscard]] MTL::AccelerationStructureUsage usage() const;
+        void setUsage(MTL::AccelerationStructureUsage usage);
+    };
 
-class AccelerationStructureGeometryDescriptor : public NS::Copying<AccelerationStructureGeometryDescriptor>
-{
-public:
-    static class AccelerationStructureGeometryDescriptor* alloc();
+    class AccelerationStructureGeometryDescriptor : public NS::Copying<AccelerationStructureGeometryDescriptor>
+    {
+    public:
+        static class AccelerationStructureGeometryDescriptor* alloc();
 
-    class AccelerationStructureGeometryDescriptor*        init();
+        class AccelerationStructureGeometryDescriptor* init();
 
-    NS::UInteger                                          intersectionFunctionTableOffset() const;
-    void                                                  setIntersectionFunctionTableOffset(NS::UInteger intersectionFunctionTableOffset);
+        [[nodiscard]] NS::UInteger intersectionFunctionTableOffset() const;
+        void setIntersectionFunctionTableOffset(NS::UInteger intersectionFunctionTableOffset);
 
-    bool                                                  opaque() const;
-    void                                                  setOpaque(bool opaque);
+        [[nodiscard]] bool opaque() const;
+        void setOpaque(bool opaque);
 
-    bool                                                  allowDuplicateIntersectionFunctionInvocation() const;
-    void                                                  setAllowDuplicateIntersectionFunctionInvocation(bool allowDuplicateIntersectionFunctionInvocation);
+        [[nodiscard]] bool allowDuplicateIntersectionFunctionInvocation() const;
+        void setAllowDuplicateIntersectionFunctionInvocation(bool allowDuplicateIntersectionFunctionInvocation);
 
-    NS::String*                                           label() const;
-    void                                                  setLabel(const NS::String* label);
+        [[nodiscard]] NS::String* label() const;
+        void setLabel(const NS::String* label);
 
-    class Buffer*                                         primitiveDataBuffer() const;
-    void                                                  setPrimitiveDataBuffer(const class Buffer* primitiveDataBuffer);
+        [[nodiscard]] class Buffer* primitiveDataBuffer() const;
+        void setPrimitiveDataBuffer(const class Buffer* primitiveDataBuffer);
 
-    NS::UInteger                                          primitiveDataBufferOffset() const;
-    void                                                  setPrimitiveDataBufferOffset(NS::UInteger primitiveDataBufferOffset);
+        [[nodiscard]] NS::UInteger primitiveDataBufferOffset() const;
+        void setPrimitiveDataBufferOffset(NS::UInteger primitiveDataBufferOffset);
 
-    NS::UInteger                                          primitiveDataStride() const;
-    void                                                  setPrimitiveDataStride(NS::UInteger primitiveDataStride);
+        [[nodiscard]] NS::UInteger primitiveDataStride() const;
+        void setPrimitiveDataStride(NS::UInteger primitiveDataStride);
 
-    NS::UInteger                                          primitiveDataElementSize() const;
-    void                                                  setPrimitiveDataElementSize(NS::UInteger primitiveDataElementSize);
-};
+        [[nodiscard]] NS::UInteger primitiveDataElementSize() const;
+        void setPrimitiveDataElementSize(NS::UInteger primitiveDataElementSize);
+    };
 
-_MTL_ENUM(uint32_t, MotionBorderMode) {
-    MotionBorderModeClamp = 0,
-    MotionBorderModeVanish = 1,
-};
+    _MTL_ENUM(uint32_t, MotionBorderMode)
+    {
+        MotionBorderModeClamp = 0,
+        MotionBorderModeVanish = 1,
+    };
 
-class PrimitiveAccelerationStructureDescriptor : public NS::Copying<PrimitiveAccelerationStructureDescriptor, MTL::AccelerationStructureDescriptor>
-{
-public:
-    static class PrimitiveAccelerationStructureDescriptor* alloc();
+    class PrimitiveAccelerationStructureDescriptor : public NS::Copying<
+            PrimitiveAccelerationStructureDescriptor, MTL::AccelerationStructureDescriptor>
+    {
+    public:
+        static class PrimitiveAccelerationStructureDescriptor* alloc();
 
-    class PrimitiveAccelerationStructureDescriptor*        init();
+        class PrimitiveAccelerationStructureDescriptor* init();
 
-    NS::Array*                                             geometryDescriptors() const;
-    void                                                   setGeometryDescriptors(const NS::Array* geometryDescriptors);
+        [[nodiscard]] NS::Array* geometryDescriptors() const;
+        void setGeometryDescriptors(const NS::Array* geometryDescriptors);
 
-    MTL::MotionBorderMode                                  motionStartBorderMode() const;
-    void                                                   setMotionStartBorderMode(MTL::MotionBorderMode motionStartBorderMode);
+        [[nodiscard]] MTL::MotionBorderMode motionStartBorderMode() const;
+        void setMotionStartBorderMode(MTL::MotionBorderMode motionStartBorderMode);
 
-    MTL::MotionBorderMode                                  motionEndBorderMode() const;
-    void                                                   setMotionEndBorderMode(MTL::MotionBorderMode motionEndBorderMode);
+        [[nodiscard]] MTL::MotionBorderMode motionEndBorderMode() const;
+        void setMotionEndBorderMode(MTL::MotionBorderMode motionEndBorderMode);
 
-    float                                                  motionStartTime() const;
-    void                                                   setMotionStartTime(float motionStartTime);
+        [[nodiscard]] float motionStartTime() const;
+        void setMotionStartTime(float motionStartTime);
 
-    float                                                  motionEndTime() const;
-    void                                                   setMotionEndTime(float motionEndTime);
+        [[nodiscard]] float motionEndTime() const;
+        void setMotionEndTime(float motionEndTime);
 
-    NS::UInteger                                           motionKeyframeCount() const;
-    void                                                   setMotionKeyframeCount(NS::UInteger motionKeyframeCount);
+        [[nodiscard]] NS::UInteger motionKeyframeCount() const;
+        void setMotionKeyframeCount(NS::UInteger motionKeyframeCount);
 
-    static MTL::PrimitiveAccelerationStructureDescriptor*  descriptor();
-};
+        static MTL::PrimitiveAccelerationStructureDescriptor* descriptor();
+    };
 
-class AccelerationStructureTriangleGeometryDescriptor : public NS::Copying<AccelerationStructureTriangleGeometryDescriptor, MTL::AccelerationStructureGeometryDescriptor>
-{
-public:
-    static class AccelerationStructureTriangleGeometryDescriptor* alloc();
+    class AccelerationStructureTriangleGeometryDescriptor : public NS::Copying<
+            AccelerationStructureTriangleGeometryDescriptor, MTL::AccelerationStructureGeometryDescriptor>
+    {
+    public:
+        static class AccelerationStructureTriangleGeometryDescriptor* alloc();
 
-    class AccelerationStructureTriangleGeometryDescriptor*        init();
+        class AccelerationStructureTriangleGeometryDescriptor* init();
 
-    class Buffer*                                                 vertexBuffer() const;
-    void                                                          setVertexBuffer(const class Buffer* vertexBuffer);
+        [[nodiscard]] class Buffer* vertexBuffer() const;
+        void setVertexBuffer(const class Buffer* vertexBuffer);
 
-    NS::UInteger                                                  vertexBufferOffset() const;
-    void                                                          setVertexBufferOffset(NS::UInteger vertexBufferOffset);
+        [[nodiscard]] NS::UInteger vertexBufferOffset() const;
+        void setVertexBufferOffset(NS::UInteger vertexBufferOffset);
 
-    MTL::AttributeFormat                                          vertexFormat() const;
-    void                                                          setVertexFormat(MTL::AttributeFormat vertexFormat);
+        [[nodiscard]] MTL::AttributeFormat vertexFormat() const;
+        void setVertexFormat(MTL::AttributeFormat vertexFormat);
 
-    NS::UInteger                                                  vertexStride() const;
-    void                                                          setVertexStride(NS::UInteger vertexStride);
+        [[nodiscard]] NS::UInteger vertexStride() const;
+        void setVertexStride(NS::UInteger vertexStride);
 
-    class Buffer*                                                 indexBuffer() const;
-    void                                                          setIndexBuffer(const class Buffer* indexBuffer);
+        [[nodiscard]] class Buffer* indexBuffer() const;
+        void setIndexBuffer(const class Buffer* indexBuffer);
 
-    NS::UInteger                                                  indexBufferOffset() const;
-    void                                                          setIndexBufferOffset(NS::UInteger indexBufferOffset);
+        [[nodiscard]] NS::UInteger indexBufferOffset() const;
+        void setIndexBufferOffset(NS::UInteger indexBufferOffset);
 
-    MTL::IndexType                                                indexType() const;
-    void                                                          setIndexType(MTL::IndexType indexType);
+        [[nodiscard]] MTL::IndexType indexType() const;
+        void setIndexType(MTL::IndexType indexType);
 
-    NS::UInteger                                                  triangleCount() const;
-    void                                                          setTriangleCount(NS::UInteger triangleCount);
+        [[nodiscard]] NS::UInteger triangleCount() const;
+        void setTriangleCount(NS::UInteger triangleCount);
 
-    class Buffer*                                                 transformationMatrixBuffer() const;
-    void                                                          setTransformationMatrixBuffer(const class Buffer* transformationMatrixBuffer);
+        [[nodiscard]] class Buffer* transformationMatrixBuffer() const;
+        void setTransformationMatrixBuffer(const class Buffer* transformationMatrixBuffer);
 
-    NS::UInteger                                                  transformationMatrixBufferOffset() const;
-    void                                                          setTransformationMatrixBufferOffset(NS::UInteger transformationMatrixBufferOffset);
+        [[nodiscard]] NS::UInteger transformationMatrixBufferOffset() const;
+        void setTransformationMatrixBufferOffset(NS::UInteger transformationMatrixBufferOffset);
 
-    static MTL::AccelerationStructureTriangleGeometryDescriptor*  descriptor();
-};
+        static MTL::AccelerationStructureTriangleGeometryDescriptor* descriptor();
+    };
 
-class AccelerationStructureBoundingBoxGeometryDescriptor : public NS::Copying<AccelerationStructureBoundingBoxGeometryDescriptor, MTL::AccelerationStructureGeometryDescriptor>
-{
-public:
-    static class AccelerationStructureBoundingBoxGeometryDescriptor* alloc();
+    class AccelerationStructureBoundingBoxGeometryDescriptor : public NS::Copying<
+            AccelerationStructureBoundingBoxGeometryDescriptor, MTL::AccelerationStructureGeometryDescriptor>
+    {
+    public:
+        static class AccelerationStructureBoundingBoxGeometryDescriptor* alloc();
 
-    class AccelerationStructureBoundingBoxGeometryDescriptor*        init();
+        class AccelerationStructureBoundingBoxGeometryDescriptor* init();
 
-    class Buffer*                                                    boundingBoxBuffer() const;
-    void                                                             setBoundingBoxBuffer(const class Buffer* boundingBoxBuffer);
+        [[nodiscard]] class Buffer* boundingBoxBuffer() const;
+        void setBoundingBoxBuffer(const class Buffer* boundingBoxBuffer);
 
-    NS::UInteger                                                     boundingBoxBufferOffset() const;
-    void                                                             setBoundingBoxBufferOffset(NS::UInteger boundingBoxBufferOffset);
+        [[nodiscard]] NS::UInteger boundingBoxBufferOffset() const;
+        void setBoundingBoxBufferOffset(NS::UInteger boundingBoxBufferOffset);
 
-    NS::UInteger                                                     boundingBoxStride() const;
-    void                                                             setBoundingBoxStride(NS::UInteger boundingBoxStride);
+        [[nodiscard]] NS::UInteger boundingBoxStride() const;
+        void setBoundingBoxStride(NS::UInteger boundingBoxStride);
 
-    NS::UInteger                                                     boundingBoxCount() const;
-    void                                                             setBoundingBoxCount(NS::UInteger boundingBoxCount);
+        [[nodiscard]] NS::UInteger boundingBoxCount() const;
+        void setBoundingBoxCount(NS::UInteger boundingBoxCount);
 
-    static MTL::AccelerationStructureBoundingBoxGeometryDescriptor*  descriptor();
-};
+        static MTL::AccelerationStructureBoundingBoxGeometryDescriptor* descriptor();
+    };
 
-class MotionKeyframeData : public NS::Referencing<MotionKeyframeData>
-{
-public:
-    static class MotionKeyframeData* alloc();
+    class MotionKeyframeData : public NS::Referencing<MotionKeyframeData>
+    {
+    public:
+        static class MotionKeyframeData* alloc();
 
-    class MotionKeyframeData*        init();
+        class MotionKeyframeData* init();
 
-    class Buffer*                    buffer() const;
-    void                             setBuffer(const class Buffer* buffer);
+        [[nodiscard]] class Buffer* buffer() const;
+        void setBuffer(const class Buffer* buffer);
 
-    NS::UInteger                     offset() const;
-    void                             setOffset(NS::UInteger offset);
+        [[nodiscard]] NS::UInteger offset() const;
+        void setOffset(NS::UInteger offset);
 
-    static MTL::MotionKeyframeData*  data();
-};
+        static MTL::MotionKeyframeData* data();
+    };
 
-class AccelerationStructureMotionTriangleGeometryDescriptor : public NS::Copying<AccelerationStructureMotionTriangleGeometryDescriptor, MTL::AccelerationStructureGeometryDescriptor>
-{
-public:
-    static class AccelerationStructureMotionTriangleGeometryDescriptor* alloc();
+    class AccelerationStructureMotionTriangleGeometryDescriptor : public NS::Copying<
+            AccelerationStructureMotionTriangleGeometryDescriptor, MTL::AccelerationStructureGeometryDescriptor>
+    {
+    public:
+        static class AccelerationStructureMotionTriangleGeometryDescriptor* alloc();
 
-    class AccelerationStructureMotionTriangleGeometryDescriptor*        init();
+        class AccelerationStructureMotionTriangleGeometryDescriptor* init();
 
-    NS::Array*                                                          vertexBuffers() const;
-    void                                                                setVertexBuffers(const NS::Array* vertexBuffers);
+        [[nodiscard]] NS::Array* vertexBuffers() const;
+        void setVertexBuffers(const NS::Array* vertexBuffers);
 
-    MTL::AttributeFormat                                                vertexFormat() const;
-    void                                                                setVertexFormat(MTL::AttributeFormat vertexFormat);
+        [[nodiscard]] MTL::AttributeFormat vertexFormat() const;
+        void setVertexFormat(MTL::AttributeFormat vertexFormat);
 
-    NS::UInteger                                                        vertexStride() const;
-    void                                                                setVertexStride(NS::UInteger vertexStride);
+        [[nodiscard]] NS::UInteger vertexStride() const;
+        void setVertexStride(NS::UInteger vertexStride);
 
-    class Buffer*                                                       indexBuffer() const;
-    void                                                                setIndexBuffer(const class Buffer* indexBuffer);
+        [[nodiscard]] class Buffer* indexBuffer() const;
+        void setIndexBuffer(const class Buffer* indexBuffer);
 
-    NS::UInteger                                                        indexBufferOffset() const;
-    void                                                                setIndexBufferOffset(NS::UInteger indexBufferOffset);
+        [[nodiscard]] NS::UInteger indexBufferOffset() const;
+        void setIndexBufferOffset(NS::UInteger indexBufferOffset);
 
-    MTL::IndexType                                                      indexType() const;
-    void                                                                setIndexType(MTL::IndexType indexType);
+        [[nodiscard]] MTL::IndexType indexType() const;
+        void setIndexType(MTL::IndexType indexType);
 
-    NS::UInteger                                                        triangleCount() const;
-    void                                                                setTriangleCount(NS::UInteger triangleCount);
+        [[nodiscard]] NS::UInteger triangleCount() const;
+        void setTriangleCount(NS::UInteger triangleCount);
 
-    class Buffer*                                                       transformationMatrixBuffer() const;
-    void                                                                setTransformationMatrixBuffer(const class Buffer* transformationMatrixBuffer);
+        [[nodiscard]] class Buffer* transformationMatrixBuffer() const;
+        void setTransformationMatrixBuffer(const class Buffer* transformationMatrixBuffer);
 
-    NS::UInteger                                                        transformationMatrixBufferOffset() const;
-    void                                                                setTransformationMatrixBufferOffset(NS::UInteger transformationMatrixBufferOffset);
+        [[nodiscard]] NS::UInteger transformationMatrixBufferOffset() const;
+        void setTransformationMatrixBufferOffset(NS::UInteger transformationMatrixBufferOffset);
 
-    static MTL::AccelerationStructureMotionTriangleGeometryDescriptor*  descriptor();
-};
+        static MTL::AccelerationStructureMotionTriangleGeometryDescriptor* descriptor();
+    };
 
-class AccelerationStructureMotionBoundingBoxGeometryDescriptor : public NS::Copying<AccelerationStructureMotionBoundingBoxGeometryDescriptor, MTL::AccelerationStructureGeometryDescriptor>
-{
-public:
-    static class AccelerationStructureMotionBoundingBoxGeometryDescriptor* alloc();
+    class AccelerationStructureMotionBoundingBoxGeometryDescriptor : public NS::Copying<
+            AccelerationStructureMotionBoundingBoxGeometryDescriptor, MTL::AccelerationStructureGeometryDescriptor>
+    {
+    public:
+        static class AccelerationStructureMotionBoundingBoxGeometryDescriptor* alloc();
 
-    class AccelerationStructureMotionBoundingBoxGeometryDescriptor*        init();
+        class AccelerationStructureMotionBoundingBoxGeometryDescriptor* init();
 
-    NS::Array*                                                             boundingBoxBuffers() const;
-    void                                                                   setBoundingBoxBuffers(const NS::Array* boundingBoxBuffers);
+        [[nodiscard]] NS::Array* boundingBoxBuffers() const;
+        void setBoundingBoxBuffers(const NS::Array* boundingBoxBuffers);
 
-    NS::UInteger                                                           boundingBoxStride() const;
-    void                                                                   setBoundingBoxStride(NS::UInteger boundingBoxStride);
+        [[nodiscard]] NS::UInteger boundingBoxStride() const;
+        void setBoundingBoxStride(NS::UInteger boundingBoxStride);
 
-    NS::UInteger                                                           boundingBoxCount() const;
-    void                                                                   setBoundingBoxCount(NS::UInteger boundingBoxCount);
+        [[nodiscard]] NS::UInteger boundingBoxCount() const;
+        void setBoundingBoxCount(NS::UInteger boundingBoxCount);
 
-    static MTL::AccelerationStructureMotionBoundingBoxGeometryDescriptor*  descriptor();
-};
+        static MTL::AccelerationStructureMotionBoundingBoxGeometryDescriptor* descriptor();
+    };
 
-_MTL_ENUM(NS::Integer, CurveType) {
-    CurveTypeRound = 0,
-    CurveTypeFlat = 1,
-};
+    _MTL_ENUM(NS::Integer, CurveType)
+    {
+        CurveTypeRound = 0,
+        CurveTypeFlat = 1,
+    };
 
-_MTL_ENUM(NS::Integer, CurveBasis) {
-    CurveBasisBSpline = 0,
-    CurveBasisCatmullRom = 1,
-    CurveBasisLinear = 2,
-    CurveBasisBezier = 3,
-};
+    _MTL_ENUM(NS::Integer, CurveBasis)
+    {
+        CurveBasisBSpline = 0,
+        CurveBasisCatmullRom = 1,
+        CurveBasisLinear = 2,
+        CurveBasisBezier = 3,
+    };
 
-_MTL_ENUM(NS::Integer, CurveEndCaps) {
-    CurveEndCapsNone = 0,
-    CurveEndCapsDisk = 1,
-    CurveEndCapsSphere = 2,
-};
+    _MTL_ENUM(NS::Integer, CurveEndCaps)
+    {
+        CurveEndCapsNone = 0,
+        CurveEndCapsDisk = 1,
+        CurveEndCapsSphere = 2,
+    };
 
-class AccelerationStructureCurveGeometryDescriptor : public NS::Copying<AccelerationStructureCurveGeometryDescriptor, MTL::AccelerationStructureGeometryDescriptor>
-{
-public:
-    static class AccelerationStructureCurveGeometryDescriptor* alloc();
+    class AccelerationStructureCurveGeometryDescriptor : public NS::Copying<
+            AccelerationStructureCurveGeometryDescriptor, MTL::AccelerationStructureGeometryDescriptor>
+    {
+    public:
+        static class AccelerationStructureCurveGeometryDescriptor* alloc();
 
-    class AccelerationStructureCurveGeometryDescriptor*        init();
+        class AccelerationStructureCurveGeometryDescriptor* init();
 
-    class Buffer*                                              controlPointBuffer() const;
-    void                                                       setControlPointBuffer(const class Buffer* controlPointBuffer);
+        [[nodiscard]] class Buffer* controlPointBuffer() const;
+        void setControlPointBuffer(const class Buffer* controlPointBuffer);
 
-    NS::UInteger                                               controlPointBufferOffset() const;
-    void                                                       setControlPointBufferOffset(NS::UInteger controlPointBufferOffset);
+        [[nodiscard]] NS::UInteger controlPointBufferOffset() const;
+        void setControlPointBufferOffset(NS::UInteger controlPointBufferOffset);
 
-    NS::UInteger                                               controlPointCount() const;
-    void                                                       setControlPointCount(NS::UInteger controlPointCount);
+        [[nodiscard]] NS::UInteger controlPointCount() const;
+        void setControlPointCount(NS::UInteger controlPointCount);
 
-    NS::UInteger                                               controlPointStride() const;
-    void                                                       setControlPointStride(NS::UInteger controlPointStride);
+        [[nodiscard]] NS::UInteger controlPointStride() const;
+        void setControlPointStride(NS::UInteger controlPointStride);
 
-    MTL::AttributeFormat                                       controlPointFormat() const;
-    void                                                       setControlPointFormat(MTL::AttributeFormat controlPointFormat);
+        [[nodiscard]] MTL::AttributeFormat controlPointFormat() const;
+        void setControlPointFormat(MTL::AttributeFormat controlPointFormat);
 
-    class Buffer*                                              radiusBuffer() const;
-    void                                                       setRadiusBuffer(const class Buffer* radiusBuffer);
+        [[nodiscard]] class Buffer* radiusBuffer() const;
+        void setRadiusBuffer(const class Buffer* radiusBuffer);
 
-    NS::UInteger                                               radiusBufferOffset() const;
-    void                                                       setRadiusBufferOffset(NS::UInteger radiusBufferOffset);
+        [[nodiscard]] NS::UInteger radiusBufferOffset() const;
+        void setRadiusBufferOffset(NS::UInteger radiusBufferOffset);
 
-    MTL::AttributeFormat                                       radiusFormat() const;
-    void                                                       setRadiusFormat(MTL::AttributeFormat radiusFormat);
+        [[nodiscard]] MTL::AttributeFormat radiusFormat() const;
+        void setRadiusFormat(MTL::AttributeFormat radiusFormat);
 
-    NS::UInteger                                               radiusStride() const;
-    void                                                       setRadiusStride(NS::UInteger radiusStride);
+        [[nodiscard]] NS::UInteger radiusStride() const;
+        void setRadiusStride(NS::UInteger radiusStride);
 
-    class Buffer*                                              indexBuffer() const;
-    void                                                       setIndexBuffer(const class Buffer* indexBuffer);
+        [[nodiscard]] class Buffer* indexBuffer() const;
+        void setIndexBuffer(const class Buffer* indexBuffer);
 
-    NS::UInteger                                               indexBufferOffset() const;
-    void                                                       setIndexBufferOffset(NS::UInteger indexBufferOffset);
+        [[nodiscard]] NS::UInteger indexBufferOffset() const;
+        void setIndexBufferOffset(NS::UInteger indexBufferOffset);
 
-    MTL::IndexType                                             indexType() const;
-    void                                                       setIndexType(MTL::IndexType indexType);
+        [[nodiscard]] MTL::IndexType indexType() const;
+        void setIndexType(MTL::IndexType indexType);
 
-    NS::UInteger                                               segmentCount() const;
-    void                                                       setSegmentCount(NS::UInteger segmentCount);
+        [[nodiscard]] NS::UInteger segmentCount() const;
+        void setSegmentCount(NS::UInteger segmentCount);
 
-    NS::UInteger                                               segmentControlPointCount() const;
-    void                                                       setSegmentControlPointCount(NS::UInteger segmentControlPointCount);
+        [[nodiscard]] NS::UInteger segmentControlPointCount() const;
+        void setSegmentControlPointCount(NS::UInteger segmentControlPointCount);
 
-    MTL::CurveType                                             curveType() const;
-    void                                                       setCurveType(MTL::CurveType curveType);
+        [[nodiscard]] MTL::CurveType curveType() const;
+        void setCurveType(MTL::CurveType curveType);
 
-    MTL::CurveBasis                                            curveBasis() const;
-    void                                                       setCurveBasis(MTL::CurveBasis curveBasis);
+        [[nodiscard]] MTL::CurveBasis curveBasis() const;
+        void setCurveBasis(MTL::CurveBasis curveBasis);
 
-    MTL::CurveEndCaps                                          curveEndCaps() const;
-    void                                                       setCurveEndCaps(MTL::CurveEndCaps curveEndCaps);
+        [[nodiscard]] MTL::CurveEndCaps curveEndCaps() const;
+        void setCurveEndCaps(MTL::CurveEndCaps curveEndCaps);
 
-    static MTL::AccelerationStructureCurveGeometryDescriptor*  descriptor();
-};
+        static MTL::AccelerationStructureCurveGeometryDescriptor* descriptor();
+    };
 
-class AccelerationStructureMotionCurveGeometryDescriptor : public NS::Copying<AccelerationStructureMotionCurveGeometryDescriptor, MTL::AccelerationStructureGeometryDescriptor>
-{
-public:
-    static class AccelerationStructureMotionCurveGeometryDescriptor* alloc();
+    class AccelerationStructureMotionCurveGeometryDescriptor : public NS::Copying<
+            AccelerationStructureMotionCurveGeometryDescriptor, MTL::AccelerationStructureGeometryDescriptor>
+    {
+    public:
+        static class AccelerationStructureMotionCurveGeometryDescriptor* alloc();
 
-    class AccelerationStructureMotionCurveGeometryDescriptor*        init();
+        class AccelerationStructureMotionCurveGeometryDescriptor* init();
 
-    NS::Array*                                                       controlPointBuffers() const;
-    void                                                             setControlPointBuffers(const NS::Array* controlPointBuffers);
+        [[nodiscard]] NS::Array* controlPointBuffers() const;
+        void setControlPointBuffers(const NS::Array* controlPointBuffers);
 
-    NS::UInteger                                                     controlPointCount() const;
-    void                                                             setControlPointCount(NS::UInteger controlPointCount);
+        [[nodiscard]] NS::UInteger controlPointCount() const;
+        void setControlPointCount(NS::UInteger controlPointCount);
 
-    NS::UInteger                                                     controlPointStride() const;
-    void                                                             setControlPointStride(NS::UInteger controlPointStride);
+        [[nodiscard]] NS::UInteger controlPointStride() const;
+        void setControlPointStride(NS::UInteger controlPointStride);
 
-    MTL::AttributeFormat                                             controlPointFormat() const;
-    void                                                             setControlPointFormat(MTL::AttributeFormat controlPointFormat);
+        [[nodiscard]] MTL::AttributeFormat controlPointFormat() const;
+        void setControlPointFormat(MTL::AttributeFormat controlPointFormat);
 
-    NS::Array*                                                       radiusBuffers() const;
-    void                                                             setRadiusBuffers(const NS::Array* radiusBuffers);
+        [[nodiscard]] NS::Array* radiusBuffers() const;
+        void setRadiusBuffers(const NS::Array* radiusBuffers);
 
-    MTL::AttributeFormat                                             radiusFormat() const;
-    void                                                             setRadiusFormat(MTL::AttributeFormat radiusFormat);
+        [[nodiscard]] MTL::AttributeFormat radiusFormat() const;
+        void setRadiusFormat(MTL::AttributeFormat radiusFormat);
 
-    NS::UInteger                                                     radiusStride() const;
-    void                                                             setRadiusStride(NS::UInteger radiusStride);
+        [[nodiscard]] NS::UInteger radiusStride() const;
+        void setRadiusStride(NS::UInteger radiusStride);
 
-    class Buffer*                                                    indexBuffer() const;
-    void                                                             setIndexBuffer(const class Buffer* indexBuffer);
+        [[nodiscard]] class Buffer* indexBuffer() const;
+        void setIndexBuffer(const class Buffer* indexBuffer);
 
-    NS::UInteger                                                     indexBufferOffset() const;
-    void                                                             setIndexBufferOffset(NS::UInteger indexBufferOffset);
+        [[nodiscard]] NS::UInteger indexBufferOffset() const;
+        void setIndexBufferOffset(NS::UInteger indexBufferOffset);
 
-    MTL::IndexType                                                   indexType() const;
-    void                                                             setIndexType(MTL::IndexType indexType);
+        [[nodiscard]] MTL::IndexType indexType() const;
+        void setIndexType(MTL::IndexType indexType);
 
-    NS::UInteger                                                     segmentCount() const;
-    void                                                             setSegmentCount(NS::UInteger segmentCount);
+        [[nodiscard]] NS::UInteger segmentCount() const;
+        void setSegmentCount(NS::UInteger segmentCount);
 
-    NS::UInteger                                                     segmentControlPointCount() const;
-    void                                                             setSegmentControlPointCount(NS::UInteger segmentControlPointCount);
+        [[nodiscard]] NS::UInteger segmentControlPointCount() const;
+        void setSegmentControlPointCount(NS::UInteger segmentControlPointCount);
 
-    MTL::CurveType                                                   curveType() const;
-    void                                                             setCurveType(MTL::CurveType curveType);
+        [[nodiscard]] MTL::CurveType curveType() const;
+        void setCurveType(MTL::CurveType curveType);
 
-    MTL::CurveBasis                                                  curveBasis() const;
-    void                                                             setCurveBasis(MTL::CurveBasis curveBasis);
+        [[nodiscard]] MTL::CurveBasis curveBasis() const;
+        void setCurveBasis(MTL::CurveBasis curveBasis);
 
-    MTL::CurveEndCaps                                                curveEndCaps() const;
-    void                                                             setCurveEndCaps(MTL::CurveEndCaps curveEndCaps);
+        [[nodiscard]] MTL::CurveEndCaps curveEndCaps() const;
+        void setCurveEndCaps(MTL::CurveEndCaps curveEndCaps);
 
-    static MTL::AccelerationStructureMotionCurveGeometryDescriptor*  descriptor();
-};
+        static MTL::AccelerationStructureMotionCurveGeometryDescriptor* descriptor();
+    };
 
-struct AccelerationStructureInstanceDescriptor
-{
-    MTL::PackedFloat4x3                       transformationMatrix;
-    MTL::AccelerationStructureInstanceOptions options;
-    uint32_t                                  mask;
-    uint32_t                                  intersectionFunctionTableOffset;
-    uint32_t                                  accelerationStructureIndex;
-} _MTL_PACKED;
+    struct AccelerationStructureInstanceDescriptor
+    {
+        MTL::PackedFloat4x3 transformationMatrix{};
+        MTL::AccelerationStructureInstanceOptions options{};
+        uint32_t mask{};
+        uint32_t intersectionFunctionTableOffset{};
+        uint32_t accelerationStructureIndex{};
+    }
+        _MTL_PACKED;
 
-struct AccelerationStructureUserIDInstanceDescriptor
-{
-    MTL::PackedFloat4x3                       transformationMatrix;
-    MTL::AccelerationStructureInstanceOptions options;
-    uint32_t                                  mask;
-    uint32_t                                  intersectionFunctionTableOffset;
-    uint32_t                                  accelerationStructureIndex;
-    uint32_t                                  userID;
-} _MTL_PACKED;
+    struct AccelerationStructureUserIDInstanceDescriptor
+    {
+        MTL::PackedFloat4x3 transformationMatrix{};
+        MTL::AccelerationStructureInstanceOptions options{};
+        uint32_t mask{};
+        uint32_t intersectionFunctionTableOffset{};
+        uint32_t accelerationStructureIndex{};
+        uint32_t userID{};
+    }
+        _MTL_PACKED;
 
-_MTL_ENUM(NS::UInteger, AccelerationStructureInstanceDescriptorType) {
-    AccelerationStructureInstanceDescriptorTypeDefault = 0,
-    AccelerationStructureInstanceDescriptorTypeUserID = 1,
-    AccelerationStructureInstanceDescriptorTypeMotion = 2,
-    AccelerationStructureInstanceDescriptorTypeIndirect = 3,
-    AccelerationStructureInstanceDescriptorTypeIndirectMotion = 4,
-};
+    _MTL_ENUM(NS::UInteger, AccelerationStructureInstanceDescriptorType)
+    {
+        AccelerationStructureInstanceDescriptorTypeDefault = 0,
+        AccelerationStructureInstanceDescriptorTypeUserID = 1,
+        AccelerationStructureInstanceDescriptorTypeMotion = 2,
+        AccelerationStructureInstanceDescriptorTypeIndirect = 3,
+        AccelerationStructureInstanceDescriptorTypeIndirectMotion = 4,
+    };
 
-struct AccelerationStructureMotionInstanceDescriptor
-{
-    MTL::AccelerationStructureInstanceOptions options;
-    uint32_t                                  mask;
-    uint32_t                                  intersectionFunctionTableOffset;
-    uint32_t                                  accelerationStructureIndex;
-    uint32_t                                  userID;
-    uint32_t                                  motionTransformsStartIndex;
-    uint32_t                                  motionTransformsCount;
-    MTL::MotionBorderMode                     motionStartBorderMode;
-    MTL::MotionBorderMode                     motionEndBorderMode;
-    float                                     motionStartTime;
-    float                                     motionEndTime;
-} _MTL_PACKED;
+    struct AccelerationStructureMotionInstanceDescriptor
+    {
+        MTL::AccelerationStructureInstanceOptions options;
+        uint32_t mask;
+        uint32_t intersectionFunctionTableOffset;
+        uint32_t accelerationStructureIndex;
+        uint32_t userID;
+        uint32_t motionTransformsStartIndex;
+        uint32_t motionTransformsCount;
+        MTL::MotionBorderMode motionStartBorderMode;
+        MTL::MotionBorderMode motionEndBorderMode;
+        float motionStartTime;
+        float motionEndTime;
+    }
+        _MTL_PACKED;
 
-struct IndirectAccelerationStructureInstanceDescriptor
-{
-    MTL::PackedFloat4x3                       transformationMatrix;
-    MTL::AccelerationStructureInstanceOptions options;
-    uint32_t                                  mask;
-    uint32_t                                  intersectionFunctionTableOffset;
-    uint32_t                                  userID;
-    MTL::ResourceID                           accelerationStructureID;
-} _MTL_PACKED;
+    struct IndirectAccelerationStructureInstanceDescriptor
+    {
+        MTL::PackedFloat4x3 transformationMatrix{};
+        MTL::AccelerationStructureInstanceOptions options{};
+        uint32_t mask{};
+        uint32_t intersectionFunctionTableOffset{};
+        uint32_t userID{};
+        MTL::ResourceID accelerationStructureID{};
+    }
+        _MTL_PACKED;
 
-struct IndirectAccelerationStructureMotionInstanceDescriptor
-{
-    MTL::AccelerationStructureInstanceOptions options;
-    uint32_t                                  mask;
-    uint32_t                                  intersectionFunctionTableOffset;
-    uint32_t                                  userID;
-    MTL::ResourceID                           accelerationStructureID;
-    uint32_t                                  motionTransformsStartIndex;
-    uint32_t                                  motionTransformsCount;
-    MTL::MotionBorderMode                     motionStartBorderMode;
-    MTL::MotionBorderMode                     motionEndBorderMode;
-    float                                     motionStartTime;
-    float                                     motionEndTime;
-} _MTL_PACKED;
+    struct IndirectAccelerationStructureMotionInstanceDescriptor
+    {
+        MTL::AccelerationStructureInstanceOptions options;
+        uint32_t mask;
+        uint32_t intersectionFunctionTableOffset;
+        uint32_t userID;
+        MTL::ResourceID accelerationStructureID;
+        uint32_t motionTransformsStartIndex;
+        uint32_t motionTransformsCount;
+        MTL::MotionBorderMode motionStartBorderMode;
+        MTL::MotionBorderMode motionEndBorderMode;
+        float motionStartTime;
+        float motionEndTime;
+    }
+        _MTL_PACKED;
 
-class InstanceAccelerationStructureDescriptor : public NS::Copying<InstanceAccelerationStructureDescriptor, MTL::AccelerationStructureDescriptor>
-{
-public:
-    static class InstanceAccelerationStructureDescriptor* alloc();
+    class InstanceAccelerationStructureDescriptor : public NS::Copying<
+            InstanceAccelerationStructureDescriptor, MTL::AccelerationStructureDescriptor>
+    {
+    public:
+        static class InstanceAccelerationStructureDescriptor* alloc();
 
-    class InstanceAccelerationStructureDescriptor*        init();
+        class InstanceAccelerationStructureDescriptor* init();
 
-    class Buffer*                                         instanceDescriptorBuffer() const;
-    void                                                  setInstanceDescriptorBuffer(const class Buffer* instanceDescriptorBuffer);
+        [[nodiscard]] class Buffer* instanceDescriptorBuffer() const;
+        void setInstanceDescriptorBuffer(const class Buffer* instanceDescriptorBuffer);
 
-    NS::UInteger                                          instanceDescriptorBufferOffset() const;
-    void                                                  setInstanceDescriptorBufferOffset(NS::UInteger instanceDescriptorBufferOffset);
+        [[nodiscard]] NS::UInteger instanceDescriptorBufferOffset() const;
+        void setInstanceDescriptorBufferOffset(NS::UInteger instanceDescriptorBufferOffset);
 
-    NS::UInteger                                          instanceDescriptorStride() const;
-    void                                                  setInstanceDescriptorStride(NS::UInteger instanceDescriptorStride);
+        [[nodiscard]] NS::UInteger instanceDescriptorStride() const;
+        void setInstanceDescriptorStride(NS::UInteger instanceDescriptorStride);
 
-    NS::UInteger                                          instanceCount() const;
-    void                                                  setInstanceCount(NS::UInteger instanceCount);
+        [[nodiscard]] NS::UInteger instanceCount() const;
+        void setInstanceCount(NS::UInteger instanceCount);
 
-    NS::Array*                                            instancedAccelerationStructures() const;
-    void                                                  setInstancedAccelerationStructures(const NS::Array* instancedAccelerationStructures);
+        [[nodiscard]] NS::Array* instancedAccelerationStructures() const;
+        void setInstancedAccelerationStructures(const NS::Array* instancedAccelerationStructures);
 
-    MTL::AccelerationStructureInstanceDescriptorType      instanceDescriptorType() const;
-    void                                                  setInstanceDescriptorType(MTL::AccelerationStructureInstanceDescriptorType instanceDescriptorType);
+        [[nodiscard]] MTL::AccelerationStructureInstanceDescriptorType instanceDescriptorType() const;
+        void setInstanceDescriptorType(MTL::AccelerationStructureInstanceDescriptorType instanceDescriptorType);
 
-    class Buffer*                                         motionTransformBuffer() const;
-    void                                                  setMotionTransformBuffer(const class Buffer* motionTransformBuffer);
+        [[nodiscard]] class Buffer* motionTransformBuffer() const;
+        void setMotionTransformBuffer(const class Buffer* motionTransformBuffer);
 
-    NS::UInteger                                          motionTransformBufferOffset() const;
-    void                                                  setMotionTransformBufferOffset(NS::UInteger motionTransformBufferOffset);
+        [[nodiscard]] NS::UInteger motionTransformBufferOffset() const;
+        void setMotionTransformBufferOffset(NS::UInteger motionTransformBufferOffset);
 
-    NS::UInteger                                          motionTransformCount() const;
-    void                                                  setMotionTransformCount(NS::UInteger motionTransformCount);
+        [[nodiscard]] NS::UInteger motionTransformCount() const;
+        void setMotionTransformCount(NS::UInteger motionTransformCount);
 
-    static MTL::InstanceAccelerationStructureDescriptor*  descriptor();
-};
+        static MTL::InstanceAccelerationStructureDescriptor* descriptor();
+    };
 
-class IndirectInstanceAccelerationStructureDescriptor : public NS::Copying<IndirectInstanceAccelerationStructureDescriptor, MTL::AccelerationStructureDescriptor>
-{
-public:
-    static class IndirectInstanceAccelerationStructureDescriptor* alloc();
+    class IndirectInstanceAccelerationStructureDescriptor : public NS::Copying<
+            IndirectInstanceAccelerationStructureDescriptor, MTL::AccelerationStructureDescriptor>
+    {
+    public:
+        static class IndirectInstanceAccelerationStructureDescriptor* alloc();
 
-    class IndirectInstanceAccelerationStructureDescriptor*        init();
+        class IndirectInstanceAccelerationStructureDescriptor* init();
 
-    class Buffer*                                                 instanceDescriptorBuffer() const;
-    void                                                          setInstanceDescriptorBuffer(const class Buffer* instanceDescriptorBuffer);
+        [[nodiscard]] class Buffer* instanceDescriptorBuffer() const;
+        void setInstanceDescriptorBuffer(const class Buffer* instanceDescriptorBuffer);
 
-    NS::UInteger                                                  instanceDescriptorBufferOffset() const;
-    void                                                          setInstanceDescriptorBufferOffset(NS::UInteger instanceDescriptorBufferOffset);
+        [[nodiscard]] NS::UInteger instanceDescriptorBufferOffset() const;
+        void setInstanceDescriptorBufferOffset(NS::UInteger instanceDescriptorBufferOffset);
 
-    NS::UInteger                                                  instanceDescriptorStride() const;
-    void                                                          setInstanceDescriptorStride(NS::UInteger instanceDescriptorStride);
+        [[nodiscard]] NS::UInteger instanceDescriptorStride() const;
+        void setInstanceDescriptorStride(NS::UInteger instanceDescriptorStride);
 
-    NS::UInteger                                                  maxInstanceCount() const;
-    void                                                          setMaxInstanceCount(NS::UInteger maxInstanceCount);
+        [[nodiscard]] NS::UInteger maxInstanceCount() const;
+        void setMaxInstanceCount(NS::UInteger maxInstanceCount);
 
-    class Buffer*                                                 instanceCountBuffer() const;
-    void                                                          setInstanceCountBuffer(const class Buffer* instanceCountBuffer);
+        [[nodiscard]] class Buffer* instanceCountBuffer() const;
+        void setInstanceCountBuffer(const class Buffer* instanceCountBuffer);
 
-    NS::UInteger                                                  instanceCountBufferOffset() const;
-    void                                                          setInstanceCountBufferOffset(NS::UInteger instanceCountBufferOffset);
+        [[nodiscard]] NS::UInteger instanceCountBufferOffset() const;
+        void setInstanceCountBufferOffset(NS::UInteger instanceCountBufferOffset);
 
-    MTL::AccelerationStructureInstanceDescriptorType              instanceDescriptorType() const;
-    void                                                          setInstanceDescriptorType(MTL::AccelerationStructureInstanceDescriptorType instanceDescriptorType);
+        [[nodiscard]] MTL::AccelerationStructureInstanceDescriptorType instanceDescriptorType() const;
+        void setInstanceDescriptorType(MTL::AccelerationStructureInstanceDescriptorType instanceDescriptorType);
 
-    class Buffer*                                                 motionTransformBuffer() const;
-    void                                                          setMotionTransformBuffer(const class Buffer* motionTransformBuffer);
+        [[nodiscard]] class Buffer* motionTransformBuffer() const;
+        void setMotionTransformBuffer(const class Buffer* motionTransformBuffer);
 
-    NS::UInteger                                                  motionTransformBufferOffset() const;
-    void                                                          setMotionTransformBufferOffset(NS::UInteger motionTransformBufferOffset);
+        [[nodiscard]] NS::UInteger motionTransformBufferOffset() const;
+        void setMotionTransformBufferOffset(NS::UInteger motionTransformBufferOffset);
 
-    NS::UInteger                                                  maxMotionTransformCount() const;
-    void                                                          setMaxMotionTransformCount(NS::UInteger maxMotionTransformCount);
+        [[nodiscard]] NS::UInteger maxMotionTransformCount() const;
+        void setMaxMotionTransformCount(NS::UInteger maxMotionTransformCount);
 
-    class Buffer*                                                 motionTransformCountBuffer() const;
-    void                                                          setMotionTransformCountBuffer(const class Buffer* motionTransformCountBuffer);
+        [[nodiscard]] class Buffer* motionTransformCountBuffer() const;
+        void setMotionTransformCountBuffer(const class Buffer* motionTransformCountBuffer);
 
-    NS::UInteger                                                  motionTransformCountBufferOffset() const;
-    void                                                          setMotionTransformCountBufferOffset(NS::UInteger motionTransformCountBufferOffset);
+        [[nodiscard]] NS::UInteger motionTransformCountBufferOffset() const;
+        void setMotionTransformCountBufferOffset(NS::UInteger motionTransformCountBufferOffset);
 
-    static MTL::IndirectInstanceAccelerationStructureDescriptor*  descriptor();
-};
+        static MTL::IndirectInstanceAccelerationStructureDescriptor* descriptor();
+    };
 
-class AccelerationStructure : public NS::Referencing<AccelerationStructure, Resource>
-{
-public:
-    NS::UInteger    size() const;
+    class AccelerationStructure : public NS::Referencing<AccelerationStructure, Resource>
+    {
+    public:
+        [[nodiscard]] NS::UInteger size() const;
 
-    MTL::ResourceID gpuResourceID() const;
-};
-
+        [[nodiscard]] MTL::ResourceID gpuResourceID() const;
+    };
 }
 
 // static method: alloc
 _MTL_INLINE MTL::AccelerationStructureDescriptor* MTL::AccelerationStructureDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL::AccelerationStructureDescriptor>(_MTL_PRIVATE_CLS(MTLAccelerationStructureDescriptor));
+    return NS::Object::alloc<
+        MTL::AccelerationStructureDescriptor>(_MTL_PRIVATE_CLS(MTLAccelerationStructureDescriptor));
 }
 
 // method: init
@@ -579,7 +600,8 @@ _MTL_INLINE void MTL::AccelerationStructureDescriptor::setUsage(MTL::Acceleratio
 // static method: alloc
 _MTL_INLINE MTL::AccelerationStructureGeometryDescriptor* MTL::AccelerationStructureGeometryDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL::AccelerationStructureGeometryDescriptor>(_MTL_PRIVATE_CLS(MTLAccelerationStructureGeometryDescriptor));
+    return NS::Object::alloc<MTL::AccelerationStructureGeometryDescriptor>(
+        _MTL_PRIVATE_CLS(MTLAccelerationStructureGeometryDescriptor));
 }
 
 // method: init
@@ -594,9 +616,11 @@ _MTL_INLINE NS::UInteger MTL::AccelerationStructureGeometryDescriptor::intersect
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(intersectionFunctionTableOffset));
 }
 
-_MTL_INLINE void MTL::AccelerationStructureGeometryDescriptor::setIntersectionFunctionTableOffset(NS::UInteger intersectionFunctionTableOffset)
+_MTL_INLINE void MTL::AccelerationStructureGeometryDescriptor::setIntersectionFunctionTableOffset(
+    NS::UInteger intersectionFunctionTableOffset)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setIntersectionFunctionTableOffset_), intersectionFunctionTableOffset);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setIntersectionFunctionTableOffset_),
+                              intersectionFunctionTableOffset);
 }
 
 // property: opaque
@@ -616,9 +640,11 @@ _MTL_INLINE bool MTL::AccelerationStructureGeometryDescriptor::allowDuplicateInt
     return Object::sendMessage<bool>(this, _MTL_PRIVATE_SEL(allowDuplicateIntersectionFunctionInvocation));
 }
 
-_MTL_INLINE void MTL::AccelerationStructureGeometryDescriptor::setAllowDuplicateIntersectionFunctionInvocation(bool allowDuplicateIntersectionFunctionInvocation)
+_MTL_INLINE void MTL::AccelerationStructureGeometryDescriptor::setAllowDuplicateIntersectionFunctionInvocation(
+    bool allowDuplicateIntersectionFunctionInvocation)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setAllowDuplicateIntersectionFunctionInvocation_), allowDuplicateIntersectionFunctionInvocation);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setAllowDuplicateIntersectionFunctionInvocation_),
+                              allowDuplicateIntersectionFunctionInvocation);
 }
 
 // property: label
@@ -638,7 +664,8 @@ _MTL_INLINE MTL::Buffer* MTL::AccelerationStructureGeometryDescriptor::primitive
     return Object::sendMessage<MTL::Buffer*>(this, _MTL_PRIVATE_SEL(primitiveDataBuffer));
 }
 
-_MTL_INLINE void MTL::AccelerationStructureGeometryDescriptor::setPrimitiveDataBuffer(const MTL::Buffer* primitiveDataBuffer)
+_MTL_INLINE void MTL::AccelerationStructureGeometryDescriptor::setPrimitiveDataBuffer(
+    const MTL::Buffer* primitiveDataBuffer)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setPrimitiveDataBuffer_), primitiveDataBuffer);
 }
@@ -649,7 +676,8 @@ _MTL_INLINE NS::UInteger MTL::AccelerationStructureGeometryDescriptor::primitive
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(primitiveDataBufferOffset));
 }
 
-_MTL_INLINE void MTL::AccelerationStructureGeometryDescriptor::setPrimitiveDataBufferOffset(NS::UInteger primitiveDataBufferOffset)
+_MTL_INLINE void MTL::AccelerationStructureGeometryDescriptor::setPrimitiveDataBufferOffset(
+    NS::UInteger primitiveDataBufferOffset)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setPrimitiveDataBufferOffset_), primitiveDataBufferOffset);
 }
@@ -671,7 +699,8 @@ _MTL_INLINE NS::UInteger MTL::AccelerationStructureGeometryDescriptor::primitive
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(primitiveDataElementSize));
 }
 
-_MTL_INLINE void MTL::AccelerationStructureGeometryDescriptor::setPrimitiveDataElementSize(NS::UInteger primitiveDataElementSize)
+_MTL_INLINE void MTL::AccelerationStructureGeometryDescriptor::setPrimitiveDataElementSize(
+    NS::UInteger primitiveDataElementSize)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setPrimitiveDataElementSize_), primitiveDataElementSize);
 }
@@ -679,7 +708,8 @@ _MTL_INLINE void MTL::AccelerationStructureGeometryDescriptor::setPrimitiveDataE
 // static method: alloc
 _MTL_INLINE MTL::PrimitiveAccelerationStructureDescriptor* MTL::PrimitiveAccelerationStructureDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL::PrimitiveAccelerationStructureDescriptor>(_MTL_PRIVATE_CLS(MTLPrimitiveAccelerationStructureDescriptor));
+    return NS::Object::alloc<MTL::PrimitiveAccelerationStructureDescriptor>(
+        _MTL_PRIVATE_CLS(MTLPrimitiveAccelerationStructureDescriptor));
 }
 
 // method: init
@@ -694,7 +724,8 @@ _MTL_INLINE NS::Array* MTL::PrimitiveAccelerationStructureDescriptor::geometryDe
     return Object::sendMessage<NS::Array*>(this, _MTL_PRIVATE_SEL(geometryDescriptors));
 }
 
-_MTL_INLINE void MTL::PrimitiveAccelerationStructureDescriptor::setGeometryDescriptors(const NS::Array* geometryDescriptors)
+_MTL_INLINE void MTL::PrimitiveAccelerationStructureDescriptor::setGeometryDescriptors(
+    const NS::Array* geometryDescriptors)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setGeometryDescriptors_), geometryDescriptors);
 }
@@ -705,7 +736,8 @@ _MTL_INLINE MTL::MotionBorderMode MTL::PrimitiveAccelerationStructureDescriptor:
     return Object::sendMessage<MTL::MotionBorderMode>(this, _MTL_PRIVATE_SEL(motionStartBorderMode));
 }
 
-_MTL_INLINE void MTL::PrimitiveAccelerationStructureDescriptor::setMotionStartBorderMode(MTL::MotionBorderMode motionStartBorderMode)
+_MTL_INLINE void MTL::PrimitiveAccelerationStructureDescriptor::setMotionStartBorderMode(
+    MTL::MotionBorderMode motionStartBorderMode)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMotionStartBorderMode_), motionStartBorderMode);
 }
@@ -716,7 +748,8 @@ _MTL_INLINE MTL::MotionBorderMode MTL::PrimitiveAccelerationStructureDescriptor:
     return Object::sendMessage<MTL::MotionBorderMode>(this, _MTL_PRIVATE_SEL(motionEndBorderMode));
 }
 
-_MTL_INLINE void MTL::PrimitiveAccelerationStructureDescriptor::setMotionEndBorderMode(MTL::MotionBorderMode motionEndBorderMode)
+_MTL_INLINE void MTL::PrimitiveAccelerationStructureDescriptor::setMotionEndBorderMode(
+    MTL::MotionBorderMode motionEndBorderMode)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMotionEndBorderMode_), motionEndBorderMode);
 }
@@ -757,17 +790,21 @@ _MTL_INLINE void MTL::PrimitiveAccelerationStructureDescriptor::setMotionKeyfram
 // static method: descriptor
 _MTL_INLINE MTL::PrimitiveAccelerationStructureDescriptor* MTL::PrimitiveAccelerationStructureDescriptor::descriptor()
 {
-    return Object::sendMessage<MTL::PrimitiveAccelerationStructureDescriptor*>(_MTL_PRIVATE_CLS(MTLPrimitiveAccelerationStructureDescriptor), _MTL_PRIVATE_SEL(descriptor));
+    return Object::sendMessage<MTL::PrimitiveAccelerationStructureDescriptor*>(
+        _MTL_PRIVATE_CLS(MTLPrimitiveAccelerationStructureDescriptor), _MTL_PRIVATE_SEL(descriptor));
 }
 
 // static method: alloc
-_MTL_INLINE MTL::AccelerationStructureTriangleGeometryDescriptor* MTL::AccelerationStructureTriangleGeometryDescriptor::alloc()
+_MTL_INLINE MTL::AccelerationStructureTriangleGeometryDescriptor*
+MTL::AccelerationStructureTriangleGeometryDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL::AccelerationStructureTriangleGeometryDescriptor>(_MTL_PRIVATE_CLS(MTLAccelerationStructureTriangleGeometryDescriptor));
+    return NS::Object::alloc<MTL::AccelerationStructureTriangleGeometryDescriptor>(
+        _MTL_PRIVATE_CLS(MTLAccelerationStructureTriangleGeometryDescriptor));
 }
 
 // method: init
-_MTL_INLINE MTL::AccelerationStructureTriangleGeometryDescriptor* MTL::AccelerationStructureTriangleGeometryDescriptor::init()
+_MTL_INLINE MTL::AccelerationStructureTriangleGeometryDescriptor*
+MTL::AccelerationStructureTriangleGeometryDescriptor::init()
 {
     return NS::Object::init<MTL::AccelerationStructureTriangleGeometryDescriptor>();
 }
@@ -789,7 +826,8 @@ _MTL_INLINE NS::UInteger MTL::AccelerationStructureTriangleGeometryDescriptor::v
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(vertexBufferOffset));
 }
 
-_MTL_INLINE void MTL::AccelerationStructureTriangleGeometryDescriptor::setVertexBufferOffset(NS::UInteger vertexBufferOffset)
+_MTL_INLINE void MTL::AccelerationStructureTriangleGeometryDescriptor::setVertexBufferOffset(
+    NS::UInteger vertexBufferOffset)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setVertexBufferOffset_), vertexBufferOffset);
 }
@@ -800,7 +838,8 @@ _MTL_INLINE MTL::AttributeFormat MTL::AccelerationStructureTriangleGeometryDescr
     return Object::sendMessage<MTL::AttributeFormat>(this, _MTL_PRIVATE_SEL(vertexFormat));
 }
 
-_MTL_INLINE void MTL::AccelerationStructureTriangleGeometryDescriptor::setVertexFormat(MTL::AttributeFormat vertexFormat)
+_MTL_INLINE void MTL::AccelerationStructureTriangleGeometryDescriptor::setVertexFormat(
+    MTL::AttributeFormat vertexFormat)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setVertexFormat_), vertexFormat);
 }
@@ -833,7 +872,8 @@ _MTL_INLINE NS::UInteger MTL::AccelerationStructureTriangleGeometryDescriptor::i
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(indexBufferOffset));
 }
 
-_MTL_INLINE void MTL::AccelerationStructureTriangleGeometryDescriptor::setIndexBufferOffset(NS::UInteger indexBufferOffset)
+_MTL_INLINE void MTL::AccelerationStructureTriangleGeometryDescriptor::setIndexBufferOffset(
+    NS::UInteger indexBufferOffset)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setIndexBufferOffset_), indexBufferOffset);
 }
@@ -866,7 +906,8 @@ _MTL_INLINE MTL::Buffer* MTL::AccelerationStructureTriangleGeometryDescriptor::t
     return Object::sendMessage<MTL::Buffer*>(this, _MTL_PRIVATE_SEL(transformationMatrixBuffer));
 }
 
-_MTL_INLINE void MTL::AccelerationStructureTriangleGeometryDescriptor::setTransformationMatrixBuffer(const MTL::Buffer* transformationMatrixBuffer)
+_MTL_INLINE void MTL::AccelerationStructureTriangleGeometryDescriptor::setTransformationMatrixBuffer(
+    const MTL::Buffer* transformationMatrixBuffer)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setTransformationMatrixBuffer_), transformationMatrixBuffer);
 }
@@ -877,25 +918,32 @@ _MTL_INLINE NS::UInteger MTL::AccelerationStructureTriangleGeometryDescriptor::t
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(transformationMatrixBufferOffset));
 }
 
-_MTL_INLINE void MTL::AccelerationStructureTriangleGeometryDescriptor::setTransformationMatrixBufferOffset(NS::UInteger transformationMatrixBufferOffset)
+_MTL_INLINE void MTL::AccelerationStructureTriangleGeometryDescriptor::setTransformationMatrixBufferOffset(
+    NS::UInteger transformationMatrixBufferOffset)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setTransformationMatrixBufferOffset_), transformationMatrixBufferOffset);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setTransformationMatrixBufferOffset_),
+                              transformationMatrixBufferOffset);
 }
 
 // static method: descriptor
-_MTL_INLINE MTL::AccelerationStructureTriangleGeometryDescriptor* MTL::AccelerationStructureTriangleGeometryDescriptor::descriptor()
+_MTL_INLINE MTL::AccelerationStructureTriangleGeometryDescriptor*
+MTL::AccelerationStructureTriangleGeometryDescriptor::descriptor()
 {
-    return Object::sendMessage<MTL::AccelerationStructureTriangleGeometryDescriptor*>(_MTL_PRIVATE_CLS(MTLAccelerationStructureTriangleGeometryDescriptor), _MTL_PRIVATE_SEL(descriptor));
+    return Object::sendMessage<MTL::AccelerationStructureTriangleGeometryDescriptor*>(
+        _MTL_PRIVATE_CLS(MTLAccelerationStructureTriangleGeometryDescriptor), _MTL_PRIVATE_SEL(descriptor));
 }
 
 // static method: alloc
-_MTL_INLINE MTL::AccelerationStructureBoundingBoxGeometryDescriptor* MTL::AccelerationStructureBoundingBoxGeometryDescriptor::alloc()
+_MTL_INLINE MTL::AccelerationStructureBoundingBoxGeometryDescriptor*
+MTL::AccelerationStructureBoundingBoxGeometryDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL::AccelerationStructureBoundingBoxGeometryDescriptor>(_MTL_PRIVATE_CLS(MTLAccelerationStructureBoundingBoxGeometryDescriptor));
+    return NS::Object::alloc<MTL::AccelerationStructureBoundingBoxGeometryDescriptor>(
+        _MTL_PRIVATE_CLS(MTLAccelerationStructureBoundingBoxGeometryDescriptor));
 }
 
 // method: init
-_MTL_INLINE MTL::AccelerationStructureBoundingBoxGeometryDescriptor* MTL::AccelerationStructureBoundingBoxGeometryDescriptor::init()
+_MTL_INLINE MTL::AccelerationStructureBoundingBoxGeometryDescriptor*
+MTL::AccelerationStructureBoundingBoxGeometryDescriptor::init()
 {
     return NS::Object::init<MTL::AccelerationStructureBoundingBoxGeometryDescriptor>();
 }
@@ -906,7 +954,8 @@ _MTL_INLINE MTL::Buffer* MTL::AccelerationStructureBoundingBoxGeometryDescriptor
     return Object::sendMessage<MTL::Buffer*>(this, _MTL_PRIVATE_SEL(boundingBoxBuffer));
 }
 
-_MTL_INLINE void MTL::AccelerationStructureBoundingBoxGeometryDescriptor::setBoundingBoxBuffer(const MTL::Buffer* boundingBoxBuffer)
+_MTL_INLINE void MTL::AccelerationStructureBoundingBoxGeometryDescriptor::setBoundingBoxBuffer(
+    const MTL::Buffer* boundingBoxBuffer)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setBoundingBoxBuffer_), boundingBoxBuffer);
 }
@@ -917,7 +966,8 @@ _MTL_INLINE NS::UInteger MTL::AccelerationStructureBoundingBoxGeometryDescriptor
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(boundingBoxBufferOffset));
 }
 
-_MTL_INLINE void MTL::AccelerationStructureBoundingBoxGeometryDescriptor::setBoundingBoxBufferOffset(NS::UInteger boundingBoxBufferOffset)
+_MTL_INLINE void MTL::AccelerationStructureBoundingBoxGeometryDescriptor::setBoundingBoxBufferOffset(
+    NS::UInteger boundingBoxBufferOffset)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setBoundingBoxBufferOffset_), boundingBoxBufferOffset);
 }
@@ -928,7 +978,8 @@ _MTL_INLINE NS::UInteger MTL::AccelerationStructureBoundingBoxGeometryDescriptor
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(boundingBoxStride));
 }
 
-_MTL_INLINE void MTL::AccelerationStructureBoundingBoxGeometryDescriptor::setBoundingBoxStride(NS::UInteger boundingBoxStride)
+_MTL_INLINE void MTL::AccelerationStructureBoundingBoxGeometryDescriptor::setBoundingBoxStride(
+    NS::UInteger boundingBoxStride)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setBoundingBoxStride_), boundingBoxStride);
 }
@@ -939,15 +990,18 @@ _MTL_INLINE NS::UInteger MTL::AccelerationStructureBoundingBoxGeometryDescriptor
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(boundingBoxCount));
 }
 
-_MTL_INLINE void MTL::AccelerationStructureBoundingBoxGeometryDescriptor::setBoundingBoxCount(NS::UInteger boundingBoxCount)
+_MTL_INLINE void MTL::AccelerationStructureBoundingBoxGeometryDescriptor::setBoundingBoxCount(
+    NS::UInteger boundingBoxCount)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setBoundingBoxCount_), boundingBoxCount);
 }
 
 // static method: descriptor
-_MTL_INLINE MTL::AccelerationStructureBoundingBoxGeometryDescriptor* MTL::AccelerationStructureBoundingBoxGeometryDescriptor::descriptor()
+_MTL_INLINE MTL::AccelerationStructureBoundingBoxGeometryDescriptor*
+MTL::AccelerationStructureBoundingBoxGeometryDescriptor::descriptor()
 {
-    return Object::sendMessage<MTL::AccelerationStructureBoundingBoxGeometryDescriptor*>(_MTL_PRIVATE_CLS(MTLAccelerationStructureBoundingBoxGeometryDescriptor), _MTL_PRIVATE_SEL(descriptor));
+    return Object::sendMessage<MTL::AccelerationStructureBoundingBoxGeometryDescriptor*>(
+        _MTL_PRIVATE_CLS(MTLAccelerationStructureBoundingBoxGeometryDescriptor), _MTL_PRIVATE_SEL(descriptor));
 }
 
 // static method: alloc
@@ -987,17 +1041,21 @@ _MTL_INLINE void MTL::MotionKeyframeData::setOffset(NS::UInteger offset)
 // static method: data
 _MTL_INLINE MTL::MotionKeyframeData* MTL::MotionKeyframeData::data()
 {
-    return Object::sendMessage<MTL::MotionKeyframeData*>(_MTL_PRIVATE_CLS(MTLMotionKeyframeData), _MTL_PRIVATE_SEL(data));
+    return Object::sendMessage<MTL::MotionKeyframeData*>(
+        _MTL_PRIVATE_CLS(MTLMotionKeyframeData), _MTL_PRIVATE_SEL(data));
 }
 
 // static method: alloc
-_MTL_INLINE MTL::AccelerationStructureMotionTriangleGeometryDescriptor* MTL::AccelerationStructureMotionTriangleGeometryDescriptor::alloc()
+_MTL_INLINE MTL::AccelerationStructureMotionTriangleGeometryDescriptor*
+MTL::AccelerationStructureMotionTriangleGeometryDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL::AccelerationStructureMotionTriangleGeometryDescriptor>(_MTL_PRIVATE_CLS(MTLAccelerationStructureMotionTriangleGeometryDescriptor));
+    return NS::Object::alloc<MTL::AccelerationStructureMotionTriangleGeometryDescriptor>(
+        _MTL_PRIVATE_CLS(MTLAccelerationStructureMotionTriangleGeometryDescriptor));
 }
 
 // method: init
-_MTL_INLINE MTL::AccelerationStructureMotionTriangleGeometryDescriptor* MTL::AccelerationStructureMotionTriangleGeometryDescriptor::init()
+_MTL_INLINE MTL::AccelerationStructureMotionTriangleGeometryDescriptor*
+MTL::AccelerationStructureMotionTriangleGeometryDescriptor::init()
 {
     return NS::Object::init<MTL::AccelerationStructureMotionTriangleGeometryDescriptor>();
 }
@@ -1008,7 +1066,8 @@ _MTL_INLINE NS::Array* MTL::AccelerationStructureMotionTriangleGeometryDescripto
     return Object::sendMessage<NS::Array*>(this, _MTL_PRIVATE_SEL(vertexBuffers));
 }
 
-_MTL_INLINE void MTL::AccelerationStructureMotionTriangleGeometryDescriptor::setVertexBuffers(const NS::Array* vertexBuffers)
+_MTL_INLINE void MTL::AccelerationStructureMotionTriangleGeometryDescriptor::setVertexBuffers(
+    const NS::Array* vertexBuffers)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setVertexBuffers_), vertexBuffers);
 }
@@ -1019,7 +1078,8 @@ _MTL_INLINE MTL::AttributeFormat MTL::AccelerationStructureMotionTriangleGeometr
     return Object::sendMessage<MTL::AttributeFormat>(this, _MTL_PRIVATE_SEL(vertexFormat));
 }
 
-_MTL_INLINE void MTL::AccelerationStructureMotionTriangleGeometryDescriptor::setVertexFormat(MTL::AttributeFormat vertexFormat)
+_MTL_INLINE void MTL::AccelerationStructureMotionTriangleGeometryDescriptor::setVertexFormat(
+    MTL::AttributeFormat vertexFormat)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setVertexFormat_), vertexFormat);
 }
@@ -1041,7 +1101,8 @@ _MTL_INLINE MTL::Buffer* MTL::AccelerationStructureMotionTriangleGeometryDescrip
     return Object::sendMessage<MTL::Buffer*>(this, _MTL_PRIVATE_SEL(indexBuffer));
 }
 
-_MTL_INLINE void MTL::AccelerationStructureMotionTriangleGeometryDescriptor::setIndexBuffer(const MTL::Buffer* indexBuffer)
+_MTL_INLINE void MTL::AccelerationStructureMotionTriangleGeometryDescriptor::setIndexBuffer(
+    const MTL::Buffer* indexBuffer)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setIndexBuffer_), indexBuffer);
 }
@@ -1052,7 +1113,8 @@ _MTL_INLINE NS::UInteger MTL::AccelerationStructureMotionTriangleGeometryDescrip
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(indexBufferOffset));
 }
 
-_MTL_INLINE void MTL::AccelerationStructureMotionTriangleGeometryDescriptor::setIndexBufferOffset(NS::UInteger indexBufferOffset)
+_MTL_INLINE void MTL::AccelerationStructureMotionTriangleGeometryDescriptor::setIndexBufferOffset(
+    NS::UInteger indexBufferOffset)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setIndexBufferOffset_), indexBufferOffset);
 }
@@ -1074,7 +1136,8 @@ _MTL_INLINE NS::UInteger MTL::AccelerationStructureMotionTriangleGeometryDescrip
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(triangleCount));
 }
 
-_MTL_INLINE void MTL::AccelerationStructureMotionTriangleGeometryDescriptor::setTriangleCount(NS::UInteger triangleCount)
+_MTL_INLINE void MTL::AccelerationStructureMotionTriangleGeometryDescriptor::setTriangleCount(
+    NS::UInteger triangleCount)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setTriangleCount_), triangleCount);
 }
@@ -1085,36 +1148,45 @@ _MTL_INLINE MTL::Buffer* MTL::AccelerationStructureMotionTriangleGeometryDescrip
     return Object::sendMessage<MTL::Buffer*>(this, _MTL_PRIVATE_SEL(transformationMatrixBuffer));
 }
 
-_MTL_INLINE void MTL::AccelerationStructureMotionTriangleGeometryDescriptor::setTransformationMatrixBuffer(const MTL::Buffer* transformationMatrixBuffer)
+_MTL_INLINE void MTL::AccelerationStructureMotionTriangleGeometryDescriptor::setTransformationMatrixBuffer(
+    const MTL::Buffer* transformationMatrixBuffer)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setTransformationMatrixBuffer_), transformationMatrixBuffer);
 }
 
 // property: transformationMatrixBufferOffset
-_MTL_INLINE NS::UInteger MTL::AccelerationStructureMotionTriangleGeometryDescriptor::transformationMatrixBufferOffset() const
+_MTL_INLINE NS::UInteger
+MTL::AccelerationStructureMotionTriangleGeometryDescriptor::transformationMatrixBufferOffset() const
 {
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(transformationMatrixBufferOffset));
 }
 
-_MTL_INLINE void MTL::AccelerationStructureMotionTriangleGeometryDescriptor::setTransformationMatrixBufferOffset(NS::UInteger transformationMatrixBufferOffset)
+_MTL_INLINE void MTL::AccelerationStructureMotionTriangleGeometryDescriptor::setTransformationMatrixBufferOffset(
+    NS::UInteger transformationMatrixBufferOffset)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setTransformationMatrixBufferOffset_), transformationMatrixBufferOffset);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setTransformationMatrixBufferOffset_),
+                              transformationMatrixBufferOffset);
 }
 
 // static method: descriptor
-_MTL_INLINE MTL::AccelerationStructureMotionTriangleGeometryDescriptor* MTL::AccelerationStructureMotionTriangleGeometryDescriptor::descriptor()
+_MTL_INLINE MTL::AccelerationStructureMotionTriangleGeometryDescriptor*
+MTL::AccelerationStructureMotionTriangleGeometryDescriptor::descriptor()
 {
-    return Object::sendMessage<MTL::AccelerationStructureMotionTriangleGeometryDescriptor*>(_MTL_PRIVATE_CLS(MTLAccelerationStructureMotionTriangleGeometryDescriptor), _MTL_PRIVATE_SEL(descriptor));
+    return Object::sendMessage<MTL::AccelerationStructureMotionTriangleGeometryDescriptor*>(
+        _MTL_PRIVATE_CLS(MTLAccelerationStructureMotionTriangleGeometryDescriptor), _MTL_PRIVATE_SEL(descriptor));
 }
 
 // static method: alloc
-_MTL_INLINE MTL::AccelerationStructureMotionBoundingBoxGeometryDescriptor* MTL::AccelerationStructureMotionBoundingBoxGeometryDescriptor::alloc()
+_MTL_INLINE MTL::AccelerationStructureMotionBoundingBoxGeometryDescriptor*
+MTL::AccelerationStructureMotionBoundingBoxGeometryDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL::AccelerationStructureMotionBoundingBoxGeometryDescriptor>(_MTL_PRIVATE_CLS(MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor));
+    return NS::Object::alloc<MTL::AccelerationStructureMotionBoundingBoxGeometryDescriptor>(
+        _MTL_PRIVATE_CLS(MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor));
 }
 
 // method: init
-_MTL_INLINE MTL::AccelerationStructureMotionBoundingBoxGeometryDescriptor* MTL::AccelerationStructureMotionBoundingBoxGeometryDescriptor::init()
+_MTL_INLINE MTL::AccelerationStructureMotionBoundingBoxGeometryDescriptor*
+MTL::AccelerationStructureMotionBoundingBoxGeometryDescriptor::init()
 {
     return NS::Object::init<MTL::AccelerationStructureMotionBoundingBoxGeometryDescriptor>();
 }
@@ -1125,7 +1197,8 @@ _MTL_INLINE NS::Array* MTL::AccelerationStructureMotionBoundingBoxGeometryDescri
     return Object::sendMessage<NS::Array*>(this, _MTL_PRIVATE_SEL(boundingBoxBuffers));
 }
 
-_MTL_INLINE void MTL::AccelerationStructureMotionBoundingBoxGeometryDescriptor::setBoundingBoxBuffers(const NS::Array* boundingBoxBuffers)
+_MTL_INLINE void MTL::AccelerationStructureMotionBoundingBoxGeometryDescriptor::setBoundingBoxBuffers(
+    const NS::Array* boundingBoxBuffers)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setBoundingBoxBuffers_), boundingBoxBuffers);
 }
@@ -1136,7 +1209,8 @@ _MTL_INLINE NS::UInteger MTL::AccelerationStructureMotionBoundingBoxGeometryDesc
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(boundingBoxStride));
 }
 
-_MTL_INLINE void MTL::AccelerationStructureMotionBoundingBoxGeometryDescriptor::setBoundingBoxStride(NS::UInteger boundingBoxStride)
+_MTL_INLINE void MTL::AccelerationStructureMotionBoundingBoxGeometryDescriptor::setBoundingBoxStride(
+    NS::UInteger boundingBoxStride)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setBoundingBoxStride_), boundingBoxStride);
 }
@@ -1147,21 +1221,26 @@ _MTL_INLINE NS::UInteger MTL::AccelerationStructureMotionBoundingBoxGeometryDesc
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(boundingBoxCount));
 }
 
-_MTL_INLINE void MTL::AccelerationStructureMotionBoundingBoxGeometryDescriptor::setBoundingBoxCount(NS::UInteger boundingBoxCount)
+_MTL_INLINE void MTL::AccelerationStructureMotionBoundingBoxGeometryDescriptor::setBoundingBoxCount(
+    NS::UInteger boundingBoxCount)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setBoundingBoxCount_), boundingBoxCount);
 }
 
 // static method: descriptor
-_MTL_INLINE MTL::AccelerationStructureMotionBoundingBoxGeometryDescriptor* MTL::AccelerationStructureMotionBoundingBoxGeometryDescriptor::descriptor()
+_MTL_INLINE MTL::AccelerationStructureMotionBoundingBoxGeometryDescriptor*
+MTL::AccelerationStructureMotionBoundingBoxGeometryDescriptor::descriptor()
 {
-    return Object::sendMessage<MTL::AccelerationStructureMotionBoundingBoxGeometryDescriptor*>(_MTL_PRIVATE_CLS(MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor), _MTL_PRIVATE_SEL(descriptor));
+    return Object::sendMessage<MTL::AccelerationStructureMotionBoundingBoxGeometryDescriptor*>(
+        _MTL_PRIVATE_CLS(MTLAccelerationStructureMotionBoundingBoxGeometryDescriptor), _MTL_PRIVATE_SEL(descriptor));
 }
 
 // static method: alloc
-_MTL_INLINE MTL::AccelerationStructureCurveGeometryDescriptor* MTL::AccelerationStructureCurveGeometryDescriptor::alloc()
+_MTL_INLINE MTL::AccelerationStructureCurveGeometryDescriptor*
+MTL::AccelerationStructureCurveGeometryDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL::AccelerationStructureCurveGeometryDescriptor>(_MTL_PRIVATE_CLS(MTLAccelerationStructureCurveGeometryDescriptor));
+    return NS::Object::alloc<MTL::AccelerationStructureCurveGeometryDescriptor>(
+        _MTL_PRIVATE_CLS(MTLAccelerationStructureCurveGeometryDescriptor));
 }
 
 // method: init
@@ -1176,7 +1255,8 @@ _MTL_INLINE MTL::Buffer* MTL::AccelerationStructureCurveGeometryDescriptor::cont
     return Object::sendMessage<MTL::Buffer*>(this, _MTL_PRIVATE_SEL(controlPointBuffer));
 }
 
-_MTL_INLINE void MTL::AccelerationStructureCurveGeometryDescriptor::setControlPointBuffer(const MTL::Buffer* controlPointBuffer)
+_MTL_INLINE void MTL::AccelerationStructureCurveGeometryDescriptor::setControlPointBuffer(
+    const MTL::Buffer* controlPointBuffer)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setControlPointBuffer_), controlPointBuffer);
 }
@@ -1187,7 +1267,8 @@ _MTL_INLINE NS::UInteger MTL::AccelerationStructureCurveGeometryDescriptor::cont
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(controlPointBufferOffset));
 }
 
-_MTL_INLINE void MTL::AccelerationStructureCurveGeometryDescriptor::setControlPointBufferOffset(NS::UInteger controlPointBufferOffset)
+_MTL_INLINE void MTL::AccelerationStructureCurveGeometryDescriptor::setControlPointBufferOffset(
+    NS::UInteger controlPointBufferOffset)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setControlPointBufferOffset_), controlPointBufferOffset);
 }
@@ -1209,7 +1290,8 @@ _MTL_INLINE NS::UInteger MTL::AccelerationStructureCurveGeometryDescriptor::cont
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(controlPointStride));
 }
 
-_MTL_INLINE void MTL::AccelerationStructureCurveGeometryDescriptor::setControlPointStride(NS::UInteger controlPointStride)
+_MTL_INLINE void MTL::AccelerationStructureCurveGeometryDescriptor::setControlPointStride(
+    NS::UInteger controlPointStride)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setControlPointStride_), controlPointStride);
 }
@@ -1220,7 +1302,8 @@ _MTL_INLINE MTL::AttributeFormat MTL::AccelerationStructureCurveGeometryDescript
     return Object::sendMessage<MTL::AttributeFormat>(this, _MTL_PRIVATE_SEL(controlPointFormat));
 }
 
-_MTL_INLINE void MTL::AccelerationStructureCurveGeometryDescriptor::setControlPointFormat(MTL::AttributeFormat controlPointFormat)
+_MTL_INLINE void MTL::AccelerationStructureCurveGeometryDescriptor::setControlPointFormat(
+    MTL::AttributeFormat controlPointFormat)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setControlPointFormat_), controlPointFormat);
 }
@@ -1242,7 +1325,8 @@ _MTL_INLINE NS::UInteger MTL::AccelerationStructureCurveGeometryDescriptor::radi
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(radiusBufferOffset));
 }
 
-_MTL_INLINE void MTL::AccelerationStructureCurveGeometryDescriptor::setRadiusBufferOffset(NS::UInteger radiusBufferOffset)
+_MTL_INLINE void MTL::AccelerationStructureCurveGeometryDescriptor::setRadiusBufferOffset(
+    NS::UInteger radiusBufferOffset)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setRadiusBufferOffset_), radiusBufferOffset);
 }
@@ -1319,7 +1403,8 @@ _MTL_INLINE NS::UInteger MTL::AccelerationStructureCurveGeometryDescriptor::segm
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(segmentControlPointCount));
 }
 
-_MTL_INLINE void MTL::AccelerationStructureCurveGeometryDescriptor::setSegmentControlPointCount(NS::UInteger segmentControlPointCount)
+_MTL_INLINE void MTL::AccelerationStructureCurveGeometryDescriptor::setSegmentControlPointCount(
+    NS::UInteger segmentControlPointCount)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setSegmentControlPointCount_), segmentControlPointCount);
 }
@@ -1358,19 +1443,24 @@ _MTL_INLINE void MTL::AccelerationStructureCurveGeometryDescriptor::setCurveEndC
 }
 
 // static method: descriptor
-_MTL_INLINE MTL::AccelerationStructureCurveGeometryDescriptor* MTL::AccelerationStructureCurveGeometryDescriptor::descriptor()
+_MTL_INLINE MTL::AccelerationStructureCurveGeometryDescriptor*
+MTL::AccelerationStructureCurveGeometryDescriptor::descriptor()
 {
-    return Object::sendMessage<MTL::AccelerationStructureCurveGeometryDescriptor*>(_MTL_PRIVATE_CLS(MTLAccelerationStructureCurveGeometryDescriptor), _MTL_PRIVATE_SEL(descriptor));
+    return Object::sendMessage<MTL::AccelerationStructureCurveGeometryDescriptor*>(
+        _MTL_PRIVATE_CLS(MTLAccelerationStructureCurveGeometryDescriptor), _MTL_PRIVATE_SEL(descriptor));
 }
 
 // static method: alloc
-_MTL_INLINE MTL::AccelerationStructureMotionCurveGeometryDescriptor* MTL::AccelerationStructureMotionCurveGeometryDescriptor::alloc()
+_MTL_INLINE MTL::AccelerationStructureMotionCurveGeometryDescriptor*
+MTL::AccelerationStructureMotionCurveGeometryDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL::AccelerationStructureMotionCurveGeometryDescriptor>(_MTL_PRIVATE_CLS(MTLAccelerationStructureMotionCurveGeometryDescriptor));
+    return NS::Object::alloc<MTL::AccelerationStructureMotionCurveGeometryDescriptor>(
+        _MTL_PRIVATE_CLS(MTLAccelerationStructureMotionCurveGeometryDescriptor));
 }
 
 // method: init
-_MTL_INLINE MTL::AccelerationStructureMotionCurveGeometryDescriptor* MTL::AccelerationStructureMotionCurveGeometryDescriptor::init()
+_MTL_INLINE MTL::AccelerationStructureMotionCurveGeometryDescriptor*
+MTL::AccelerationStructureMotionCurveGeometryDescriptor::init()
 {
     return NS::Object::init<MTL::AccelerationStructureMotionCurveGeometryDescriptor>();
 }
@@ -1381,7 +1471,8 @@ _MTL_INLINE NS::Array* MTL::AccelerationStructureMotionCurveGeometryDescriptor::
     return Object::sendMessage<NS::Array*>(this, _MTL_PRIVATE_SEL(controlPointBuffers));
 }
 
-_MTL_INLINE void MTL::AccelerationStructureMotionCurveGeometryDescriptor::setControlPointBuffers(const NS::Array* controlPointBuffers)
+_MTL_INLINE void MTL::AccelerationStructureMotionCurveGeometryDescriptor::setControlPointBuffers(
+    const NS::Array* controlPointBuffers)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setControlPointBuffers_), controlPointBuffers);
 }
@@ -1392,7 +1483,8 @@ _MTL_INLINE NS::UInteger MTL::AccelerationStructureMotionCurveGeometryDescriptor
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(controlPointCount));
 }
 
-_MTL_INLINE void MTL::AccelerationStructureMotionCurveGeometryDescriptor::setControlPointCount(NS::UInteger controlPointCount)
+_MTL_INLINE void MTL::AccelerationStructureMotionCurveGeometryDescriptor::setControlPointCount(
+    NS::UInteger controlPointCount)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setControlPointCount_), controlPointCount);
 }
@@ -1403,7 +1495,8 @@ _MTL_INLINE NS::UInteger MTL::AccelerationStructureMotionCurveGeometryDescriptor
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(controlPointStride));
 }
 
-_MTL_INLINE void MTL::AccelerationStructureMotionCurveGeometryDescriptor::setControlPointStride(NS::UInteger controlPointStride)
+_MTL_INLINE void MTL::AccelerationStructureMotionCurveGeometryDescriptor::setControlPointStride(
+    NS::UInteger controlPointStride)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setControlPointStride_), controlPointStride);
 }
@@ -1414,7 +1507,8 @@ _MTL_INLINE MTL::AttributeFormat MTL::AccelerationStructureMotionCurveGeometryDe
     return Object::sendMessage<MTL::AttributeFormat>(this, _MTL_PRIVATE_SEL(controlPointFormat));
 }
 
-_MTL_INLINE void MTL::AccelerationStructureMotionCurveGeometryDescriptor::setControlPointFormat(MTL::AttributeFormat controlPointFormat)
+_MTL_INLINE void MTL::AccelerationStructureMotionCurveGeometryDescriptor::setControlPointFormat(
+    MTL::AttributeFormat controlPointFormat)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setControlPointFormat_), controlPointFormat);
 }
@@ -1425,7 +1519,8 @@ _MTL_INLINE NS::Array* MTL::AccelerationStructureMotionCurveGeometryDescriptor::
     return Object::sendMessage<NS::Array*>(this, _MTL_PRIVATE_SEL(radiusBuffers));
 }
 
-_MTL_INLINE void MTL::AccelerationStructureMotionCurveGeometryDescriptor::setRadiusBuffers(const NS::Array* radiusBuffers)
+_MTL_INLINE void MTL::AccelerationStructureMotionCurveGeometryDescriptor::setRadiusBuffers(
+    const NS::Array* radiusBuffers)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setRadiusBuffers_), radiusBuffers);
 }
@@ -1436,7 +1531,8 @@ _MTL_INLINE MTL::AttributeFormat MTL::AccelerationStructureMotionCurveGeometryDe
     return Object::sendMessage<MTL::AttributeFormat>(this, _MTL_PRIVATE_SEL(radiusFormat));
 }
 
-_MTL_INLINE void MTL::AccelerationStructureMotionCurveGeometryDescriptor::setRadiusFormat(MTL::AttributeFormat radiusFormat)
+_MTL_INLINE void MTL::AccelerationStructureMotionCurveGeometryDescriptor::setRadiusFormat(
+    MTL::AttributeFormat radiusFormat)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setRadiusFormat_), radiusFormat);
 }
@@ -1469,7 +1565,8 @@ _MTL_INLINE NS::UInteger MTL::AccelerationStructureMotionCurveGeometryDescriptor
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(indexBufferOffset));
 }
 
-_MTL_INLINE void MTL::AccelerationStructureMotionCurveGeometryDescriptor::setIndexBufferOffset(NS::UInteger indexBufferOffset)
+_MTL_INLINE void MTL::AccelerationStructureMotionCurveGeometryDescriptor::setIndexBufferOffset(
+    NS::UInteger indexBufferOffset)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setIndexBufferOffset_), indexBufferOffset);
 }
@@ -1502,7 +1599,8 @@ _MTL_INLINE NS::UInteger MTL::AccelerationStructureMotionCurveGeometryDescriptor
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(segmentControlPointCount));
 }
 
-_MTL_INLINE void MTL::AccelerationStructureMotionCurveGeometryDescriptor::setSegmentControlPointCount(NS::UInteger segmentControlPointCount)
+_MTL_INLINE void MTL::AccelerationStructureMotionCurveGeometryDescriptor::setSegmentControlPointCount(
+    NS::UInteger segmentControlPointCount)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setSegmentControlPointCount_), segmentControlPointCount);
 }
@@ -1535,21 +1633,25 @@ _MTL_INLINE MTL::CurveEndCaps MTL::AccelerationStructureMotionCurveGeometryDescr
     return Object::sendMessage<MTL::CurveEndCaps>(this, _MTL_PRIVATE_SEL(curveEndCaps));
 }
 
-_MTL_INLINE void MTL::AccelerationStructureMotionCurveGeometryDescriptor::setCurveEndCaps(MTL::CurveEndCaps curveEndCaps)
+_MTL_INLINE void MTL::AccelerationStructureMotionCurveGeometryDescriptor::setCurveEndCaps(
+    MTL::CurveEndCaps curveEndCaps)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setCurveEndCaps_), curveEndCaps);
 }
 
 // static method: descriptor
-_MTL_INLINE MTL::AccelerationStructureMotionCurveGeometryDescriptor* MTL::AccelerationStructureMotionCurveGeometryDescriptor::descriptor()
+_MTL_INLINE MTL::AccelerationStructureMotionCurveGeometryDescriptor*
+MTL::AccelerationStructureMotionCurveGeometryDescriptor::descriptor()
 {
-    return Object::sendMessage<MTL::AccelerationStructureMotionCurveGeometryDescriptor*>(_MTL_PRIVATE_CLS(MTLAccelerationStructureMotionCurveGeometryDescriptor), _MTL_PRIVATE_SEL(descriptor));
+    return Object::sendMessage<MTL::AccelerationStructureMotionCurveGeometryDescriptor*>(
+        _MTL_PRIVATE_CLS(MTLAccelerationStructureMotionCurveGeometryDescriptor), _MTL_PRIVATE_SEL(descriptor));
 }
 
 // static method: alloc
 _MTL_INLINE MTL::InstanceAccelerationStructureDescriptor* MTL::InstanceAccelerationStructureDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL::InstanceAccelerationStructureDescriptor>(_MTL_PRIVATE_CLS(MTLInstanceAccelerationStructureDescriptor));
+    return NS::Object::alloc<MTL::InstanceAccelerationStructureDescriptor>(
+        _MTL_PRIVATE_CLS(MTLInstanceAccelerationStructureDescriptor));
 }
 
 // method: init
@@ -1564,7 +1666,8 @@ _MTL_INLINE MTL::Buffer* MTL::InstanceAccelerationStructureDescriptor::instanceD
     return Object::sendMessage<MTL::Buffer*>(this, _MTL_PRIVATE_SEL(instanceDescriptorBuffer));
 }
 
-_MTL_INLINE void MTL::InstanceAccelerationStructureDescriptor::setInstanceDescriptorBuffer(const MTL::Buffer* instanceDescriptorBuffer)
+_MTL_INLINE void MTL::InstanceAccelerationStructureDescriptor::setInstanceDescriptorBuffer(
+    const MTL::Buffer* instanceDescriptorBuffer)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setInstanceDescriptorBuffer_), instanceDescriptorBuffer);
 }
@@ -1575,9 +1678,11 @@ _MTL_INLINE NS::UInteger MTL::InstanceAccelerationStructureDescriptor::instanceD
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(instanceDescriptorBufferOffset));
 }
 
-_MTL_INLINE void MTL::InstanceAccelerationStructureDescriptor::setInstanceDescriptorBufferOffset(NS::UInteger instanceDescriptorBufferOffset)
+_MTL_INLINE void MTL::InstanceAccelerationStructureDescriptor::setInstanceDescriptorBufferOffset(
+    NS::UInteger instanceDescriptorBufferOffset)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setInstanceDescriptorBufferOffset_), instanceDescriptorBufferOffset);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setInstanceDescriptorBufferOffset_),
+                              instanceDescriptorBufferOffset);
 }
 
 // property: instanceDescriptorStride
@@ -1586,7 +1691,8 @@ _MTL_INLINE NS::UInteger MTL::InstanceAccelerationStructureDescriptor::instanceD
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(instanceDescriptorStride));
 }
 
-_MTL_INLINE void MTL::InstanceAccelerationStructureDescriptor::setInstanceDescriptorStride(NS::UInteger instanceDescriptorStride)
+_MTL_INLINE void MTL::InstanceAccelerationStructureDescriptor::setInstanceDescriptorStride(
+    NS::UInteger instanceDescriptorStride)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setInstanceDescriptorStride_), instanceDescriptorStride);
 }
@@ -1608,18 +1714,23 @@ _MTL_INLINE NS::Array* MTL::InstanceAccelerationStructureDescriptor::instancedAc
     return Object::sendMessage<NS::Array*>(this, _MTL_PRIVATE_SEL(instancedAccelerationStructures));
 }
 
-_MTL_INLINE void MTL::InstanceAccelerationStructureDescriptor::setInstancedAccelerationStructures(const NS::Array* instancedAccelerationStructures)
+_MTL_INLINE void MTL::InstanceAccelerationStructureDescriptor::setInstancedAccelerationStructures(
+    const NS::Array* instancedAccelerationStructures)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setInstancedAccelerationStructures_), instancedAccelerationStructures);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setInstancedAccelerationStructures_),
+                              instancedAccelerationStructures);
 }
 
 // property: instanceDescriptorType
-_MTL_INLINE MTL::AccelerationStructureInstanceDescriptorType MTL::InstanceAccelerationStructureDescriptor::instanceDescriptorType() const
+_MTL_INLINE MTL::AccelerationStructureInstanceDescriptorType
+MTL::InstanceAccelerationStructureDescriptor::instanceDescriptorType() const
 {
-    return Object::sendMessage<MTL::AccelerationStructureInstanceDescriptorType>(this, _MTL_PRIVATE_SEL(instanceDescriptorType));
+    return Object::sendMessage<MTL::AccelerationStructureInstanceDescriptorType>(
+        this, _MTL_PRIVATE_SEL(instanceDescriptorType));
 }
 
-_MTL_INLINE void MTL::InstanceAccelerationStructureDescriptor::setInstanceDescriptorType(MTL::AccelerationStructureInstanceDescriptorType instanceDescriptorType)
+_MTL_INLINE void MTL::InstanceAccelerationStructureDescriptor::setInstanceDescriptorType(
+    MTL::AccelerationStructureInstanceDescriptorType instanceDescriptorType)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setInstanceDescriptorType_), instanceDescriptorType);
 }
@@ -1630,7 +1741,8 @@ _MTL_INLINE MTL::Buffer* MTL::InstanceAccelerationStructureDescriptor::motionTra
     return Object::sendMessage<MTL::Buffer*>(this, _MTL_PRIVATE_SEL(motionTransformBuffer));
 }
 
-_MTL_INLINE void MTL::InstanceAccelerationStructureDescriptor::setMotionTransformBuffer(const MTL::Buffer* motionTransformBuffer)
+_MTL_INLINE void MTL::InstanceAccelerationStructureDescriptor::setMotionTransformBuffer(
+    const MTL::Buffer* motionTransformBuffer)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMotionTransformBuffer_), motionTransformBuffer);
 }
@@ -1641,7 +1753,8 @@ _MTL_INLINE NS::UInteger MTL::InstanceAccelerationStructureDescriptor::motionTra
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(motionTransformBufferOffset));
 }
 
-_MTL_INLINE void MTL::InstanceAccelerationStructureDescriptor::setMotionTransformBufferOffset(NS::UInteger motionTransformBufferOffset)
+_MTL_INLINE void MTL::InstanceAccelerationStructureDescriptor::setMotionTransformBufferOffset(
+    NS::UInteger motionTransformBufferOffset)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMotionTransformBufferOffset_), motionTransformBufferOffset);
 }
@@ -1652,7 +1765,8 @@ _MTL_INLINE NS::UInteger MTL::InstanceAccelerationStructureDescriptor::motionTra
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(motionTransformCount));
 }
 
-_MTL_INLINE void MTL::InstanceAccelerationStructureDescriptor::setMotionTransformCount(NS::UInteger motionTransformCount)
+_MTL_INLINE void MTL::InstanceAccelerationStructureDescriptor::setMotionTransformCount(
+    NS::UInteger motionTransformCount)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMotionTransformCount_), motionTransformCount);
 }
@@ -1660,17 +1774,21 @@ _MTL_INLINE void MTL::InstanceAccelerationStructureDescriptor::setMotionTransfor
 // static method: descriptor
 _MTL_INLINE MTL::InstanceAccelerationStructureDescriptor* MTL::InstanceAccelerationStructureDescriptor::descriptor()
 {
-    return Object::sendMessage<MTL::InstanceAccelerationStructureDescriptor*>(_MTL_PRIVATE_CLS(MTLInstanceAccelerationStructureDescriptor), _MTL_PRIVATE_SEL(descriptor));
+    return Object::sendMessage<MTL::InstanceAccelerationStructureDescriptor*>(
+        _MTL_PRIVATE_CLS(MTLInstanceAccelerationStructureDescriptor), _MTL_PRIVATE_SEL(descriptor));
 }
 
 // static method: alloc
-_MTL_INLINE MTL::IndirectInstanceAccelerationStructureDescriptor* MTL::IndirectInstanceAccelerationStructureDescriptor::alloc()
+_MTL_INLINE MTL::IndirectInstanceAccelerationStructureDescriptor*
+MTL::IndirectInstanceAccelerationStructureDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL::IndirectInstanceAccelerationStructureDescriptor>(_MTL_PRIVATE_CLS(MTLIndirectInstanceAccelerationStructureDescriptor));
+    return NS::Object::alloc<MTL::IndirectInstanceAccelerationStructureDescriptor>(
+        _MTL_PRIVATE_CLS(MTLIndirectInstanceAccelerationStructureDescriptor));
 }
 
 // method: init
-_MTL_INLINE MTL::IndirectInstanceAccelerationStructureDescriptor* MTL::IndirectInstanceAccelerationStructureDescriptor::init()
+_MTL_INLINE MTL::IndirectInstanceAccelerationStructureDescriptor*
+MTL::IndirectInstanceAccelerationStructureDescriptor::init()
 {
     return NS::Object::init<MTL::IndirectInstanceAccelerationStructureDescriptor>();
 }
@@ -1681,7 +1799,8 @@ _MTL_INLINE MTL::Buffer* MTL::IndirectInstanceAccelerationStructureDescriptor::i
     return Object::sendMessage<MTL::Buffer*>(this, _MTL_PRIVATE_SEL(instanceDescriptorBuffer));
 }
 
-_MTL_INLINE void MTL::IndirectInstanceAccelerationStructureDescriptor::setInstanceDescriptorBuffer(const MTL::Buffer* instanceDescriptorBuffer)
+_MTL_INLINE void MTL::IndirectInstanceAccelerationStructureDescriptor::setInstanceDescriptorBuffer(
+    const MTL::Buffer* instanceDescriptorBuffer)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setInstanceDescriptorBuffer_), instanceDescriptorBuffer);
 }
@@ -1692,9 +1811,11 @@ _MTL_INLINE NS::UInteger MTL::IndirectInstanceAccelerationStructureDescriptor::i
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(instanceDescriptorBufferOffset));
 }
 
-_MTL_INLINE void MTL::IndirectInstanceAccelerationStructureDescriptor::setInstanceDescriptorBufferOffset(NS::UInteger instanceDescriptorBufferOffset)
+_MTL_INLINE void MTL::IndirectInstanceAccelerationStructureDescriptor::setInstanceDescriptorBufferOffset(
+    NS::UInteger instanceDescriptorBufferOffset)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setInstanceDescriptorBufferOffset_), instanceDescriptorBufferOffset);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setInstanceDescriptorBufferOffset_),
+                              instanceDescriptorBufferOffset);
 }
 
 // property: instanceDescriptorStride
@@ -1703,7 +1824,8 @@ _MTL_INLINE NS::UInteger MTL::IndirectInstanceAccelerationStructureDescriptor::i
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(instanceDescriptorStride));
 }
 
-_MTL_INLINE void MTL::IndirectInstanceAccelerationStructureDescriptor::setInstanceDescriptorStride(NS::UInteger instanceDescriptorStride)
+_MTL_INLINE void MTL::IndirectInstanceAccelerationStructureDescriptor::setInstanceDescriptorStride(
+    NS::UInteger instanceDescriptorStride)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setInstanceDescriptorStride_), instanceDescriptorStride);
 }
@@ -1714,7 +1836,8 @@ _MTL_INLINE NS::UInteger MTL::IndirectInstanceAccelerationStructureDescriptor::m
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(maxInstanceCount));
 }
 
-_MTL_INLINE void MTL::IndirectInstanceAccelerationStructureDescriptor::setMaxInstanceCount(NS::UInteger maxInstanceCount)
+_MTL_INLINE void MTL::IndirectInstanceAccelerationStructureDescriptor::setMaxInstanceCount(
+    NS::UInteger maxInstanceCount)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMaxInstanceCount_), maxInstanceCount);
 }
@@ -1725,7 +1848,8 @@ _MTL_INLINE MTL::Buffer* MTL::IndirectInstanceAccelerationStructureDescriptor::i
     return Object::sendMessage<MTL::Buffer*>(this, _MTL_PRIVATE_SEL(instanceCountBuffer));
 }
 
-_MTL_INLINE void MTL::IndirectInstanceAccelerationStructureDescriptor::setInstanceCountBuffer(const MTL::Buffer* instanceCountBuffer)
+_MTL_INLINE void MTL::IndirectInstanceAccelerationStructureDescriptor::setInstanceCountBuffer(
+    const MTL::Buffer* instanceCountBuffer)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setInstanceCountBuffer_), instanceCountBuffer);
 }
@@ -1736,18 +1860,22 @@ _MTL_INLINE NS::UInteger MTL::IndirectInstanceAccelerationStructureDescriptor::i
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(instanceCountBufferOffset));
 }
 
-_MTL_INLINE void MTL::IndirectInstanceAccelerationStructureDescriptor::setInstanceCountBufferOffset(NS::UInteger instanceCountBufferOffset)
+_MTL_INLINE void MTL::IndirectInstanceAccelerationStructureDescriptor::setInstanceCountBufferOffset(
+    NS::UInteger instanceCountBufferOffset)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setInstanceCountBufferOffset_), instanceCountBufferOffset);
 }
 
 // property: instanceDescriptorType
-_MTL_INLINE MTL::AccelerationStructureInstanceDescriptorType MTL::IndirectInstanceAccelerationStructureDescriptor::instanceDescriptorType() const
+_MTL_INLINE MTL::AccelerationStructureInstanceDescriptorType
+MTL::IndirectInstanceAccelerationStructureDescriptor::instanceDescriptorType() const
 {
-    return Object::sendMessage<MTL::AccelerationStructureInstanceDescriptorType>(this, _MTL_PRIVATE_SEL(instanceDescriptorType));
+    return Object::sendMessage<MTL::AccelerationStructureInstanceDescriptorType>(
+        this, _MTL_PRIVATE_SEL(instanceDescriptorType));
 }
 
-_MTL_INLINE void MTL::IndirectInstanceAccelerationStructureDescriptor::setInstanceDescriptorType(MTL::AccelerationStructureInstanceDescriptorType instanceDescriptorType)
+_MTL_INLINE void MTL::IndirectInstanceAccelerationStructureDescriptor::setInstanceDescriptorType(
+    MTL::AccelerationStructureInstanceDescriptorType instanceDescriptorType)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setInstanceDescriptorType_), instanceDescriptorType);
 }
@@ -1758,7 +1886,8 @@ _MTL_INLINE MTL::Buffer* MTL::IndirectInstanceAccelerationStructureDescriptor::m
     return Object::sendMessage<MTL::Buffer*>(this, _MTL_PRIVATE_SEL(motionTransformBuffer));
 }
 
-_MTL_INLINE void MTL::IndirectInstanceAccelerationStructureDescriptor::setMotionTransformBuffer(const MTL::Buffer* motionTransformBuffer)
+_MTL_INLINE void MTL::IndirectInstanceAccelerationStructureDescriptor::setMotionTransformBuffer(
+    const MTL::Buffer* motionTransformBuffer)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMotionTransformBuffer_), motionTransformBuffer);
 }
@@ -1769,7 +1898,8 @@ _MTL_INLINE NS::UInteger MTL::IndirectInstanceAccelerationStructureDescriptor::m
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(motionTransformBufferOffset));
 }
 
-_MTL_INLINE void MTL::IndirectInstanceAccelerationStructureDescriptor::setMotionTransformBufferOffset(NS::UInteger motionTransformBufferOffset)
+_MTL_INLINE void MTL::IndirectInstanceAccelerationStructureDescriptor::setMotionTransformBufferOffset(
+    NS::UInteger motionTransformBufferOffset)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMotionTransformBufferOffset_), motionTransformBufferOffset);
 }
@@ -1780,7 +1910,8 @@ _MTL_INLINE NS::UInteger MTL::IndirectInstanceAccelerationStructureDescriptor::m
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(maxMotionTransformCount));
 }
 
-_MTL_INLINE void MTL::IndirectInstanceAccelerationStructureDescriptor::setMaxMotionTransformCount(NS::UInteger maxMotionTransformCount)
+_MTL_INLINE void MTL::IndirectInstanceAccelerationStructureDescriptor::setMaxMotionTransformCount(
+    NS::UInteger maxMotionTransformCount)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMaxMotionTransformCount_), maxMotionTransformCount);
 }
@@ -1791,7 +1922,8 @@ _MTL_INLINE MTL::Buffer* MTL::IndirectInstanceAccelerationStructureDescriptor::m
     return Object::sendMessage<MTL::Buffer*>(this, _MTL_PRIVATE_SEL(motionTransformCountBuffer));
 }
 
-_MTL_INLINE void MTL::IndirectInstanceAccelerationStructureDescriptor::setMotionTransformCountBuffer(const MTL::Buffer* motionTransformCountBuffer)
+_MTL_INLINE void MTL::IndirectInstanceAccelerationStructureDescriptor::setMotionTransformCountBuffer(
+    const MTL::Buffer* motionTransformCountBuffer)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMotionTransformCountBuffer_), motionTransformCountBuffer);
 }
@@ -1802,15 +1934,19 @@ _MTL_INLINE NS::UInteger MTL::IndirectInstanceAccelerationStructureDescriptor::m
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(motionTransformCountBufferOffset));
 }
 
-_MTL_INLINE void MTL::IndirectInstanceAccelerationStructureDescriptor::setMotionTransformCountBufferOffset(NS::UInteger motionTransformCountBufferOffset)
+_MTL_INLINE void MTL::IndirectInstanceAccelerationStructureDescriptor::setMotionTransformCountBufferOffset(
+    NS::UInteger motionTransformCountBufferOffset)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMotionTransformCountBufferOffset_), motionTransformCountBufferOffset);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMotionTransformCountBufferOffset_),
+                              motionTransformCountBufferOffset);
 }
 
 // static method: descriptor
-_MTL_INLINE MTL::IndirectInstanceAccelerationStructureDescriptor* MTL::IndirectInstanceAccelerationStructureDescriptor::descriptor()
+_MTL_INLINE MTL::IndirectInstanceAccelerationStructureDescriptor*
+MTL::IndirectInstanceAccelerationStructureDescriptor::descriptor()
 {
-    return Object::sendMessage<MTL::IndirectInstanceAccelerationStructureDescriptor*>(_MTL_PRIVATE_CLS(MTLIndirectInstanceAccelerationStructureDescriptor), _MTL_PRIVATE_SEL(descriptor));
+    return Object::sendMessage<MTL::IndirectInstanceAccelerationStructureDescriptor*>(
+        _MTL_PRIVATE_CLS(MTLIndirectInstanceAccelerationStructureDescriptor), _MTL_PRIVATE_SEL(descriptor));
 }
 
 // property: size

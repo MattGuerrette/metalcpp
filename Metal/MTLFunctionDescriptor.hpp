@@ -30,45 +30,45 @@
 
 namespace MTL
 {
-_MTL_OPTIONS(NS::UInteger, FunctionOptions) {
-    FunctionOptionNone = 0,
-    FunctionOptionCompileToBinary = 1,
-    FunctionOptionStoreFunctionInMetalScript = 2,
-};
+    _MTL_OPTIONS(NS::UInteger, FunctionOptions)
+    {
+        FunctionOptionNone = 0,
+        FunctionOptionCompileToBinary = 1,
+        FunctionOptionStoreFunctionInMetalScript = 2,
+    };
 
-class FunctionDescriptor : public NS::Copying<FunctionDescriptor>
-{
-public:
-    static class FunctionDescriptor* alloc();
+    class FunctionDescriptor : public NS::Copying<FunctionDescriptor>
+    {
+    public:
+        static class FunctionDescriptor* alloc();
 
-    class FunctionDescriptor*        init();
+        class FunctionDescriptor* init();
 
-    static class FunctionDescriptor* functionDescriptor();
+        static class FunctionDescriptor* functionDescriptor();
 
-    NS::String*                      name() const;
-    void                             setName(const NS::String* name);
+        [[nodiscard]] NS::String* name() const;
+        void setName(const NS::String* name);
 
-    NS::String*                      specializedName() const;
-    void                             setSpecializedName(const NS::String* specializedName);
+        [[nodiscard]] NS::String* specializedName() const;
+        void setSpecializedName(const NS::String* specializedName);
 
-    class FunctionConstantValues*    constantValues() const;
-    void                             setConstantValues(const class FunctionConstantValues* constantValues);
+        [[nodiscard]] class FunctionConstantValues* constantValues() const;
+        void setConstantValues(const class FunctionConstantValues* constantValues);
 
-    MTL::FunctionOptions             options() const;
-    void                             setOptions(MTL::FunctionOptions options);
+        [[nodiscard]] MTL::FunctionOptions options() const;
+        void setOptions(MTL::FunctionOptions options);
 
-    NS::Array*                       binaryArchives() const;
-    void                             setBinaryArchives(const NS::Array* binaryArchives);
-};
+        [[nodiscard]] NS::Array* binaryArchives() const;
+        void setBinaryArchives(const NS::Array* binaryArchives);
+    };
 
-class IntersectionFunctionDescriptor : public NS::Copying<IntersectionFunctionDescriptor, MTL::FunctionDescriptor>
-{
-public:
-    static class IntersectionFunctionDescriptor* alloc();
+    class IntersectionFunctionDescriptor : public NS::Copying<IntersectionFunctionDescriptor, MTL::FunctionDescriptor>
+    {
+    public:
+        static class IntersectionFunctionDescriptor* alloc();
 
-    class IntersectionFunctionDescriptor*        init();
-};
-
+        class IntersectionFunctionDescriptor* init();
+    };
 }
 
 // static method: alloc
@@ -86,7 +86,8 @@ _MTL_INLINE MTL::FunctionDescriptor* MTL::FunctionDescriptor::init()
 // static method: functionDescriptor
 _MTL_INLINE MTL::FunctionDescriptor* MTL::FunctionDescriptor::functionDescriptor()
 {
-    return Object::sendMessage<MTL::FunctionDescriptor*>(_MTL_PRIVATE_CLS(MTLFunctionDescriptor), _MTL_PRIVATE_SEL(functionDescriptor));
+    return Object::sendMessage<MTL::FunctionDescriptor*>(
+        _MTL_PRIVATE_CLS(MTLFunctionDescriptor), _MTL_PRIVATE_SEL(functionDescriptor));
 }
 
 // property: name

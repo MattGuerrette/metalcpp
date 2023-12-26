@@ -30,85 +30,86 @@
 
 namespace MTL
 {
-_MTL_ENUM(NS::UInteger, CompareFunction) {
-    CompareFunctionNever = 0,
-    CompareFunctionLess = 1,
-    CompareFunctionEqual = 2,
-    CompareFunctionLessEqual = 3,
-    CompareFunctionGreater = 4,
-    CompareFunctionNotEqual = 5,
-    CompareFunctionGreaterEqual = 6,
-    CompareFunctionAlways = 7,
-};
+    _MTL_ENUM(NS::UInteger, CompareFunction)
+    {
+        CompareFunctionNever = 0,
+        CompareFunctionLess = 1,
+        CompareFunctionEqual = 2,
+        CompareFunctionLessEqual = 3,
+        CompareFunctionGreater = 4,
+        CompareFunctionNotEqual = 5,
+        CompareFunctionGreaterEqual = 6,
+        CompareFunctionAlways = 7,
+    };
 
-_MTL_ENUM(NS::UInteger, StencilOperation) {
-    StencilOperationKeep = 0,
-    StencilOperationZero = 1,
-    StencilOperationReplace = 2,
-    StencilOperationIncrementClamp = 3,
-    StencilOperationDecrementClamp = 4,
-    StencilOperationInvert = 5,
-    StencilOperationIncrementWrap = 6,
-    StencilOperationDecrementWrap = 7,
-};
+    _MTL_ENUM(NS::UInteger, StencilOperation)
+    {
+        StencilOperationKeep = 0,
+        StencilOperationZero = 1,
+        StencilOperationReplace = 2,
+        StencilOperationIncrementClamp = 3,
+        StencilOperationDecrementClamp = 4,
+        StencilOperationInvert = 5,
+        StencilOperationIncrementWrap = 6,
+        StencilOperationDecrementWrap = 7,
+    };
 
-class StencilDescriptor : public NS::Copying<StencilDescriptor>
-{
-public:
-    static class StencilDescriptor* alloc();
+    class StencilDescriptor : public NS::Copying<StencilDescriptor>
+    {
+    public:
+        static class StencilDescriptor* alloc();
 
-    class StencilDescriptor*        init();
+        class StencilDescriptor* init();
 
-    MTL::CompareFunction            stencilCompareFunction() const;
-    void                            setStencilCompareFunction(MTL::CompareFunction stencilCompareFunction);
+        [[nodiscard]] MTL::CompareFunction stencilCompareFunction() const;
+        void setStencilCompareFunction(MTL::CompareFunction stencilCompareFunction);
 
-    MTL::StencilOperation           stencilFailureOperation() const;
-    void                            setStencilFailureOperation(MTL::StencilOperation stencilFailureOperation);
+        [[nodiscard]] MTL::StencilOperation stencilFailureOperation() const;
+        void setStencilFailureOperation(MTL::StencilOperation stencilFailureOperation);
 
-    MTL::StencilOperation           depthFailureOperation() const;
-    void                            setDepthFailureOperation(MTL::StencilOperation depthFailureOperation);
+        [[nodiscard]] MTL::StencilOperation depthFailureOperation() const;
+        void setDepthFailureOperation(MTL::StencilOperation depthFailureOperation);
 
-    MTL::StencilOperation           depthStencilPassOperation() const;
-    void                            setDepthStencilPassOperation(MTL::StencilOperation depthStencilPassOperation);
+        [[nodiscard]] MTL::StencilOperation depthStencilPassOperation() const;
+        void setDepthStencilPassOperation(MTL::StencilOperation depthStencilPassOperation);
 
-    uint32_t                        readMask() const;
-    void                            setReadMask(uint32_t readMask);
+        [[nodiscard]] uint32_t readMask() const;
+        void setReadMask(uint32_t readMask);
 
-    uint32_t                        writeMask() const;
-    void                            setWriteMask(uint32_t writeMask);
-};
+        [[nodiscard]] uint32_t writeMask() const;
+        void setWriteMask(uint32_t writeMask);
+    };
 
-class DepthStencilDescriptor : public NS::Copying<DepthStencilDescriptor>
-{
-public:
-    static class DepthStencilDescriptor* alloc();
+    class DepthStencilDescriptor : public NS::Copying<DepthStencilDescriptor>
+    {
+    public:
+        static class DepthStencilDescriptor* alloc();
 
-    class DepthStencilDescriptor*        init();
+        class DepthStencilDescriptor* init();
 
-    MTL::CompareFunction                 depthCompareFunction() const;
-    void                                 setDepthCompareFunction(MTL::CompareFunction depthCompareFunction);
+        [[nodiscard]] MTL::CompareFunction depthCompareFunction() const;
+        void setDepthCompareFunction(MTL::CompareFunction depthCompareFunction);
 
-    bool                                 depthWriteEnabled() const;
-    void                                 setDepthWriteEnabled(bool depthWriteEnabled);
+        [[nodiscard]] bool depthWriteEnabled() const;
+        void setDepthWriteEnabled(bool depthWriteEnabled);
 
-    class StencilDescriptor*             frontFaceStencil() const;
-    void                                 setFrontFaceStencil(const class StencilDescriptor* frontFaceStencil);
+        [[nodiscard]] class StencilDescriptor* frontFaceStencil() const;
+        void setFrontFaceStencil(const class StencilDescriptor* frontFaceStencil);
 
-    class StencilDescriptor*             backFaceStencil() const;
-    void                                 setBackFaceStencil(const class StencilDescriptor* backFaceStencil);
+        [[nodiscard]] class StencilDescriptor* backFaceStencil() const;
+        void setBackFaceStencil(const class StencilDescriptor* backFaceStencil);
 
-    NS::String*                          label() const;
-    void                                 setLabel(const NS::String* label);
-};
+        [[nodiscard]] NS::String* label() const;
+        void setLabel(const NS::String* label);
+    };
 
-class DepthStencilState : public NS::Referencing<DepthStencilState>
-{
-public:
-    NS::String*   label() const;
+    class DepthStencilState : public NS::Referencing<DepthStencilState>
+    {
+    public:
+        [[nodiscard]] NS::String* label() const;
 
-    class Device* device() const;
-};
-
+        [[nodiscard]] class Device* device() const;
+    };
 }
 
 // static method: alloc

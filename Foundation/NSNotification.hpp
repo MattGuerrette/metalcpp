@@ -28,33 +28,33 @@
 #include "NSString.hpp"
 #include "NSTypes.hpp"
 #include <functional>
+#include <utility>
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 namespace NS
 {
-using NotificationName = class String*;
+    using NotificationName = class String*;
 
-class Notification : public NS::Referencing<Notification>
-{
-public:
-    NS::String*     name() const;
-    NS::Object*     object() const;
-    NS::Dictionary* userInfo() const;
-};
+    class Notification : public NS::Referencing<Notification>
+    {
+    public:
+        [[nodiscard]] NS::String* name() const;
+        [[nodiscard]] NS::Object* object() const;
+        [[nodiscard]] NS::Dictionary* userInfo() const;
+    };
 
-using ObserverBlock = void(^)(Notification*);
-using ObserverFunction = std::function<void(Notification*)>;
+    using ObserverBlock = void(*)(Notification*);
+    using ObserverFunction = std::function<void(Notification*)>;
 
-class NotificationCenter : public NS::Referencing<NotificationCenter>
-{
+    class NotificationCenter : public NS::Referencing<NotificationCenter>
+    {
     public:
         static class NotificationCenter* defaultCenter();
         Object* addObserver(NotificationName name, Object* pObj, void* pQueue, ObserverBlock block);
-        Object* addObserver(NotificationName name, Object* pObj, void* pQueue, ObserverFunction &handler);
+        Object* addObserver(NotificationName name, Object* pObj, void* pQueue, ObserverFunction handler);
         void removeObserver(Object* pObserver);
-
-};
+    };
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -82,23 +82,27 @@ _NS_INLINE NS::Dictionary* NS::Notification::userInfo() const
 
 _NS_INLINE NS::NotificationCenter* NS::NotificationCenter::defaultCenter()
 {
-    return NS::Object::sendMessage<NS::NotificationCenter*>(_NS_PRIVATE_CLS(NSNotificationCenter), _NS_PRIVATE_SEL(defaultCenter));
+    return NS::Object::sendMessage<NS::NotificationCenter*>(
+        _NS_PRIVATE_CLS(NSNotificationCenter), _NS_PRIVATE_SEL(defaultCenter));
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::Object* NS::NotificationCenter::addObserver(NS::NotificationName name, Object* pObj, void* pQueue, NS::ObserverBlock block)
+_NS_INLINE NS::Object* NS::NotificationCenter::addObserver(NS::NotificationName name, Object* pObj, void* pQueue,
+                                                           NS::ObserverBlock block)
 {
-    return NS::Object::sendMessage<Object*>(this, _NS_PRIVATE_SEL(addObserverName_object_queue_block_), name, pObj, pQueue, block);
+    return NS::Object::sendMessage<Object*>(this, _NS_PRIVATE_SEL(addObserverName_object_queue_block_), name, pObj,
+                                            pQueue, block);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::Object* NS::NotificationCenter::addObserver(NS::NotificationName name, Object* pObj, void* pQueue, NS::ObserverFunction &handler)
+_NS_INLINE NS::Object* NS::NotificationCenter::addObserver(NS::NotificationName name, Object* pObj, void* pQueue,
+                                                           NS::ObserverFunction handler)
 {
-    __block ObserverFunction blockFunction = handler;
+    __block ObserverFunction blockFunction = std::move(handler);
 
-    return addObserver(name, pObj, pQueue, ^(NS::Notification* pNotif) {blockFunction(pNotif);});
+    return addObserver(name, pObj, pQueue, [blockFunction](NS::Notification* pNotif) { blockFunction(pNotif); });
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -107,4 +111,3 @@ _NS_INLINE void NS::NotificationCenter::removeObserver(Object* pObserver)
 {
     return NS::Object::sendMessage<void>(this, _NS_PRIVATE_SEL(removeObserver_), pObserver);
 }
-

@@ -30,94 +30,94 @@
 
 namespace MTL
 {
-class ComputePipelineReflection : public NS::Referencing<ComputePipelineReflection>
-{
-public:
-    static class ComputePipelineReflection* alloc();
+    class ComputePipelineReflection : public NS::Referencing<ComputePipelineReflection>
+    {
+    public:
+        static class ComputePipelineReflection* alloc();
 
-    class ComputePipelineReflection*        init();
+        class ComputePipelineReflection* init();
 
-    NS::Array*                              bindings() const;
+        [[nodiscard]] NS::Array* bindings() const;
 
-    NS::Array*                              arguments() const;
-};
+        [[nodiscard]] NS::Array* arguments() const;
+    };
 
-class ComputePipelineDescriptor : public NS::Copying<ComputePipelineDescriptor>
-{
-public:
-    static class ComputePipelineDescriptor* alloc();
+    class ComputePipelineDescriptor : public NS::Copying<ComputePipelineDescriptor>
+    {
+    public:
+        static class ComputePipelineDescriptor* alloc();
 
-    class ComputePipelineDescriptor*        init();
+        class ComputePipelineDescriptor* init();
 
-    NS::String*                             label() const;
-    void                                    setLabel(const NS::String* label);
+        [[nodiscard]] NS::String* label() const;
+        void setLabel(const NS::String* label);
 
-    class Function*                         computeFunction() const;
-    void                                    setComputeFunction(const class Function* computeFunction);
+        [[nodiscard]] class Function* computeFunction() const;
+        void setComputeFunction(const class Function* computeFunction);
 
-    bool                                    threadGroupSizeIsMultipleOfThreadExecutionWidth() const;
-    void                                    setThreadGroupSizeIsMultipleOfThreadExecutionWidth(bool threadGroupSizeIsMultipleOfThreadExecutionWidth);
+        [[nodiscard]] bool threadGroupSizeIsMultipleOfThreadExecutionWidth() const;
+        void setThreadGroupSizeIsMultipleOfThreadExecutionWidth(bool threadGroupSizeIsMultipleOfThreadExecutionWidth);
 
-    NS::UInteger                            maxTotalThreadsPerThreadgroup() const;
-    void                                    setMaxTotalThreadsPerThreadgroup(NS::UInteger maxTotalThreadsPerThreadgroup);
+        [[nodiscard]] NS::UInteger maxTotalThreadsPerThreadgroup() const;
+        void setMaxTotalThreadsPerThreadgroup(NS::UInteger maxTotalThreadsPerThreadgroup);
 
-    class StageInputOutputDescriptor*       stageInputDescriptor() const;
-    void                                    setStageInputDescriptor(const class StageInputOutputDescriptor* stageInputDescriptor);
+        [[nodiscard]] class StageInputOutputDescriptor* stageInputDescriptor() const;
+        void setStageInputDescriptor(const class StageInputOutputDescriptor* stageInputDescriptor);
 
-    class PipelineBufferDescriptorArray*    buffers() const;
+        [[nodiscard]] class PipelineBufferDescriptorArray* buffers() const;
 
-    bool                                    supportIndirectCommandBuffers() const;
-    void                                    setSupportIndirectCommandBuffers(bool supportIndirectCommandBuffers);
+        [[nodiscard]] bool supportIndirectCommandBuffers() const;
+        void setSupportIndirectCommandBuffers(bool supportIndirectCommandBuffers);
 
-    NS::Array*                              insertLibraries() const;
-    void                                    setInsertLibraries(const NS::Array* insertLibraries);
+        [[nodiscard]] NS::Array* insertLibraries() const;
+        void setInsertLibraries(const NS::Array* insertLibraries);
 
-    NS::Array*                              preloadedLibraries() const;
-    void                                    setPreloadedLibraries(const NS::Array* preloadedLibraries);
+        [[nodiscard]] NS::Array* preloadedLibraries() const;
+        void setPreloadedLibraries(const NS::Array* preloadedLibraries);
 
-    NS::Array*                              binaryArchives() const;
-    void                                    setBinaryArchives(const NS::Array* binaryArchives);
+        [[nodiscard]] NS::Array* binaryArchives() const;
+        void setBinaryArchives(const NS::Array* binaryArchives);
 
-    void                                    reset();
+        void reset();
 
-    class LinkedFunctions*                  linkedFunctions() const;
-    void                                    setLinkedFunctions(const class LinkedFunctions* linkedFunctions);
+        [[nodiscard]] class LinkedFunctions* linkedFunctions() const;
+        void setLinkedFunctions(const class LinkedFunctions* linkedFunctions);
 
-    bool                                    supportAddingBinaryFunctions() const;
-    void                                    setSupportAddingBinaryFunctions(bool supportAddingBinaryFunctions);
+        [[nodiscard]] bool supportAddingBinaryFunctions() const;
+        void setSupportAddingBinaryFunctions(bool supportAddingBinaryFunctions);
 
-    NS::UInteger                            maxCallStackDepth() const;
-    void                                    setMaxCallStackDepth(NS::UInteger maxCallStackDepth);
-};
+        [[nodiscard]] NS::UInteger maxCallStackDepth() const;
+        void setMaxCallStackDepth(NS::UInteger maxCallStackDepth);
+    };
 
-class ComputePipelineState : public NS::Referencing<ComputePipelineState>
-{
-public:
-    NS::String*                      label() const;
+    class ComputePipelineState : public NS::Referencing<ComputePipelineState>
+    {
+    public:
+        [[nodiscard]] NS::String* label() const;
 
-    class Device*                    device() const;
+        [[nodiscard]] class Device* device() const;
 
-    NS::UInteger                     maxTotalThreadsPerThreadgroup() const;
+        [[nodiscard]] NS::UInteger maxTotalThreadsPerThreadgroup() const;
 
-    NS::UInteger                     threadExecutionWidth() const;
+        [[nodiscard]] NS::UInteger threadExecutionWidth() const;
 
-    NS::UInteger                     staticThreadgroupMemoryLength() const;
+        [[nodiscard]] NS::UInteger staticThreadgroupMemoryLength() const;
 
-    NS::UInteger                     imageblockMemoryLength(MTL::Size imageblockDimensions);
+        NS::UInteger imageblockMemoryLength(MTL::Size imageblockDimensions);
 
-    bool                             supportIndirectCommandBuffers() const;
+        [[nodiscard]] bool supportIndirectCommandBuffers() const;
 
-    MTL::ResourceID                  gpuResourceID() const;
+        [[nodiscard]] MTL::ResourceID gpuResourceID() const;
 
-    class FunctionHandle*            functionHandle(const class Function* function);
+        class FunctionHandle* functionHandle(const class Function* function);
 
-    class ComputePipelineState*      newComputePipelineState(const NS::Array* functions, NS::Error** error);
+        class ComputePipelineState* newComputePipelineState(const NS::Array* functions, NS::Error** error);
 
-    class VisibleFunctionTable*      newVisibleFunctionTable(const class VisibleFunctionTableDescriptor* descriptor);
+        class VisibleFunctionTable* newVisibleFunctionTable(const class VisibleFunctionTableDescriptor* descriptor);
 
-    class IntersectionFunctionTable* newIntersectionFunctionTable(const class IntersectionFunctionTableDescriptor* descriptor);
-};
-
+        class IntersectionFunctionTable* newIntersectionFunctionTable(
+            const class IntersectionFunctionTableDescriptor* descriptor);
+    };
 }
 
 // static method: alloc
@@ -184,9 +184,11 @@ _MTL_INLINE bool MTL::ComputePipelineDescriptor::threadGroupSizeIsMultipleOfThre
     return Object::sendMessage<bool>(this, _MTL_PRIVATE_SEL(threadGroupSizeIsMultipleOfThreadExecutionWidth));
 }
 
-_MTL_INLINE void MTL::ComputePipelineDescriptor::setThreadGroupSizeIsMultipleOfThreadExecutionWidth(bool threadGroupSizeIsMultipleOfThreadExecutionWidth)
+_MTL_INLINE void MTL::ComputePipelineDescriptor::setThreadGroupSizeIsMultipleOfThreadExecutionWidth(
+    bool threadGroupSizeIsMultipleOfThreadExecutionWidth)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setThreadGroupSizeIsMultipleOfThreadExecutionWidth_), threadGroupSizeIsMultipleOfThreadExecutionWidth);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setThreadGroupSizeIsMultipleOfThreadExecutionWidth_),
+                              threadGroupSizeIsMultipleOfThreadExecutionWidth);
 }
 
 // property: maxTotalThreadsPerThreadgroup
@@ -195,7 +197,8 @@ _MTL_INLINE NS::UInteger MTL::ComputePipelineDescriptor::maxTotalThreadsPerThrea
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(maxTotalThreadsPerThreadgroup));
 }
 
-_MTL_INLINE void MTL::ComputePipelineDescriptor::setMaxTotalThreadsPerThreadgroup(NS::UInteger maxTotalThreadsPerThreadgroup)
+_MTL_INLINE void MTL::ComputePipelineDescriptor::setMaxTotalThreadsPerThreadgroup(
+    NS::UInteger maxTotalThreadsPerThreadgroup)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMaxTotalThreadsPerThreadgroup_), maxTotalThreadsPerThreadgroup);
 }
@@ -206,7 +209,8 @@ _MTL_INLINE MTL::StageInputOutputDescriptor* MTL::ComputePipelineDescriptor::sta
     return Object::sendMessage<MTL::StageInputOutputDescriptor*>(this, _MTL_PRIVATE_SEL(stageInputDescriptor));
 }
 
-_MTL_INLINE void MTL::ComputePipelineDescriptor::setStageInputDescriptor(const MTL::StageInputOutputDescriptor* stageInputDescriptor)
+_MTL_INLINE void MTL::ComputePipelineDescriptor::setStageInputDescriptor(
+    const MTL::StageInputOutputDescriptor* stageInputDescriptor)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setStageInputDescriptor_), stageInputDescriptor);
 }
@@ -333,7 +337,8 @@ _MTL_INLINE NS::UInteger MTL::ComputePipelineState::staticThreadgroupMemoryLengt
 // method: imageblockMemoryLengthForDimensions:
 _MTL_INLINE NS::UInteger MTL::ComputePipelineState::imageblockMemoryLength(MTL::Size imageblockDimensions)
 {
-    return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(imageblockMemoryLengthForDimensions_), imageblockDimensions);
+    return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(imageblockMemoryLengthForDimensions_),
+                                             imageblockDimensions);
 }
 
 // property: supportIndirectCommandBuffers
@@ -355,19 +360,25 @@ _MTL_INLINE MTL::FunctionHandle* MTL::ComputePipelineState::functionHandle(const
 }
 
 // method: newComputePipelineStateWithAdditionalBinaryFunctions:error:
-_MTL_INLINE MTL::ComputePipelineState* MTL::ComputePipelineState::newComputePipelineState(const NS::Array* functions, NS::Error** error)
+_MTL_INLINE MTL::ComputePipelineState* MTL::ComputePipelineState::newComputePipelineState(
+    const NS::Array* functions, NS::Error** error)
 {
-    return Object::sendMessage<MTL::ComputePipelineState*>(this, _MTL_PRIVATE_SEL(newComputePipelineStateWithAdditionalBinaryFunctions_error_), functions, error);
+    return Object::sendMessage<MTL::ComputePipelineState*>(
+        this, _MTL_PRIVATE_SEL(newComputePipelineStateWithAdditionalBinaryFunctions_error_), functions, error);
 }
 
 // method: newVisibleFunctionTableWithDescriptor:
-_MTL_INLINE MTL::VisibleFunctionTable* MTL::ComputePipelineState::newVisibleFunctionTable(const MTL::VisibleFunctionTableDescriptor* descriptor)
+_MTL_INLINE MTL::VisibleFunctionTable* MTL::ComputePipelineState::newVisibleFunctionTable(
+    const MTL::VisibleFunctionTableDescriptor* descriptor)
 {
-    return Object::sendMessage<MTL::VisibleFunctionTable*>(this, _MTL_PRIVATE_SEL(newVisibleFunctionTableWithDescriptor_), descriptor);
+    return Object::sendMessage<MTL::VisibleFunctionTable*>(
+        this, _MTL_PRIVATE_SEL(newVisibleFunctionTableWithDescriptor_), descriptor);
 }
 
 // method: newIntersectionFunctionTableWithDescriptor:
-_MTL_INLINE MTL::IntersectionFunctionTable* MTL::ComputePipelineState::newIntersectionFunctionTable(const MTL::IntersectionFunctionTableDescriptor* descriptor)
+_MTL_INLINE MTL::IntersectionFunctionTable* MTL::ComputePipelineState::newIntersectionFunctionTable(
+    const MTL::IntersectionFunctionTableDescriptor* descriptor)
 {
-    return Object::sendMessage<MTL::IntersectionFunctionTable*>(this, _MTL_PRIVATE_SEL(newIntersectionFunctionTableWithDescriptor_), descriptor);
+    return Object::sendMessage<MTL::IntersectionFunctionTable*>(
+        this, _MTL_PRIVATE_SEL(newIntersectionFunctionTableWithDescriptor_), descriptor);
 }

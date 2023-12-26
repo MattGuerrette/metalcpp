@@ -31,46 +31,46 @@
 
 namespace NS
 {
-using ErrorDomain = class String*;
+    using ErrorDomain = class String*;
 
-_NS_CONST(ErrorDomain, CocoaErrorDomain);
-_NS_CONST(ErrorDomain, POSIXErrorDomain);
-_NS_CONST(ErrorDomain, OSStatusErrorDomain);
-_NS_CONST(ErrorDomain, MachErrorDomain);
+    _NS_CONST(ErrorDomain, CocoaErrorDomain);
+    _NS_CONST(ErrorDomain, POSIXErrorDomain);
+    _NS_CONST(ErrorDomain, OSStatusErrorDomain);
+    _NS_CONST(ErrorDomain, MachErrorDomain);
 
-using ErrorUserInfoKey = class String*;
+    using ErrorUserInfoKey = class String*;
 
-_NS_CONST(ErrorUserInfoKey, UnderlyingErrorKey);
-_NS_CONST(ErrorUserInfoKey, LocalizedDescriptionKey);
-_NS_CONST(ErrorUserInfoKey, LocalizedFailureReasonErrorKey);
-_NS_CONST(ErrorUserInfoKey, LocalizedRecoverySuggestionErrorKey);
-_NS_CONST(ErrorUserInfoKey, LocalizedRecoveryOptionsErrorKey);
-_NS_CONST(ErrorUserInfoKey, RecoveryAttempterErrorKey);
-_NS_CONST(ErrorUserInfoKey, HelpAnchorErrorKey);
-_NS_CONST(ErrorUserInfoKey, DebugDescriptionErrorKey);
-_NS_CONST(ErrorUserInfoKey, LocalizedFailureErrorKey);
-_NS_CONST(ErrorUserInfoKey, StringEncodingErrorKey);
-_NS_CONST(ErrorUserInfoKey, URLErrorKey);
-_NS_CONST(ErrorUserInfoKey, FilePathErrorKey);
+    _NS_CONST(ErrorUserInfoKey, UnderlyingErrorKey);
+    _NS_CONST(ErrorUserInfoKey, LocalizedDescriptionKey);
+    _NS_CONST(ErrorUserInfoKey, LocalizedFailureReasonErrorKey);
+    _NS_CONST(ErrorUserInfoKey, LocalizedRecoverySuggestionErrorKey);
+    _NS_CONST(ErrorUserInfoKey, LocalizedRecoveryOptionsErrorKey);
+    _NS_CONST(ErrorUserInfoKey, RecoveryAttempterErrorKey);
+    _NS_CONST(ErrorUserInfoKey, HelpAnchorErrorKey);
+    _NS_CONST(ErrorUserInfoKey, DebugDescriptionErrorKey);
+    _NS_CONST(ErrorUserInfoKey, LocalizedFailureErrorKey);
+    _NS_CONST(ErrorUserInfoKey, StringEncodingErrorKey);
+    _NS_CONST(ErrorUserInfoKey, URLErrorKey);
+    _NS_CONST(ErrorUserInfoKey, FilePathErrorKey);
 
-class Error : public Copying<Error>
-{
-public:
-    static Error*     error(ErrorDomain domain, Integer code, class Dictionary* pDictionary);
+    class Error : public Copying<Error>
+    {
+    public:
+        static Error* error(ErrorDomain domain, Integer code, class Dictionary* pDictionary);
 
-    static Error*     alloc();
-    Error*            init();
-    Error*            init(ErrorDomain domain, Integer code, class Dictionary* pDictionary);
+        static Error* alloc();
+        Error* init();
+        Error* init(ErrorDomain domain, Integer code, class Dictionary* pDictionary);
 
-    Integer           code() const;
-    ErrorDomain       domain() const;
-    class Dictionary* userInfo() const;
+        [[nodiscard]] Integer code() const;
+        [[nodiscard]] ErrorDomain domain() const;
+        [[nodiscard]] class Dictionary* userInfo() const;
 
-    class String*     localizedDescription() const;
-    class Array*      localizedRecoveryOptions() const;
-    class String*     localizedRecoverySuggestion() const;
-    class String*     localizedFailureReason() const;
-};
+        [[nodiscard]] class String* localizedDescription() const;
+        [[nodiscard]] class Array* localizedRecoveryOptions() const;
+        [[nodiscard]] class String* localizedRecoverySuggestion() const;
+        [[nodiscard]] class String* localizedFailureReason() const;
+    };
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -97,7 +97,8 @@ _NS_PRIVATE_DEF_CONST(NS::ErrorUserInfoKey, FilePathErrorKey);
 
 _NS_INLINE NS::Error* NS::Error::error(ErrorDomain domain, Integer code, class Dictionary* pDictionary)
 {
-    return Object::sendMessage<Error*>(_NS_PRIVATE_CLS(NSError), _NS_PRIVATE_SEL(errorWithDomain_code_userInfo_), domain, code, pDictionary);
+    return Object::sendMessage<Error*>(_NS_PRIVATE_CLS(NSError), _NS_PRIVATE_SEL(errorWithDomain_code_userInfo_),
+                                       domain, code, pDictionary);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------

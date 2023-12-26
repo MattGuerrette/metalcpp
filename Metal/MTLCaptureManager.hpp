@@ -30,65 +30,66 @@
 
 namespace MTL
 {
-_MTL_ENUM(NS::Integer, CaptureError) {
-    CaptureErrorNotSupported = 1,
-    CaptureErrorAlreadyCapturing = 2,
-    CaptureErrorInvalidDescriptor = 3,
-};
+    _MTL_ENUM(NS::Integer, CaptureError)
+    {
+        CaptureErrorNotSupported = 1,
+        CaptureErrorAlreadyCapturing = 2,
+        CaptureErrorInvalidDescriptor = 3,
+    };
 
-_MTL_ENUM(NS::Integer, CaptureDestination) {
-    CaptureDestinationDeveloperTools = 1,
-    CaptureDestinationGPUTraceDocument = 2,
-};
+    _MTL_ENUM(NS::Integer, CaptureDestination)
+    {
+        CaptureDestinationDeveloperTools = 1,
+        CaptureDestinationGPUTraceDocument = 2,
+    };
 
-class CaptureDescriptor : public NS::Copying<CaptureDescriptor>
-{
-public:
-    static class CaptureDescriptor* alloc();
+    class CaptureDescriptor : public NS::Copying<CaptureDescriptor>
+    {
+    public:
+        static class CaptureDescriptor* alloc();
 
-    class CaptureDescriptor*        init();
+        class CaptureDescriptor* init();
 
-    id                              captureObject() const;
-    void                            setCaptureObject(id captureObject);
+        [[nodiscard]] id captureObject() const;
+        void setCaptureObject(id captureObject);
 
-    MTL::CaptureDestination         destination() const;
-    void                            setDestination(MTL::CaptureDestination destination);
+        [[nodiscard]] MTL::CaptureDestination destination() const;
+        void setDestination(MTL::CaptureDestination destination);
 
-    NS::URL*                        outputURL() const;
-    void                            setOutputURL(const NS::URL* outputURL);
-};
+        [[nodiscard]] NS::URL* outputURL() const;
+        void setOutputURL(const NS::URL* outputURL);
+    };
 
-class CaptureManager : public NS::Referencing<CaptureManager>
-{
-public:
-    static class CaptureManager* alloc();
+    class CaptureManager : public NS::Referencing<CaptureManager>
+    {
+    public:
+        static class CaptureManager* alloc();
 
-    static class CaptureManager* sharedCaptureManager();
+        static class CaptureManager* sharedCaptureManager();
 
-    MTL::CaptureManager*         init();
+        MTL::CaptureManager* init();
 
-    class CaptureScope*          newCaptureScope(const class Device* device);
+        class CaptureScope* newCaptureScope(const class Device* device);
 
-    class CaptureScope*          newCaptureScope(const class CommandQueue* commandQueue);
+        class CaptureScope* newCaptureScope(const class CommandQueue* commandQueue);
 
-    bool                         supportsDestination(MTL::CaptureDestination destination);
+        bool supportsDestination(MTL::CaptureDestination destination);
 
-    bool                         startCapture(const class CaptureDescriptor* descriptor, NS::Error** error);
+        bool startCapture(const class CaptureDescriptor* descriptor, NS::Error** error);
 
-    void                         startCapture(const class Device* device);
+        void startCapture(const class Device* device);
 
-    void                         startCapture(const class CommandQueue* commandQueue);
+        void startCapture(const class CommandQueue* commandQueue);
 
-    void                         startCapture(const class CaptureScope* captureScope);
+        void startCapture(const class CaptureScope* captureScope);
 
-    void                         stopCapture();
+        void stopCapture();
 
-    class CaptureScope*          defaultCaptureScope() const;
-    void                         setDefaultCaptureScope(const class CaptureScope* defaultCaptureScope);
+        [[nodiscard]] class CaptureScope* defaultCaptureScope() const;
+        void setDefaultCaptureScope(const class CaptureScope* defaultCaptureScope);
 
-    bool                         isCapturing() const;
-};
-
+        [[nodiscard]] bool isCapturing() const;
+    };
 }
 
 // static method: alloc
@@ -145,7 +146,8 @@ _MTL_INLINE MTL::CaptureManager* MTL::CaptureManager::alloc()
 // static method: sharedCaptureManager
 _MTL_INLINE MTL::CaptureManager* MTL::CaptureManager::sharedCaptureManager()
 {
-    return Object::sendMessage<MTL::CaptureManager*>(_MTL_PRIVATE_CLS(MTLCaptureManager), _MTL_PRIVATE_SEL(sharedCaptureManager));
+    return Object::sendMessage<MTL::CaptureManager*>(
+        _MTL_PRIVATE_CLS(MTLCaptureManager), _MTL_PRIVATE_SEL(sharedCaptureManager));
 }
 
 // method: init
@@ -163,7 +165,8 @@ _MTL_INLINE MTL::CaptureScope* MTL::CaptureManager::newCaptureScope(const MTL::D
 // method: newCaptureScopeWithCommandQueue:
 _MTL_INLINE MTL::CaptureScope* MTL::CaptureManager::newCaptureScope(const MTL::CommandQueue* commandQueue)
 {
-    return Object::sendMessage<MTL::CaptureScope*>(this, _MTL_PRIVATE_SEL(newCaptureScopeWithCommandQueue_), commandQueue);
+    return Object::sendMessage<MTL::CaptureScope*>(this, _MTL_PRIVATE_SEL(newCaptureScopeWithCommandQueue_),
+                                                   commandQueue);
 }
 
 // method: supportsDestination:

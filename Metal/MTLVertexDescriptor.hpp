@@ -30,148 +30,148 @@
 
 namespace MTL
 {
+    static constexpr NS::UInteger BufferLayoutStrideDynamic = NS::UIntegerMax;
 
-static const NS::UInteger BufferLayoutStrideDynamic = NS::UIntegerMax;
+    _MTL_ENUM(NS::UInteger, VertexFormat)
+    {
+        VertexFormatInvalid = 0,
+        VertexFormatUChar2 = 1,
+        VertexFormatUChar3 = 2,
+        VertexFormatUChar4 = 3,
+        VertexFormatChar2 = 4,
+        VertexFormatChar3 = 5,
+        VertexFormatChar4 = 6,
+        VertexFormatUChar2Normalized = 7,
+        VertexFormatUChar3Normalized = 8,
+        VertexFormatUChar4Normalized = 9,
+        VertexFormatChar2Normalized = 10,
+        VertexFormatChar3Normalized = 11,
+        VertexFormatChar4Normalized = 12,
+        VertexFormatUShort2 = 13,
+        VertexFormatUShort3 = 14,
+        VertexFormatUShort4 = 15,
+        VertexFormatShort2 = 16,
+        VertexFormatShort3 = 17,
+        VertexFormatShort4 = 18,
+        VertexFormatUShort2Normalized = 19,
+        VertexFormatUShort3Normalized = 20,
+        VertexFormatUShort4Normalized = 21,
+        VertexFormatShort2Normalized = 22,
+        VertexFormatShort3Normalized = 23,
+        VertexFormatShort4Normalized = 24,
+        VertexFormatHalf2 = 25,
+        VertexFormatHalf3 = 26,
+        VertexFormatHalf4 = 27,
+        VertexFormatFloat = 28,
+        VertexFormatFloat2 = 29,
+        VertexFormatFloat3 = 30,
+        VertexFormatFloat4 = 31,
+        VertexFormatInt = 32,
+        VertexFormatInt2 = 33,
+        VertexFormatInt3 = 34,
+        VertexFormatInt4 = 35,
+        VertexFormatUInt = 36,
+        VertexFormatUInt2 = 37,
+        VertexFormatUInt3 = 38,
+        VertexFormatUInt4 = 39,
+        VertexFormatInt1010102Normalized = 40,
+        VertexFormatUInt1010102Normalized = 41,
+        VertexFormatUChar4Normalized_BGRA = 42,
+        VertexFormatUChar = 45,
+        VertexFormatChar = 46,
+        VertexFormatUCharNormalized = 47,
+        VertexFormatCharNormalized = 48,
+        VertexFormatUShort = 49,
+        VertexFormatShort = 50,
+        VertexFormatUShortNormalized = 51,
+        VertexFormatShortNormalized = 52,
+        VertexFormatHalf = 53,
+        VertexFormatFloatRG11B10 = 54,
+        VertexFormatFloatRGB9E5 = 55,
+    };
 
-_MTL_ENUM(NS::UInteger, VertexFormat) {
-    VertexFormatInvalid = 0,
-    VertexFormatUChar2 = 1,
-    VertexFormatUChar3 = 2,
-    VertexFormatUChar4 = 3,
-    VertexFormatChar2 = 4,
-    VertexFormatChar3 = 5,
-    VertexFormatChar4 = 6,
-    VertexFormatUChar2Normalized = 7,
-    VertexFormatUChar3Normalized = 8,
-    VertexFormatUChar4Normalized = 9,
-    VertexFormatChar2Normalized = 10,
-    VertexFormatChar3Normalized = 11,
-    VertexFormatChar4Normalized = 12,
-    VertexFormatUShort2 = 13,
-    VertexFormatUShort3 = 14,
-    VertexFormatUShort4 = 15,
-    VertexFormatShort2 = 16,
-    VertexFormatShort3 = 17,
-    VertexFormatShort4 = 18,
-    VertexFormatUShort2Normalized = 19,
-    VertexFormatUShort3Normalized = 20,
-    VertexFormatUShort4Normalized = 21,
-    VertexFormatShort2Normalized = 22,
-    VertexFormatShort3Normalized = 23,
-    VertexFormatShort4Normalized = 24,
-    VertexFormatHalf2 = 25,
-    VertexFormatHalf3 = 26,
-    VertexFormatHalf4 = 27,
-    VertexFormatFloat = 28,
-    VertexFormatFloat2 = 29,
-    VertexFormatFloat3 = 30,
-    VertexFormatFloat4 = 31,
-    VertexFormatInt = 32,
-    VertexFormatInt2 = 33,
-    VertexFormatInt3 = 34,
-    VertexFormatInt4 = 35,
-    VertexFormatUInt = 36,
-    VertexFormatUInt2 = 37,
-    VertexFormatUInt3 = 38,
-    VertexFormatUInt4 = 39,
-    VertexFormatInt1010102Normalized = 40,
-    VertexFormatUInt1010102Normalized = 41,
-    VertexFormatUChar4Normalized_BGRA = 42,
-    VertexFormatUChar = 45,
-    VertexFormatChar = 46,
-    VertexFormatUCharNormalized = 47,
-    VertexFormatCharNormalized = 48,
-    VertexFormatUShort = 49,
-    VertexFormatShort = 50,
-    VertexFormatUShortNormalized = 51,
-    VertexFormatShortNormalized = 52,
-    VertexFormatHalf = 53,
-    VertexFormatFloatRG11B10 = 54,
-    VertexFormatFloatRGB9E5 = 55,
-};
+    _MTL_ENUM(NS::UInteger, VertexStepFunction)
+    {
+        VertexStepFunctionConstant = 0,
+        VertexStepFunctionPerVertex = 1,
+        VertexStepFunctionPerInstance = 2,
+        VertexStepFunctionPerPatch = 3,
+        VertexStepFunctionPerPatchControlPoint = 4,
+    };
 
-_MTL_ENUM(NS::UInteger, VertexStepFunction) {
-    VertexStepFunctionConstant = 0,
-    VertexStepFunctionPerVertex = 1,
-    VertexStepFunctionPerInstance = 2,
-    VertexStepFunctionPerPatch = 3,
-    VertexStepFunctionPerPatchControlPoint = 4,
-};
+    class VertexBufferLayoutDescriptor : public NS::Copying<VertexBufferLayoutDescriptor>
+    {
+    public:
+        static class VertexBufferLayoutDescriptor* alloc();
 
-class VertexBufferLayoutDescriptor : public NS::Copying<VertexBufferLayoutDescriptor>
-{
-public:
-    static class VertexBufferLayoutDescriptor* alloc();
+        class VertexBufferLayoutDescriptor* init();
 
-    class VertexBufferLayoutDescriptor*        init();
+        [[nodiscard]] NS::UInteger stride() const;
+        void setStride(NS::UInteger stride);
 
-    NS::UInteger                               stride() const;
-    void                                       setStride(NS::UInteger stride);
+        [[nodiscard]] MTL::VertexStepFunction stepFunction() const;
+        void setStepFunction(MTL::VertexStepFunction stepFunction);
 
-    MTL::VertexStepFunction                    stepFunction() const;
-    void                                       setStepFunction(MTL::VertexStepFunction stepFunction);
+        [[nodiscard]] NS::UInteger stepRate() const;
+        void setStepRate(NS::UInteger stepRate);
+    };
 
-    NS::UInteger                               stepRate() const;
-    void                                       setStepRate(NS::UInteger stepRate);
-};
+    class VertexBufferLayoutDescriptorArray : public NS::Referencing<VertexBufferLayoutDescriptorArray>
+    {
+    public:
+        static class VertexBufferLayoutDescriptorArray* alloc();
 
-class VertexBufferLayoutDescriptorArray : public NS::Referencing<VertexBufferLayoutDescriptorArray>
-{
-public:
-    static class VertexBufferLayoutDescriptorArray* alloc();
+        class VertexBufferLayoutDescriptorArray* init();
 
-    class VertexBufferLayoutDescriptorArray*        init();
+        class VertexBufferLayoutDescriptor* object(NS::UInteger index);
 
-    class VertexBufferLayoutDescriptor*             object(NS::UInteger index);
+        void setObject(const class VertexBufferLayoutDescriptor* bufferDesc, NS::UInteger index);
+    };
 
-    void                                            setObject(const class VertexBufferLayoutDescriptor* bufferDesc, NS::UInteger index);
-};
+    class VertexAttributeDescriptor : public NS::Copying<VertexAttributeDescriptor>
+    {
+    public:
+        static class VertexAttributeDescriptor* alloc();
 
-class VertexAttributeDescriptor : public NS::Copying<VertexAttributeDescriptor>
-{
-public:
-    static class VertexAttributeDescriptor* alloc();
+        class VertexAttributeDescriptor* init();
 
-    class VertexAttributeDescriptor*        init();
+        [[nodiscard]] MTL::VertexFormat format() const;
+        void setFormat(MTL::VertexFormat format);
 
-    MTL::VertexFormat                       format() const;
-    void                                    setFormat(MTL::VertexFormat format);
+        [[nodiscard]] NS::UInteger offset() const;
+        void setOffset(NS::UInteger offset);
 
-    NS::UInteger                            offset() const;
-    void                                    setOffset(NS::UInteger offset);
+        [[nodiscard]] NS::UInteger bufferIndex() const;
+        void setBufferIndex(NS::UInteger bufferIndex);
+    };
 
-    NS::UInteger                            bufferIndex() const;
-    void                                    setBufferIndex(NS::UInteger bufferIndex);
-};
+    class VertexAttributeDescriptorArray : public NS::Referencing<VertexAttributeDescriptorArray>
+    {
+    public:
+        static class VertexAttributeDescriptorArray* alloc();
 
-class VertexAttributeDescriptorArray : public NS::Referencing<VertexAttributeDescriptorArray>
-{
-public:
-    static class VertexAttributeDescriptorArray* alloc();
+        class VertexAttributeDescriptorArray* init();
 
-    class VertexAttributeDescriptorArray*        init();
+        class VertexAttributeDescriptor* object(NS::UInteger index);
 
-    class VertexAttributeDescriptor*             object(NS::UInteger index);
+        void setObject(const class VertexAttributeDescriptor* attributeDesc, NS::UInteger index);
+    };
 
-    void                                         setObject(const class VertexAttributeDescriptor* attributeDesc, NS::UInteger index);
-};
+    class VertexDescriptor : public NS::Copying<VertexDescriptor>
+    {
+    public:
+        static class VertexDescriptor* alloc();
 
-class VertexDescriptor : public NS::Copying<VertexDescriptor>
-{
-public:
-    static class VertexDescriptor*           alloc();
+        class VertexDescriptor* init();
 
-    class VertexDescriptor*                  init();
+        static class VertexDescriptor* vertexDescriptor();
 
-    static class VertexDescriptor*           vertexDescriptor();
+        [[nodiscard]] class VertexBufferLayoutDescriptorArray* layouts() const;
 
-    class VertexBufferLayoutDescriptorArray* layouts() const;
+        [[nodiscard]] class VertexAttributeDescriptorArray* attributes() const;
 
-    class VertexAttributeDescriptorArray*    attributes() const;
-
-    void                                     reset();
-};
-
+        void reset();
+    };
 }
 
 // static method: alloc
@@ -222,7 +222,8 @@ _MTL_INLINE void MTL::VertexBufferLayoutDescriptor::setStepRate(NS::UInteger ste
 // static method: alloc
 _MTL_INLINE MTL::VertexBufferLayoutDescriptorArray* MTL::VertexBufferLayoutDescriptorArray::alloc()
 {
-    return NS::Object::alloc<MTL::VertexBufferLayoutDescriptorArray>(_MTL_PRIVATE_CLS(MTLVertexBufferLayoutDescriptorArray));
+    return NS::Object::alloc<MTL::VertexBufferLayoutDescriptorArray>(
+        _MTL_PRIVATE_CLS(MTLVertexBufferLayoutDescriptorArray));
 }
 
 // method: init
@@ -234,11 +235,13 @@ _MTL_INLINE MTL::VertexBufferLayoutDescriptorArray* MTL::VertexBufferLayoutDescr
 // method: objectAtIndexedSubscript:
 _MTL_INLINE MTL::VertexBufferLayoutDescriptor* MTL::VertexBufferLayoutDescriptorArray::object(NS::UInteger index)
 {
-    return Object::sendMessage<MTL::VertexBufferLayoutDescriptor*>(this, _MTL_PRIVATE_SEL(objectAtIndexedSubscript_), index);
+    return Object::sendMessage<MTL::VertexBufferLayoutDescriptor*>(this, _MTL_PRIVATE_SEL(objectAtIndexedSubscript_),
+                                                                   index);
 }
 
 // method: setObject:atIndexedSubscript:
-_MTL_INLINE void MTL::VertexBufferLayoutDescriptorArray::setObject(const MTL::VertexBufferLayoutDescriptor* bufferDesc, NS::UInteger index)
+_MTL_INLINE void MTL::VertexBufferLayoutDescriptorArray::setObject(const MTL::VertexBufferLayoutDescriptor* bufferDesc,
+                                                                   NS::UInteger index)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setObject_atIndexedSubscript_), bufferDesc, index);
 }
@@ -303,11 +306,13 @@ _MTL_INLINE MTL::VertexAttributeDescriptorArray* MTL::VertexAttributeDescriptorA
 // method: objectAtIndexedSubscript:
 _MTL_INLINE MTL::VertexAttributeDescriptor* MTL::VertexAttributeDescriptorArray::object(NS::UInteger index)
 {
-    return Object::sendMessage<MTL::VertexAttributeDescriptor*>(this, _MTL_PRIVATE_SEL(objectAtIndexedSubscript_), index);
+    return Object::sendMessage<MTL::VertexAttributeDescriptor*>(this, _MTL_PRIVATE_SEL(objectAtIndexedSubscript_),
+                                                                index);
 }
 
 // method: setObject:atIndexedSubscript:
-_MTL_INLINE void MTL::VertexAttributeDescriptorArray::setObject(const MTL::VertexAttributeDescriptor* attributeDesc, NS::UInteger index)
+_MTL_INLINE void MTL::VertexAttributeDescriptorArray::setObject(const MTL::VertexAttributeDescriptor* attributeDesc,
+                                                                NS::UInteger index)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setObject_atIndexedSubscript_), attributeDesc, index);
 }
@@ -327,7 +332,8 @@ _MTL_INLINE MTL::VertexDescriptor* MTL::VertexDescriptor::init()
 // static method: vertexDescriptor
 _MTL_INLINE MTL::VertexDescriptor* MTL::VertexDescriptor::vertexDescriptor()
 {
-    return Object::sendMessage<MTL::VertexDescriptor*>(_MTL_PRIVATE_CLS(MTLVertexDescriptor), _MTL_PRIVATE_SEL(vertexDescriptor));
+    return Object::sendMessage<MTL::VertexDescriptor*>(
+        _MTL_PRIVATE_CLS(MTLVertexDescriptor), _MTL_PRIVATE_SEL(vertexDescriptor));
 }
 
 // property: layouts

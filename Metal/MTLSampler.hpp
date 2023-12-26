@@ -32,95 +32,98 @@
 
 namespace MTL
 {
-_MTL_ENUM(NS::UInteger, SamplerMinMagFilter) {
-    SamplerMinMagFilterNearest = 0,
-    SamplerMinMagFilterLinear = 1,
-};
+    _MTL_ENUM(NS::UInteger, SamplerMinMagFilter)
+    {
+        SamplerMinMagFilterNearest = 0,
+        SamplerMinMagFilterLinear = 1,
+    };
 
-_MTL_ENUM(NS::UInteger, SamplerMipFilter) {
-    SamplerMipFilterNotMipmapped = 0,
-    SamplerMipFilterNearest = 1,
-    SamplerMipFilterLinear = 2,
-};
+    _MTL_ENUM(NS::UInteger, SamplerMipFilter)
+    {
+        SamplerMipFilterNotMipmapped = 0,
+        SamplerMipFilterNearest = 1,
+        SamplerMipFilterLinear = 2,
+    };
 
-_MTL_ENUM(NS::UInteger, SamplerAddressMode) {
-    SamplerAddressModeClampToEdge = 0,
-    SamplerAddressModeMirrorClampToEdge = 1,
-    SamplerAddressModeRepeat = 2,
-    SamplerAddressModeMirrorRepeat = 3,
-    SamplerAddressModeClampToZero = 4,
-    SamplerAddressModeClampToBorderColor = 5,
-};
+    _MTL_ENUM(NS::UInteger, SamplerAddressMode)
+    {
+        SamplerAddressModeClampToEdge = 0,
+        SamplerAddressModeMirrorClampToEdge = 1,
+        SamplerAddressModeRepeat = 2,
+        SamplerAddressModeMirrorRepeat = 3,
+        SamplerAddressModeClampToZero = 4,
+        SamplerAddressModeClampToBorderColor = 5,
+    };
 
-_MTL_ENUM(NS::UInteger, SamplerBorderColor) {
-    SamplerBorderColorTransparentBlack = 0,
-    SamplerBorderColorOpaqueBlack = 1,
-    SamplerBorderColorOpaqueWhite = 2,
-};
+    _MTL_ENUM(NS::UInteger, SamplerBorderColor)
+    {
+        SamplerBorderColorTransparentBlack = 0,
+        SamplerBorderColorOpaqueBlack = 1,
+        SamplerBorderColorOpaqueWhite = 2,
+    };
 
-class SamplerDescriptor : public NS::Copying<SamplerDescriptor>
-{
-public:
-    static class SamplerDescriptor* alloc();
+    class SamplerDescriptor : public NS::Copying<SamplerDescriptor>
+    {
+    public:
+        static class SamplerDescriptor* alloc();
 
-    class SamplerDescriptor*        init();
+        class SamplerDescriptor* init();
 
-    MTL::SamplerMinMagFilter        minFilter() const;
-    void                            setMinFilter(MTL::SamplerMinMagFilter minFilter);
+        [[nodiscard]] MTL::SamplerMinMagFilter minFilter() const;
+        void setMinFilter(MTL::SamplerMinMagFilter minFilter);
 
-    MTL::SamplerMinMagFilter        magFilter() const;
-    void                            setMagFilter(MTL::SamplerMinMagFilter magFilter);
+        [[nodiscard]] MTL::SamplerMinMagFilter magFilter() const;
+        void setMagFilter(MTL::SamplerMinMagFilter magFilter);
 
-    MTL::SamplerMipFilter           mipFilter() const;
-    void                            setMipFilter(MTL::SamplerMipFilter mipFilter);
+        [[nodiscard]] MTL::SamplerMipFilter mipFilter() const;
+        void setMipFilter(MTL::SamplerMipFilter mipFilter);
 
-    NS::UInteger                    maxAnisotropy() const;
-    void                            setMaxAnisotropy(NS::UInteger maxAnisotropy);
+        [[nodiscard]] NS::UInteger maxAnisotropy() const;
+        void setMaxAnisotropy(NS::UInteger maxAnisotropy);
 
-    MTL::SamplerAddressMode         sAddressMode() const;
-    void                            setSAddressMode(MTL::SamplerAddressMode sAddressMode);
+        [[nodiscard]] MTL::SamplerAddressMode sAddressMode() const;
+        void setSAddressMode(MTL::SamplerAddressMode sAddressMode);
 
-    MTL::SamplerAddressMode         tAddressMode() const;
-    void                            setTAddressMode(MTL::SamplerAddressMode tAddressMode);
+        [[nodiscard]] MTL::SamplerAddressMode tAddressMode() const;
+        void setTAddressMode(MTL::SamplerAddressMode tAddressMode);
 
-    MTL::SamplerAddressMode         rAddressMode() const;
-    void                            setRAddressMode(MTL::SamplerAddressMode rAddressMode);
+        [[nodiscard]] MTL::SamplerAddressMode rAddressMode() const;
+        void setRAddressMode(MTL::SamplerAddressMode rAddressMode);
 
-    MTL::SamplerBorderColor         borderColor() const;
-    void                            setBorderColor(MTL::SamplerBorderColor borderColor);
+        [[nodiscard]] MTL::SamplerBorderColor borderColor() const;
+        void setBorderColor(MTL::SamplerBorderColor borderColor);
 
-    bool                            normalizedCoordinates() const;
-    void                            setNormalizedCoordinates(bool normalizedCoordinates);
+        [[nodiscard]] bool normalizedCoordinates() const;
+        void setNormalizedCoordinates(bool normalizedCoordinates);
 
-    float                           lodMinClamp() const;
-    void                            setLodMinClamp(float lodMinClamp);
+        [[nodiscard]] float lodMinClamp() const;
+        void setLodMinClamp(float lodMinClamp);
 
-    float                           lodMaxClamp() const;
-    void                            setLodMaxClamp(float lodMaxClamp);
+        [[nodiscard]] float lodMaxClamp() const;
+        void setLodMaxClamp(float lodMaxClamp);
 
-    bool                            lodAverage() const;
-    void                            setLodAverage(bool lodAverage);
+        [[nodiscard]] bool lodAverage() const;
+        void setLodAverage(bool lodAverage);
 
-    MTL::CompareFunction            compareFunction() const;
-    void                            setCompareFunction(MTL::CompareFunction compareFunction);
+        [[nodiscard]] MTL::CompareFunction compareFunction() const;
+        void setCompareFunction(MTL::CompareFunction compareFunction);
 
-    bool                            supportArgumentBuffers() const;
-    void                            setSupportArgumentBuffers(bool supportArgumentBuffers);
+        [[nodiscard]] bool supportArgumentBuffers() const;
+        void setSupportArgumentBuffers(bool supportArgumentBuffers);
 
-    NS::String*                     label() const;
-    void                            setLabel(const NS::String* label);
-};
+        [[nodiscard]] NS::String* label() const;
+        void setLabel(const NS::String* label);
+    };
 
-class SamplerState : public NS::Referencing<SamplerState>
-{
-public:
-    NS::String*     label() const;
+    class SamplerState : public NS::Referencing<SamplerState>
+    {
+    public:
+        [[nodiscard]] NS::String* label() const;
 
-    class Device*   device() const;
+        [[nodiscard]] class Device* device() const;
 
-    MTL::ResourceID gpuResourceID() const;
-};
-
+        [[nodiscard]] MTL::ResourceID gpuResourceID() const;
+    };
 }
 
 // static method: alloc

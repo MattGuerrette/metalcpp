@@ -30,35 +30,35 @@
 
 namespace MTL
 {
-_MTL_ENUM(NS::UInteger, Mutability) {
-    MutabilityDefault = 0,
-    MutabilityMutable = 1,
-    MutabilityImmutable = 2,
-};
+    _MTL_ENUM(NS::UInteger, Mutability)
+    {
+        MutabilityDefault = 0,
+        MutabilityMutable = 1,
+        MutabilityImmutable = 2,
+    };
 
-class PipelineBufferDescriptor : public NS::Copying<PipelineBufferDescriptor>
-{
-public:
-    static class PipelineBufferDescriptor* alloc();
+    class PipelineBufferDescriptor : public NS::Copying<PipelineBufferDescriptor>
+    {
+    public:
+        static class PipelineBufferDescriptor* alloc();
 
-    class PipelineBufferDescriptor*        init();
+        class PipelineBufferDescriptor* init();
 
-    MTL::Mutability                        mutability() const;
-    void                                   setMutability(MTL::Mutability mutability);
-};
+        [[nodiscard]] MTL::Mutability mutability() const;
+        void setMutability(MTL::Mutability mutability);
+    };
 
-class PipelineBufferDescriptorArray : public NS::Referencing<PipelineBufferDescriptorArray>
-{
-public:
-    static class PipelineBufferDescriptorArray* alloc();
+    class PipelineBufferDescriptorArray : public NS::Referencing<PipelineBufferDescriptorArray>
+    {
+    public:
+        static class PipelineBufferDescriptorArray* alloc();
 
-    class PipelineBufferDescriptorArray*        init();
+        class PipelineBufferDescriptorArray* init();
 
-    class PipelineBufferDescriptor*             object(NS::UInteger bufferIndex);
+        class PipelineBufferDescriptor* object(NS::UInteger bufferIndex);
 
-    void                                        setObject(const class PipelineBufferDescriptor* buffer, NS::UInteger bufferIndex);
-};
-
+        void setObject(const class PipelineBufferDescriptor* buffer, NS::UInteger bufferIndex);
+    };
 }
 
 // static method: alloc
@@ -99,11 +99,13 @@ _MTL_INLINE MTL::PipelineBufferDescriptorArray* MTL::PipelineBufferDescriptorArr
 // method: objectAtIndexedSubscript:
 _MTL_INLINE MTL::PipelineBufferDescriptor* MTL::PipelineBufferDescriptorArray::object(NS::UInteger bufferIndex)
 {
-    return Object::sendMessage<MTL::PipelineBufferDescriptor*>(this, _MTL_PRIVATE_SEL(objectAtIndexedSubscript_), bufferIndex);
+    return Object::sendMessage<MTL::PipelineBufferDescriptor*>(this, _MTL_PRIVATE_SEL(objectAtIndexedSubscript_),
+                                                               bufferIndex);
 }
 
 // method: setObject:atIndexedSubscript:
-_MTL_INLINE void MTL::PipelineBufferDescriptorArray::setObject(const MTL::PipelineBufferDescriptor* buffer, NS::UInteger bufferIndex)
+_MTL_INLINE void MTL::PipelineBufferDescriptorArray::setObject(const MTL::PipelineBufferDescriptor* buffer,
+                                                               NS::UInteger bufferIndex)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setObject_atIndexedSubscript_), buffer, bufferIndex);
 }

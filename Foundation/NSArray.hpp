@@ -29,23 +29,23 @@
 
 namespace NS
 {
-class Array : public Copying<Array>
-{
-public:
-    static Array* array();
-    static Array* array(const Object* pObject);
-    static Array* array(const Object* const* pObjects, UInteger count);
+    class Array : public Copying<Array>
+    {
+    public:
+        static Array* array();
+        static Array* array(const Object* pObject);
+        static Array* array(const Object* const* pObjects, UInteger count);
 
-    static Array* alloc();
+        static Array* alloc();
 
-    Array*        init();
-    Array*        init(const Object* const* pObjects, UInteger count);
-    Array*        init(const class Coder* pCoder);
+        Array* init();
+        Array* init(const Object* const* pObjects, UInteger count);
+        Array* init(const class Coder* pCoder);
 
-    template <class _Object = Object>
-    _Object* object(UInteger index) const;
-    UInteger count() const;
-};
+        template <class _Object = Object>
+        _Object* object(UInteger index) const;
+        [[nodiscard]] UInteger count() const;
+    };
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -66,7 +66,8 @@ _NS_INLINE NS::Array* NS::Array::array(const Object* pObject)
 
 _NS_INLINE NS::Array* NS::Array::array(const Object* const* pObjects, UInteger count)
 {
-    return Object::sendMessage<Array*>(_NS_PRIVATE_CLS(NSArray), _NS_PRIVATE_SEL(arrayWithObjects_count_), pObjects, count);
+    return Object::sendMessage<Array*>(_NS_PRIVATE_CLS(NSArray), _NS_PRIVATE_SEL(arrayWithObjects_count_), pObjects,
+                                       count);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
