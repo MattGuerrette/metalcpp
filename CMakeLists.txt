@@ -3,6 +3,32 @@ project(AppleFrameworksCpp DESCRIPTION "Apple Platform Framework C++ bindings")
 
 set(CMAKE_CXX_STANDARD 23)
 
+
+function(GroupSourcesByFolder target)
+    set(SOURCE_GROUP_DELIMITER "/")
+    set(last_dir "")
+    set(files "")
+
+    get_target_property(sources ${target} SOURCES)
+
+    foreach (file ${sources})
+        file(RELATIVE_PATH relative_file "${PROJECT_SOURCE_DIR}" ${file})
+        get_filename_component(dir "${relative_file}" PATH)
+        if (NOT "${dir}" STREQUAL "${last_dir}")
+            if (files)
+                source_group("${last_dir}" FILES ${files})
+            endif ()
+            set(files "")
+        endif ()
+        set(files ${files} ${file})
+        set(last_dir "${dir}")
+    endforeach ()
+
+    if (files)
+        source_group("${last_dir}" FILES ${files})
+    endif ()
+endfunction()
+
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 file(GLOB_RECURSE METAL_FRAMEWORK_HEADERS
@@ -22,6 +48,8 @@ file(GLOB_RECURSE QUARTZCORE_FRAMEWORK_HEADERS
 )
 file(GLOB_RECURSE APPKIT_FRAMEWORK_HEADERS
         AppKit/*.hpp
+        AppleFrameworks.hpp
+        AppleFrameworks.cpp
 )
 
 set(APPLE_FRAMEWORK_HEADERS
@@ -35,10 +63,9 @@ set(APPLE_FRAMEWORK_HEADERS
 
 
 add_library(${PROJECT_NAME} STATIC
-        "AppleFrameworks.hpp"
-        "AppleFrameworks.cpp"
         ${APPLE_FRAMEWORK_HEADERS}
 )
+GroupSourcesByFolder(${PROJECT_NAME})
 set_target_properties(${PROJECT_NAME} PROPERTIES
         PUBLIC_HEADER "AppleFrameworks.hpp"
 )
