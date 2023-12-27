@@ -38,6 +38,7 @@
 #include "NSPrivate.hpp"
 #include "NSProcessInfo.hpp"
 #include "NSRange.hpp"
+#include "NSRunLoop.hpp"
 #include "NSSet.hpp"
 #include "NSSharedPtr.hpp"
 #include "NSString.hpp"

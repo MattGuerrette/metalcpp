@@ -55,8 +55,8 @@
 #define _CA_PRIVATE_DEF_PRO(symbol) void* s_k##symbol _CA_PRIVATE_VISIBILITY = _CA_PRIVATE_OBJC_GET_PROTOCOL(symbol)
 #define _CA_PRIVATE_DEF_SEL(accessor, symbol) SEL s_k##accessor _CA_PRIVATE_VISIBILITY = sel_registerName(symbol)
 #define _CA_PRIVATE_DEF_STR(type, symbol)                \
-    _CA_EXTERN type const CA##symbol _CA_PRIVATE_IMPORT; \
-    type const                       CA::symbol = (nullptr != &CA##symbol) ? CA##symbol : nullptr
+_CA_EXTERN type const CA##symbol _CA_PRIVATE_IMPORT; \
+type const                       CA::symbol = (nullptr != &CA##symbol) ? CA##symbol : nullptr
 
 #else
 
@@ -71,62 +71,74 @@
 
 namespace CA
 {
-namespace Private
-{
-    namespace Class
+    namespace Private
     {
-        _CA_PRIVATE_DEF_CLS(CAMetalLayer);
-    } // Class
-} // Private
+        namespace Class
+        {
+            _CA_PRIVATE_DEF_CLS(CAMetalLayer);
+            _CA_PRIVATE_DEF_CLS(CAMetalDisplayLink);
+        } // Class
+    } // Private
 } // CA
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 namespace CA
 {
-namespace Private
-{
-    namespace Protocol
+    namespace Private
     {
-
-        _CA_PRIVATE_DEF_PRO(CAMetalDrawable);
-
-    } // Protocol
-} // Private
+        namespace Protocol
+        {
+            
+            _CA_PRIVATE_DEF_PRO(CAMetalDrawable);
+            _CA_PRIVATE_DEF_PRO(CAMetalDisplayLinkDelegate);
+            
+        } // Protocol
+    } // Private
 } // CA
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 namespace CA
 {
-namespace Private
-{
-    namespace Selector
+    namespace Private
     {
-        _CA_PRIVATE_DEF_SEL(device,
-            "device");
-        _CA_PRIVATE_DEF_SEL(drawableSize,
-            "drawableSize");
-        _CA_PRIVATE_DEF_SEL(framebufferOnly,
-            "framebufferOnly");
-        _CA_PRIVATE_DEF_SEL(layer,
-            "layer");
-        _CA_PRIVATE_DEF_SEL(nextDrawable,
-            "nextDrawable");
-        _CA_PRIVATE_DEF_SEL(pixelFormat,
-            "pixelFormat");
-        _CA_PRIVATE_DEF_SEL(setDevice_,
-            "setDevice:");
-        _CA_PRIVATE_DEF_SEL(setDrawableSize_,
-            "setDrawableSize:");
-        _CA_PRIVATE_DEF_SEL(setFramebufferOnly_,
-            "setFramebufferOnly:");
-        _CA_PRIVATE_DEF_SEL(setPixelFormat_,
-            "setPixelFormat:");
-        _CA_PRIVATE_DEF_SEL(texture,
-            "texture");
-    } // Class
-} // Private
+        namespace Selector
+        {
+            _CA_PRIVATE_DEF_SEL(initWithMetalLayer,
+                                "initWithMetalLayer:");
+            _CA_PRIVATE_DEF_SEL(device,
+                                "device");
+            _CA_PRIVATE_DEF_SEL(delegate,
+                                "delegate");
+            _CA_PRIVATE_DEF_SEL(drawable,
+                                "drawable");
+            _CA_PRIVATE_DEF_SEL(drawableSize,
+                                "drawableSize");
+            _CA_PRIVATE_DEF_SEL(framebufferOnly,
+                                "framebufferOnly");
+            _CA_PRIVATE_DEF_SEL(layer,
+                                "layer");
+            _CA_PRIVATE_DEF_SEL(nextDrawable,
+                                "nextDrawable");
+            _CA_PRIVATE_DEF_SEL(pixelFormat,
+                                "pixelFormat");
+            _CA_PRIVATE_DEF_SEL(setDevice_,
+                                "setDevice:");
+            _CA_PRIVATE_DEF_SEL(setDrawableSize_,
+                                "setDrawableSize:");
+            _CA_PRIVATE_DEF_SEL(setFramebufferOnly_,
+                                "setFramebufferOnly:");
+            _CA_PRIVATE_DEF_SEL(setPixelFormat_,
+                                "setPixelFormat:");
+            _CA_PRIVATE_DEF_SEL(texture,
+                                "texture");
+            _CA_PRIVATE_DEF_SEL(targetPresentationTimestamp, "targetPresentationTimestamp");
+            _CA_PRIVATE_DEF_SEL(targetTimestamp, "targetTimestamp");
+            _CA_PRIVATE_DEF_SEL(addToRunLoop_,
+                                "addToRunLoop:forMode:");
+        } // Class
+    } // Private
 } // CA
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------

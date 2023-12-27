@@ -90,6 +90,7 @@ namespace Private
         _NS_PRIVATE_DEF_CLS(NSString);
         _NS_PRIVATE_DEF_CLS(NSURL);
         _NS_PRIVATE_DEF_CLS(NSValue);
+        _NS_PRIVATE_DEF_CLS(NSRunLoop);
 
     } // Class
 } // Private
@@ -507,6 +508,10 @@ namespace Private
 			"dataWithContentsOfFile:");
 		_NS_PRIVATE_DEF_SEL(bytes,
 			"bytes");
+        _NS_PRIVATE_DEF_SEL(currentRunLoop,
+                            "currentRunLoop");
+        _NS_PRIVATE_DEF_SEL(mainRunLoop,
+                            "mainRunLoop");
     } // Class
 } // Private
 } // MTL
