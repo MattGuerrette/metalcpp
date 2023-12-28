@@ -506,6 +506,8 @@ namespace Private
 			"dataWithContentsOfURL:");
 		_NS_PRIVATE_DEF_SEL(dataWithContentsOfFile_,
 			"dataWithContentsOfFile:");
+		_NS_PRIVATE_DEF_SEL(dataWithBytes_length_,
+			"dataWithBytes:length:");
 		_NS_PRIVATE_DEF_SEL(bytes,
 			"bytes");
         _NS_PRIVATE_DEF_SEL(currentRunLoop,
