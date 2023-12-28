@@ -3,7 +3,6 @@ project(AppleFrameworksCpp DESCRIPTION "Apple Platform Framework C++ bindings")
 
 set(CMAKE_CXX_STANDARD 23)
 
-
 function(GroupSourcesByFolder target)
     set(SOURCE_GROUP_DELIMITER "/")
     set(last_dir "")

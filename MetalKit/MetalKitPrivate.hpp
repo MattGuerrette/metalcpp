@@ -47,7 +47,7 @@
 
 #define _MTK_PRIVATE_DEF_CLS( symbol )			   void*				   s_k ## symbol	   _MTK_PRIVATE_VISIBILITY = _MTK_PRIVATE_OBJC_LOOKUP_CLASS( symbol );
 #define _MTK_PRIVATE_DEF_SEL( accessor, symbol )	 SEL					 s_k ## accessor	 _MTK_PRIVATE_VISIBILITY = sel_registerName( symbol );
-#define _MTK_PRIVATE_DEF_CONST( type, symbol )	   _NS_EXTERN type const   MTK ## symbo		_MTK_PRIVATE_IMPORT; \
+#define _MTK_PRIVATE_DEF_CONST( type, symbol )	   _NS_EXTERN type const   MTK ## symbol		_MTK_PRIVATE_IMPORT; \
 													 type const			  MTK::symbol	 = ( nullptr != &MTK ## symbol ) ? MTK ## symbol : nullptr;
 
 
@@ -65,6 +65,7 @@
 namespace MTK::Private::Class {
 
 _MTK_PRIVATE_DEF_CLS( MTKView );
+_MTK_PRIVATE_DEF_CLS( MTKTextureLoader );
 
 } // Class
 
@@ -213,6 +214,12 @@ _MTK_PRIVATE_DEF_SEL( setSampleCount_,
 
 _MTK_PRIVATE_DEF_SEL( releaseDrawables,
 					 "releaseDrawables" );
+
+	_MTK_PRIVATE_DEF_SEL( initWithDevice_,
+		"initWithDevice:");
+
+	_MTK_PRIVATE_DEF_SEL( newTextureWithData_options_error_,
+		"newTextureWithData:options:error:");
 
 }
 

@@ -37,6 +37,14 @@ namespace CA
     {
     public:
         virtual ~MetalDisplayLinkDelegate() = default;
+
+        /// @brief Metal display link callback
+        /// @param [in] displayLink The display link.
+        /// @param [in] update The display link update containing frame drawable.
+        /// @note This method is called by the CA::MetalDisplayLink's associated NS::RunLoop
+        /// which wraps the call in an NS::AutoReleasePool. Any Objective-C runtime allocated
+        /// objects during this call will be automatically released and should not explicitly
+        /// call release() or use NS::SharedPtr.
         virtual void metalDisplayLinkNeedsUpdate(class MetalDisplayLink* displayLink, class MetalDisplayLinkUpdate* update) = 0;
     };
     
