@@ -52,6 +52,8 @@ public:
     CGSize                   drawableSize() const;
     void                     setDrawableSize(CGSize drawableSize);
 
+	float 					 contentsScale() const;
+
     class MetalDrawable*     nextDrawable();
 };
 } // namespace CA
@@ -82,6 +84,13 @@ _CA_INLINE MTL::PixelFormat CA::MetalLayer::pixelFormat() const
 {
     return Object::sendMessage<MTL::PixelFormat>(this,
         _CA_PRIVATE_SEL(pixelFormat));
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+_CA_INLINE float CA::MetalLayer::contentsScale() const
+{
+	return Object::sendMessage<float>(this, _CA_PRIVATE_SEL(contentsScale));
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
