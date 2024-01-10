@@ -52,7 +52,7 @@ public:
     CGSize                   drawableSize() const;
     void                     setDrawableSize(CGSize drawableSize);
 
-	float 					 contentsScale() const;
+	double 					 contentsScale() const;
 
     class MetalDrawable*     nextDrawable();
 };
@@ -88,9 +88,9 @@ _CA_INLINE MTL::PixelFormat CA::MetalLayer::pixelFormat() const
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_CA_INLINE float CA::MetalLayer::contentsScale() const
+_CA_INLINE double CA::MetalLayer::contentsScale() const
 {
-	return Object::sendMessage<float>(this, _CA_PRIVATE_SEL(contentsScale));
+	return Object::sendMessage<double>(this, _CA_PRIVATE_SEL(contentsScale));
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
