@@ -33,8 +33,8 @@ namespace NS
     
     _NS_CONST(RunLoopMode, RunLoopCommonModes);
     _NS_CONST(RunLoopMode, DefaultRunLoopMode);
-    _NS_CONST(RunLoopMode, EventTrackingRunLoopMode);
-    _NS_CONST(RunLoopMode, ModalPanelRunLoopMode);
+    //_NS_CONST(RunLoopMode, EventTrackingRunLoopMode);
+    //_NS_CONST(RunLoopMode, ModalPanelRunLoopMode);
     
     
     class RunLoop : public NS::Referencing<RunLoop>
@@ -47,8 +47,8 @@ namespace NS
 
 _NS_PRIVATE_DEF_CONST(NS::RunLoopMode, RunLoopCommonModes);
 _NS_PRIVATE_DEF_CONST(NS::RunLoopMode, DefaultRunLoopMode);
-_NS_PRIVATE_DEF_CONST(NS::RunLoopMode, EventTrackingRunLoopMode);
-_NS_PRIVATE_DEF_CONST(NS::RunLoopMode, ModalPanelRunLoopMode);
+//_NS_PRIVATE_DEF_CONST(NS::RunLoopMode, EventTrackingRunLoopMode);
+//_NS_PRIVATE_DEF_CONST(NS::RunLoopMode, ModalPanelRunLoopMode);
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 

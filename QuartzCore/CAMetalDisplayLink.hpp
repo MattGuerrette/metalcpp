@@ -92,7 +92,12 @@ _CA_INLINE void CA::MetalDisplayLink::setDelegate(const CA::MetalDisplayLinkDele
 
     void (*metalDisplayLinkNeedsUpdateDispatch)( NS::Value*, SEL, id, id) = []( NS::Value* pSelf, SEL _cmd, id pDisplayLink, id pUpdate ){
         auto pDel = reinterpret_cast< CA::MetalDisplayLinkDelegate* >( pSelf->pointerValue() );
+        
+#ifdef __OBJC__
+        pDel->metalDisplayLinkNeedsUpdate((__bridge CA::MetalDisplayLink*)pDisplayLink, (__bridge CA::MetalDisplayLinkUpdate*)pUpdate);
+#else
         pDel->metalDisplayLinkNeedsUpdate((CA::MetalDisplayLink*)pDisplayLink, (CA::MetalDisplayLinkUpdate*)pUpdate);
+#endif
     };
 
     class_addMethod( (Class)objc_lookUpClass( "NSValue" ), sel_registerName( "metalDisplayLink:needsUpdate:" ), (IMP)metalDisplayLinkNeedsUpdateDispatch, "v@:@v@:@" );
