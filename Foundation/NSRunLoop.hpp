@@ -42,6 +42,8 @@ namespace NS
     public:
         static RunLoop* currentRunLoop();
         static RunLoop* mainRunLoop();
+
+        bool run(NS::RunLoopMode mode, NS::Date* date);
     };
 }
 
@@ -60,6 +62,11 @@ _NS_INLINE NS::RunLoop* NS::RunLoop::currentRunLoop()
 _NS_INLINE NS::RunLoop* NS::RunLoop::mainRunLoop()
 {
     return Object::sendMessage<RunLoop*>(_NS_PRIVATE_CLS(NSRunLoop), _NS_PRIVATE_SEL(mainRunLoop));
+}
+
+_NS_INLINE bool NS::RunLoop::run(NS::RunLoopMode mode, NS::Date* date)
+{
+    return Object::sendMessage<bool>(this, _NS_PRIVATE_SEL(runMode_beforeDate_), mode, date);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
