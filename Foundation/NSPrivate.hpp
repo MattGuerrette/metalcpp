@@ -510,10 +510,12 @@ namespace Private
 			"dataWithBytes:length:");
 		_NS_PRIVATE_DEF_SEL(bytes,
 			"bytes");
-        _NS_PRIVATE_DEF_SEL(currentRunLoop,
-                            "currentRunLoop");
-        _NS_PRIVATE_DEF_SEL(mainRunLoop,
-                            "mainRunLoop");
+                _NS_PRIVATE_DEF_SEL(currentRunLoop,
+                                    "currentRunLoop");
+                _NS_PRIVATE_DEF_SEL(mainRunLoop,
+                                    "mainRunLoop");
+                _NS_PRIVATE_DEF_SEL(runMode_beforeDate_,
+                    "runMode:beforeDate:");
     } // Class
 } // Private
 } // MTL
