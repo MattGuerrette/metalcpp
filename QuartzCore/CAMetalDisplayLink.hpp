@@ -67,6 +67,7 @@ namespace CA
         MetalDisplayLinkDelegate*   delegate() const;
         
         void addToRunLoop(class NS::RunLoop* runLoop, NS::RunLoopMode mode);
+        void removeFromRunLoop(class NS::RunLoop* runLoop, NS::RunLoopMode mode);
     };
 }
 
@@ -118,6 +119,11 @@ _CA_INLINE CA::MetalDisplayLinkDelegate* CA::MetalDisplayLink::delegate() const
 _CA_INLINE void CA::MetalDisplayLink::addToRunLoop(class NS::RunLoop *runLoop, NS::RunLoopMode mode)
 {
     NS::Object::sendMessage<void>(this, _CA_PRIVATE_SEL(addToRunLoop_), runLoop, mode);
+}
+
+_CA_INLINE void CA::MetalDisplayLink::removeFromRunLoop(class NS::RunLoop* runLoop, NS::RunLoopMode mode)
+{
+    NS::Object::sendMessage<void>(this, _CA_PRIVATE_SEL(removeFromRunLoop_), runLoop, mode);
 }
 
 

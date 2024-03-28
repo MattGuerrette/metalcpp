@@ -137,6 +137,7 @@ namespace CA
             _CA_PRIVATE_DEF_SEL(targetTimestamp, "targetTimestamp");
             _CA_PRIVATE_DEF_SEL(addToRunLoop_,
                                 "addToRunLoop:forMode:");
+            _CA_PRIVATE_DEF_SEL(removeFromRunLoop_, "removeFromRunLoop:forMode:");
 			_CA_PRIVATE_DEF_SEL(contentsScale, "contentsScale");
         } // Class
     } // Private
