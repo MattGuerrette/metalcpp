@@ -138,7 +138,9 @@ namespace CA
             _CA_PRIVATE_DEF_SEL(addToRunLoop_,
                                 "addToRunLoop:forMode:");
             _CA_PRIVATE_DEF_SEL(removeFromRunLoop_, "removeFromRunLoop:forMode:");
-			_CA_PRIVATE_DEF_SEL(contentsScale, "contentsScale");
+            _CA_PRIVATE_DEF_SEL(contentsScale, "contentsScale");
+            _CA_PRIVATE_DEF_SEL(setPreferredFrameLatency_, "setPreferredFrameLatency:");
+            _CA_PRIVATE_DEF_SEL(setPreferredFrameRateRange_, "setPreferredFrameRateRange:");
         } // Class
     } // Private
 } // CA

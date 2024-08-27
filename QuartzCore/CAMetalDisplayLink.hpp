@@ -65,7 +65,9 @@ namespace CA
         
         void                        setDelegate( const CA::MetalDisplayLinkDelegate* pDelegate );
         MetalDisplayLinkDelegate*   delegate() const;
-        
+
+        void setPreferredFrameLatency(float latency);
+        void setPreferredFrameRateRange(CA::FrameRateRange range);
         void addToRunLoop(class NS::RunLoop* runLoop, NS::RunLoopMode mode);
         void removeFromRunLoop(class NS::RunLoop* runLoop, NS::RunLoopMode mode);
     };
@@ -124,6 +126,16 @@ _CA_INLINE void CA::MetalDisplayLink::addToRunLoop(class NS::RunLoop *runLoop, N
 _CA_INLINE void CA::MetalDisplayLink::removeFromRunLoop(class NS::RunLoop* runLoop, NS::RunLoopMode mode)
 {
     NS::Object::sendMessage<void>(this, _CA_PRIVATE_SEL(removeFromRunLoop_), runLoop, mode);
+}
+
+_CA_INLINE void CA::MetalDisplayLink::setPreferredFrameLatency(float latency)
+{
+    NS::Object::sendMessage<void>(this, _CA_PRIVATE_SEL(setPreferredFrameLatency_), latency);
+}
+
+_CA_INLINE void CA::MetalDisplayLink::setPreferredFrameRateRange(CA::FrameRateRange range)
+{
+    NS::Object::sendMessage<void>(this, _CA_PRIVATE_SEL(setPreferredFrameRateRange_), range);
 }
 
 
