@@ -67,6 +67,8 @@ namespace NS::Private::Class {
 _APPKIT_PRIVATE_DEF_CLS( NSApplication );
 _APPKIT_PRIVATE_DEF_CLS( NSRunningApplication );
 _APPKIT_PRIVATE_DEF_CLS( NSView );
+_APPKIT_PRIVATE_DEF_CLS( NSOpenPanel);
+_APPKIT_PRIVATE_DEF_CLS( NSSavePanel);
 _APPKIT_PRIVATE_DEF_CLS( NSWindow );
 _APPKIT_PRIVATE_DEF_CLS( NSMenu );
 _APPKIT_PRIVATE_DEF_CLS( NSMenuItem );
@@ -158,6 +160,14 @@ _APPKIT_PRIVATE_DEF_SEL( setLayer_,
 
 _APPKIT_PRIVATE_DEF_SEL( windows,
 						"windows" );
+
+_APPKIT_PRIVATE_DEF_SEL( openPanel_,
+                        "openPanel");
+
+_APPKIT_PRIVATE_DEF_SEL(beginSheetModalForWindow_completionHandler_,
+    "beginSheetModalForWindow:completionHandler:");
+
+_APPKIT_PRIVATE_DEF_SEL(urls_, "URLs");
 
 }
 
