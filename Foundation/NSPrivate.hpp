@@ -206,6 +206,8 @@ namespace Private
             "count");
         _NS_PRIVATE_DEF_SEL(dateWithTimeIntervalSinceNow_,
             "dateWithTimeIntervalSinceNow:");
+        _NS_PRIVATE_DEF_SEL(distantFuture,
+            "distantFuture");
         _NS_PRIVATE_DEF_SEL(defaultCenter,
             "defaultCenter");
         _NS_PRIVATE_DEF_SEL(descriptionWithLocale_,
@@ -534,12 +536,12 @@ namespace Private
 			"dataWithBytes:length:");
 		_NS_PRIVATE_DEF_SEL(bytes,
 			"bytes");
-                _NS_PRIVATE_DEF_SEL(currentRunLoop,
-                                    "currentRunLoop");
-                _NS_PRIVATE_DEF_SEL(mainRunLoop,
-                                    "mainRunLoop");
-                _NS_PRIVATE_DEF_SEL(runMode_beforeDate_,
-                    "runMode:beforeDate:");
+        _NS_PRIVATE_DEF_SEL(currentRunLoop,
+                            "currentRunLoop");
+        _NS_PRIVATE_DEF_SEL(mainRunLoop,
+                            "mainRunLoop");
+        _NS_PRIVATE_DEF_SEL(runMode_beforeDate_,
+            "runMode:beforeDate:");
     } // Class
 } // Private
 } // MTL

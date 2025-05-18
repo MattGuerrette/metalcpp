@@ -39,6 +39,7 @@ class Date : public Copying<Date>
 {
 public:
     static Date* dateWithTimeIntervalSinceNow(TimeInterval secs);
+    static Date* distantFuture();
 };
 
 } // NS
@@ -48,6 +49,11 @@ public:
 _NS_INLINE NS::Date* NS::Date::dateWithTimeIntervalSinceNow(NS::TimeInterval secs)
 {
     return NS::Object::sendMessage<NS::Date*>(_NS_PRIVATE_CLS(NSDate), _NS_PRIVATE_SEL(dateWithTimeIntervalSinceNow_), secs);
+}
+
+_NS_INLINE NS::Date* NS::Date::distantFuture()
+{
+    return NS::Object::sendMessage<NS::Date*>(_NS_PRIVATE_CLS(NSDate), _NS_PRIVATE_SEL(distantFuture));
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
