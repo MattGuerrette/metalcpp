@@ -34,6 +34,7 @@ _MTL_OPTIONS(NS::UInteger, FunctionOptions) {
     FunctionOptionNone = 0,
     FunctionOptionCompileToBinary = 1,
     FunctionOptionStoreFunctionInMetalScript = 2,
+    FunctionOptionStoreFunctionInMetalPipelinesScript = 2,
     FunctionOptionFailOnBinaryArchiveMiss = 4,
 };
 

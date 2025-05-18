@@ -23,6 +23,7 @@
 #include "MTLDefines.hpp"
 #include "MTLHeaderBridge.hpp"
 #include "MTLPrivate.hpp"
+#include "MTLTypes.hpp"
 
 #include <Foundation/Foundation.hpp>
 

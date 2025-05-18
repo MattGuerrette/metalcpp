@@ -34,6 +34,7 @@ _MTL_OPTIONS(NS::UInteger, StitchedLibraryOptions) {
     StitchedLibraryOptionNone = 0,
     StitchedLibraryOptionFailOnBinaryArchiveMiss = 1,
     StitchedLibraryOptionStoreLibraryInMetalScript = 2,
+    StitchedLibraryOptionStoreLibraryInMetalPipelinesScript = 2
 };
 
 class FunctionStitchingAttribute : public NS::Referencing<FunctionStitchingAttribute>
