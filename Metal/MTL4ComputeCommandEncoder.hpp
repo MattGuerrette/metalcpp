@@ -28,9 +28,11 @@
 #include "MTLBlitCommandEncoder.hpp"
 #include "MTLCommandEncoder.hpp"
 #include "MTLDefines.hpp"
+#include "MTLGPUAddress.hpp"
 #include "MTLHeaderBridge.hpp"
 #include "MTLPrivate.hpp"
 #include "MTLTypes.hpp"
+#include <cstdint>
 
 namespace MTL4
 {
@@ -76,13 +78,13 @@ public:
     void        copyIndirectCommandBuffer(const MTL::IndirectCommandBuffer* source, NS::Range sourceRange, const MTL::IndirectCommandBuffer* destination, NS::UInteger destinationIndex);
 
     void        dispatchThreadgroups(MTL::Size threadgroupsPerGrid, MTL::Size threadsPerThreadgroup);
-    void        dispatchThreadgroups(uint64_t indirectBuffer, MTL::Size threadsPerThreadgroup);
+    void        dispatchThreadgroups(MTL::GPUAddress indirectBuffer, MTL::Size threadsPerThreadgroup);
 
     void        dispatchThreads(MTL::Size threadsPerGrid, MTL::Size threadsPerThreadgroup);
-    void        dispatchThreads(uint64_t indirectBuffer);
+    void        dispatchThreads(MTL::GPUAddress indirectBuffer);
 
     void        executeCommandsInBuffer(const MTL::IndirectCommandBuffer* indirectCommandBuffer, NS::Range executionRange);
-    void        executeCommandsInBuffer(const MTL::IndirectCommandBuffer* indirectCommandbuffer, uint64_t indirectRangeBuffer);
+    void        executeCommandsInBuffer(const MTL::IndirectCommandBuffer* indirectCommandbuffer, MTL::GPUAddress indirectRangeBuffer);
 
     void        fillBuffer(const MTL::Buffer* buffer, NS::Range range, uint8_t value);
 
@@ -187,7 +189,7 @@ _MTL_INLINE void MTL4::ComputeCommandEncoder::dispatchThreadgroups(MTL::Size thr
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(dispatchThreadgroups_threadsPerThreadgroup_), threadgroupsPerGrid, threadsPerThreadgroup);
 }
 
-_MTL_INLINE void MTL4::ComputeCommandEncoder::dispatchThreadgroups(uint64_t indirectBuffer, MTL::Size threadsPerThreadgroup)
+_MTL_INLINE void MTL4::ComputeCommandEncoder::dispatchThreadgroups(MTL::GPUAddress indirectBuffer, MTL::Size threadsPerThreadgroup)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(dispatchThreadgroupsWithIndirectBuffer_threadsPerThreadgroup_), indirectBuffer, threadsPerThreadgroup);
 }
@@ -197,7 +199,7 @@ _MTL_INLINE void MTL4::ComputeCommandEncoder::dispatchThreads(MTL::Size threadsP
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(dispatchThreads_threadsPerThreadgroup_), threadsPerGrid, threadsPerThreadgroup);
 }
 
-_MTL_INLINE void MTL4::ComputeCommandEncoder::dispatchThreads(uint64_t indirectBuffer)
+_MTL_INLINE void MTL4::ComputeCommandEncoder::dispatchThreads(MTL::GPUAddress indirectBuffer)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(dispatchThreadsWithIndirectBuffer_), indirectBuffer);
 }
@@ -207,7 +209,7 @@ _MTL_INLINE void MTL4::ComputeCommandEncoder::executeCommandsInBuffer(const MTL:
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(executeCommandsInBuffer_withRange_), indirectCommandBuffer, executionRange);
 }
 
-_MTL_INLINE void MTL4::ComputeCommandEncoder::executeCommandsInBuffer(const MTL::IndirectCommandBuffer* indirectCommandbuffer, uint64_t indirectRangeBuffer)
+_MTL_INLINE void MTL4::ComputeCommandEncoder::executeCommandsInBuffer(const MTL::IndirectCommandBuffer* indirectCommandbuffer, MTL::GPUAddress indirectRangeBuffer)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(executeCommandsInBuffer_indirectBuffer_), indirectCommandbuffer, indirectRangeBuffer);
 }

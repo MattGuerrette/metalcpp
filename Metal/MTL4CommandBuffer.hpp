@@ -22,6 +22,7 @@
 
 #include "../Foundation/Foundation.hpp"
 #include "MTL4RenderCommandEncoder.hpp"
+#include "MTLAccelerationStructureTypes.hpp"
 #include "MTLDefines.hpp"
 #include "MTLHeaderBridge.hpp"
 #include "MTLPrivate.hpp"
@@ -39,7 +40,6 @@ class RenderPassDescriptor;
 
 namespace MTL
 {
-class Buffer;
 class Device;
 class Fence;
 class LogState;
@@ -81,7 +81,7 @@ public:
     RenderCommandEncoder*          renderCommandEncoder(const MTL4::RenderPassDescriptor* descriptor);
     RenderCommandEncoder*          renderCommandEncoder(const MTL4::RenderPassDescriptor* descriptor, MTL4::RenderEncoderOptions options);
 
-    void                           resolveCounterHeap(const MTL4::CounterHeap* counterHeap, NS::Range range, const MTL::Buffer* buffer, NS::UInteger alignedOffset, const MTL::Fence* fenceToWait, const MTL::Fence* fenceToUpdate);
+    void                           resolveCounterHeap(const MTL4::CounterHeap* counterHeap, NS::Range range, const MTL4::BufferRange bufferRange, const MTL::Fence* fenceToWait, const MTL::Fence* fenceToUpdate);
 
     void                           setLabel(const NS::String* label);
 
@@ -167,9 +167,9 @@ _MTL_INLINE MTL4::RenderCommandEncoder* MTL4::CommandBuffer::renderCommandEncode
     return Object::sendMessage<MTL4::RenderCommandEncoder*>(this, _MTL_PRIVATE_SEL(renderCommandEncoderWithDescriptor_options_), descriptor, options);
 }
 
-_MTL_INLINE void MTL4::CommandBuffer::resolveCounterHeap(const MTL4::CounterHeap* counterHeap, NS::Range range, const MTL::Buffer* buffer, NS::UInteger alignedOffset, const MTL::Fence* fenceToWait, const MTL::Fence* fenceToUpdate)
+_MTL_INLINE void MTL4::CommandBuffer::resolveCounterHeap(const MTL4::CounterHeap* counterHeap, NS::Range range, const MTL4::BufferRange bufferRange, const MTL::Fence* fenceToWait, const MTL::Fence* fenceToUpdate)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(resolveCounterHeap_withRange_intoBuffer_atOffset_waitFence_updateFence_), counterHeap, range, buffer, alignedOffset, fenceToWait, fenceToUpdate);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(resolveCounterHeap_withRange_intoBuffer_waitFence_updateFence_), counterHeap, range, bufferRange, fenceToWait, fenceToUpdate);
 }
 
 _MTL_INLINE void MTL4::CommandBuffer::setLabel(const NS::String* label)

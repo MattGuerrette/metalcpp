@@ -28,34 +28,15 @@
 
 namespace MTL4
 {
-class BinaryFunctionReflection;
 
-class BinaryFunctionReflection : public NS::Referencing<BinaryFunctionReflection>
-{
-public:
-    static BinaryFunctionReflection* alloc();
-
-    BinaryFunctionReflection*        init();
-};
 class BinaryFunction : public NS::Referencing<BinaryFunction>
 {
 public:
-    MTL::FunctionType         functionType() const;
+    MTL::FunctionType functionType() const;
 
-    NS::String*               name() const;
-
-    BinaryFunctionReflection* reflection() const;
+    NS::String*       name() const;
 };
 
-}
-_MTL_INLINE MTL4::BinaryFunctionReflection* MTL4::BinaryFunctionReflection::alloc()
-{
-    return NS::Object::alloc<MTL4::BinaryFunctionReflection>(_MTL_PRIVATE_CLS(MTL4BinaryFunctionReflection));
-}
-
-_MTL_INLINE MTL4::BinaryFunctionReflection* MTL4::BinaryFunctionReflection::init()
-{
-    return NS::Object::init<MTL4::BinaryFunctionReflection>();
 }
 
 _MTL_INLINE MTL::FunctionType MTL4::BinaryFunction::functionType() const
@@ -66,9 +47,4 @@ _MTL_INLINE MTL::FunctionType MTL4::BinaryFunction::functionType() const
 _MTL_INLINE NS::String* MTL4::BinaryFunction::name() const
 {
     return Object::sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(name));
-}
-
-_MTL_INLINE MTL4::BinaryFunctionReflection* MTL4::BinaryFunction::reflection() const
-{
-    return Object::sendMessage<MTL4::BinaryFunctionReflection*>(this, _MTL_PRIVATE_SEL(reflection));
 }

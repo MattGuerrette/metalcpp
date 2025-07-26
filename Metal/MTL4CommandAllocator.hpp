@@ -24,6 +24,7 @@
 #include "MTLDefines.hpp"
 #include "MTLHeaderBridge.hpp"
 #include "MTLPrivate.hpp"
+#include <cstdint>
 
 namespace MTL
 {
@@ -32,6 +33,7 @@ class Device;
 
 namespace MTL4
 {
+
 class CommandAllocatorDescriptor : public NS::Copying<CommandAllocatorDescriptor>
 {
 public:
@@ -42,6 +44,7 @@ public:
     NS::String*                        label() const;
     void                               setLabel(const NS::String* label);
 };
+
 class CommandAllocator : public NS::Referencing<CommandAllocator>
 {
 public:
@@ -55,6 +58,7 @@ public:
 };
 
 }
+
 _MTL_INLINE MTL4::CommandAllocatorDescriptor* MTL4::CommandAllocatorDescriptor::alloc()
 {
     return NS::Object::alloc<MTL4::CommandAllocatorDescriptor>(_MTL_PRIVATE_CLS(MTL4CommandAllocatorDescriptor));

@@ -29,9 +29,9 @@ namespace MTL4
 {
 class PipelineDataSetSerializerDescriptor;
 
-_MTL_OPTIONS(NS::Integer, PipelineDataSetSerializerConfiguration) {
-    PipelineDataSetSerializerConfigurationCaptureDescriptors = 0,
-    PipelineDataSetSerializerConfigurationCaptureBinaries = 1,
+_MTL_OPTIONS(NS::UInteger, PipelineDataSetSerializerConfiguration) {
+    PipelineDataSetSerializerConfigurationCaptureDescriptors = 1,
+    PipelineDataSetSerializerConfigurationCaptureBinaries = 1 << 1,
 };
 
 class PipelineDataSetSerializerDescriptor : public NS::Copying<PipelineDataSetSerializerDescriptor>

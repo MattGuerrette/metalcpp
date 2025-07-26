@@ -40,7 +40,6 @@ class StaticLinkingDescriptor;
 
 namespace MTL
 {
-class LogicalToPhysicalColorAttachmentMap;
 class VertexDescriptor;
 }
 
@@ -96,6 +95,7 @@ public:
 
     MTL::ColorWriteMask                             writeMask() const;
 };
+
 class RenderPipelineColorAttachmentDescriptorArray : public NS::Copying<RenderPipelineColorAttachmentDescriptorArray>
 {
 public:
@@ -110,26 +110,6 @@ public:
     void                                                 setObject(const MTL4::RenderPipelineColorAttachmentDescriptor* attachment, NS::UInteger attachmentIndex);
 };
 
-}
-namespace MTL
-{
-class LogicalToPhysicalColorAttachmentMap : public NS::Copying<LogicalToPhysicalColorAttachmentMap>
-{
-public:
-    static LogicalToPhysicalColorAttachmentMap* alloc();
-
-    NS::UInteger                                getPhysicalIndex(NS::UInteger logicalIndex);
-
-    LogicalToPhysicalColorAttachmentMap*        init();
-
-    void                                        reset();
-
-    void                                        setPhysicalIndex(NS::UInteger physicalIndex, NS::UInteger logicalIndex);
-};
-
-}
-namespace MTL4
-{
 class RenderPipelineBinaryFunctionsDescriptor : public NS::Copying<RenderPipelineBinaryFunctionsDescriptor>
 {
 public:
@@ -159,6 +139,7 @@ public:
 
     NS::Array*                                      vertexAdditionalBinaryFunctions() const;
 };
+
 class RenderPipelineDescriptor : public NS::Copying<RenderPipelineDescriptor, PipelineDescriptor>
 {
 public:
@@ -363,31 +344,6 @@ _MTL_INLINE void MTL4::RenderPipelineColorAttachmentDescriptorArray::reset()
 _MTL_INLINE void MTL4::RenderPipelineColorAttachmentDescriptorArray::setObject(const MTL4::RenderPipelineColorAttachmentDescriptor* attachment, NS::UInteger attachmentIndex)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setObject_atIndexedSubscript_), attachment, attachmentIndex);
-}
-
-_MTL_INLINE MTL::LogicalToPhysicalColorAttachmentMap* MTL::LogicalToPhysicalColorAttachmentMap::alloc()
-{
-    return NS::Object::alloc<MTL::LogicalToPhysicalColorAttachmentMap>(_MTL_PRIVATE_CLS(MTLLogicalToPhysicalColorAttachmentMap));
-}
-
-_MTL_INLINE NS::UInteger MTL::LogicalToPhysicalColorAttachmentMap::getPhysicalIndex(NS::UInteger logicalIndex)
-{
-    return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(getPhysicalIndexForLogicalIndex_), logicalIndex);
-}
-
-_MTL_INLINE MTL::LogicalToPhysicalColorAttachmentMap* MTL::LogicalToPhysicalColorAttachmentMap::init()
-{
-    return NS::Object::init<MTL::LogicalToPhysicalColorAttachmentMap>();
-}
-
-_MTL_INLINE void MTL::LogicalToPhysicalColorAttachmentMap::reset()
-{
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(reset));
-}
-
-_MTL_INLINE void MTL::LogicalToPhysicalColorAttachmentMap::setPhysicalIndex(NS::UInteger physicalIndex, NS::UInteger logicalIndex)
-{
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setPhysicalIndex_forLogicalIndex_), physicalIndex, logicalIndex);
 }
 
 _MTL_INLINE MTL4::RenderPipelineBinaryFunctionsDescriptor* MTL4::RenderPipelineBinaryFunctionsDescriptor::alloc()

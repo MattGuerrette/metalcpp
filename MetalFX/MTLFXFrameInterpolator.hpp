@@ -24,6 +24,7 @@
 
 #include "MTLFXDefines.hpp"
 #include "MTLFXPrivate.hpp"
+#include "MTLFXTemporalScaler.hpp"
 
 #include "../Metal/Metal.hpp"
 
@@ -59,17 +60,8 @@ namespace MTLFX
         MTL::PixelFormat                    uiTextureFormat() const;
         void                                setUITextureFormat(MTL::PixelFormat uiTextureFormat);
 
-        class TemporalScaler*               scaler() const;
-        void                                setScaler(class TemporalScaler* scaler);
-
-        class TemporalDenoisedScaler*       denoisedScaler() const;
-        void                                setDenoisedScaler(class TemporalDenoisedScaler* scaler);
-
-        MTL4FX::TemporalScaler*             scaler4() const;
-        void                                setScaler4(MTL4FX::TemporalScaler* scaler);
-
-        MTL4FX::TemporalDenoisedScaler*     denoisedScaler4() const;
-        void                                setDenoisedScaler4(MTL4FX::TemporalDenoisedScaler* scaler);
+        MTLFX::FrameInterpolatableScaler*   scaler() const;
+        void                                setScaler(MTLFX::FrameInterpolatableScaler* scaler);
 
         NS::UInteger                        inputWidth() const;
         void                                setInputWidth( NS::UInteger inputWidth );
@@ -170,6 +162,7 @@ namespace MTLFX
 
     class FrameInterpolator : public NS::Referencing<FrameInterpolator, FrameInterpolatorBase>
     {
+    public:
         void              encodeToCommandBuffer(MTL::CommandBuffer* commandBuffer);
     };
 
@@ -261,58 +254,14 @@ _MTLFX_INLINE void MTLFX::FrameInterpolatorDescriptor::setUITextureFormat( MTL::
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_MTLFX_INLINE MTLFX::TemporalScaler* MTLFX::FrameInterpolatorDescriptor::scaler() const
+_MTLFX_INLINE MTLFX::FrameInterpolatableScaler* MTLFX::FrameInterpolatorDescriptor::scaler() const
 {
-    return NS::Object::sendMessage< MTLFX::TemporalScaler* >( this, _MTLFX_PRIVATE_SEL( scaler ) );
+    return NS::Object::sendMessage< MTLFX::FrameInterpolatableScaler* >( this, _MTLFX_PRIVATE_SEL( scaler ) );
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-_MTLFX_INLINE void MTLFX::FrameInterpolatorDescriptor::setScaler( MTLFX::TemporalScaler* scaler )
+_MTLFX_INLINE void MTLFX::FrameInterpolatorDescriptor::setScaler(MTLFX::FrameInterpolatableScaler* scaler)
 {
-    return NS::Object::sendMessage< void >( this, _MTLFX_PRIVATE_SEL( setScaler_ ), scaler );
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-_MTLFX_INLINE MTLFX::TemporalDenoisedScaler* MTLFX::FrameInterpolatorDescriptor::denoisedScaler() const
-{
-    return NS::Object::sendMessage< MTLFX::TemporalDenoisedScaler* >( this, _MTLFX_PRIVATE_SEL( denoisedScaler ) );
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-_MTLFX_INLINE void MTLFX::FrameInterpolatorDescriptor::setDenoisedScaler( MTLFX::TemporalDenoisedScaler* scaler )
-{
-    return NS::Object::sendMessage< void >( this, _MTLFX_PRIVATE_SEL( setDenoisedScaler_ ), scaler );
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-_MTLFX_INLINE MTL4FX::TemporalScaler* MTLFX::FrameInterpolatorDescriptor::scaler4() const
-{
-    return NS::Object::sendMessage< MTL4FX::TemporalScaler* >( this, _MTLFX_PRIVATE_SEL( scaler4 ) );
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-_MTLFX_INLINE void MTLFX::FrameInterpolatorDescriptor::setScaler4( MTL4FX::TemporalScaler* scaler )
-{
-    return NS::Object::sendMessage< void >( this, _MTLFX_PRIVATE_SEL( setScaler4_ ), scaler );
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-_MTLFX_INLINE MTL4FX::TemporalDenoisedScaler* MTLFX::FrameInterpolatorDescriptor::denoisedScaler4() const
-{
-    return NS::Object::sendMessage< MTL4FX::TemporalDenoisedScaler* >( this, _MTLFX_PRIVATE_SEL( denoisedScaler4 ) );
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-_MTLFX_INLINE void MTLFX::FrameInterpolatorDescriptor::setDenoisedScaler4( MTL4FX::TemporalDenoisedScaler* scaler )
-{
-    return NS::Object::sendMessage< void >( this, _MTLFX_PRIVATE_SEL( setDenoisedScaler4_ ), scaler );
+    NS::Object::sendMessage< void >(this, _MTLFX_PRIVATE_SEL( setScaler_ ), scaler );
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------

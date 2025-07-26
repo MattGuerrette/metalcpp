@@ -32,6 +32,9 @@ namespace MTL
 class Buffer;
 class TensorDescriptor;
 class TensorExtents;
+
+_MTL_CONST(NS::ErrorDomain, TensorDomain);
+
 _MTL_ENUM(NS::Integer, TensorDataType) {
     TensorDataTypeNone = 0,
     TensorDataTypeFloat32 = 3,
@@ -45,13 +48,13 @@ _MTL_ENUM(NS::Integer, TensorDataType) {
     TensorDataTypeUInt32 = 33,
 };
 
-_MTL_ENUM(NS::UInteger, TensorError) {
+_MTL_ENUM(NS::Integer, TensorError) {
     TensorErrorNone = 0,
     TensorErrorInternalError = 1,
     TensorErrorInvalidDescriptor = 2,
 };
 
-_MTL_OPTIONS(NS::Integer, TensorUsage) {
+_MTL_OPTIONS(NS::UInteger, TensorUsage) {
     TensorUsageCompute = 1,
     TensorUsageRender = 1 << 1,
     TensorUsageMachineLearning = 1 << 2,
@@ -130,6 +133,9 @@ public:
 };
 
 }
+
+_MTL_PRIVATE_DEF_CONST(NS::ErrorDomain, TensorDomain);
+
 _MTL_INLINE MTL::TensorExtents* MTL::TensorExtents::alloc()
 {
     return NS::Object::alloc<MTL::TensorExtents>(_MTL_PRIVATE_CLS(MTLTensorExtents));

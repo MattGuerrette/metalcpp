@@ -38,9 +38,10 @@ class Fence;
 
 namespace MTL4
 {
-_MTL_OPTIONS(NS::Integer, VisibilityOptions) {
+_MTL_OPTIONS(NS::UInteger, VisibilityOptions) {
     VisibilityOptionNone = 0,
-    VisibilityOptionDevice = 1
+    VisibilityOptionDevice = 1,
+    VisibilityOptionResourceAlias = 1 << 1,
 };
 
 class CommandEncoder : public NS::Referencing<CommandEncoder>

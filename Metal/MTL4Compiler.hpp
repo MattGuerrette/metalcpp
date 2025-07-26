@@ -96,8 +96,6 @@ public:
 class Compiler : public NS::Referencing<Compiler>
 {
 public:
-    void                          cancel();
-
     MTL::Device*                  device() const;
 
     NS::String*                   label() const;
@@ -187,11 +185,6 @@ _MTL_INLINE NS::Array* MTL4::CompilerTaskOptions::lookupArchives() const
 _MTL_INLINE void MTL4::CompilerTaskOptions::setLookupArchives(const NS::Array* lookupArchives)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setLookupArchives_), lookupArchives);
-}
-
-_MTL_INLINE void MTL4::Compiler::cancel()
-{
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(cancel));
 }
 
 _MTL_INLINE MTL::Device* MTL4::Compiler::device() const

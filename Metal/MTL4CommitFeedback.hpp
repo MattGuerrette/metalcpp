@@ -20,18 +20,13 @@
 
 #pragma once
 
-#include "../Foundation/NSObject.hpp"
+#include "../Foundation/Foundation.hpp"
 #include "MTLDefines.hpp"
 #include "MTLHeaderBridge.hpp"
 #include "MTLPrivate.hpp"
 #include <CoreFoundation/CoreFoundation.h>
 
 #include <functional>
-
-namespace NS
-{
-class Error;
-}
 
 namespace MTL4
 {

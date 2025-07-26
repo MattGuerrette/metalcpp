@@ -24,6 +24,7 @@
 
 #include "MTLFXDefines.hpp"
 #include "MTLFXPrivate.hpp"
+#include "MTLFXTemporalScaler.hpp"
 
 #include "../Metal/Metal.hpp"
 
@@ -129,7 +130,7 @@ namespace MTLFX
             static bool                                          supportsDevice( MTL::Device* device);
     };
 
-    class TemporalDenoisedScalerBase : public NS::Referencing< TemporalDenoisedScaler >
+    class TemporalDenoisedScalerBase : public NS::Referencing< TemporalDenoisedScalerBase, FrameInterpolatableScaler >
     {
     public:
         MTL::TextureUsage                                       colorTextureUsage() const;
@@ -235,7 +236,7 @@ namespace MTLFX
         void                                                    setFence( MTL::Fence* fence );
     };
 
-    class TemporalDenoisedScaler : public NS::Referencing< TemporalDenoisedScaler >
+    class TemporalDenoisedScaler : public NS::Referencing< TemporalDenoisedScaler, TemporalDenoisedScalerBase >
     {
     public:
 
@@ -657,14 +658,14 @@ _MTLFX_INLINE float MTLFX::TemporalDenoisedScalerDescriptor::supportedInputConte
 
 _MTLFX_INLINE bool MTLFX::TemporalDenoisedScalerDescriptor::supportsMetal4FX( MTL::Device* device )
 {
-    return NS::Object::sendMessageSafe< float >( _MTLFX_PRIVATE_CLS(MTLFXTemporalDenoisedScalerDescriptor), _MTLFX_PRIVATE_SEL( supportsMetal4FX_ ), device );
+    return NS::Object::sendMessageSafe< bool >( _MTLFX_PRIVATE_CLS(MTLFXTemporalDenoisedScalerDescriptor), _MTLFX_PRIVATE_SEL( supportsMetal4FX_ ), device );
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 _MTLFX_INLINE bool MTLFX::TemporalDenoisedScalerDescriptor::supportsDevice( MTL::Device* device )
 {
-    return NS::Object::sendMessageSafe< float >( _MTLFX_PRIVATE_CLS(MTLFXTemporalDenoisedScalerDescriptor), _MTLFX_PRIVATE_SEL( supportsDevice_ ), device );
+    return NS::Object::sendMessageSafe< bool >( _MTLFX_PRIVATE_CLS(MTLFXTemporalDenoisedScalerDescriptor), _MTLFX_PRIVATE_SEL( supportsDevice_ ), device );
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------

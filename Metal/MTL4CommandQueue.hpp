@@ -27,6 +27,8 @@
 #include "MTLPrivate.hpp"
 #include "MTLResourceStateCommandEncoder.hpp"
 #include "MTLTypes.hpp"
+#include <cstdint>
+#include <dispatch/dispatch.h>
 
 namespace MTL
 {

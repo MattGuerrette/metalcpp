@@ -22,6 +22,7 @@
 
 #include "../Foundation/Foundation.hpp"
 #include "MTLDefines.hpp"
+#include "MTLGPUAddress.hpp"
 #include "MTLHeaderBridge.hpp"
 #include "MTLPrivate.hpp"
 #include "MTLTypes.hpp"
@@ -69,8 +70,8 @@ public:
 
     NS::String*  label() const;
 
-    void         setAddress(uint64_t gpuAddress, NS::UInteger bindingIndex);
-    void         setAddress(uint64_t gpuAddress, NS::UInteger stride, NS::UInteger bindingIndex);
+    void         setAddress(MTL::GPUAddress gpuAddress, NS::UInteger bindingIndex);
+    void         setAddress(MTL::GPUAddress gpuAddress, NS::UInteger stride, NS::UInteger bindingIndex);
 
     void         setResource(MTL::ResourceID resourceID, NS::UInteger bindingIndex);
 
@@ -160,12 +161,12 @@ _MTL_INLINE NS::String* MTL4::ArgumentTable::label() const
     return Object::sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
 }
 
-_MTL_INLINE void MTL4::ArgumentTable::setAddress(uint64_t gpuAddress, NS::UInteger bindingIndex)
+_MTL_INLINE void MTL4::ArgumentTable::setAddress(MTL::GPUAddress gpuAddress, NS::UInteger bindingIndex)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setAddress_atIndex_), gpuAddress, bindingIndex);
 }
 
-_MTL_INLINE void MTL4::ArgumentTable::setAddress(uint64_t gpuAddress, NS::UInteger stride, NS::UInteger bindingIndex)
+_MTL_INLINE void MTL4::ArgumentTable::setAddress(MTL::GPUAddress gpuAddress, NS::UInteger stride, NS::UInteger bindingIndex)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setAddress_attributeStride_atIndex_), gpuAddress, stride, bindingIndex);
 }

@@ -24,13 +24,14 @@
 #include "MTLDefines.hpp"
 #include "MTLHeaderBridge.hpp"
 #include "MTLPrivate.hpp"
+#include <cstdint>
 
 #include <cstdint>
 
 namespace MTL4
 {
 class CounterHeapDescriptor;
-_MTL_ENUM(NS::UInteger, CounterHeapType) {
+_MTL_ENUM(NS::Integer, CounterHeapType) {
     CounterHeapTypeInvalid,
     CounterHeapTypeTimestamp,
 };
@@ -50,11 +51,11 @@ class CounterHeapDescriptor : public NS::Copying<CounterHeapDescriptor>
 public:
     static CounterHeapDescriptor* alloc();
 
-    NS::UInteger                  entryCount() const;
+    NS::UInteger                  count() const;
 
     CounterHeapDescriptor*        init();
 
-    void                          setEntryCount(NS::UInteger entryCount);
+    void                          setCount(NS::UInteger count);
 
     void                          setType(MTL4::CounterHeapType type);
     CounterHeapType               type() const;
@@ -81,9 +82,9 @@ _MTL_INLINE MTL4::CounterHeapDescriptor* MTL4::CounterHeapDescriptor::alloc()
     return NS::Object::alloc<MTL4::CounterHeapDescriptor>(_MTL_PRIVATE_CLS(MTL4CounterHeapDescriptor));
 }
 
-_MTL_INLINE NS::UInteger MTL4::CounterHeapDescriptor::entryCount() const
+_MTL_INLINE NS::UInteger MTL4::CounterHeapDescriptor::count() const
 {
-    return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(entryCount));
+    return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(count));
 }
 
 _MTL_INLINE MTL4::CounterHeapDescriptor* MTL4::CounterHeapDescriptor::init()
@@ -91,9 +92,9 @@ _MTL_INLINE MTL4::CounterHeapDescriptor* MTL4::CounterHeapDescriptor::init()
     return NS::Object::init<MTL4::CounterHeapDescriptor>();
 }
 
-_MTL_INLINE void MTL4::CounterHeapDescriptor::setEntryCount(NS::UInteger entryCount)
+_MTL_INLINE void MTL4::CounterHeapDescriptor::setCount(NS::UInteger count)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setEntryCount_), entryCount);
+    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setCount_), count);
 }
 
 _MTL_INLINE void MTL4::CounterHeapDescriptor::setType(MTL4::CounterHeapType type)

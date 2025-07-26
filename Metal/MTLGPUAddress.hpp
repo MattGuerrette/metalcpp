@@ -1,8 +1,8 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 //
-// MetalFX/MetalFX.hpp
+// Metal/MTLGPUAddress.hpp
 //
-// Copyright 2020-2024 Apple Inc.
+// Copyright 2025 Apple Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,16 +20,17 @@
 
 #pragma once
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+#ifdef __METAL_VERSION__
 
-#include "MTLFXSpatialScaler.hpp"
-#include "MTLFXTemporalScaler.hpp"
-#include "MTLFXTemporalDenoisedScaler.hpp"
-#include "MTLFXFrameInterpolator.hpp"
+#include <metal_stdlib>
 
-#include "MTL4FXSpatialScaler.hpp"
-#include "MTL4FXTemporalScaler.hpp"
-#include "MTL4FXTemporalDenoisedScaler.hpp"
-#include "MTL4FXFrameInterpolator.hpp"
+#else
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+#include <cstdint>
+
+#endif // __METAL_VERSION__
+
+namespace MTL
+{
+    using GPUAddress = uint64_t;
+}
