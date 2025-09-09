@@ -65,10 +65,10 @@ namespace NS
 	class ApplicationDelegate
 	{
 		public:
-			virtual					~ApplicationDelegate() { }
-			virtual void			applicationWillFinishLaunching( Notification* pNotification ) { }
-			virtual void			applicationDidFinishLaunching( Notification* pNotification ) { }
-			virtual bool			applicationShouldTerminateAfterLastWindowClosed( class Application* pSender ) { return false; }
+			virtual					~ApplicationDelegate() = default;
+			virtual void			applicationWillFinishLaunching( [[maybe_unused]] Notification* pNotification ) { }
+			virtual void			applicationDidFinishLaunching( [[maybe_unused]] Notification* pNotification ) { }
+			virtual bool			applicationShouldTerminateAfterLastWindowClosed( [[maybe_unused]] class Application* pSender ) { return false; }
 	};
 
 	class Application : public NS::Referencing< Application >
