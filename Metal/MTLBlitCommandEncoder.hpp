@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include <cstdint>
@@ -46,141 +47,142 @@ namespace MTL
         BlitOptionRowLinearPVRTC          = 1 << 2,
     };
 
+    /// @see https://developer.apple.com/documentation/metal/mtlblitcommandencoder?language=objc
     class BlitCommandEncoder : public NS::Referencing<BlitCommandEncoder, CommandEncoder>
     {
     public:
-        void copyFromBuffer(const MTL::Buffer*  sourceBuffer,
-                            NS::UInteger        sourceOffset,
-                            NS::UInteger        sourceBytesPerRow,
-                            NS::UInteger        sourceBytesPerImage,
-                            MTL::Size           sourceSize,
-                            const MTL::Texture* destinationTexture,
-                            NS::UInteger        destinationSlice,
-                            NS::UInteger        destinationLevel,
-                            MTL::Origin         destinationOrigin);
-        void copyFromBuffer(const MTL::Buffer*  sourceBuffer,
-                            NS::UInteger        sourceOffset,
-                            NS::UInteger        sourceBytesPerRow,
-                            NS::UInteger        sourceBytesPerImage,
-                            MTL::Size           sourceSize,
-                            const MTL::Texture* destinationTexture,
-                            NS::UInteger        destinationSlice,
-                            NS::UInteger        destinationLevel,
-                            MTL::Origin         destinationOrigin,
-                            MTL::BlitOption     options);
-        void copyFromBuffer(const MTL::Buffer* sourceBuffer,
-                            NS::UInteger       sourceOffset,
-                            const MTL::Buffer* destinationBuffer,
-                            NS::UInteger       destinationOffset,
-                            NS::UInteger       size);
+        void copyFromBuffer(const Buffer*  sourceBuffer,
+                            NS::UInteger   sourceOffset,
+                            NS::UInteger   sourceBytesPerRow,
+                            NS::UInteger   sourceBytesPerImage,
+                            const Size&    sourceSize,
+                            const Texture* destinationTexture,
+                            NS::UInteger   destinationSlice,
+                            NS::UInteger   destinationLevel,
+                            const Origin&  destinationOrigin) const;
+        void copyFromBuffer(const Buffer*  sourceBuffer,
+                            NS::UInteger   sourceOffset,
+                            NS::UInteger   sourceBytesPerRow,
+                            NS::UInteger   sourceBytesPerImage,
+                            const Size&    sourceSize,
+                            const Texture* destinationTexture,
+                            NS::UInteger   destinationSlice,
+                            NS::UInteger   destinationLevel,
+                            const Origin&  destinationOrigin,
+                            BlitOption     options) const;
+        void copyFromBuffer(const Buffer* sourceBuffer,
+                            NS::UInteger  sourceOffset,
+                            const Buffer* destinationBuffer,
+                            NS::UInteger  destinationOffset,
+                            NS::UInteger  size) const;
 
-        void copyFromTensor(const MTL::Tensor*        sourceTensor,
-                            const MTL::TensorExtents* sourceOrigin,
-                            const MTL::TensorExtents* sourceDimensions,
-                            const MTL::Tensor*        destinationTensor,
-                            const MTL::TensorExtents* destinationOrigin,
-                            const MTL::TensorExtents* destinationDimensions);
+        void copyFromTensor(const Tensor*        sourceTensor,
+                            const TensorExtents* sourceOrigin,
+                            const TensorExtents* sourceDimensions,
+                            const Tensor*        destinationTensor,
+                            const TensorExtents* destinationOrigin,
+                            const TensorExtents* destinationDimensions) const;
 
-        void copyFromTexture(const MTL::Texture* sourceTexture,
-                             NS::UInteger        sourceSlice,
-                             NS::UInteger        sourceLevel,
-                             MTL::Origin         sourceOrigin,
-                             MTL::Size           sourceSize,
-                             const MTL::Texture* destinationTexture,
-                             NS::UInteger        destinationSlice,
-                             NS::UInteger        destinationLevel,
-                             MTL::Origin         destinationOrigin);
-        void copyFromTexture(const MTL::Texture* sourceTexture,
-                             NS::UInteger        sourceSlice,
-                             NS::UInteger        sourceLevel,
-                             MTL::Origin         sourceOrigin,
-                             MTL::Size           sourceSize,
-                             const MTL::Buffer*  destinationBuffer,
-                             NS::UInteger        destinationOffset,
-                             NS::UInteger        destinationBytesPerRow,
-                             NS::UInteger        destinationBytesPerImage);
-        void copyFromTexture(const MTL::Texture* sourceTexture,
-                             NS::UInteger        sourceSlice,
-                             NS::UInteger        sourceLevel,
-                             MTL::Origin         sourceOrigin,
-                             MTL::Size           sourceSize,
-                             const MTL::Buffer*  destinationBuffer,
-                             NS::UInteger        destinationOffset,
-                             NS::UInteger        destinationBytesPerRow,
-                             NS::UInteger        destinationBytesPerImage,
-                             MTL::BlitOption     options);
-        void copyFromTexture(const MTL::Texture* sourceTexture,
-                             NS::UInteger        sourceSlice,
-                             NS::UInteger        sourceLevel,
-                             const MTL::Texture* destinationTexture,
-                             NS::UInteger        destinationSlice,
-                             NS::UInteger        destinationLevel,
-                             NS::UInteger        sliceCount,
-                             NS::UInteger        levelCount);
-        void copyFromTexture(const MTL::Texture* sourceTexture, const MTL::Texture* destinationTexture);
+        void copyFromTexture(const Texture* sourceTexture,
+                             NS::UInteger   sourceSlice,
+                             NS::UInteger   sourceLevel,
+                             const Origin&  sourceOrigin,
+                             const Size&    sourceSize,
+                             const Texture* destinationTexture,
+                             NS::UInteger   destinationSlice,
+                             NS::UInteger   destinationLevel,
+                             const Origin&  destinationOrigin) const;
+        void copyFromTexture(const Texture* sourceTexture,
+                             NS::UInteger   sourceSlice,
+                             NS::UInteger   sourceLevel,
+                             const Origin&  sourceOrigin,
+                             const Size&    sourceSize,
+                             const Buffer*  destinationBuffer,
+                             NS::UInteger   destinationOffset,
+                             NS::UInteger   destinationBytesPerRow,
+                             NS::UInteger   destinationBytesPerImage) const;
+        void copyFromTexture(const Texture* sourceTexture,
+                             NS::UInteger   sourceSlice,
+                             NS::UInteger   sourceLevel,
+                             const Origin&  sourceOrigin,
+                             const Size&    sourceSize,
+                             const Buffer*  destinationBuffer,
+                             NS::UInteger   destinationOffset,
+                             NS::UInteger   destinationBytesPerRow,
+                             NS::UInteger   destinationBytesPerImage,
+                             BlitOption     options) const;
+        void copyFromTexture(const Texture* sourceTexture,
+                             NS::UInteger   sourceSlice,
+                             NS::UInteger   sourceLevel,
+                             const Texture* destinationTexture,
+                             NS::UInteger   destinationSlice,
+                             NS::UInteger   destinationLevel,
+                             NS::UInteger   sliceCount,
+                             NS::UInteger   levelCount) const;
+        void copyFromTexture(const Texture* sourceTexture, const Texture* destinationTexture) const;
 
-        void copyIndirectCommandBuffer(const MTL::IndirectCommandBuffer* source,
-                                       NS::Range                         sourceRange,
-                                       const MTL::IndirectCommandBuffer* destination,
-                                       NS::UInteger                      destinationIndex);
+        void copyIndirectCommandBuffer(const IndirectCommandBuffer* source,
+                                       NS::Range                    sourceRange,
+                                       const IndirectCommandBuffer* destination,
+                                       NS::UInteger                 destinationIndex) const;
 
-        void fillBuffer(const MTL::Buffer* buffer, NS::Range range, uint8_t value);
+        void fillBuffer(const Buffer* buffer, NS::Range range, uint8_t value) const;
 
-        void generateMipmaps(const MTL::Texture* texture);
+        void generateMipmaps(const Texture* texture) const;
 
-        void getTextureAccessCounters(const MTL::Texture* texture,
-                                      MTL::Region         region,
-                                      NS::UInteger        mipLevel,
-                                      NS::UInteger        slice,
-                                      bool                resetCounters,
-                                      const MTL::Buffer*  countersBuffer,
-                                      NS::UInteger        countersBufferOffset);
+        void getTextureAccessCounters(const Texture* texture,
+                                      const Region&  region,
+                                      NS::UInteger   mipLevel,
+                                      NS::UInteger   slice,
+                                      bool           resetCounters,
+                                      const Buffer*  countersBuffer,
+                                      NS::UInteger   countersBufferOffset) const;
 
-        void optimizeContentsForCPUAccess(const MTL::Texture* texture);
-        void optimizeContentsForCPUAccess(const MTL::Texture* texture, NS::UInteger slice, NS::UInteger level);
+        void optimizeContentsForCPUAccess(const Texture* texture) const;
+        void optimizeContentsForCPUAccess(const Texture* texture, NS::UInteger slice, NS::UInteger level) const;
 
-        void optimizeContentsForGPUAccess(const MTL::Texture* texture);
-        void optimizeContentsForGPUAccess(const MTL::Texture* texture, NS::UInteger slice, NS::UInteger level);
+        void optimizeContentsForGPUAccess(const Texture* texture) const;
+        void optimizeContentsForGPUAccess(const Texture* texture, NS::UInteger slice, NS::UInteger level) const;
 
-        void optimizeIndirectCommandBuffer(const MTL::IndirectCommandBuffer* indirectCommandBuffer, NS::Range range);
+        void optimizeIndirectCommandBuffer(const IndirectCommandBuffer* indirectCommandBuffer, NS::Range range) const;
 
-        void resetCommandsInBuffer(const MTL::IndirectCommandBuffer* buffer, NS::Range range);
+        void resetCommandsInBuffer(const IndirectCommandBuffer* buffer, NS::Range range) const;
 
-        void resetTextureAccessCounters(const MTL::Texture* texture,
-                                        MTL::Region         region,
-                                        NS::UInteger        mipLevel,
-                                        NS::UInteger        slice);
+        void resetTextureAccessCounters(const Texture* texture,
+                                        const Region&  region,
+                                        NS::UInteger   mipLevel,
+                                        NS::UInteger   slice) const;
 
-        void resolveCounters(const MTL::CounterSampleBuffer* sampleBuffer,
-                             NS::Range                       range,
-                             const MTL::Buffer*              destinationBuffer,
-                             NS::UInteger                    destinationOffset);
+        void resolveCounters(const CounterSampleBuffer* sampleBuffer,
+                             NS::Range                  range,
+                             const Buffer*              destinationBuffer,
+                             NS::UInteger               destinationOffset) const;
 
-        void sampleCountersInBuffer(const MTL::CounterSampleBuffer* sampleBuffer,
-                                    NS::UInteger                    sampleIndex,
-                                    bool                            barrier);
+        void sampleCountersInBuffer(const CounterSampleBuffer* sampleBuffer,
+                                    NS::UInteger               sampleIndex,
+                                    bool                       barrier) const;
 
-        void synchronizeResource(const MTL::Resource* resource);
+        void synchronizeResource(const Resource* resource) const;
 
-        void synchronizeTexture(const MTL::Texture* texture, NS::UInteger slice, NS::UInteger level);
+        void synchronizeTexture(const Texture* texture, NS::UInteger slice, NS::UInteger level) const;
 
-        void updateFence(const MTL::Fence* fence);
+        void updateFence(const Fence* fence) const;
 
-        void waitForFence(const MTL::Fence* fence);
+        void waitForFence(const Fence* fence) const;
     };
 
 } // namespace MTL
-_MTL_INLINE void MTL::BlitCommandEncoder::copyFromBuffer(const MTL::Buffer*  sourceBuffer,
-                                                         NS::UInteger        sourceOffset,
-                                                         NS::UInteger        sourceBytesPerRow,
-                                                         NS::UInteger        sourceBytesPerImage,
-                                                         MTL::Size           sourceSize,
-                                                         const MTL::Texture* destinationTexture,
-                                                         NS::UInteger        destinationSlice,
-                                                         NS::UInteger        destinationLevel,
-                                                         MTL::Origin         destinationOrigin)
+_MTL_INLINE void MTL::BlitCommandEncoder::copyFromBuffer(const Buffer*      sourceBuffer,
+                                                         const NS::UInteger sourceOffset,
+                                                         const NS::UInteger sourceBytesPerRow,
+                                                         const NS::UInteger sourceBytesPerImage,
+                                                         const Size&        sourceSize,
+                                                         const Texture*     destinationTexture,
+                                                         const NS::UInteger destinationSlice,
+                                                         const NS::UInteger destinationLevel,
+                                                         const Origin&      destinationOrigin) const
 {
-    Object::sendMessage<void>(
+    sendMessage<void>(
         this,
         _MTL_PRIVATE_SEL(
             copyFromBuffer_sourceOffset_sourceBytesPerRow_sourceBytesPerImage_sourceSize_toTexture_destinationSlice_destinationLevel_destinationOrigin_),
@@ -195,18 +197,18 @@ _MTL_INLINE void MTL::BlitCommandEncoder::copyFromBuffer(const MTL::Buffer*  sou
         destinationOrigin);
 }
 
-_MTL_INLINE void MTL::BlitCommandEncoder::copyFromBuffer(const MTL::Buffer*  sourceBuffer,
-                                                         NS::UInteger        sourceOffset,
-                                                         NS::UInteger        sourceBytesPerRow,
-                                                         NS::UInteger        sourceBytesPerImage,
-                                                         MTL::Size           sourceSize,
-                                                         const MTL::Texture* destinationTexture,
-                                                         NS::UInteger        destinationSlice,
-                                                         NS::UInteger        destinationLevel,
-                                                         MTL::Origin         destinationOrigin,
-                                                         MTL::BlitOption     options)
+_MTL_INLINE void MTL::BlitCommandEncoder::copyFromBuffer(const Buffer*      sourceBuffer,
+                                                         const NS::UInteger sourceOffset,
+                                                         const NS::UInteger sourceBytesPerRow,
+                                                         const NS::UInteger sourceBytesPerImage,
+                                                         const Size&        sourceSize,
+                                                         const Texture*     destinationTexture,
+                                                         const NS::UInteger destinationSlice,
+                                                         const NS::UInteger destinationLevel,
+                                                         const Origin&      destinationOrigin,
+                                                         const BlitOption   options) const
 {
-    Object::sendMessage<void>(
+    sendMessage<void>(
         this,
         _MTL_PRIVATE_SEL(
             copyFromBuffer_sourceOffset_sourceBytesPerRow_sourceBytesPerImage_sourceSize_toTexture_destinationSlice_destinationLevel_destinationOrigin_options_),
@@ -222,29 +224,29 @@ _MTL_INLINE void MTL::BlitCommandEncoder::copyFromBuffer(const MTL::Buffer*  sou
         options);
 }
 
-_MTL_INLINE void MTL::BlitCommandEncoder::copyFromBuffer(const MTL::Buffer* sourceBuffer,
-                                                         NS::UInteger       sourceOffset,
-                                                         const MTL::Buffer* destinationBuffer,
-                                                         NS::UInteger       destinationOffset,
-                                                         NS::UInteger       size)
+_MTL_INLINE void MTL::BlitCommandEncoder::copyFromBuffer(const Buffer*      sourceBuffer,
+                                                         const NS::UInteger sourceOffset,
+                                                         const Buffer*      destinationBuffer,
+                                                         const NS::UInteger destinationOffset,
+                                                         const NS::UInteger size) const
 {
-    Object::sendMessage<void>(this,
-                              _MTL_PRIVATE_SEL(copyFromBuffer_sourceOffset_toBuffer_destinationOffset_size_),
-                              sourceBuffer,
-                              sourceOffset,
-                              destinationBuffer,
-                              destinationOffset,
-                              size);
+    sendMessage<void>(this,
+                      _MTL_PRIVATE_SEL(copyFromBuffer_sourceOffset_toBuffer_destinationOffset_size_),
+                      sourceBuffer,
+                      sourceOffset,
+                      destinationBuffer,
+                      destinationOffset,
+                      size);
 }
 
-_MTL_INLINE void MTL::BlitCommandEncoder::copyFromTensor(const MTL::Tensor*        sourceTensor,
-                                                         const MTL::TensorExtents* sourceOrigin,
-                                                         const MTL::TensorExtents* sourceDimensions,
-                                                         const MTL::Tensor*        destinationTensor,
-                                                         const MTL::TensorExtents* destinationOrigin,
-                                                         const MTL::TensorExtents* destinationDimensions)
+_MTL_INLINE void MTL::BlitCommandEncoder::copyFromTensor(const Tensor*        sourceTensor,
+                                                         const TensorExtents* sourceOrigin,
+                                                         const TensorExtents* sourceDimensions,
+                                                         const Tensor*        destinationTensor,
+                                                         const TensorExtents* destinationOrigin,
+                                                         const TensorExtents* destinationDimensions) const
 {
-    Object::sendMessage<void>(
+    sendMessage<void>(
         this,
         _MTL_PRIVATE_SEL(
             copyFromTensor_sourceOrigin_sourceDimensions_toTensor_destinationOrigin_destinationDimensions_),
@@ -256,17 +258,17 @@ _MTL_INLINE void MTL::BlitCommandEncoder::copyFromTensor(const MTL::Tensor*     
         destinationDimensions);
 }
 
-_MTL_INLINE void MTL::BlitCommandEncoder::copyFromTexture(const MTL::Texture* sourceTexture,
-                                                          NS::UInteger        sourceSlice,
-                                                          NS::UInteger        sourceLevel,
-                                                          MTL::Origin         sourceOrigin,
-                                                          MTL::Size           sourceSize,
-                                                          const MTL::Texture* destinationTexture,
-                                                          NS::UInteger        destinationSlice,
-                                                          NS::UInteger        destinationLevel,
-                                                          MTL::Origin         destinationOrigin)
+_MTL_INLINE void MTL::BlitCommandEncoder::copyFromTexture(const Texture*     sourceTexture,
+                                                          const NS::UInteger sourceSlice,
+                                                          const NS::UInteger sourceLevel,
+                                                          const Origin&      sourceOrigin,
+                                                          const Size&        sourceSize,
+                                                          const Texture*     destinationTexture,
+                                                          const NS::UInteger destinationSlice,
+                                                          const NS::UInteger destinationLevel,
+                                                          const Origin&      destinationOrigin) const
 {
-    Object::sendMessage<void>(
+    sendMessage<void>(
         this,
         _MTL_PRIVATE_SEL(
             copyFromTexture_sourceSlice_sourceLevel_sourceOrigin_sourceSize_toTexture_destinationSlice_destinationLevel_destinationOrigin_),
@@ -281,17 +283,17 @@ _MTL_INLINE void MTL::BlitCommandEncoder::copyFromTexture(const MTL::Texture* so
         destinationOrigin);
 }
 
-_MTL_INLINE void MTL::BlitCommandEncoder::copyFromTexture(const MTL::Texture* sourceTexture,
-                                                          NS::UInteger        sourceSlice,
-                                                          NS::UInteger        sourceLevel,
-                                                          MTL::Origin         sourceOrigin,
-                                                          MTL::Size           sourceSize,
-                                                          const MTL::Buffer*  destinationBuffer,
-                                                          NS::UInteger        destinationOffset,
-                                                          NS::UInteger        destinationBytesPerRow,
-                                                          NS::UInteger        destinationBytesPerImage)
+_MTL_INLINE void MTL::BlitCommandEncoder::copyFromTexture(const Texture*     sourceTexture,
+                                                          const NS::UInteger sourceSlice,
+                                                          const NS::UInteger sourceLevel,
+                                                          const Origin&      sourceOrigin,
+                                                          const Size&        sourceSize,
+                                                          const Buffer*      destinationBuffer,
+                                                          const NS::UInteger destinationOffset,
+                                                          const NS::UInteger destinationBytesPerRow,
+                                                          const NS::UInteger destinationBytesPerImage) const
 {
-    Object::sendMessage<void>(
+    sendMessage<void>(
         this,
         _MTL_PRIVATE_SEL(
             copyFromTexture_sourceSlice_sourceLevel_sourceOrigin_sourceSize_toBuffer_destinationOffset_destinationBytesPerRow_destinationBytesPerImage_),
@@ -306,18 +308,18 @@ _MTL_INLINE void MTL::BlitCommandEncoder::copyFromTexture(const MTL::Texture* so
         destinationBytesPerImage);
 }
 
-_MTL_INLINE void MTL::BlitCommandEncoder::copyFromTexture(const MTL::Texture* sourceTexture,
-                                                          NS::UInteger        sourceSlice,
-                                                          NS::UInteger        sourceLevel,
-                                                          MTL::Origin         sourceOrigin,
-                                                          MTL::Size           sourceSize,
-                                                          const MTL::Buffer*  destinationBuffer,
-                                                          NS::UInteger        destinationOffset,
-                                                          NS::UInteger        destinationBytesPerRow,
-                                                          NS::UInteger        destinationBytesPerImage,
-                                                          MTL::BlitOption     options)
+_MTL_INLINE void MTL::BlitCommandEncoder::copyFromTexture(const Texture*     sourceTexture,
+                                                          const NS::UInteger sourceSlice,
+                                                          const NS::UInteger sourceLevel,
+                                                          const Origin&      sourceOrigin,
+                                                          const Size&        sourceSize,
+                                                          const Buffer*      destinationBuffer,
+                                                          const NS::UInteger destinationOffset,
+                                                          const NS::UInteger destinationBytesPerRow,
+                                                          const NS::UInteger destinationBytesPerImage,
+                                                          const BlitOption   options) const
 {
-    Object::sendMessage<void>(
+    sendMessage<void>(
         this,
         _MTL_PRIVATE_SEL(
             copyFromTexture_sourceSlice_sourceLevel_sourceOrigin_sourceSize_toBuffer_destinationOffset_destinationBytesPerRow_destinationBytesPerImage_options_),
@@ -333,16 +335,16 @@ _MTL_INLINE void MTL::BlitCommandEncoder::copyFromTexture(const MTL::Texture* so
         options);
 }
 
-_MTL_INLINE void MTL::BlitCommandEncoder::copyFromTexture(const MTL::Texture* sourceTexture,
-                                                          NS::UInteger        sourceSlice,
-                                                          NS::UInteger        sourceLevel,
-                                                          const MTL::Texture* destinationTexture,
-                                                          NS::UInteger        destinationSlice,
-                                                          NS::UInteger        destinationLevel,
-                                                          NS::UInteger        sliceCount,
-                                                          NS::UInteger        levelCount)
+_MTL_INLINE void MTL::BlitCommandEncoder::copyFromTexture(const Texture*     sourceTexture,
+                                                          const NS::UInteger sourceSlice,
+                                                          const NS::UInteger sourceLevel,
+                                                          const Texture*     destinationTexture,
+                                                          const NS::UInteger destinationSlice,
+                                                          const NS::UInteger destinationLevel,
+                                                          const NS::UInteger sliceCount,
+                                                          const NS::UInteger levelCount) const
 {
-    Object::sendMessage<void>(
+    sendMessage<void>(
         this,
         _MTL_PRIVATE_SEL(
             copyFromTexture_sourceSlice_sourceLevel_toTexture_destinationSlice_destinationLevel_sliceCount_levelCount_),
@@ -356,44 +358,46 @@ _MTL_INLINE void MTL::BlitCommandEncoder::copyFromTexture(const MTL::Texture* so
         levelCount);
 }
 
-_MTL_INLINE void MTL::BlitCommandEncoder::copyFromTexture(const MTL::Texture* sourceTexture,
-                                                          const MTL::Texture* destinationTexture)
+_MTL_INLINE void MTL::BlitCommandEncoder::copyFromTexture(const Texture* sourceTexture,
+                                                          const Texture* destinationTexture) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(copyFromTexture_toTexture_), sourceTexture, destinationTexture);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(copyFromTexture_toTexture_), sourceTexture, destinationTexture);
 }
 
-_MTL_INLINE void MTL::BlitCommandEncoder::copyIndirectCommandBuffer(const MTL::IndirectCommandBuffer* source,
-                                                                    NS::Range                         sourceRange,
-                                                                    const MTL::IndirectCommandBuffer* destination,
-                                                                    NS::UInteger                      destinationIndex)
+_MTL_INLINE void MTL::BlitCommandEncoder::copyIndirectCommandBuffer(const IndirectCommandBuffer* source,
+                                                                    const NS::Range              sourceRange,
+                                                                    const IndirectCommandBuffer* destination,
+                                                                    const NS::UInteger           destinationIndex) const
 {
-    Object::sendMessage<void>(this,
-                              _MTL_PRIVATE_SEL(copyIndirectCommandBuffer_sourceRange_destination_destinationIndex_),
-                              source,
-                              sourceRange,
-                              destination,
-                              destinationIndex);
+    sendMessage<void>(this,
+                      _MTL_PRIVATE_SEL(copyIndirectCommandBuffer_sourceRange_destination_destinationIndex_),
+                      source,
+                      sourceRange,
+                      destination,
+                      destinationIndex);
 }
 
-_MTL_INLINE void MTL::BlitCommandEncoder::fillBuffer(const MTL::Buffer* buffer, NS::Range range, uint8_t value)
+_MTL_INLINE void MTL::BlitCommandEncoder::fillBuffer(const Buffer*   buffer,
+                                                     const NS::Range range,
+                                                     const uint8_t   value) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(fillBuffer_range_value_), buffer, range, value);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(fillBuffer_range_value_), buffer, range, value);
 }
 
-_MTL_INLINE void MTL::BlitCommandEncoder::generateMipmaps(const MTL::Texture* texture)
+_MTL_INLINE void MTL::BlitCommandEncoder::generateMipmaps(const Texture* texture) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(generateMipmapsForTexture_), texture);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(generateMipmapsForTexture_), texture);
 }
 
-_MTL_INLINE void MTL::BlitCommandEncoder::getTextureAccessCounters(const MTL::Texture* texture,
-                                                                   MTL::Region         region,
-                                                                   NS::UInteger        mipLevel,
-                                                                   NS::UInteger        slice,
-                                                                   bool                resetCounters,
-                                                                   const MTL::Buffer*  countersBuffer,
-                                                                   NS::UInteger        countersBufferOffset)
+_MTL_INLINE void MTL::BlitCommandEncoder::getTextureAccessCounters(const Texture*     texture,
+                                                                   const Region&      region,
+                                                                   const NS::UInteger mipLevel,
+                                                                   const NS::UInteger slice,
+                                                                   const bool         resetCounters,
+                                                                   const Buffer*      countersBuffer,
+                                                                   const NS::UInteger countersBufferOffset) const
 {
-    Object::sendMessage<void>(
+    sendMessage<void>(
         this,
         _MTL_PRIVATE_SEL(
             getTextureAccessCounters_region_mipLevel_slice_resetCounters_countersBuffer_countersBufferOffset_),
@@ -406,91 +410,90 @@ _MTL_INLINE void MTL::BlitCommandEncoder::getTextureAccessCounters(const MTL::Te
         countersBufferOffset);
 }
 
-_MTL_INLINE void MTL::BlitCommandEncoder::optimizeContentsForCPUAccess(const MTL::Texture* texture)
+_MTL_INLINE void MTL::BlitCommandEncoder::optimizeContentsForCPUAccess(const Texture* texture) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(optimizeContentsForCPUAccess_), texture);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(optimizeContentsForCPUAccess_), texture);
 }
 
-_MTL_INLINE void MTL::BlitCommandEncoder::optimizeContentsForCPUAccess(const MTL::Texture* texture,
-                                                                       NS::UInteger        slice,
-                                                                       NS::UInteger        level)
+_MTL_INLINE void MTL::BlitCommandEncoder::optimizeContentsForCPUAccess(const Texture*     texture,
+                                                                       const NS::UInteger slice,
+                                                                       const NS::UInteger level) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(optimizeContentsForCPUAccess_slice_level_), texture, slice, level);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(optimizeContentsForCPUAccess_slice_level_), texture, slice, level);
 }
 
-_MTL_INLINE void MTL::BlitCommandEncoder::optimizeContentsForGPUAccess(const MTL::Texture* texture)
+_MTL_INLINE void MTL::BlitCommandEncoder::optimizeContentsForGPUAccess(const Texture* texture) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(optimizeContentsForGPUAccess_), texture);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(optimizeContentsForGPUAccess_), texture);
 }
 
-_MTL_INLINE void MTL::BlitCommandEncoder::optimizeContentsForGPUAccess(const MTL::Texture* texture,
-                                                                       NS::UInteger        slice,
-                                                                       NS::UInteger        level)
+_MTL_INLINE void MTL::BlitCommandEncoder::optimizeContentsForGPUAccess(const Texture*     texture,
+                                                                       const NS::UInteger slice,
+                                                                       const NS::UInteger level) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(optimizeContentsForGPUAccess_slice_level_), texture, slice, level);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(optimizeContentsForGPUAccess_slice_level_), texture, slice, level);
 }
 
 _MTL_INLINE void MTL::BlitCommandEncoder::optimizeIndirectCommandBuffer(
-    const MTL::IndirectCommandBuffer* indirectCommandBuffer, NS::Range range)
+    const IndirectCommandBuffer* indirectCommandBuffer, const NS::Range range) const
 {
-    Object::sendMessage<void>(
-        this, _MTL_PRIVATE_SEL(optimizeIndirectCommandBuffer_withRange_), indirectCommandBuffer, range);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(optimizeIndirectCommandBuffer_withRange_), indirectCommandBuffer, range);
 }
 
-_MTL_INLINE void MTL::BlitCommandEncoder::resetCommandsInBuffer(const MTL::IndirectCommandBuffer* buffer,
-                                                                NS::Range                         range)
+_MTL_INLINE void MTL::BlitCommandEncoder::resetCommandsInBuffer(const IndirectCommandBuffer* buffer,
+                                                                const NS::Range              range) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(resetCommandsInBuffer_withRange_), buffer, range);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(resetCommandsInBuffer_withRange_), buffer, range);
 }
 
-_MTL_INLINE void MTL::BlitCommandEncoder::resetTextureAccessCounters(const MTL::Texture* texture,
-                                                                     MTL::Region         region,
-                                                                     NS::UInteger        mipLevel,
-                                                                     NS::UInteger        slice)
+_MTL_INLINE void MTL::BlitCommandEncoder::resetTextureAccessCounters(const Texture*     texture,
+                                                                     const Region&      region,
+                                                                     const NS::UInteger mipLevel,
+                                                                     const NS::UInteger slice) const
 {
-    Object::sendMessage<void>(
+    sendMessage<void>(
         this, _MTL_PRIVATE_SEL(resetTextureAccessCounters_region_mipLevel_slice_), texture, region, mipLevel, slice);
 }
 
-_MTL_INLINE void MTL::BlitCommandEncoder::resolveCounters(const MTL::CounterSampleBuffer* sampleBuffer,
-                                                          NS::Range                       range,
-                                                          const MTL::Buffer*              destinationBuffer,
-                                                          NS::UInteger                    destinationOffset)
+_MTL_INLINE void MTL::BlitCommandEncoder::resolveCounters(const CounterSampleBuffer* sampleBuffer,
+                                                          const NS::Range            range,
+                                                          const Buffer*              destinationBuffer,
+                                                          const NS::UInteger         destinationOffset) const
 {
-    Object::sendMessage<void>(this,
-                              _MTL_PRIVATE_SEL(resolveCounters_inRange_destinationBuffer_destinationOffset_),
-                              sampleBuffer,
-                              range,
-                              destinationBuffer,
-                              destinationOffset);
+    sendMessage<void>(this,
+                      _MTL_PRIVATE_SEL(resolveCounters_inRange_destinationBuffer_destinationOffset_),
+                      sampleBuffer,
+                      range,
+                      destinationBuffer,
+                      destinationOffset);
 }
 
-_MTL_INLINE void MTL::BlitCommandEncoder::sampleCountersInBuffer(const MTL::CounterSampleBuffer* sampleBuffer,
-                                                                 NS::UInteger                    sampleIndex,
-                                                                 bool                            barrier)
+_MTL_INLINE void MTL::BlitCommandEncoder::sampleCountersInBuffer(const CounterSampleBuffer* sampleBuffer,
+                                                                 const NS::UInteger         sampleIndex,
+                                                                 const bool                 barrier) const
 {
-    Object::sendMessage<void>(
+    sendMessage<void>(
         this, _MTL_PRIVATE_SEL(sampleCountersInBuffer_atSampleIndex_withBarrier_), sampleBuffer, sampleIndex, barrier);
 }
 
-_MTL_INLINE void MTL::BlitCommandEncoder::synchronizeResource(const MTL::Resource* resource)
+_MTL_INLINE void MTL::BlitCommandEncoder::synchronizeResource(const Resource* resource) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(synchronizeResource_), resource);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(synchronizeResource_), resource);
 }
 
-_MTL_INLINE void MTL::BlitCommandEncoder::synchronizeTexture(const MTL::Texture* texture,
-                                                             NS::UInteger        slice,
-                                                             NS::UInteger        level)
+_MTL_INLINE void MTL::BlitCommandEncoder::synchronizeTexture(const Texture*     texture,
+                                                             const NS::UInteger slice,
+                                                             const NS::UInteger level) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(synchronizeTexture_slice_level_), texture, slice, level);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(synchronizeTexture_slice_level_), texture, slice, level);
 }
 
-_MTL_INLINE void MTL::BlitCommandEncoder::updateFence(const MTL::Fence* fence)
+_MTL_INLINE void MTL::BlitCommandEncoder::updateFence(const Fence* fence) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(updateFence_), fence);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(updateFence_), fence);
 }
 
-_MTL_INLINE void MTL::BlitCommandEncoder::waitForFence(const MTL::Fence* fence)
+_MTL_INLINE void MTL::BlitCommandEncoder::waitForFence(const Fence* fence) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(waitForFence_), fence);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(waitForFence_), fence);
 }

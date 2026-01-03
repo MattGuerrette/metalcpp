@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include "../Foundation/Foundation.hpp"
@@ -29,73 +30,80 @@ namespace MTL
 {
     class Function;
     class FunctionLogDebugLocation;
+
+    /// @see https://developer.apple.com/documentation/metal/mtlfunctionlogtype?language=objc
     _MTL_ENUM(NS::UInteger, FunctionLogType){
         FunctionLogTypeValidation = 0,
     };
 
+    /// @see https://developer.apple.com/documentation/metal/mtllogcontainer?language=objc
     class LogContainer : public NS::Referencing<LogContainer, NS::FastEnumeration>
     {
     };
+
+    /// @see https://developer.apple.com/documentation/metal/mtlfunctionlogdebuglocation?language=objc
     class FunctionLogDebugLocation : public NS::Referencing<FunctionLogDebugLocation>
     {
     public:
-        NS::URL* URL() const;
+        [[nodiscard]] NS::URL* URL() const;
 
-        NS::UInteger column() const;
+        [[nodiscard]] NS::UInteger column() const;
 
-        NS::String* functionName() const;
+        [[nodiscard]] NS::String* functionName() const;
 
-        NS::UInteger line() const;
+        [[nodiscard]] NS::UInteger line() const;
     };
+
+    /// @see https://developer.apple.com/documentation/metal/mtlfunctionlog?language=objc
     class FunctionLog : public NS::Referencing<FunctionLog>
     {
     public:
-        FunctionLogDebugLocation* debugLocation() const;
+        [[nodiscard]] FunctionLogDebugLocation* debugLocation() const;
 
-        NS::String* encoderLabel() const;
+        [[nodiscard]] NS::String* encoderLabel() const;
 
-        Function* function() const;
+        [[nodiscard]] Function* function() const;
 
-        FunctionLogType type() const;
+        [[nodiscard]] FunctionLogType type() const;
     };
 
 } // namespace MTL
 _MTL_INLINE NS::URL* MTL::FunctionLogDebugLocation::URL() const
 {
-    return Object::sendMessage<NS::URL*>(this, _MTL_PRIVATE_SEL(URL));
+    return sendMessage<NS::URL*>(this, _MTL_PRIVATE_SEL(URL));
 }
 
 _MTL_INLINE NS::UInteger MTL::FunctionLogDebugLocation::column() const
 {
-    return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(column));
+    return sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(column));
 }
 
 _MTL_INLINE NS::String* MTL::FunctionLogDebugLocation::functionName() const
 {
-    return Object::sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(functionName));
+    return sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(functionName));
 }
 
 _MTL_INLINE NS::UInteger MTL::FunctionLogDebugLocation::line() const
 {
-    return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(line));
+    return sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(line));
 }
 
 _MTL_INLINE MTL::FunctionLogDebugLocation* MTL::FunctionLog::debugLocation() const
 {
-    return Object::sendMessage<MTL::FunctionLogDebugLocation*>(this, _MTL_PRIVATE_SEL(debugLocation));
+    return sendMessage<FunctionLogDebugLocation*>(this, _MTL_PRIVATE_SEL(debugLocation));
 }
 
 _MTL_INLINE NS::String* MTL::FunctionLog::encoderLabel() const
 {
-    return Object::sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(encoderLabel));
+    return sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(encoderLabel));
 }
 
 _MTL_INLINE MTL::Function* MTL::FunctionLog::function() const
 {
-    return Object::sendMessage<MTL::Function*>(this, _MTL_PRIVATE_SEL(function));
+    return sendMessage<Function*>(this, _MTL_PRIVATE_SEL(function));
 }
 
 _MTL_INLINE MTL::FunctionLogType MTL::FunctionLog::type() const
 {
-    return Object::sendMessage<MTL::FunctionLogType>(this, _MTL_PRIVATE_SEL(type));
+    return sendMessage<FunctionLogType>(this, _MTL_PRIVATE_SEL(type));
 }

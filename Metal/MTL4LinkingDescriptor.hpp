@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include "../Foundation/Foundation.hpp"
@@ -31,188 +32,195 @@ namespace MTL4
     class RenderPipelineDynamicLinkingDescriptor;
     class StaticLinkingDescriptor;
 
+    /// @see https://developer.apple.com/documentation/metal/mtl4staticlinkingdescriptor
     class StaticLinkingDescriptor : public NS::Copying<StaticLinkingDescriptor>
     {
     public:
-        static StaticLinkingDescriptor* alloc();
+        [[nodiscard]] static StaticLinkingDescriptor* alloc();
 
-        NS::Array* functionDescriptors() const;
+        [[nodiscard]] NS::Array* functionDescriptors() const;
 
-        NS::Dictionary* groups() const;
+        [[nodiscard]] NS::Dictionary* groups() const;
 
-        StaticLinkingDescriptor* init();
+        [[nodiscard]] StaticLinkingDescriptor* init();
 
-        NS::Array* privateFunctionDescriptors() const;
+        [[nodiscard]] NS::Array* privateFunctionDescriptors() const;
 
-        void setFunctionDescriptors(const NS::Array* functionDescriptors);
+        void setFunctionDescriptors(const NS::Array* functionDescriptors) const;
 
-        void setGroups(const NS::Dictionary* groups);
+        void setGroups(const NS::Dictionary* groups) const;
 
-        void setPrivateFunctionDescriptors(const NS::Array* privateFunctionDescriptors);
+        void setPrivateFunctionDescriptors(const NS::Array* privateFunctionDescriptors) const;
     };
+
+    /// @see https://developer.apple.com/documentation/metal/mtl4pipelinestagedynamiclinkingdescriptor
     class PipelineStageDynamicLinkingDescriptor : public NS::Copying<PipelineStageDynamicLinkingDescriptor>
     {
     public:
-        static PipelineStageDynamicLinkingDescriptor* alloc();
+        [[nodiscard]] static PipelineStageDynamicLinkingDescriptor* alloc();
 
-        NS::Array* binaryLinkedFunctions() const;
+        [[nodiscard]] NS::Array* binaryLinkedFunctions() const;
 
-        PipelineStageDynamicLinkingDescriptor* init();
+        [[nodiscard]] PipelineStageDynamicLinkingDescriptor* init();
 
-        NS::UInteger maxCallStackDepth() const;
+        [[nodiscard]] NS::UInteger maxCallStackDepth() const;
 
-        NS::Array* preloadedLibraries() const;
+        [[nodiscard]] NS::Array* preloadedLibraries() const;
 
-        void setBinaryLinkedFunctions(const NS::Array* binaryLinkedFunctions);
+        void setBinaryLinkedFunctions(const NS::Array* binaryLinkedFunctions) const;
 
-        void setMaxCallStackDepth(NS::UInteger maxCallStackDepth);
+        void setMaxCallStackDepth(NS::UInteger maxCallStackDepth) const;
 
-        void setPreloadedLibraries(const NS::Array* preloadedLibraries);
+        void setPreloadedLibraries(const NS::Array* preloadedLibraries) const;
     };
+
+    /// @see https://developer.apple.com/documentation/metal/mtl4renderpipelinedynamiclinkingdescriptor
     class RenderPipelineDynamicLinkingDescriptor : public NS::Copying<RenderPipelineDynamicLinkingDescriptor>
     {
     public:
-        static RenderPipelineDynamicLinkingDescriptor* alloc();
+        [[nodiscard]] static RenderPipelineDynamicLinkingDescriptor* alloc();
 
-        PipelineStageDynamicLinkingDescriptor* fragmentLinkingDescriptor() const;
+        [[nodiscard]] PipelineStageDynamicLinkingDescriptor* fragmentLinkingDescriptor() const;
 
-        RenderPipelineDynamicLinkingDescriptor* init();
+        [[nodiscard]] RenderPipelineDynamicLinkingDescriptor* init();
 
-        PipelineStageDynamicLinkingDescriptor* meshLinkingDescriptor() const;
+        [[nodiscard]] PipelineStageDynamicLinkingDescriptor* meshLinkingDescriptor() const;
 
-        PipelineStageDynamicLinkingDescriptor* objectLinkingDescriptor() const;
+        [[nodiscard]] PipelineStageDynamicLinkingDescriptor* objectLinkingDescriptor() const;
 
-        PipelineStageDynamicLinkingDescriptor* tileLinkingDescriptor() const;
+        [[nodiscard]] PipelineStageDynamicLinkingDescriptor* tileLinkingDescriptor() const;
 
-        PipelineStageDynamicLinkingDescriptor* vertexLinkingDescriptor() const;
+        [[nodiscard]] PipelineStageDynamicLinkingDescriptor* vertexLinkingDescriptor() const;
     };
 
 } // namespace MTL4
 _MTL_INLINE MTL4::StaticLinkingDescriptor* MTL4::StaticLinkingDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL4::StaticLinkingDescriptor>(_MTL_PRIVATE_CLS(MTL4StaticLinkingDescriptor));
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<StaticLinkingDescriptor>(_MTL_PRIVATE_CLS(MTL4StaticLinkingDescriptor));
 }
 
 _MTL_INLINE NS::Array* MTL4::StaticLinkingDescriptor::functionDescriptors() const
 {
-    return Object::sendMessage<NS::Array*>(this, _MTL_PRIVATE_SEL(functionDescriptors));
+    return sendMessage<NS::Array*>(this, _MTL_PRIVATE_SEL(functionDescriptors));
 }
 
 _MTL_INLINE NS::Dictionary* MTL4::StaticLinkingDescriptor::groups() const
 {
-    return Object::sendMessage<NS::Dictionary*>(this, _MTL_PRIVATE_SEL(groups));
+    return sendMessage<NS::Dictionary*>(this, _MTL_PRIVATE_SEL(groups));
 }
 
 _MTL_INLINE MTL4::StaticLinkingDescriptor* MTL4::StaticLinkingDescriptor::init()
 {
-    return NS::Object::init<MTL4::StaticLinkingDescriptor>();
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<StaticLinkingDescriptor>();
 }
 
 _MTL_INLINE NS::Array* MTL4::StaticLinkingDescriptor::privateFunctionDescriptors() const
 {
-    return Object::sendMessage<NS::Array*>(this, _MTL_PRIVATE_SEL(privateFunctionDescriptors));
+    return sendMessage<NS::Array*>(this, _MTL_PRIVATE_SEL(privateFunctionDescriptors));
 }
 
-_MTL_INLINE void MTL4::StaticLinkingDescriptor::setFunctionDescriptors(const NS::Array* functionDescriptors)
+_MTL_INLINE void MTL4::StaticLinkingDescriptor::setFunctionDescriptors(const NS::Array* functionDescriptors) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setFunctionDescriptors_), functionDescriptors);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setFunctionDescriptors_), functionDescriptors);
 }
 
-_MTL_INLINE void MTL4::StaticLinkingDescriptor::setGroups(const NS::Dictionary* groups)
+_MTL_INLINE void MTL4::StaticLinkingDescriptor::setGroups(const NS::Dictionary* groups) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setGroups_), groups);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setGroups_), groups);
 }
 
 _MTL_INLINE void MTL4::StaticLinkingDescriptor::setPrivateFunctionDescriptors(
-    const NS::Array* privateFunctionDescriptors)
+    const NS::Array* privateFunctionDescriptors) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setPrivateFunctionDescriptors_), privateFunctionDescriptors);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setPrivateFunctionDescriptors_), privateFunctionDescriptors);
 }
 
 _MTL_INLINE MTL4::PipelineStageDynamicLinkingDescriptor* MTL4::PipelineStageDynamicLinkingDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL4::PipelineStageDynamicLinkingDescriptor>(
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<PipelineStageDynamicLinkingDescriptor>(
         _MTL_PRIVATE_CLS(MTL4PipelineStageDynamicLinkingDescriptor));
 }
 
 _MTL_INLINE NS::Array* MTL4::PipelineStageDynamicLinkingDescriptor::binaryLinkedFunctions() const
 {
-    return Object::sendMessage<NS::Array*>(this, _MTL_PRIVATE_SEL(binaryLinkedFunctions));
+    return sendMessage<NS::Array*>(this, _MTL_PRIVATE_SEL(binaryLinkedFunctions));
 }
 
 _MTL_INLINE MTL4::PipelineStageDynamicLinkingDescriptor* MTL4::PipelineStageDynamicLinkingDescriptor::init()
 {
-    return NS::Object::init<MTL4::PipelineStageDynamicLinkingDescriptor>();
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<PipelineStageDynamicLinkingDescriptor>();
 }
 
 _MTL_INLINE NS::UInteger MTL4::PipelineStageDynamicLinkingDescriptor::maxCallStackDepth() const
 {
-    return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(maxCallStackDepth));
+    return sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(maxCallStackDepth));
 }
 
 _MTL_INLINE NS::Array* MTL4::PipelineStageDynamicLinkingDescriptor::preloadedLibraries() const
 {
-    return Object::sendMessage<NS::Array*>(this, _MTL_PRIVATE_SEL(preloadedLibraries));
+    return sendMessage<NS::Array*>(this, _MTL_PRIVATE_SEL(preloadedLibraries));
 }
 
 _MTL_INLINE void MTL4::PipelineStageDynamicLinkingDescriptor::setBinaryLinkedFunctions(
-    const NS::Array* binaryLinkedFunctions)
+    const NS::Array* binaryLinkedFunctions) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setBinaryLinkedFunctions_), binaryLinkedFunctions);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setBinaryLinkedFunctions_), binaryLinkedFunctions);
 }
 
-_MTL_INLINE void MTL4::PipelineStageDynamicLinkingDescriptor::setMaxCallStackDepth(NS::UInteger maxCallStackDepth)
+_MTL_INLINE void MTL4::PipelineStageDynamicLinkingDescriptor::setMaxCallStackDepth(NS::UInteger maxCallStackDepth) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMaxCallStackDepth_), maxCallStackDepth);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setMaxCallStackDepth_), maxCallStackDepth);
 }
 
-_MTL_INLINE void MTL4::PipelineStageDynamicLinkingDescriptor::setPreloadedLibraries(const NS::Array* preloadedLibraries)
+_MTL_INLINE void MTL4::PipelineStageDynamicLinkingDescriptor::setPreloadedLibraries(
+    const NS::Array* preloadedLibraries) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setPreloadedLibraries_), preloadedLibraries);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setPreloadedLibraries_), preloadedLibraries);
 }
 
 _MTL_INLINE MTL4::RenderPipelineDynamicLinkingDescriptor* MTL4::RenderPipelineDynamicLinkingDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL4::RenderPipelineDynamicLinkingDescriptor>(
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<RenderPipelineDynamicLinkingDescriptor>(
         _MTL_PRIVATE_CLS(MTL4RenderPipelineDynamicLinkingDescriptor));
 }
 
 _MTL_INLINE MTL4::PipelineStageDynamicLinkingDescriptor*
             MTL4::RenderPipelineDynamicLinkingDescriptor::fragmentLinkingDescriptor() const
 {
-    return Object::sendMessage<MTL4::PipelineStageDynamicLinkingDescriptor*>(
-        this, _MTL_PRIVATE_SEL(fragmentLinkingDescriptor));
+    return sendMessage<PipelineStageDynamicLinkingDescriptor*>(this, _MTL_PRIVATE_SEL(fragmentLinkingDescriptor));
 }
 
 _MTL_INLINE MTL4::RenderPipelineDynamicLinkingDescriptor* MTL4::RenderPipelineDynamicLinkingDescriptor::init()
 {
-    return NS::Object::init<MTL4::RenderPipelineDynamicLinkingDescriptor>();
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<RenderPipelineDynamicLinkingDescriptor>();
 }
 
 _MTL_INLINE MTL4::PipelineStageDynamicLinkingDescriptor*
             MTL4::RenderPipelineDynamicLinkingDescriptor::meshLinkingDescriptor() const
 {
-    return Object::sendMessage<MTL4::PipelineStageDynamicLinkingDescriptor*>(this,
-                                                                             _MTL_PRIVATE_SEL(meshLinkingDescriptor));
+    return sendMessage<PipelineStageDynamicLinkingDescriptor*>(this, _MTL_PRIVATE_SEL(meshLinkingDescriptor));
 }
 
 _MTL_INLINE MTL4::PipelineStageDynamicLinkingDescriptor*
             MTL4::RenderPipelineDynamicLinkingDescriptor::objectLinkingDescriptor() const
 {
-    return Object::sendMessage<MTL4::PipelineStageDynamicLinkingDescriptor*>(this,
-                                                                             _MTL_PRIVATE_SEL(objectLinkingDescriptor));
+    return sendMessage<PipelineStageDynamicLinkingDescriptor*>(this, _MTL_PRIVATE_SEL(objectLinkingDescriptor));
 }
 
 _MTL_INLINE MTL4::PipelineStageDynamicLinkingDescriptor*
             MTL4::RenderPipelineDynamicLinkingDescriptor::tileLinkingDescriptor() const
 {
-    return Object::sendMessage<MTL4::PipelineStageDynamicLinkingDescriptor*>(this,
-                                                                             _MTL_PRIVATE_SEL(tileLinkingDescriptor));
+    return sendMessage<PipelineStageDynamicLinkingDescriptor*>(this, _MTL_PRIVATE_SEL(tileLinkingDescriptor));
 }
 
 _MTL_INLINE MTL4::PipelineStageDynamicLinkingDescriptor*
             MTL4::RenderPipelineDynamicLinkingDescriptor::vertexLinkingDescriptor() const
 {
-    return Object::sendMessage<MTL4::PipelineStageDynamicLinkingDescriptor*>(this,
-                                                                             _MTL_PRIVATE_SEL(vertexLinkingDescriptor));
+    return sendMessage<PipelineStageDynamicLinkingDescriptor*>(this, _MTL_PRIVATE_SEL(vertexLinkingDescriptor));
 }

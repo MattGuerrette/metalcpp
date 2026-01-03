@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include <CoreFoundation/CoreFoundation.h>
@@ -26,7 +27,6 @@
 #include "MTLHeaderBridge.hpp"
 #include "MTLPrivate.hpp"
 
-#include <CoreFoundation/CoreFoundation.h>
 #include <functional>
 
 namespace MTL
@@ -34,31 +34,32 @@ namespace MTL
     class Drawable;
 
     using DrawablePresentedHandler         = void (^)(MTL::Drawable*);
-    using DrawablePresentedHandlerFunction = std::function<void(MTL::Drawable*)>;
+    using DrawablePresentedHandlerFunction = std::function<void(Drawable*)>;
 
+    /// @see https://developer.apple.com/documentation/metal/mtldrawable?language=objc
     class Drawable : public NS::Referencing<Drawable>
     {
     public:
-        void addPresentedHandler(const MTL::DrawablePresentedHandler block);
-        void addPresentedHandler(const MTL::DrawablePresentedHandlerFunction& function);
+        void addPresentedHandler(DrawablePresentedHandler block);
+        void addPresentedHandler(const DrawablePresentedHandlerFunction& function);
 
-        NS::UInteger drawableID() const;
+        [[nodiscard]] NS::UInteger drawableID() const;
 
-        void present();
-        void presentAfterMinimumDuration(CFTimeInterval duration);
+        void present() const;
+        void presentAfterMinimumDuration(CFTimeInterval duration) const;
 
-        void presentAtTime(CFTimeInterval presentationTime);
+        void presentAtTime(CFTimeInterval presentationTime) const;
 
-        CFTimeInterval presentedTime() const;
+        [[nodiscard]] CFTimeInterval presentedTime() const;
     };
 
 } // namespace MTL
-_MTL_INLINE void MTL::Drawable::addPresentedHandler(const MTL::DrawablePresentedHandler block)
+_MTL_INLINE void MTL::Drawable::addPresentedHandler(const DrawablePresentedHandler block)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(addPresentedHandler_), block);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(addPresentedHandler_), block);
 }
 
-_MTL_INLINE void MTL::Drawable::addPresentedHandler(const MTL::DrawablePresentedHandlerFunction& function)
+_MTL_INLINE void MTL::Drawable::addPresentedHandler(const DrawablePresentedHandlerFunction& function)
 {
     __block DrawablePresentedHandlerFunction blockFunction = function;
     addPresentedHandler(^(Drawable* pDrawable) {
@@ -68,22 +69,22 @@ _MTL_INLINE void MTL::Drawable::addPresentedHandler(const MTL::DrawablePresented
 
 _MTL_INLINE NS::UInteger MTL::Drawable::drawableID() const
 {
-    return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(drawableID));
+    return sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(drawableID));
 }
 
-_MTL_INLINE void MTL::Drawable::present() { Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(present)); }
+_MTL_INLINE void MTL::Drawable::present() const { sendMessage<void>(this, _MTL_PRIVATE_SEL(present)); }
 
-_MTL_INLINE void MTL::Drawable::presentAfterMinimumDuration(CFTimeInterval duration)
+_MTL_INLINE void MTL::Drawable::presentAfterMinimumDuration(const CFTimeInterval duration) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(presentAfterMinimumDuration_), duration);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(presentAfterMinimumDuration_), duration);
 }
 
-_MTL_INLINE void MTL::Drawable::presentAtTime(CFTimeInterval presentationTime)
+_MTL_INLINE void MTL::Drawable::presentAtTime(const CFTimeInterval presentationTime) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(presentAtTime_), presentationTime);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(presentAtTime_), presentationTime);
 }
 
 _MTL_INLINE CFTimeInterval MTL::Drawable::presentedTime() const
 {
-    return Object::sendMessage<CFTimeInterval>(this, _MTL_PRIVATE_SEL(presentedTime));
+    return sendMessage<CFTimeInterval>(this, _MTL_PRIVATE_SEL(presentedTime));
 }

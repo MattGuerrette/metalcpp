@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include "../Foundation/Foundation.hpp"
@@ -52,163 +53,170 @@ namespace MTL
         CaptureDestinationGPUTraceDocument = 2,
     };
 
+    /// @see https://developer.apple.com/documentation/metal/mtlcapturedescriptor?language=objc
     class CaptureDescriptor : public NS::Copying<CaptureDescriptor>
     {
     public:
-        static CaptureDescriptor* alloc();
+        [[nodiscard]] static CaptureDescriptor* alloc();
 
-        NS::Object* captureObject() const;
+        [[nodiscard]] Object* captureObject() const;
 
-        CaptureDestination destination() const;
+        [[nodiscard]] CaptureDestination destination() const;
 
-        CaptureDescriptor* init();
+        [[nodiscard]] CaptureDescriptor* init();
 
-        NS::URL* outputURL() const;
+        [[nodiscard]] NS::URL* outputURL() const;
 
-        void setCaptureObject(NS::Object* captureObject);
+        void setCaptureObject(Object* captureObject) const;
 
-        void setDestination(MTL::CaptureDestination destination);
+        void setDestination(CaptureDestination destination) const;
 
-        void setOutputURL(const NS::URL* outputURL);
+        void setOutputURL(const NS::URL* outputURL) const;
     };
+
+    /// @see https://developer.apple.com/documentation/metal/mtlcapturemanager?language=objc
     class CaptureManager : public NS::Referencing<CaptureManager>
     {
     public:
-        static CaptureManager* alloc();
+        [[nodiscard]] static CaptureManager* alloc();
 
-        CaptureScope* defaultCaptureScope() const;
+        [[nodiscard]] CaptureScope* defaultCaptureScope() const;
 
-        CaptureManager* init();
+        [[nodiscard]] CaptureManager* init();
 
-        bool isCapturing() const;
+        [[nodiscard]] bool isCapturing() const;
 
-        CaptureScope* newCaptureScope(const MTL::Device* device);
-        CaptureScope* newCaptureScope(const MTL::CommandQueue* commandQueue);
-        CaptureScope* newCaptureScope(const MTL4::CommandQueue* commandQueue);
+        [[nodiscard]] CaptureScope* newCaptureScope(const Device* device) const;
+        [[nodiscard]] CaptureScope* newCaptureScope(const CommandQueue* commandQueue) const;
+        [[nodiscard]] CaptureScope* newCaptureScope(const MTL4::CommandQueue* commandQueue) const;
 
-        void setDefaultCaptureScope(const MTL::CaptureScope* defaultCaptureScope);
+        void setDefaultCaptureScope(const CaptureScope* defaultCaptureScope) const;
 
-        static CaptureManager* sharedCaptureManager();
+        [[nodiscard]] static CaptureManager* sharedCaptureManager();
 
-        bool startCapture(const MTL::CaptureDescriptor* descriptor, NS::Error** error);
-        void startCapture(const MTL::Device* device);
-        void startCapture(const MTL::CommandQueue* commandQueue);
-        void startCapture(const MTL::CaptureScope* captureScope);
+        [[nodiscard]] bool startCapture(const CaptureDescriptor* descriptor, NS::Error** error) const;
+        void               startCapture(const Device* device) const;
+        void               startCapture(const CommandQueue* commandQueue) const;
+        void               startCapture(const CaptureScope* captureScope) const;
 
-        void stopCapture();
+        void stopCapture() const;
 
-        bool supportsDestination(MTL::CaptureDestination destination);
+        [[nodiscard]] bool supportsDestination(CaptureDestination destination) const;
     };
 
 } // namespace MTL
 _MTL_INLINE MTL::CaptureDescriptor* MTL::CaptureDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL::CaptureDescriptor>(_MTL_PRIVATE_CLS(MTLCaptureDescriptor));
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<CaptureDescriptor>(_MTL_PRIVATE_CLS(MTLCaptureDescriptor));
 }
 
 _MTL_INLINE NS::Object* MTL::CaptureDescriptor::captureObject() const
 {
-    return Object::sendMessage<NS::Object*>(this, _MTL_PRIVATE_SEL(captureObject));
+    return sendMessage<Object*>(this, _MTL_PRIVATE_SEL(captureObject));
 }
 
 _MTL_INLINE MTL::CaptureDestination MTL::CaptureDescriptor::destination() const
 {
-    return Object::sendMessage<MTL::CaptureDestination>(this, _MTL_PRIVATE_SEL(destination));
+    return sendMessage<CaptureDestination>(this, _MTL_PRIVATE_SEL(destination));
 }
 
 _MTL_INLINE MTL::CaptureDescriptor* MTL::CaptureDescriptor::init()
 {
-    return NS::Object::init<MTL::CaptureDescriptor>();
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<CaptureDescriptor>();
 }
 
 _MTL_INLINE NS::URL* MTL::CaptureDescriptor::outputURL() const
 {
-    return Object::sendMessage<NS::URL*>(this, _MTL_PRIVATE_SEL(outputURL));
+    return sendMessage<NS::URL*>(this, _MTL_PRIVATE_SEL(outputURL));
 }
 
-_MTL_INLINE void MTL::CaptureDescriptor::setCaptureObject(NS::Object* captureObject)
+_MTL_INLINE void MTL::CaptureDescriptor::setCaptureObject(Object* captureObject) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setCaptureObject_), captureObject);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setCaptureObject_), captureObject);
 }
 
-_MTL_INLINE void MTL::CaptureDescriptor::setDestination(MTL::CaptureDestination destination)
+_MTL_INLINE void MTL::CaptureDescriptor::setDestination(const CaptureDestination destination) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setDestination_), destination);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setDestination_), destination);
 }
 
-_MTL_INLINE void MTL::CaptureDescriptor::setOutputURL(const NS::URL* outputURL)
+_MTL_INLINE void MTL::CaptureDescriptor::setOutputURL(const NS::URL* outputURL) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setOutputURL_), outputURL);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setOutputURL_), outputURL);
 }
 
 _MTL_INLINE MTL::CaptureManager* MTL::CaptureManager::alloc()
 {
-    return NS::Object::alloc<MTL::CaptureManager>(_MTL_PRIVATE_CLS(MTLCaptureManager));
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<CaptureManager>(_MTL_PRIVATE_CLS(MTLCaptureManager));
 }
 
 _MTL_INLINE MTL::CaptureScope* MTL::CaptureManager::defaultCaptureScope() const
 {
-    return Object::sendMessage<MTL::CaptureScope*>(this, _MTL_PRIVATE_SEL(defaultCaptureScope));
+    return sendMessage<CaptureScope*>(this, _MTL_PRIVATE_SEL(defaultCaptureScope));
 }
 
-_MTL_INLINE MTL::CaptureManager* MTL::CaptureManager::init() { return NS::Object::init<MTL::CaptureManager>(); }
+_MTL_INLINE MTL::CaptureManager* MTL::CaptureManager::init()
+{
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<CaptureManager>();
+}
 
 _MTL_INLINE bool MTL::CaptureManager::isCapturing() const
 {
-    return Object::sendMessage<bool>(this, _MTL_PRIVATE_SEL(isCapturing));
+    return sendMessage<bool>(this, _MTL_PRIVATE_SEL(isCapturing));
 }
 
-_MTL_INLINE MTL::CaptureScope* MTL::CaptureManager::newCaptureScope(const MTL::Device* device)
+_MTL_INLINE MTL::CaptureScope* MTL::CaptureManager::newCaptureScope(const Device* device) const
 {
-    return Object::sendMessage<MTL::CaptureScope*>(this, _MTL_PRIVATE_SEL(newCaptureScopeWithDevice_), device);
+    return sendMessage<CaptureScope*>(this, _MTL_PRIVATE_SEL(newCaptureScopeWithDevice_), device);
 }
 
-_MTL_INLINE MTL::CaptureScope* MTL::CaptureManager::newCaptureScope(const MTL::CommandQueue* commandQueue)
+_MTL_INLINE MTL::CaptureScope* MTL::CaptureManager::newCaptureScope(const CommandQueue* commandQueue) const
 {
-    return Object::sendMessage<MTL::CaptureScope*>(
-        this, _MTL_PRIVATE_SEL(newCaptureScopeWithCommandQueue_), commandQueue);
+    return sendMessage<CaptureScope*>(this, _MTL_PRIVATE_SEL(newCaptureScopeWithCommandQueue_), commandQueue);
 }
 
-_MTL_INLINE MTL::CaptureScope* MTL::CaptureManager::newCaptureScope(const MTL4::CommandQueue* commandQueue)
+_MTL_INLINE MTL::CaptureScope* MTL::CaptureManager::newCaptureScope(const MTL4::CommandQueue* commandQueue) const
 {
-    return Object::sendMessage<MTL::CaptureScope*>(
-        this, _MTL_PRIVATE_SEL(newCaptureScopeWithMTL4CommandQueue_), commandQueue);
+    return sendMessage<CaptureScope*>(this, _MTL_PRIVATE_SEL(newCaptureScopeWithMTL4CommandQueue_), commandQueue);
 }
 
-_MTL_INLINE void MTL::CaptureManager::setDefaultCaptureScope(const MTL::CaptureScope* defaultCaptureScope)
+_MTL_INLINE void MTL::CaptureManager::setDefaultCaptureScope(const CaptureScope* defaultCaptureScope) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setDefaultCaptureScope_), defaultCaptureScope);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setDefaultCaptureScope_), defaultCaptureScope);
 }
 
 _MTL_INLINE MTL::CaptureManager* MTL::CaptureManager::sharedCaptureManager()
 {
-    return Object::sendMessage<MTL::CaptureManager*>(_MTL_PRIVATE_CLS(MTLCaptureManager),
-                                                     _MTL_PRIVATE_SEL(sharedCaptureManager));
+    return sendMessage<CaptureManager*>(_MTL_PRIVATE_CLS(MTLCaptureManager), _MTL_PRIVATE_SEL(sharedCaptureManager));
 }
 
-_MTL_INLINE bool MTL::CaptureManager::startCapture(const MTL::CaptureDescriptor* descriptor, NS::Error** error)
+_MTL_INLINE bool MTL::CaptureManager::startCapture(const CaptureDescriptor* descriptor, NS::Error** error) const
 {
-    return Object::sendMessage<bool>(this, _MTL_PRIVATE_SEL(startCaptureWithDescriptor_error_), descriptor, error);
+    return sendMessage<bool>(this, _MTL_PRIVATE_SEL(startCaptureWithDescriptor_error_), descriptor, error);
 }
 
-_MTL_INLINE void MTL::CaptureManager::startCapture(const MTL::Device* device)
+_MTL_INLINE void MTL::CaptureManager::startCapture(const Device* device) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(startCaptureWithDevice_), device);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(startCaptureWithDevice_), device);
 }
 
-_MTL_INLINE void MTL::CaptureManager::startCapture(const MTL::CommandQueue* commandQueue)
+_MTL_INLINE void MTL::CaptureManager::startCapture(const CommandQueue* commandQueue) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(startCaptureWithCommandQueue_), commandQueue);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(startCaptureWithCommandQueue_), commandQueue);
 }
 
-_MTL_INLINE void MTL::CaptureManager::startCapture(const MTL::CaptureScope* captureScope)
+_MTL_INLINE void MTL::CaptureManager::startCapture(const CaptureScope* captureScope) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(startCaptureWithScope_), captureScope);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(startCaptureWithScope_), captureScope);
 }
 
-_MTL_INLINE void MTL::CaptureManager::stopCapture() { Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(stopCapture)); }
+_MTL_INLINE void MTL::CaptureManager::stopCapture() const { sendMessage<void>(this, _MTL_PRIVATE_SEL(stopCapture)); }
 
-_MTL_INLINE bool MTL::CaptureManager::supportsDestination(MTL::CaptureDestination destination)
+_MTL_INLINE bool MTL::CaptureManager::supportsDestination(const CaptureDestination destination) const
 {
-    return Object::sendMessageSafe<bool>(this, _MTL_PRIVATE_SEL(supportsDestination_), destination);
+    return sendMessageSafe<bool>(this, _MTL_PRIVATE_SEL(supportsDestination_), destination);
 }

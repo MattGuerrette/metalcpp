@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include "../Foundation/Foundation.hpp"
@@ -45,119 +46,132 @@ namespace MTL
     };
 
     _MTL_CONST(NS::ErrorDomain, BinaryArchiveDomain);
+
+    /// @see https://developer.apple.com/documentation/metal/mtlbinaryarchivedescriptor?language=objc
     class BinaryArchiveDescriptor : public NS::Copying<BinaryArchiveDescriptor>
     {
     public:
-        static BinaryArchiveDescriptor* alloc();
+        [[nodiscard]] static BinaryArchiveDescriptor* alloc();
 
-        BinaryArchiveDescriptor* init();
+        [[nodiscard]] BinaryArchiveDescriptor* init();
 
-        void     setUrl(const NS::URL* url);
-        NS::URL* url() const;
+        [[nodiscard]] NS::URL* url() const;
+
+        void setUrl(const NS::URL* url) const;
     };
+
+    /// @see https://developer.apple.com/documentation/metal/mtlbinaryarchive?language=objc
     class BinaryArchive : public NS::Referencing<BinaryArchive>
     {
     public:
-        bool addComputePipelineFunctions(const MTL::ComputePipelineDescriptor* descriptor, NS::Error** error);
+        [[nodiscard]] bool addComputePipelineFunctions(const ComputePipelineDescriptor* descriptor,
+                                                       NS::Error**                      error) const;
 
-        bool addFunction(const MTL::FunctionDescriptor* descriptor, const MTL::Library* library, NS::Error** error);
+        [[nodiscard]] bool addFunction(const FunctionDescriptor* descriptor,
+                                       const Library*            library,
+                                       NS::Error**               error) const;
 
-        bool addLibrary(const MTL::StitchedLibraryDescriptor* descriptor, NS::Error** error);
+        [[nodiscard]] bool addLibrary(const StitchedLibraryDescriptor* descriptor, NS::Error** error) const;
 
-        bool addMeshRenderPipelineFunctions(const MTL::MeshRenderPipelineDescriptor* descriptor, NS::Error** error);
+        [[nodiscard]] bool addMeshRenderPipelineFunctions(const MeshRenderPipelineDescriptor* descriptor,
+                                                          NS::Error**                         error) const;
 
-        bool addRenderPipelineFunctions(const MTL::RenderPipelineDescriptor* descriptor, NS::Error** error);
+        [[nodiscard]] bool addRenderPipelineFunctions(const RenderPipelineDescriptor* descriptor,
+                                                      NS::Error**                     error) const;
 
-        bool addTileRenderPipelineFunctions(const MTL::TileRenderPipelineDescriptor* descriptor, NS::Error** error);
+        [[nodiscard]] bool addTileRenderPipelineFunctions(const TileRenderPipelineDescriptor* descriptor,
+                                                          NS::Error**                         error) const;
 
-        Device* device() const;
+        [[nodiscard]] Device* device() const;
 
-        NS::String* label() const;
+        [[nodiscard]] NS::String* label() const;
 
-        bool serializeToURL(const NS::URL* url, NS::Error** error);
+        [[nodiscard]] bool serializeToURL(const NS::URL* url, NS::Error** error) const;
 
-        void setLabel(const NS::String* label);
+        void setLabel(const NS::String* label) const;
     };
 
 } // namespace MTL
 _MTL_PRIVATE_DEF_CONST(NS::ErrorDomain, BinaryArchiveDomain);
 _MTL_INLINE MTL::BinaryArchiveDescriptor* MTL::BinaryArchiveDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL::BinaryArchiveDescriptor>(_MTL_PRIVATE_CLS(MTLBinaryArchiveDescriptor));
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<BinaryArchiveDescriptor>(_MTL_PRIVATE_CLS(MTLBinaryArchiveDescriptor));
 }
 
 _MTL_INLINE MTL::BinaryArchiveDescriptor* MTL::BinaryArchiveDescriptor::init()
 {
-    return NS::Object::init<MTL::BinaryArchiveDescriptor>();
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<BinaryArchiveDescriptor>();
 }
 
-_MTL_INLINE void MTL::BinaryArchiveDescriptor::setUrl(const NS::URL* url)
+_MTL_INLINE void MTL::BinaryArchiveDescriptor::setUrl(const NS::URL* url) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setUrl_), url);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setUrl_), url);
 }
 
 _MTL_INLINE NS::URL* MTL::BinaryArchiveDescriptor::url() const
 {
-    return Object::sendMessage<NS::URL*>(this, _MTL_PRIVATE_SEL(url));
+    return sendMessage<NS::URL*>(this, _MTL_PRIVATE_SEL(url));
 }
 
-_MTL_INLINE bool MTL::BinaryArchive::addComputePipelineFunctions(const MTL::ComputePipelineDescriptor* descriptor,
-                                                                 NS::Error**                           error)
+_MTL_INLINE bool MTL::BinaryArchive::addComputePipelineFunctions(const ComputePipelineDescriptor* descriptor,
+                                                                 NS::Error**                      error) const
 {
-    return Object::sendMessage<bool>(
+    return sendMessage<bool>(
         this, _MTL_PRIVATE_SEL(addComputePipelineFunctionsWithDescriptor_error_), descriptor, error);
 }
 
-_MTL_INLINE bool MTL::BinaryArchive::addFunction(const MTL::FunctionDescriptor* descriptor,
-                                                 const MTL::Library*            library,
-                                                 NS::Error**                    error)
+_MTL_INLINE bool MTL::BinaryArchive::addFunction(const FunctionDescriptor* descriptor,
+                                                 const Library*            library,
+                                                 NS::Error**               error) const
 {
-    return Object::sendMessage<bool>(
+    return sendMessage<bool>(
         this, _MTL_PRIVATE_SEL(addFunctionWithDescriptor_library_error_), descriptor, library, error);
 }
 
-_MTL_INLINE bool MTL::BinaryArchive::addLibrary(const MTL::StitchedLibraryDescriptor* descriptor, NS::Error** error)
+_MTL_INLINE bool MTL::BinaryArchive::addLibrary(const StitchedLibraryDescriptor* descriptor, NS::Error** error) const
 {
-    return Object::sendMessage<bool>(this, _MTL_PRIVATE_SEL(addLibraryWithDescriptor_error_), descriptor, error);
+    return sendMessage<bool>(this, _MTL_PRIVATE_SEL(addLibraryWithDescriptor_error_), descriptor, error);
 }
 
-_MTL_INLINE bool MTL::BinaryArchive::addMeshRenderPipelineFunctions(const MTL::MeshRenderPipelineDescriptor* descriptor,
-                                                                    NS::Error**                              error)
+_MTL_INLINE bool MTL::BinaryArchive::addMeshRenderPipelineFunctions(const MeshRenderPipelineDescriptor* descriptor,
+                                                                    NS::Error**                         error) const
 {
-    return Object::sendMessage<bool>(
+    return sendMessage<bool>(
         this, _MTL_PRIVATE_SEL(addMeshRenderPipelineFunctionsWithDescriptor_error_), descriptor, error);
 }
 
-_MTL_INLINE bool MTL::BinaryArchive::addRenderPipelineFunctions(const MTL::RenderPipelineDescriptor* descriptor,
-                                                                NS::Error**                          error)
+_MTL_INLINE bool MTL::BinaryArchive::addRenderPipelineFunctions(const RenderPipelineDescriptor* descriptor,
+                                                                NS::Error**                     error) const
 {
-    return Object::sendMessage<bool>(
+    return sendMessage<bool>(
         this, _MTL_PRIVATE_SEL(addRenderPipelineFunctionsWithDescriptor_error_), descriptor, error);
 }
 
-_MTL_INLINE bool MTL::BinaryArchive::addTileRenderPipelineFunctions(const MTL::TileRenderPipelineDescriptor* descriptor,
-                                                                    NS::Error**                              error)
+_MTL_INLINE bool MTL::BinaryArchive::addTileRenderPipelineFunctions(const TileRenderPipelineDescriptor* descriptor,
+                                                                    NS::Error**                         error) const
 {
-    return Object::sendMessage<bool>(
+    return sendMessage<bool>(
         this, _MTL_PRIVATE_SEL(addTileRenderPipelineFunctionsWithDescriptor_error_), descriptor, error);
 }
 
 _MTL_INLINE MTL::Device* MTL::BinaryArchive::device() const
 {
-    return Object::sendMessage<MTL::Device*>(this, _MTL_PRIVATE_SEL(device));
+    return sendMessage<Device*>(this, _MTL_PRIVATE_SEL(device));
 }
 
 _MTL_INLINE NS::String* MTL::BinaryArchive::label() const
 {
-    return Object::sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
+    return sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
 }
 
-_MTL_INLINE bool MTL::BinaryArchive::serializeToURL(const NS::URL* url, NS::Error** error)
+_MTL_INLINE bool MTL::BinaryArchive::serializeToURL(const NS::URL* url, NS::Error** error) const
 {
-    return Object::sendMessage<bool>(this, _MTL_PRIVATE_SEL(serializeToURL_error_), url, error);
+    return sendMessage<bool>(this, _MTL_PRIVATE_SEL(serializeToURL_error_), url, error);
 }
 
-_MTL_INLINE void MTL::BinaryArchive::setLabel(const NS::String* label)
+_MTL_INLINE void MTL::BinaryArchive::setLabel(const NS::String* label) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setLabel_), label);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setLabel_), label);
 }

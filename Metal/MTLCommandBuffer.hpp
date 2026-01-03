@@ -18,15 +18,16 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include <CoreFoundation/CoreFoundation.h>
-#include <cstdint>
 #include "../Foundation/Foundation.hpp"
 #include "MTLDefines.hpp"
 #include "MTLHeaderBridge.hpp"
 #include "MTLPrivate.hpp"
 
+#include <cstdint>
 #include <functional>
 
 namespace MTL
@@ -82,387 +83,393 @@ namespace MTL
     using CommandBufferHandler = void (^)(CommandBuffer*);
     using HandlerFunction      = std::function<void(CommandBuffer*)>;
 
+    /// @see https://developer.apple.com/documentation/metal/mtlcommandbufferdescriptor?language=objc
     class CommandBufferDescriptor : public NS::Copying<CommandBufferDescriptor>
     {
     public:
-        static CommandBufferDescriptor* alloc();
+        [[nodiscard]] static CommandBufferDescriptor* alloc();
 
-        CommandBufferErrorOption errorOptions() const;
+        [[nodiscard]] CommandBufferErrorOption errorOptions() const;
 
-        CommandBufferDescriptor* init();
+        [[nodiscard]] CommandBufferDescriptor* init();
 
-        LogState* logState() const;
+        [[nodiscard]] LogState* logState() const;
 
-        bool retainedReferences() const;
+        [[nodiscard]] bool retainedReferences() const;
 
-        void setErrorOptions(MTL::CommandBufferErrorOption errorOptions);
+        void setErrorOptions(CommandBufferErrorOption errorOptions) const;
 
-        void setLogState(const MTL::LogState* logState);
+        void setLogState(const LogState* logState) const;
 
-        void setRetainedReferences(bool retainedReferences);
+        void setRetainedReferences(bool retainedReferences) const;
     };
+
+    /// @see https://developer.apple.com/documentation/metal/mtlcommandbufferencoderinfo?language=objc
     class CommandBufferEncoderInfo : public NS::Referencing<CommandBufferEncoderInfo>
     {
     public:
-        NS::Array* debugSignposts() const;
+        [[nodiscard]] NS::Array* debugSignposts() const;
 
-        CommandEncoderErrorState errorState() const;
+        [[nodiscard]] CommandEncoderErrorState errorState() const;
 
-        NS::String* label() const;
+        [[nodiscard]] NS::String* label() const;
     };
+
+    /// @see https://developer.apple.com/documentation/metal/mtlcommandbuffer?language=objc
     class CommandBuffer : public NS::Referencing<CommandBuffer>
     {
     public:
-        CFTimeInterval GPUEndTime() const;
+        [[nodiscard]] CFTimeInterval GPUEndTime() const;
 
-        CFTimeInterval GPUStartTime() const;
+        [[nodiscard]] CFTimeInterval GPUStartTime() const;
 
-        AccelerationStructureCommandEncoder* accelerationStructureCommandEncoder();
-        AccelerationStructureCommandEncoder* accelerationStructureCommandEncoder(
-            const MTL::AccelerationStructurePassDescriptor* descriptor);
+        [[nodiscard]] AccelerationStructureCommandEncoder* accelerationStructureCommandEncoder() const;
+        [[nodiscard]] AccelerationStructureCommandEncoder* accelerationStructureCommandEncoder(
+            const AccelerationStructurePassDescriptor* descriptor) const;
 
-        void addCompletedHandler(const MTL::CommandBufferHandler block);
-        void addCompletedHandler(const MTL::HandlerFunction& function);
+        void addCompletedHandler(CommandBufferHandler block);
+        void addCompletedHandler(const HandlerFunction& function);
 
-        void addScheduledHandler(const MTL::CommandBufferHandler block);
-        void addScheduledHandler(const MTL::HandlerFunction& function);
+        void addScheduledHandler(CommandBufferHandler block);
+        void addScheduledHandler(const HandlerFunction& function);
 
-        BlitCommandEncoder* blitCommandEncoder();
-        BlitCommandEncoder* blitCommandEncoder(const MTL::BlitPassDescriptor* blitPassDescriptor);
+        [[nodiscard]] BlitCommandEncoder* blitCommandEncoder() const;
+        [[nodiscard]] BlitCommandEncoder* blitCommandEncoder(const BlitPassDescriptor* blitPassDescriptor) const;
 
-        CommandQueue* commandQueue() const;
+        [[nodiscard]] CommandQueue* commandQueue() const;
 
-        void commit();
+        void commit() const;
 
-        ComputeCommandEncoder* computeCommandEncoder(const MTL::ComputePassDescriptor* computePassDescriptor);
-        ComputeCommandEncoder* computeCommandEncoder();
-        ComputeCommandEncoder* computeCommandEncoder(MTL::DispatchType dispatchType);
+        [[nodiscard]] ComputeCommandEncoder* computeCommandEncoder(
+            const ComputePassDescriptor* computePassDescriptor) const;
+        [[nodiscard]] ComputeCommandEncoder* computeCommandEncoder() const;
+        [[nodiscard]] ComputeCommandEncoder* computeCommandEncoder(DispatchType dispatchType) const;
 
-        Device* device() const;
+        [[nodiscard]] Device* device() const;
 
-        void encodeSignalEvent(const MTL::Event* event, uint64_t value);
+        void encodeSignalEvent(const Event* event, uint64_t value) const;
 
-        void encodeWait(const MTL::Event* event, uint64_t value);
+        void encodeWait(const Event* event, uint64_t value) const;
 
-        void enqueue();
+        void enqueue() const;
 
-        NS::Error*               error() const;
-        CommandBufferErrorOption errorOptions() const;
+        [[nodiscard]] NS::Error*               error() const;
+        [[nodiscard]] CommandBufferErrorOption errorOptions() const;
 
-        CFTimeInterval kernelEndTime() const;
+        [[nodiscard]] CFTimeInterval kernelEndTime() const;
 
-        CFTimeInterval kernelStartTime() const;
+        [[nodiscard]] CFTimeInterval kernelStartTime() const;
 
-        NS::String* label() const;
+        [[nodiscard]] NS::String* label() const;
 
-        LogContainer* logs() const;
+        [[nodiscard]] LogContainer* logs() const;
 
-        ParallelRenderCommandEncoder* parallelRenderCommandEncoder(
-            const MTL::RenderPassDescriptor* renderPassDescriptor);
+        [[nodiscard]] ParallelRenderCommandEncoder* parallelRenderCommandEncoder(
+            const RenderPassDescriptor* renderPassDescriptor) const;
 
-        void popDebugGroup();
+        void popDebugGroup() const;
 
-        void presentDrawable(const MTL::Drawable* drawable);
-        void presentDrawableAfterMinimumDuration(const MTL::Drawable* drawable, CFTimeInterval duration);
+        void presentDrawable(const Drawable* drawable) const;
+        void presentDrawableAfterMinimumDuration(const Drawable* drawable, CFTimeInterval duration) const;
 
-        void presentDrawableAtTime(const MTL::Drawable* drawable, CFTimeInterval presentationTime);
+        void presentDrawableAtTime(const Drawable* drawable, CFTimeInterval presentationTime) const;
 
-        void pushDebugGroup(const NS::String* string);
+        void pushDebugGroup(const NS::String* string) const;
 
-        RenderCommandEncoder* renderCommandEncoder(const MTL::RenderPassDescriptor* renderPassDescriptor);
+        [[nodiscard]] RenderCommandEncoder* renderCommandEncoder(
+            const RenderPassDescriptor* renderPassDescriptor) const;
 
-        ResourceStateCommandEncoder* resourceStateCommandEncoder();
-        ResourceStateCommandEncoder* resourceStateCommandEncoder(
-            const MTL::ResourceStatePassDescriptor* resourceStatePassDescriptor);
+        [[nodiscard]] ResourceStateCommandEncoder* resourceStateCommandEncoder() const;
+        [[nodiscard]] ResourceStateCommandEncoder* resourceStateCommandEncoder(
+            const ResourceStatePassDescriptor* resourceStatePassDescriptor) const;
 
-        bool retainedReferences() const;
+        [[nodiscard]] bool retainedReferences() const;
 
-        void setLabel(const NS::String* label);
+        void setLabel(const NS::String* label) const;
 
-        CommandBufferStatus status() const;
+        [[nodiscard]] CommandBufferStatus status() const;
 
-        void useResidencySet(const MTL::ResidencySet* residencySet);
-        void useResidencySets(const MTL::ResidencySet* const residencySets[], NS::UInteger count);
+        void useResidencySet(const ResidencySet* residencySet) const;
+        void useResidencySets(const ResidencySet* const residencySets[], NS::UInteger count) const;
 
-        void waitUntilCompleted();
+        void waitUntilCompleted() const;
 
-        void waitUntilScheduled();
+        void waitUntilScheduled() const;
     };
 
 } // namespace MTL
 _MTL_INLINE MTL::CommandBufferDescriptor* MTL::CommandBufferDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL::CommandBufferDescriptor>(_MTL_PRIVATE_CLS(MTLCommandBufferDescriptor));
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<CommandBufferDescriptor>(_MTL_PRIVATE_CLS(MTLCommandBufferDescriptor));
 }
 
 _MTL_INLINE MTL::CommandBufferErrorOption MTL::CommandBufferDescriptor::errorOptions() const
 {
-    return Object::sendMessage<MTL::CommandBufferErrorOption>(this, _MTL_PRIVATE_SEL(errorOptions));
+    return sendMessage<CommandBufferErrorOption>(this, _MTL_PRIVATE_SEL(errorOptions));
 }
 
 _MTL_INLINE MTL::CommandBufferDescriptor* MTL::CommandBufferDescriptor::init()
 {
-    return NS::Object::init<MTL::CommandBufferDescriptor>();
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<CommandBufferDescriptor>();
 }
 
 _MTL_INLINE MTL::LogState* MTL::CommandBufferDescriptor::logState() const
 {
-    return Object::sendMessage<MTL::LogState*>(this, _MTL_PRIVATE_SEL(logState));
+    return sendMessage<LogState*>(this, _MTL_PRIVATE_SEL(logState));
 }
 
 _MTL_INLINE bool MTL::CommandBufferDescriptor::retainedReferences() const
 {
-    return Object::sendMessage<bool>(this, _MTL_PRIVATE_SEL(retainedReferences));
+    return sendMessage<bool>(this, _MTL_PRIVATE_SEL(retainedReferences));
 }
 
-_MTL_INLINE void MTL::CommandBufferDescriptor::setErrorOptions(MTL::CommandBufferErrorOption errorOptions)
+_MTL_INLINE void MTL::CommandBufferDescriptor::setErrorOptions(const CommandBufferErrorOption errorOptions) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setErrorOptions_), errorOptions);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setErrorOptions_), errorOptions);
 }
 
-_MTL_INLINE void MTL::CommandBufferDescriptor::setLogState(const MTL::LogState* logState)
+_MTL_INLINE void MTL::CommandBufferDescriptor::setLogState(const LogState* logState) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setLogState_), logState);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setLogState_), logState);
 }
 
-_MTL_INLINE void MTL::CommandBufferDescriptor::setRetainedReferences(bool retainedReferences)
+_MTL_INLINE void MTL::CommandBufferDescriptor::setRetainedReferences(const bool retainedReferences) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setRetainedReferences_), retainedReferences);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setRetainedReferences_), retainedReferences);
 }
 
 _MTL_INLINE NS::Array* MTL::CommandBufferEncoderInfo::debugSignposts() const
 {
-    return Object::sendMessage<NS::Array*>(this, _MTL_PRIVATE_SEL(debugSignposts));
+    return sendMessage<NS::Array*>(this, _MTL_PRIVATE_SEL(debugSignposts));
 }
 
 _MTL_INLINE MTL::CommandEncoderErrorState MTL::CommandBufferEncoderInfo::errorState() const
 {
-    return Object::sendMessage<MTL::CommandEncoderErrorState>(this, _MTL_PRIVATE_SEL(errorState));
+    return sendMessage<CommandEncoderErrorState>(this, _MTL_PRIVATE_SEL(errorState));
 }
 
 _MTL_INLINE NS::String* MTL::CommandBufferEncoderInfo::label() const
 {
-    return Object::sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
+    return sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
 }
 
 _MTL_INLINE CFTimeInterval MTL::CommandBuffer::GPUEndTime() const
 {
-    return Object::sendMessage<CFTimeInterval>(this, _MTL_PRIVATE_SEL(GPUEndTime));
+    return sendMessage<CFTimeInterval>(this, _MTL_PRIVATE_SEL(GPUEndTime));
 }
 
 _MTL_INLINE CFTimeInterval MTL::CommandBuffer::GPUStartTime() const
 {
-    return Object::sendMessage<CFTimeInterval>(this, _MTL_PRIVATE_SEL(GPUStartTime));
+    return sendMessage<CFTimeInterval>(this, _MTL_PRIVATE_SEL(GPUStartTime));
 }
 
-_MTL_INLINE MTL::AccelerationStructureCommandEncoder* MTL::CommandBuffer::accelerationStructureCommandEncoder()
+_MTL_INLINE MTL::AccelerationStructureCommandEncoder* MTL::CommandBuffer::accelerationStructureCommandEncoder() const
 {
-    return Object::sendMessage<MTL::AccelerationStructureCommandEncoder*>(
-        this, _MTL_PRIVATE_SEL(accelerationStructureCommandEncoder));
+    return sendMessage<AccelerationStructureCommandEncoder*>(this,
+                                                             _MTL_PRIVATE_SEL(accelerationStructureCommandEncoder));
 }
 
 _MTL_INLINE MTL::AccelerationStructureCommandEncoder* MTL::CommandBuffer::accelerationStructureCommandEncoder(
-    const MTL::AccelerationStructurePassDescriptor* descriptor)
+    const AccelerationStructurePassDescriptor* descriptor) const
 {
-    return Object::sendMessage<MTL::AccelerationStructureCommandEncoder*>(
+    return sendMessage<AccelerationStructureCommandEncoder*>(
         this, _MTL_PRIVATE_SEL(accelerationStructureCommandEncoderWithDescriptor_), descriptor);
 }
 
-_MTL_INLINE void MTL::CommandBuffer::addCompletedHandler(const MTL::CommandBufferHandler block)
+_MTL_INLINE void MTL::CommandBuffer::addCompletedHandler(const CommandBufferHandler block)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(addCompletedHandler_), block);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(addCompletedHandler_), block);
 }
 
-_MTL_INLINE void MTL::CommandBuffer::addCompletedHandler(const MTL::HandlerFunction& function)
+_MTL_INLINE void MTL::CommandBuffer::addCompletedHandler(const HandlerFunction& function)
 {
     __block HandlerFunction blockFunction = function;
-    addCompletedHandler(^(MTL::CommandBuffer* pCommandBuffer) {
+    addCompletedHandler(^(CommandBuffer* pCommandBuffer) {
       blockFunction(pCommandBuffer);
     });
 }
 
-_MTL_INLINE void MTL::CommandBuffer::addScheduledHandler(const MTL::CommandBufferHandler block)
+_MTL_INLINE void MTL::CommandBuffer::addScheduledHandler(const CommandBufferHandler block)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(addScheduledHandler_), block);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(addScheduledHandler_), block);
 }
 
-_MTL_INLINE void MTL::CommandBuffer::addScheduledHandler(const MTL::HandlerFunction& function)
+_MTL_INLINE void MTL::CommandBuffer::addScheduledHandler(const HandlerFunction& function)
 {
     __block HandlerFunction blockFunction = function;
-    addScheduledHandler(^(MTL::CommandBuffer* pCommandBuffer) {
+    addScheduledHandler(^(CommandBuffer* pCommandBuffer) {
       blockFunction(pCommandBuffer);
     });
 }
 
-_MTL_INLINE MTL::BlitCommandEncoder* MTL::CommandBuffer::blitCommandEncoder()
+_MTL_INLINE MTL::BlitCommandEncoder* MTL::CommandBuffer::blitCommandEncoder() const
 {
-    return Object::sendMessage<MTL::BlitCommandEncoder*>(this, _MTL_PRIVATE_SEL(blitCommandEncoder));
+    return sendMessage<BlitCommandEncoder*>(this, _MTL_PRIVATE_SEL(blitCommandEncoder));
 }
 
 _MTL_INLINE MTL::BlitCommandEncoder* MTL::CommandBuffer::blitCommandEncoder(
-    const MTL::BlitPassDescriptor* blitPassDescriptor)
+    const BlitPassDescriptor* blitPassDescriptor) const
 {
-    return Object::sendMessage<MTL::BlitCommandEncoder*>(
+    return sendMessage<BlitCommandEncoder*>(
         this, _MTL_PRIVATE_SEL(blitCommandEncoderWithDescriptor_), blitPassDescriptor);
 }
 
 _MTL_INLINE MTL::CommandQueue* MTL::CommandBuffer::commandQueue() const
 {
-    return Object::sendMessage<MTL::CommandQueue*>(this, _MTL_PRIVATE_SEL(commandQueue));
+    return sendMessage<CommandQueue*>(this, _MTL_PRIVATE_SEL(commandQueue));
 }
 
-_MTL_INLINE void MTL::CommandBuffer::commit() { Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(commit)); }
+_MTL_INLINE void MTL::CommandBuffer::commit() const { sendMessage<void>(this, _MTL_PRIVATE_SEL(commit)); }
 
 _MTL_INLINE MTL::ComputeCommandEncoder* MTL::CommandBuffer::computeCommandEncoder(
-    const MTL::ComputePassDescriptor* computePassDescriptor)
+    const ComputePassDescriptor* computePassDescriptor) const
 {
-    return Object::sendMessage<MTL::ComputeCommandEncoder*>(
+    return sendMessage<ComputeCommandEncoder*>(
         this, _MTL_PRIVATE_SEL(computeCommandEncoderWithDescriptor_), computePassDescriptor);
 }
 
-_MTL_INLINE MTL::ComputeCommandEncoder* MTL::CommandBuffer::computeCommandEncoder()
+_MTL_INLINE MTL::ComputeCommandEncoder* MTL::CommandBuffer::computeCommandEncoder() const
 {
-    return Object::sendMessage<MTL::ComputeCommandEncoder*>(this, _MTL_PRIVATE_SEL(computeCommandEncoder));
+    return sendMessage<ComputeCommandEncoder*>(this, _MTL_PRIVATE_SEL(computeCommandEncoder));
 }
 
-_MTL_INLINE MTL::ComputeCommandEncoder* MTL::CommandBuffer::computeCommandEncoder(MTL::DispatchType dispatchType)
+_MTL_INLINE MTL::ComputeCommandEncoder* MTL::CommandBuffer::computeCommandEncoder(const DispatchType dispatchType) const
 {
-    return Object::sendMessage<MTL::ComputeCommandEncoder*>(
+    return sendMessage<ComputeCommandEncoder*>(
         this, _MTL_PRIVATE_SEL(computeCommandEncoderWithDispatchType_), dispatchType);
 }
 
 _MTL_INLINE MTL::Device* MTL::CommandBuffer::device() const
 {
-    return Object::sendMessage<MTL::Device*>(this, _MTL_PRIVATE_SEL(device));
+    return sendMessage<Device*>(this, _MTL_PRIVATE_SEL(device));
 }
 
-_MTL_INLINE void MTL::CommandBuffer::encodeSignalEvent(const MTL::Event* event, uint64_t value)
+_MTL_INLINE void MTL::CommandBuffer::encodeSignalEvent(const Event* event, const uint64_t value) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(encodeSignalEvent_value_), event, value);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(encodeSignalEvent_value_), event, value);
 }
 
-_MTL_INLINE void MTL::CommandBuffer::encodeWait(const MTL::Event* event, uint64_t value)
+_MTL_INLINE void MTL::CommandBuffer::encodeWait(const Event* event, const uint64_t value) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(encodeWaitForEvent_value_), event, value);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(encodeWaitForEvent_value_), event, value);
 }
 
-_MTL_INLINE void MTL::CommandBuffer::enqueue() { Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(enqueue)); }
+_MTL_INLINE void MTL::CommandBuffer::enqueue() const { sendMessage<void>(this, _MTL_PRIVATE_SEL(enqueue)); }
 
 _MTL_INLINE NS::Error* MTL::CommandBuffer::error() const
 {
-    return Object::sendMessage<NS::Error*>(this, _MTL_PRIVATE_SEL(error));
+    return sendMessage<NS::Error*>(this, _MTL_PRIVATE_SEL(error));
 }
 
 _MTL_INLINE MTL::CommandBufferErrorOption MTL::CommandBuffer::errorOptions() const
 {
-    return Object::sendMessage<MTL::CommandBufferErrorOption>(this, _MTL_PRIVATE_SEL(errorOptions));
+    return sendMessage<CommandBufferErrorOption>(this, _MTL_PRIVATE_SEL(errorOptions));
 }
 
 _MTL_INLINE CFTimeInterval MTL::CommandBuffer::kernelEndTime() const
 {
-    return Object::sendMessage<CFTimeInterval>(this, _MTL_PRIVATE_SEL(kernelEndTime));
+    return sendMessage<CFTimeInterval>(this, _MTL_PRIVATE_SEL(kernelEndTime));
 }
 
 _MTL_INLINE CFTimeInterval MTL::CommandBuffer::kernelStartTime() const
 {
-    return Object::sendMessage<CFTimeInterval>(this, _MTL_PRIVATE_SEL(kernelStartTime));
+    return sendMessage<CFTimeInterval>(this, _MTL_PRIVATE_SEL(kernelStartTime));
 }
 
 _MTL_INLINE NS::String* MTL::CommandBuffer::label() const
 {
-    return Object::sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
+    return sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
 }
 
 _MTL_INLINE MTL::LogContainer* MTL::CommandBuffer::logs() const
 {
-    return Object::sendMessage<MTL::LogContainer*>(this, _MTL_PRIVATE_SEL(logs));
+    return sendMessage<LogContainer*>(this, _MTL_PRIVATE_SEL(logs));
 }
 
 _MTL_INLINE MTL::ParallelRenderCommandEncoder* MTL::CommandBuffer::parallelRenderCommandEncoder(
-    const MTL::RenderPassDescriptor* renderPassDescriptor)
+    const RenderPassDescriptor* renderPassDescriptor) const
 {
-    return Object::sendMessage<MTL::ParallelRenderCommandEncoder*>(
+    return sendMessage<ParallelRenderCommandEncoder*>(
         this, _MTL_PRIVATE_SEL(parallelRenderCommandEncoderWithDescriptor_), renderPassDescriptor);
 }
 
-_MTL_INLINE void MTL::CommandBuffer::popDebugGroup()
+_MTL_INLINE void MTL::CommandBuffer::popDebugGroup() const { sendMessage<void>(this, _MTL_PRIVATE_SEL(popDebugGroup)); }
+
+_MTL_INLINE void MTL::CommandBuffer::presentDrawable(const Drawable* drawable) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(popDebugGroup));
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(presentDrawable_), drawable);
 }
 
-_MTL_INLINE void MTL::CommandBuffer::presentDrawable(const MTL::Drawable* drawable)
+_MTL_INLINE void MTL::CommandBuffer::presentDrawableAfterMinimumDuration(const Drawable*      drawable,
+                                                                         const CFTimeInterval duration) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(presentDrawable_), drawable);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(presentDrawable_afterMinimumDuration_), drawable, duration);
 }
 
-_MTL_INLINE void MTL::CommandBuffer::presentDrawableAfterMinimumDuration(const MTL::Drawable* drawable,
-                                                                         CFTimeInterval       duration)
+_MTL_INLINE void MTL::CommandBuffer::presentDrawableAtTime(const Drawable*      drawable,
+                                                           const CFTimeInterval presentationTime) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(presentDrawable_afterMinimumDuration_), drawable, duration);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(presentDrawable_atTime_), drawable, presentationTime);
 }
 
-_MTL_INLINE void MTL::CommandBuffer::presentDrawableAtTime(const MTL::Drawable* drawable,
-                                                           CFTimeInterval       presentationTime)
+_MTL_INLINE void MTL::CommandBuffer::pushDebugGroup(const NS::String* string) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(presentDrawable_atTime_), drawable, presentationTime);
-}
-
-_MTL_INLINE void MTL::CommandBuffer::pushDebugGroup(const NS::String* string)
-{
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(pushDebugGroup_), string);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(pushDebugGroup_), string);
 }
 
 _MTL_INLINE MTL::RenderCommandEncoder* MTL::CommandBuffer::renderCommandEncoder(
-    const MTL::RenderPassDescriptor* renderPassDescriptor)
+    const RenderPassDescriptor* renderPassDescriptor) const
 {
-    return Object::sendMessage<MTL::RenderCommandEncoder*>(
+    return sendMessage<RenderCommandEncoder*>(
         this, _MTL_PRIVATE_SEL(renderCommandEncoderWithDescriptor_), renderPassDescriptor);
 }
 
-_MTL_INLINE MTL::ResourceStateCommandEncoder* MTL::CommandBuffer::resourceStateCommandEncoder()
+_MTL_INLINE MTL::ResourceStateCommandEncoder* MTL::CommandBuffer::resourceStateCommandEncoder() const
 {
-    return Object::sendMessage<MTL::ResourceStateCommandEncoder*>(this, _MTL_PRIVATE_SEL(resourceStateCommandEncoder));
+    return sendMessage<ResourceStateCommandEncoder*>(this, _MTL_PRIVATE_SEL(resourceStateCommandEncoder));
 }
 
 _MTL_INLINE MTL::ResourceStateCommandEncoder* MTL::CommandBuffer::resourceStateCommandEncoder(
-    const MTL::ResourceStatePassDescriptor* resourceStatePassDescriptor)
+    const ResourceStatePassDescriptor* resourceStatePassDescriptor) const
 {
-    return Object::sendMessage<MTL::ResourceStateCommandEncoder*>(
+    return sendMessage<ResourceStateCommandEncoder*>(
         this, _MTL_PRIVATE_SEL(resourceStateCommandEncoderWithDescriptor_), resourceStatePassDescriptor);
 }
 
 _MTL_INLINE bool MTL::CommandBuffer::retainedReferences() const
 {
-    return Object::sendMessage<bool>(this, _MTL_PRIVATE_SEL(retainedReferences));
+    return sendMessage<bool>(this, _MTL_PRIVATE_SEL(retainedReferences));
 }
 
-_MTL_INLINE void MTL::CommandBuffer::setLabel(const NS::String* label)
+_MTL_INLINE void MTL::CommandBuffer::setLabel(const NS::String* label) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setLabel_), label);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setLabel_), label);
 }
 
 _MTL_INLINE MTL::CommandBufferStatus MTL::CommandBuffer::status() const
 {
-    return Object::sendMessage<MTL::CommandBufferStatus>(this, _MTL_PRIVATE_SEL(status));
+    return sendMessage<CommandBufferStatus>(this, _MTL_PRIVATE_SEL(status));
 }
 
-_MTL_INLINE void MTL::CommandBuffer::useResidencySet(const MTL::ResidencySet* residencySet)
+_MTL_INLINE void MTL::CommandBuffer::useResidencySet(const ResidencySet* residencySet) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(useResidencySet_), residencySet);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(useResidencySet_), residencySet);
 }
 
-_MTL_INLINE void MTL::CommandBuffer::useResidencySets(const MTL::ResidencySet* const residencySets[],
-                                                      NS::UInteger                   count)
+_MTL_INLINE void MTL::CommandBuffer::useResidencySets(const ResidencySet* const residencySets[],
+                                                      const NS::UInteger        count) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(useResidencySets_count_), residencySets, count);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(useResidencySets_count_), residencySets, count);
 }
 
-_MTL_INLINE void MTL::CommandBuffer::waitUntilCompleted()
+_MTL_INLINE void MTL::CommandBuffer::waitUntilCompleted() const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(waitUntilCompleted));
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(waitUntilCompleted));
 }
 
-_MTL_INLINE void MTL::CommandBuffer::waitUntilScheduled()
+_MTL_INLINE void MTL::CommandBuffer::waitUntilScheduled() const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(waitUntilScheduled));
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(waitUntilScheduled));
 }

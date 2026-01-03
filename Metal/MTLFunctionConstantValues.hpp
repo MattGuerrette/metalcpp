@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include "../Foundation/Foundation.hpp"
@@ -30,48 +31,53 @@ namespace MTL
 {
     class FunctionConstantValues;
 
+    /// @see https://developer.apple.com/documentation/metal/mtlfunctionconstantvalues?language=objc
     class FunctionConstantValues : public NS::Copying<FunctionConstantValues>
     {
     public:
-        static FunctionConstantValues* alloc();
+        [[nodiscard]] static FunctionConstantValues* alloc();
 
-        FunctionConstantValues* init();
+        [[nodiscard]] FunctionConstantValues* init();
 
-        void reset();
+        void reset() const;
 
-        void setConstantValue(const void* value, MTL::DataType type, NS::UInteger index);
-        void setConstantValue(const void* value, MTL::DataType type, const NS::String* name);
-        void setConstantValues(const void* values, MTL::DataType type, NS::Range range);
+        void setConstantValue(const void* value, DataType type, NS::UInteger index) const;
+        void setConstantValue(const void* value, DataType type, const NS::String* name) const;
+        void setConstantValues(const void* values, DataType type, NS::Range range) const;
     };
 
 } // namespace MTL
 _MTL_INLINE MTL::FunctionConstantValues* MTL::FunctionConstantValues::alloc()
 {
-    return NS::Object::alloc<MTL::FunctionConstantValues>(_MTL_PRIVATE_CLS(MTLFunctionConstantValues));
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<FunctionConstantValues>(_MTL_PRIVATE_CLS(MTLFunctionConstantValues));
 }
 
 _MTL_INLINE MTL::FunctionConstantValues* MTL::FunctionConstantValues::init()
 {
-    return NS::Object::init<MTL::FunctionConstantValues>();
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<FunctionConstantValues>();
 }
 
-_MTL_INLINE void MTL::FunctionConstantValues::reset() { Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(reset)); }
+_MTL_INLINE void MTL::FunctionConstantValues::reset() const { sendMessage<void>(this, _MTL_PRIVATE_SEL(reset)); }
 
-_MTL_INLINE void MTL::FunctionConstantValues::setConstantValue(const void*   value,
-                                                               MTL::DataType type,
-                                                               NS::UInteger  index)
+_MTL_INLINE void MTL::FunctionConstantValues::setConstantValue(const void*        value,
+                                                               const DataType     type,
+                                                               const NS::UInteger index) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setConstantValue_type_atIndex_), value, type, index);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setConstantValue_type_atIndex_), value, type, index);
 }
 
 _MTL_INLINE void MTL::FunctionConstantValues::setConstantValue(const void*       value,
-                                                               MTL::DataType     type,
-                                                               const NS::String* name)
+                                                               const DataType    type,
+                                                               const NS::String* name) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setConstantValue_type_withName_), value, type, name);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setConstantValue_type_withName_), value, type, name);
 }
 
-_MTL_INLINE void MTL::FunctionConstantValues::setConstantValues(const void* values, MTL::DataType type, NS::Range range)
+_MTL_INLINE void MTL::FunctionConstantValues::setConstantValues(const void*     values,
+                                                                const DataType  type,
+                                                                const NS::Range range) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setConstantValues_type_withRange_), values, type, range);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setConstantValues_type_withRange_), values, type, range);
 }

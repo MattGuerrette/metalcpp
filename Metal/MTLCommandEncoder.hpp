@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include "../Foundation/Foundation.hpp"
@@ -55,61 +56,62 @@ namespace MTL
         StageAll                   = 9223372036854775807,
     };
 
+    /// @see https://developer.apple.com/documentation/metal/mtlcommandencoder?language=objc
     class CommandEncoder : public NS::Referencing<CommandEncoder>
     {
     public:
-        void barrierAfterQueueStages(MTL::Stages afterQueueStages, MTL::Stages beforeStages);
+        void barrierAfterQueueStages(Stages afterQueueStages, Stages beforeStages) const;
 
-        Device* device() const;
+        [[nodiscard]] Device* device() const;
 
-        void endEncoding();
+        void endEncoding() const;
 
-        void insertDebugSignpost(const NS::String* string);
+        void insertDebugSignpost(const NS::String* string) const;
 
-        NS::String* label() const;
+        [[nodiscard]] NS::String* label() const;
 
-        void popDebugGroup();
+        void popDebugGroup() const;
 
-        void pushDebugGroup(const NS::String* string);
+        void pushDebugGroup(const NS::String* string) const;
 
-        void setLabel(const NS::String* label);
+        void setLabel(const NS::String* label) const;
     };
 
 } // namespace MTL
-_MTL_INLINE void MTL::CommandEncoder::barrierAfterQueueStages(MTL::Stages afterQueueStages, MTL::Stages beforeStages)
+_MTL_INLINE void MTL::CommandEncoder::barrierAfterQueueStages(const Stages afterQueueStages,
+                                                              const Stages beforeStages) const
 {
-    Object::sendMessage<void>(
-        this, _MTL_PRIVATE_SEL(barrierAfterQueueStages_beforeStages_), afterQueueStages, beforeStages);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(barrierAfterQueueStages_beforeStages_), afterQueueStages, beforeStages);
 }
 
 _MTL_INLINE MTL::Device* MTL::CommandEncoder::device() const
 {
-    return Object::sendMessage<MTL::Device*>(this, _MTL_PRIVATE_SEL(device));
+    return sendMessage<Device*>(this, _MTL_PRIVATE_SEL(device));
 }
 
-_MTL_INLINE void MTL::CommandEncoder::endEncoding() { Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(endEncoding)); }
+_MTL_INLINE void MTL::CommandEncoder::endEncoding() const { sendMessage<void>(this, _MTL_PRIVATE_SEL(endEncoding)); }
 
-_MTL_INLINE void MTL::CommandEncoder::insertDebugSignpost(const NS::String* string)
+_MTL_INLINE void MTL::CommandEncoder::insertDebugSignpost(const NS::String* string) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(insertDebugSignpost_), string);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(insertDebugSignpost_), string);
 }
 
 _MTL_INLINE NS::String* MTL::CommandEncoder::label() const
 {
-    return Object::sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
+    return sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
 }
 
-_MTL_INLINE void MTL::CommandEncoder::popDebugGroup()
+_MTL_INLINE void MTL::CommandEncoder::popDebugGroup() const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(popDebugGroup));
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(popDebugGroup));
 }
 
-_MTL_INLINE void MTL::CommandEncoder::pushDebugGroup(const NS::String* string)
+_MTL_INLINE void MTL::CommandEncoder::pushDebugGroup(const NS::String* string) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(pushDebugGroup_), string);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(pushDebugGroup_), string);
 }
 
-_MTL_INLINE void MTL::CommandEncoder::setLabel(const NS::String* label)
+_MTL_INLINE void MTL::CommandEncoder::setLabel(const NS::String* label) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setLabel_), label);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setLabel_), label);
 }

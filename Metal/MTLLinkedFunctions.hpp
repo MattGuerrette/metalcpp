@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include "../Foundation/Foundation.hpp"
@@ -27,82 +28,86 @@
 
 namespace MTL
 {
-
+    /// @see https://developer.apple.com/documentation/metal/mtllinkedfunctions?language=objc
     class LinkedFunctions : public NS::Copying<LinkedFunctions>
     {
     public:
-        static LinkedFunctions* alloc();
+        [[nodiscard]] static LinkedFunctions* alloc();
 
-        NS::Array* binaryFunctions() const;
-        NS::Array* functions() const;
+        [[nodiscard]] NS::Array* binaryFunctions() const;
+        [[nodiscard]] NS::Array* functions() const;
 
-        NS::Dictionary* groups() const;
+        [[nodiscard]] NS::Dictionary* groups() const;
 
-        LinkedFunctions* init();
+        [[nodiscard]] LinkedFunctions* init();
 
-        static LinkedFunctions* linkedFunctions();
+        [[nodiscard]] static LinkedFunctions* linkedFunctions();
 
-        NS::Array* privateFunctions() const;
+        [[nodiscard]] NS::Array* privateFunctions() const;
 
-        void setBinaryFunctions(const NS::Array* binaryFunctions);
+        void setBinaryFunctions(const NS::Array* binaryFunctions) const;
 
-        void setFunctions(const NS::Array* functions);
+        void setFunctions(const NS::Array* functions) const;
 
-        void setGroups(const NS::Dictionary* groups);
+        void setGroups(const NS::Dictionary* groups) const;
 
-        void setPrivateFunctions(const NS::Array* privateFunctions);
+        void setPrivateFunctions(const NS::Array* privateFunctions) const;
     };
 
 } // namespace MTL
 _MTL_INLINE MTL::LinkedFunctions* MTL::LinkedFunctions::alloc()
 {
-    return NS::Object::alloc<MTL::LinkedFunctions>(_MTL_PRIVATE_CLS(MTLLinkedFunctions));
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<LinkedFunctions>(_MTL_PRIVATE_CLS(MTLLinkedFunctions));
 }
 
 _MTL_INLINE NS::Array* MTL::LinkedFunctions::binaryFunctions() const
 {
-    return Object::sendMessage<NS::Array*>(this, _MTL_PRIVATE_SEL(binaryFunctions));
+    return sendMessage<NS::Array*>(this, _MTL_PRIVATE_SEL(binaryFunctions));
 }
 
 _MTL_INLINE NS::Array* MTL::LinkedFunctions::functions() const
 {
-    return Object::sendMessage<NS::Array*>(this, _MTL_PRIVATE_SEL(functions));
+    return sendMessage<NS::Array*>(this, _MTL_PRIVATE_SEL(functions));
 }
 
 _MTL_INLINE NS::Dictionary* MTL::LinkedFunctions::groups() const
 {
-    return Object::sendMessage<NS::Dictionary*>(this, _MTL_PRIVATE_SEL(groups));
+    return sendMessage<NS::Dictionary*>(this, _MTL_PRIVATE_SEL(groups));
 }
 
-_MTL_INLINE MTL::LinkedFunctions* MTL::LinkedFunctions::init() { return NS::Object::init<MTL::LinkedFunctions>(); }
+_MTL_INLINE MTL::LinkedFunctions* MTL::LinkedFunctions::init()
+{
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<LinkedFunctions>();
+}
 
 _MTL_INLINE MTL::LinkedFunctions* MTL::LinkedFunctions::linkedFunctions()
 {
-    return Object::sendMessage<MTL::LinkedFunctions*>(_MTL_PRIVATE_CLS(MTLLinkedFunctions),
-                                                      _MTL_PRIVATE_SEL(linkedFunctions));
+    return sendMessage<LinkedFunctions*>(_MTL_PRIVATE_CLS(MTLLinkedFunctions), _MTL_PRIVATE_SEL(linkedFunctions));
 }
 
 _MTL_INLINE NS::Array* MTL::LinkedFunctions::privateFunctions() const
 {
-    return Object::sendMessage<NS::Array*>(this, _MTL_PRIVATE_SEL(privateFunctions));
+    return sendMessage<NS::Array*>(this, _MTL_PRIVATE_SEL(privateFunctions));
 }
 
-_MTL_INLINE void MTL::LinkedFunctions::setBinaryFunctions(const NS::Array* binaryFunctions)
+_MTL_INLINE void MTL::LinkedFunctions::setBinaryFunctions(const NS::Array* binaryFunctions) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setBinaryFunctions_), binaryFunctions);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setBinaryFunctions_), binaryFunctions);
 }
 
-_MTL_INLINE void MTL::LinkedFunctions::setFunctions(const NS::Array* functions)
+_MTL_INLINE void MTL::LinkedFunctions::setFunctions(const NS::Array* functions) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setFunctions_), functions);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setFunctions_), functions);
 }
 
-_MTL_INLINE void MTL::LinkedFunctions::setGroups(const NS::Dictionary* groups)
+_MTL_INLINE void MTL::LinkedFunctions::setGroups(const NS::Dictionary* groups) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setGroups_), groups);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setGroups_), groups);
 }
 
-_MTL_INLINE void MTL::LinkedFunctions::setPrivateFunctions(const NS::Array* privateFunctions)
+_MTL_INLINE void MTL::LinkedFunctions::setPrivateFunctions(const NS::Array* privateFunctions) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setPrivateFunctions_), privateFunctions);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setPrivateFunctions_), privateFunctions);
 }

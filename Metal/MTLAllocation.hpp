@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include "../Foundation/Foundation.hpp"
@@ -27,14 +28,15 @@
 
 namespace MTL
 {
+    /// @see https://developer.apple.com/documentation/metal/mtlallocation?language=objc
     class Allocation : public NS::Referencing<Allocation>
     {
     public:
-        NS::UInteger allocatedSize() const;
+        [[nodiscard]] NS::UInteger allocatedSize() const;
     };
 
 } // namespace MTL
 _MTL_INLINE NS::UInteger MTL::Allocation::allocatedSize() const
 {
-    return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(allocatedSize));
+    return sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(allocatedSize));
 }

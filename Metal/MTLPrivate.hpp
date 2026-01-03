@@ -18,11 +18,12 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+// NOLINTBEGIN(*-reserved-identifier)
 
-#include "MTLDefines.hpp"
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 #include <objc/runtime.h>
 
@@ -112,43 +113,27 @@ namespace MTL::Private
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-namespace MTL
+namespace MTL::Private::Class
 {
-    namespace Private
-    {
-        namespace Class
-        {
 
-        } // namespace Class
-    } // namespace Private
-} // namespace MTL
+}
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-namespace MTL
+namespace MTL::Private::Protocol
 {
-    namespace Private
-    {
-        namespace Protocol
-        {
 
-        } // namespace Protocol
-    } // namespace Private
-} // namespace MTL
+}
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-namespace MTL
+namespace MTL::Private::Selector
 {
-    namespace Private
-    {
-        namespace Selector
-        {
 
-            _MTL_PRIVATE_DEF_SEL(beginScope, "beginScope");
-            _MTL_PRIVATE_DEF_SEL(endScope, "endScope");
-        } // namespace Selector
-    } // namespace Private
-} // namespace MTL
+    _MTL_PRIVATE_DEF_SEL(beginScope, "beginScope");
+    _MTL_PRIVATE_DEF_SEL(endScope, "endScope");
+} // namespace MTL::Private::Selector
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// NOLINTEND(*-reserved-identifier)

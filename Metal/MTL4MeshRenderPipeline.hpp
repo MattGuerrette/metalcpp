@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include "../Foundation/Foundation.hpp"
@@ -35,415 +36,412 @@ namespace MTL4
     class RenderPipelineColorAttachmentDescriptorArray;
     class StaticLinkingDescriptor;
 
+    /// @see https://developer.apple.com/documentation/metal/mtl4meshrenderpipelinedescriptor
     class MeshRenderPipelineDescriptor : public NS::Copying<MeshRenderPipelineDescriptor, PipelineDescriptor>
     {
     public:
-        static MeshRenderPipelineDescriptor* alloc();
+        [[nodiscard]] static MeshRenderPipelineDescriptor* alloc();
 
-        AlphaToCoverageState alphaToCoverageState() const;
+        [[nodiscard]] AlphaToCoverageState alphaToCoverageState() const;
 
-        AlphaToOneState alphaToOneState() const;
+        [[nodiscard]] AlphaToOneState alphaToOneState() const;
 
-        LogicalToPhysicalColorAttachmentMappingState colorAttachmentMappingState() const;
+        [[nodiscard]] LogicalToPhysicalColorAttachmentMappingState colorAttachmentMappingState() const;
 
-        RenderPipelineColorAttachmentDescriptorArray* colorAttachments() const;
+        [[nodiscard]] RenderPipelineColorAttachmentDescriptorArray* colorAttachments() const;
 
-        FunctionDescriptor* fragmentFunctionDescriptor() const;
+        [[nodiscard]] FunctionDescriptor* fragmentFunctionDescriptor() const;
 
-        StaticLinkingDescriptor* fragmentStaticLinkingDescriptor() const;
+        [[nodiscard]] StaticLinkingDescriptor* fragmentStaticLinkingDescriptor() const;
 
-        MeshRenderPipelineDescriptor* init();
+        [[nodiscard]] MeshRenderPipelineDescriptor* init();
 
-        bool isRasterizationEnabled() const;
+        [[nodiscard]] bool isRasterizationEnabled() const;
 
-        NS::UInteger maxTotalThreadgroupsPerMeshGrid() const;
+        [[nodiscard]] NS::UInteger maxTotalThreadgroupsPerMeshGrid() const;
 
-        NS::UInteger maxTotalThreadsPerMeshThreadgroup() const;
+        [[nodiscard]] NS::UInteger maxTotalThreadsPerMeshThreadgroup() const;
 
-        NS::UInteger maxTotalThreadsPerObjectThreadgroup() const;
+        [[nodiscard]] NS::UInteger maxTotalThreadsPerObjectThreadgroup() const;
 
-        NS::UInteger maxVertexAmplificationCount() const;
+        [[nodiscard]] NS::UInteger maxVertexAmplificationCount() const;
 
-        FunctionDescriptor* meshFunctionDescriptor() const;
+        [[nodiscard]] FunctionDescriptor* meshFunctionDescriptor() const;
 
-        StaticLinkingDescriptor* meshStaticLinkingDescriptor() const;
+        [[nodiscard]] StaticLinkingDescriptor* meshStaticLinkingDescriptor() const;
 
-        bool meshThreadgroupSizeIsMultipleOfThreadExecutionWidth() const;
+        [[nodiscard]] bool meshThreadgroupSizeIsMultipleOfThreadExecutionWidth() const;
 
-        FunctionDescriptor* objectFunctionDescriptor() const;
+        [[nodiscard]] FunctionDescriptor* objectFunctionDescriptor() const;
 
-        StaticLinkingDescriptor* objectStaticLinkingDescriptor() const;
+        [[nodiscard]] StaticLinkingDescriptor* objectStaticLinkingDescriptor() const;
 
-        bool objectThreadgroupSizeIsMultipleOfThreadExecutionWidth() const;
+        [[nodiscard]] bool objectThreadgroupSizeIsMultipleOfThreadExecutionWidth() const;
 
-        NS::UInteger payloadMemoryLength() const;
+        [[nodiscard]] NS::UInteger payloadMemoryLength() const;
 
-        NS::UInteger rasterSampleCount() const;
+        [[nodiscard]] NS::UInteger rasterSampleCount() const;
 
-        [[deprecated("please use isRasterizationEnabled instead")]]
-        bool rasterizationEnabled() const;
+        [[deprecated("please use isRasterizationEnabled instead")]] [[nodiscard]] bool rasterizationEnabled() const;
 
-        MTL::Size requiredThreadsPerMeshThreadgroup() const;
+        [[nodiscard]] MTL::Size requiredThreadsPerMeshThreadgroup() const;
 
-        MTL::Size requiredThreadsPerObjectThreadgroup() const;
+        [[nodiscard]] MTL::Size requiredThreadsPerObjectThreadgroup() const;
 
-        void reset();
+        [[nodiscard]] bool supportFragmentBinaryLinking() const;
 
-        void setAlphaToCoverageState(MTL4::AlphaToCoverageState alphaToCoverageState);
+        [[nodiscard]] IndirectCommandBufferSupportState supportIndirectCommandBuffers() const;
 
-        void setAlphaToOneState(MTL4::AlphaToOneState alphaToOneState);
+        [[nodiscard]] bool supportMeshBinaryLinking() const;
+
+        [[nodiscard]] bool supportObjectBinaryLinking() const;
+
+        void reset() const;
+
+        void setAlphaToCoverageState(AlphaToCoverageState alphaToCoverageState) const;
+
+        void setAlphaToOneState(AlphaToOneState alphaToOneState) const;
 
         void setColorAttachmentMappingState(
-            MTL4::LogicalToPhysicalColorAttachmentMappingState colorAttachmentMappingState);
+            LogicalToPhysicalColorAttachmentMappingState colorAttachmentMappingState) const;
 
-        void setFragmentFunctionDescriptor(const MTL4::FunctionDescriptor* fragmentFunctionDescriptor);
+        void setFragmentFunctionDescriptor(const FunctionDescriptor* fragmentFunctionDescriptor) const;
 
-        void setFragmentStaticLinkingDescriptor(const MTL4::StaticLinkingDescriptor* fragmentStaticLinkingDescriptor);
+        void setFragmentStaticLinkingDescriptor(const StaticLinkingDescriptor* fragmentStaticLinkingDescriptor) const;
 
-        void setMaxTotalThreadgroupsPerMeshGrid(NS::UInteger maxTotalThreadgroupsPerMeshGrid);
+        void setMaxTotalThreadgroupsPerMeshGrid(NS::UInteger maxTotalThreadgroupsPerMeshGrid) const;
 
-        void setMaxTotalThreadsPerMeshThreadgroup(NS::UInteger maxTotalThreadsPerMeshThreadgroup);
+        void setMaxTotalThreadsPerMeshThreadgroup(NS::UInteger maxTotalThreadsPerMeshThreadgroup) const;
 
-        void setMaxTotalThreadsPerObjectThreadgroup(NS::UInteger maxTotalThreadsPerObjectThreadgroup);
+        void setMaxTotalThreadsPerObjectThreadgroup(NS::UInteger maxTotalThreadsPerObjectThreadgroup) const;
 
-        void setMaxVertexAmplificationCount(NS::UInteger maxVertexAmplificationCount);
+        void setMaxVertexAmplificationCount(NS::UInteger maxVertexAmplificationCount) const;
 
-        void setMeshFunctionDescriptor(const MTL4::FunctionDescriptor* meshFunctionDescriptor);
+        void setMeshFunctionDescriptor(const FunctionDescriptor* meshFunctionDescriptor) const;
 
-        void setMeshStaticLinkingDescriptor(const MTL4::StaticLinkingDescriptor* meshStaticLinkingDescriptor);
+        void setMeshStaticLinkingDescriptor(const StaticLinkingDescriptor* meshStaticLinkingDescriptor) const;
 
         void setMeshThreadgroupSizeIsMultipleOfThreadExecutionWidth(
-            bool meshThreadgroupSizeIsMultipleOfThreadExecutionWidth);
+            bool meshThreadgroupSizeIsMultipleOfThreadExecutionWidth) const;
 
-        void setObjectFunctionDescriptor(const MTL4::FunctionDescriptor* objectFunctionDescriptor);
+        void setObjectFunctionDescriptor(const FunctionDescriptor* objectFunctionDescriptor) const;
 
-        void setObjectStaticLinkingDescriptor(const MTL4::StaticLinkingDescriptor* objectStaticLinkingDescriptor);
+        void setObjectStaticLinkingDescriptor(const StaticLinkingDescriptor* objectStaticLinkingDescriptor) const;
 
         void setObjectThreadgroupSizeIsMultipleOfThreadExecutionWidth(
-            bool objectThreadgroupSizeIsMultipleOfThreadExecutionWidth);
+            bool objectThreadgroupSizeIsMultipleOfThreadExecutionWidth) const;
 
-        void setPayloadMemoryLength(NS::UInteger payloadMemoryLength);
+        void setPayloadMemoryLength(NS::UInteger payloadMemoryLength) const;
 
-        void setRasterSampleCount(NS::UInteger rasterSampleCount);
+        void setRasterSampleCount(NS::UInteger rasterSampleCount) const;
 
-        void setRasterizationEnabled(bool rasterizationEnabled);
+        void setRasterizationEnabled(bool rasterizationEnabled) const;
 
-        void setRequiredThreadsPerMeshThreadgroup(MTL::Size requiredThreadsPerMeshThreadgroup);
+        void setRequiredThreadsPerMeshThreadgroup(const MTL::Size& requiredThreadsPerMeshThreadgroup) const;
 
-        void setRequiredThreadsPerObjectThreadgroup(MTL::Size requiredThreadsPerObjectThreadgroup);
+        void setRequiredThreadsPerObjectThreadgroup(const MTL::Size& requiredThreadsPerObjectThreadgroup) const;
 
-        void setSupportFragmentBinaryLinking(bool supportFragmentBinaryLinking);
+        void setSupportFragmentBinaryLinking(bool supportFragmentBinaryLinking) const;
 
-        void setSupportIndirectCommandBuffers(MTL4::IndirectCommandBufferSupportState supportIndirectCommandBuffers);
+        void setSupportIndirectCommandBuffers(IndirectCommandBufferSupportState supportIndirectCommandBuffers) const;
 
-        void setSupportMeshBinaryLinking(bool supportMeshBinaryLinking);
+        void setSupportMeshBinaryLinking(bool supportMeshBinaryLinking) const;
 
-        void setSupportObjectBinaryLinking(bool supportObjectBinaryLinking);
-
-        bool supportFragmentBinaryLinking() const;
-
-        IndirectCommandBufferSupportState supportIndirectCommandBuffers() const;
-
-        bool supportMeshBinaryLinking() const;
-
-        bool supportObjectBinaryLinking() const;
+        void setSupportObjectBinaryLinking(bool supportObjectBinaryLinking) const;
     };
 
 } // namespace MTL4
 _MTL_INLINE MTL4::MeshRenderPipelineDescriptor* MTL4::MeshRenderPipelineDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL4::MeshRenderPipelineDescriptor>(_MTL_PRIVATE_CLS(MTL4MeshRenderPipelineDescriptor));
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<MeshRenderPipelineDescriptor>(_MTL_PRIVATE_CLS(MTL4MeshRenderPipelineDescriptor));
 }
 
 _MTL_INLINE MTL4::AlphaToCoverageState MTL4::MeshRenderPipelineDescriptor::alphaToCoverageState() const
 {
-    return Object::sendMessage<MTL4::AlphaToCoverageState>(this, _MTL_PRIVATE_SEL(alphaToCoverageState));
+    return sendMessage<AlphaToCoverageState>(this, _MTL_PRIVATE_SEL(alphaToCoverageState));
 }
 
 _MTL_INLINE MTL4::AlphaToOneState MTL4::MeshRenderPipelineDescriptor::alphaToOneState() const
 {
-    return Object::sendMessage<MTL4::AlphaToOneState>(this, _MTL_PRIVATE_SEL(alphaToOneState));
+    return sendMessage<AlphaToOneState>(this, _MTL_PRIVATE_SEL(alphaToOneState));
 }
 
 _MTL_INLINE MTL4::LogicalToPhysicalColorAttachmentMappingState
             MTL4::MeshRenderPipelineDescriptor::colorAttachmentMappingState() const
 {
-    return Object::sendMessage<MTL4::LogicalToPhysicalColorAttachmentMappingState>(
-        this, _MTL_PRIVATE_SEL(colorAttachmentMappingState));
+    return sendMessage<LogicalToPhysicalColorAttachmentMappingState>(this,
+                                                                     _MTL_PRIVATE_SEL(colorAttachmentMappingState));
 }
 
 _MTL_INLINE MTL4::RenderPipelineColorAttachmentDescriptorArray* MTL4::MeshRenderPipelineDescriptor::colorAttachments()
     const
 {
-    return Object::sendMessage<MTL4::RenderPipelineColorAttachmentDescriptorArray*>(this,
-                                                                                    _MTL_PRIVATE_SEL(colorAttachments));
+    return sendMessage<RenderPipelineColorAttachmentDescriptorArray*>(this, _MTL_PRIVATE_SEL(colorAttachments));
 }
 
 _MTL_INLINE MTL4::FunctionDescriptor* MTL4::MeshRenderPipelineDescriptor::fragmentFunctionDescriptor() const
 {
-    return Object::sendMessage<MTL4::FunctionDescriptor*>(this, _MTL_PRIVATE_SEL(fragmentFunctionDescriptor));
+    return sendMessage<FunctionDescriptor*>(this, _MTL_PRIVATE_SEL(fragmentFunctionDescriptor));
 }
 
 _MTL_INLINE MTL4::StaticLinkingDescriptor* MTL4::MeshRenderPipelineDescriptor::fragmentStaticLinkingDescriptor() const
 {
-    return Object::sendMessage<MTL4::StaticLinkingDescriptor*>(this, _MTL_PRIVATE_SEL(fragmentStaticLinkingDescriptor));
+    return sendMessage<StaticLinkingDescriptor*>(this, _MTL_PRIVATE_SEL(fragmentStaticLinkingDescriptor));
 }
 
 _MTL_INLINE MTL4::MeshRenderPipelineDescriptor* MTL4::MeshRenderPipelineDescriptor::init()
 {
-    return NS::Object::init<MTL4::MeshRenderPipelineDescriptor>();
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<MeshRenderPipelineDescriptor>();
 }
 
 _MTL_INLINE bool MTL4::MeshRenderPipelineDescriptor::isRasterizationEnabled() const
 {
-    return Object::sendMessage<bool>(this, _MTL_PRIVATE_SEL(isRasterizationEnabled));
+    return sendMessage<bool>(this, _MTL_PRIVATE_SEL(isRasterizationEnabled));
 }
 
 _MTL_INLINE NS::UInteger MTL4::MeshRenderPipelineDescriptor::maxTotalThreadgroupsPerMeshGrid() const
 {
-    return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(maxTotalThreadgroupsPerMeshGrid));
+    return sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(maxTotalThreadgroupsPerMeshGrid));
 }
 
 _MTL_INLINE NS::UInteger MTL4::MeshRenderPipelineDescriptor::maxTotalThreadsPerMeshThreadgroup() const
 {
-    return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(maxTotalThreadsPerMeshThreadgroup));
+    return sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(maxTotalThreadsPerMeshThreadgroup));
 }
 
 _MTL_INLINE NS::UInteger MTL4::MeshRenderPipelineDescriptor::maxTotalThreadsPerObjectThreadgroup() const
 {
-    return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(maxTotalThreadsPerObjectThreadgroup));
+    return sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(maxTotalThreadsPerObjectThreadgroup));
 }
 
 _MTL_INLINE NS::UInteger MTL4::MeshRenderPipelineDescriptor::maxVertexAmplificationCount() const
 {
-    return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(maxVertexAmplificationCount));
+    return sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(maxVertexAmplificationCount));
 }
 
 _MTL_INLINE MTL4::FunctionDescriptor* MTL4::MeshRenderPipelineDescriptor::meshFunctionDescriptor() const
 {
-    return Object::sendMessage<MTL4::FunctionDescriptor*>(this, _MTL_PRIVATE_SEL(meshFunctionDescriptor));
+    return sendMessage<FunctionDescriptor*>(this, _MTL_PRIVATE_SEL(meshFunctionDescriptor));
 }
 
 _MTL_INLINE MTL4::StaticLinkingDescriptor* MTL4::MeshRenderPipelineDescriptor::meshStaticLinkingDescriptor() const
 {
-    return Object::sendMessage<MTL4::StaticLinkingDescriptor*>(this, _MTL_PRIVATE_SEL(meshStaticLinkingDescriptor));
+    return sendMessage<StaticLinkingDescriptor*>(this, _MTL_PRIVATE_SEL(meshStaticLinkingDescriptor));
 }
 
 _MTL_INLINE bool MTL4::MeshRenderPipelineDescriptor::meshThreadgroupSizeIsMultipleOfThreadExecutionWidth() const
 {
-    return Object::sendMessage<bool>(this, _MTL_PRIVATE_SEL(meshThreadgroupSizeIsMultipleOfThreadExecutionWidth));
+    return sendMessage<bool>(this, _MTL_PRIVATE_SEL(meshThreadgroupSizeIsMultipleOfThreadExecutionWidth));
 }
 
 _MTL_INLINE MTL4::FunctionDescriptor* MTL4::MeshRenderPipelineDescriptor::objectFunctionDescriptor() const
 {
-    return Object::sendMessage<MTL4::FunctionDescriptor*>(this, _MTL_PRIVATE_SEL(objectFunctionDescriptor));
+    return sendMessage<FunctionDescriptor*>(this, _MTL_PRIVATE_SEL(objectFunctionDescriptor));
 }
 
 _MTL_INLINE MTL4::StaticLinkingDescriptor* MTL4::MeshRenderPipelineDescriptor::objectStaticLinkingDescriptor() const
 {
-    return Object::sendMessage<MTL4::StaticLinkingDescriptor*>(this, _MTL_PRIVATE_SEL(objectStaticLinkingDescriptor));
+    return sendMessage<StaticLinkingDescriptor*>(this, _MTL_PRIVATE_SEL(objectStaticLinkingDescriptor));
 }
 
 _MTL_INLINE bool MTL4::MeshRenderPipelineDescriptor::objectThreadgroupSizeIsMultipleOfThreadExecutionWidth() const
 {
-    return Object::sendMessage<bool>(this, _MTL_PRIVATE_SEL(objectThreadgroupSizeIsMultipleOfThreadExecutionWidth));
+    return sendMessage<bool>(this, _MTL_PRIVATE_SEL(objectThreadgroupSizeIsMultipleOfThreadExecutionWidth));
 }
 
 _MTL_INLINE NS::UInteger MTL4::MeshRenderPipelineDescriptor::payloadMemoryLength() const
 {
-    return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(payloadMemoryLength));
+    return sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(payloadMemoryLength));
 }
 
 _MTL_INLINE NS::UInteger MTL4::MeshRenderPipelineDescriptor::rasterSampleCount() const
 {
-    return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(rasterSampleCount));
+    return sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(rasterSampleCount));
 }
 
 _MTL_INLINE bool MTL4::MeshRenderPipelineDescriptor::rasterizationEnabled() const
 {
-    return Object::sendMessage<bool>(this, _MTL_PRIVATE_SEL(isRasterizationEnabled));
+    return sendMessage<bool>(this, _MTL_PRIVATE_SEL(isRasterizationEnabled));
 }
 
 _MTL_INLINE MTL::Size MTL4::MeshRenderPipelineDescriptor::requiredThreadsPerMeshThreadgroup() const
 {
-    return Object::sendMessage<MTL::Size>(this, _MTL_PRIVATE_SEL(requiredThreadsPerMeshThreadgroup));
+    return sendMessage<MTL::Size>(this, _MTL_PRIVATE_SEL(requiredThreadsPerMeshThreadgroup));
 }
 
 _MTL_INLINE MTL::Size MTL4::MeshRenderPipelineDescriptor::requiredThreadsPerObjectThreadgroup() const
 {
-    return Object::sendMessage<MTL::Size>(this, _MTL_PRIVATE_SEL(requiredThreadsPerObjectThreadgroup));
+    return sendMessage<MTL::Size>(this, _MTL_PRIVATE_SEL(requiredThreadsPerObjectThreadgroup));
 }
 
-_MTL_INLINE void MTL4::MeshRenderPipelineDescriptor::reset()
-{
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(reset));
-}
+_MTL_INLINE void MTL4::MeshRenderPipelineDescriptor::reset() const { sendMessage<void>(this, _MTL_PRIVATE_SEL(reset)); }
 
 _MTL_INLINE void MTL4::MeshRenderPipelineDescriptor::setAlphaToCoverageState(
-    MTL4::AlphaToCoverageState alphaToCoverageState)
+    const AlphaToCoverageState alphaToCoverageState) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setAlphaToCoverageState_), alphaToCoverageState);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setAlphaToCoverageState_), alphaToCoverageState);
 }
 
-_MTL_INLINE void MTL4::MeshRenderPipelineDescriptor::setAlphaToOneState(MTL4::AlphaToOneState alphaToOneState)
+_MTL_INLINE void MTL4::MeshRenderPipelineDescriptor::setAlphaToOneState(const AlphaToOneState alphaToOneState) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setAlphaToOneState_), alphaToOneState);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setAlphaToOneState_), alphaToOneState);
 }
 
 _MTL_INLINE void MTL4::MeshRenderPipelineDescriptor::setColorAttachmentMappingState(
-    MTL4::LogicalToPhysicalColorAttachmentMappingState colorAttachmentMappingState)
+    const LogicalToPhysicalColorAttachmentMappingState colorAttachmentMappingState) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setColorAttachmentMappingState_), colorAttachmentMappingState);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setColorAttachmentMappingState_), colorAttachmentMappingState);
 }
 
 _MTL_INLINE void MTL4::MeshRenderPipelineDescriptor::setFragmentFunctionDescriptor(
-    const MTL4::FunctionDescriptor* fragmentFunctionDescriptor)
+    const FunctionDescriptor* fragmentFunctionDescriptor) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setFragmentFunctionDescriptor_), fragmentFunctionDescriptor);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setFragmentFunctionDescriptor_), fragmentFunctionDescriptor);
 }
 
 _MTL_INLINE void MTL4::MeshRenderPipelineDescriptor::setFragmentStaticLinkingDescriptor(
-    const MTL4::StaticLinkingDescriptor* fragmentStaticLinkingDescriptor)
+    const StaticLinkingDescriptor* fragmentStaticLinkingDescriptor) const
 {
-    Object::sendMessage<void>(
-        this, _MTL_PRIVATE_SEL(setFragmentStaticLinkingDescriptor_), fragmentStaticLinkingDescriptor);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setFragmentStaticLinkingDescriptor_), fragmentStaticLinkingDescriptor);
 }
 
 _MTL_INLINE void MTL4::MeshRenderPipelineDescriptor::setMaxTotalThreadgroupsPerMeshGrid(
-    NS::UInteger maxTotalThreadgroupsPerMeshGrid)
+    const NS::UInteger maxTotalThreadgroupsPerMeshGrid) const
 {
-    Object::sendMessage<void>(
-        this, _MTL_PRIVATE_SEL(setMaxTotalThreadgroupsPerMeshGrid_), maxTotalThreadgroupsPerMeshGrid);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setMaxTotalThreadgroupsPerMeshGrid_), maxTotalThreadgroupsPerMeshGrid);
 }
 
 _MTL_INLINE void MTL4::MeshRenderPipelineDescriptor::setMaxTotalThreadsPerMeshThreadgroup(
-    NS::UInteger maxTotalThreadsPerMeshThreadgroup)
+    const NS::UInteger maxTotalThreadsPerMeshThreadgroup) const
 {
-    Object::sendMessage<void>(
-        this, _MTL_PRIVATE_SEL(setMaxTotalThreadsPerMeshThreadgroup_), maxTotalThreadsPerMeshThreadgroup);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setMaxTotalThreadsPerMeshThreadgroup_), maxTotalThreadsPerMeshThreadgroup);
 }
 
 _MTL_INLINE void MTL4::MeshRenderPipelineDescriptor::setMaxTotalThreadsPerObjectThreadgroup(
-    NS::UInteger maxTotalThreadsPerObjectThreadgroup)
+    const NS::UInteger maxTotalThreadsPerObjectThreadgroup) const
 {
-    Object::sendMessage<void>(
+    sendMessage<void>(
         this, _MTL_PRIVATE_SEL(setMaxTotalThreadsPerObjectThreadgroup_), maxTotalThreadsPerObjectThreadgroup);
 }
 
 _MTL_INLINE void MTL4::MeshRenderPipelineDescriptor::setMaxVertexAmplificationCount(
-    NS::UInteger maxVertexAmplificationCount)
+    const NS::UInteger maxVertexAmplificationCount) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMaxVertexAmplificationCount_), maxVertexAmplificationCount);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setMaxVertexAmplificationCount_), maxVertexAmplificationCount);
 }
 
 _MTL_INLINE void MTL4::MeshRenderPipelineDescriptor::setMeshFunctionDescriptor(
-    const MTL4::FunctionDescriptor* meshFunctionDescriptor)
+    const FunctionDescriptor* meshFunctionDescriptor) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMeshFunctionDescriptor_), meshFunctionDescriptor);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setMeshFunctionDescriptor_), meshFunctionDescriptor);
 }
 
 _MTL_INLINE void MTL4::MeshRenderPipelineDescriptor::setMeshStaticLinkingDescriptor(
-    const MTL4::StaticLinkingDescriptor* meshStaticLinkingDescriptor)
+    const StaticLinkingDescriptor* meshStaticLinkingDescriptor) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMeshStaticLinkingDescriptor_), meshStaticLinkingDescriptor);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setMeshStaticLinkingDescriptor_), meshStaticLinkingDescriptor);
 }
 
 _MTL_INLINE void MTL4::MeshRenderPipelineDescriptor::setMeshThreadgroupSizeIsMultipleOfThreadExecutionWidth(
-    bool meshThreadgroupSizeIsMultipleOfThreadExecutionWidth)
+    const bool meshThreadgroupSizeIsMultipleOfThreadExecutionWidth) const
 {
-    Object::sendMessage<void>(this,
-                              _MTL_PRIVATE_SEL(setMeshThreadgroupSizeIsMultipleOfThreadExecutionWidth_),
-                              meshThreadgroupSizeIsMultipleOfThreadExecutionWidth);
+    sendMessage<void>(this,
+                      _MTL_PRIVATE_SEL(setMeshThreadgroupSizeIsMultipleOfThreadExecutionWidth_),
+                      meshThreadgroupSizeIsMultipleOfThreadExecutionWidth);
 }
 
 _MTL_INLINE void MTL4::MeshRenderPipelineDescriptor::setObjectFunctionDescriptor(
-    const MTL4::FunctionDescriptor* objectFunctionDescriptor)
+    const FunctionDescriptor* objectFunctionDescriptor) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setObjectFunctionDescriptor_), objectFunctionDescriptor);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setObjectFunctionDescriptor_), objectFunctionDescriptor);
 }
 
 _MTL_INLINE void MTL4::MeshRenderPipelineDescriptor::setObjectStaticLinkingDescriptor(
-    const MTL4::StaticLinkingDescriptor* objectStaticLinkingDescriptor)
+    const StaticLinkingDescriptor* objectStaticLinkingDescriptor) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setObjectStaticLinkingDescriptor_), objectStaticLinkingDescriptor);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setObjectStaticLinkingDescriptor_), objectStaticLinkingDescriptor);
 }
 
 _MTL_INLINE void MTL4::MeshRenderPipelineDescriptor::setObjectThreadgroupSizeIsMultipleOfThreadExecutionWidth(
-    bool objectThreadgroupSizeIsMultipleOfThreadExecutionWidth)
+    const bool objectThreadgroupSizeIsMultipleOfThreadExecutionWidth) const
 {
-    Object::sendMessage<void>(this,
-                              _MTL_PRIVATE_SEL(setObjectThreadgroupSizeIsMultipleOfThreadExecutionWidth_),
-                              objectThreadgroupSizeIsMultipleOfThreadExecutionWidth);
+    sendMessage<void>(this,
+                      _MTL_PRIVATE_SEL(setObjectThreadgroupSizeIsMultipleOfThreadExecutionWidth_),
+                      objectThreadgroupSizeIsMultipleOfThreadExecutionWidth);
 }
 
-_MTL_INLINE void MTL4::MeshRenderPipelineDescriptor::setPayloadMemoryLength(NS::UInteger payloadMemoryLength)
+_MTL_INLINE void MTL4::MeshRenderPipelineDescriptor::setPayloadMemoryLength(
+    const NS::UInteger payloadMemoryLength) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setPayloadMemoryLength_), payloadMemoryLength);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setPayloadMemoryLength_), payloadMemoryLength);
 }
 
-_MTL_INLINE void MTL4::MeshRenderPipelineDescriptor::setRasterSampleCount(NS::UInteger rasterSampleCount)
+_MTL_INLINE void MTL4::MeshRenderPipelineDescriptor::setRasterSampleCount(const NS::UInteger rasterSampleCount) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setRasterSampleCount_), rasterSampleCount);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setRasterSampleCount_), rasterSampleCount);
 }
 
-_MTL_INLINE void MTL4::MeshRenderPipelineDescriptor::setRasterizationEnabled(bool rasterizationEnabled)
+_MTL_INLINE void MTL4::MeshRenderPipelineDescriptor::setRasterizationEnabled(const bool rasterizationEnabled) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setRasterizationEnabled_), rasterizationEnabled);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setRasterizationEnabled_), rasterizationEnabled);
 }
 
 _MTL_INLINE void MTL4::MeshRenderPipelineDescriptor::setRequiredThreadsPerMeshThreadgroup(
-    MTL::Size requiredThreadsPerMeshThreadgroup)
+    const MTL::Size& requiredThreadsPerMeshThreadgroup) const
 {
-    Object::sendMessage<void>(
-        this, _MTL_PRIVATE_SEL(setRequiredThreadsPerMeshThreadgroup_), requiredThreadsPerMeshThreadgroup);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setRequiredThreadsPerMeshThreadgroup_), requiredThreadsPerMeshThreadgroup);
 }
 
 _MTL_INLINE void MTL4::MeshRenderPipelineDescriptor::setRequiredThreadsPerObjectThreadgroup(
-    MTL::Size requiredThreadsPerObjectThreadgroup)
+    const MTL::Size& requiredThreadsPerObjectThreadgroup) const
 {
-    Object::sendMessage<void>(
+    sendMessage<void>(
         this, _MTL_PRIVATE_SEL(setRequiredThreadsPerObjectThreadgroup_), requiredThreadsPerObjectThreadgroup);
 }
 
-_MTL_INLINE void MTL4::MeshRenderPipelineDescriptor::setSupportFragmentBinaryLinking(bool supportFragmentBinaryLinking)
+_MTL_INLINE void MTL4::MeshRenderPipelineDescriptor::setSupportFragmentBinaryLinking(
+    const bool supportFragmentBinaryLinking) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setSupportFragmentBinaryLinking_), supportFragmentBinaryLinking);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setSupportFragmentBinaryLinking_), supportFragmentBinaryLinking);
 }
 
 _MTL_INLINE void MTL4::MeshRenderPipelineDescriptor::setSupportIndirectCommandBuffers(
-    MTL4::IndirectCommandBufferSupportState supportIndirectCommandBuffers)
+    const IndirectCommandBufferSupportState supportIndirectCommandBuffers) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setSupportIndirectCommandBuffers_), supportIndirectCommandBuffers);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setSupportIndirectCommandBuffers_), supportIndirectCommandBuffers);
 }
 
-_MTL_INLINE void MTL4::MeshRenderPipelineDescriptor::setSupportMeshBinaryLinking(bool supportMeshBinaryLinking)
+_MTL_INLINE void MTL4::MeshRenderPipelineDescriptor::setSupportMeshBinaryLinking(
+    const bool supportMeshBinaryLinking) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setSupportMeshBinaryLinking_), supportMeshBinaryLinking);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setSupportMeshBinaryLinking_), supportMeshBinaryLinking);
 }
 
-_MTL_INLINE void MTL4::MeshRenderPipelineDescriptor::setSupportObjectBinaryLinking(bool supportObjectBinaryLinking)
+_MTL_INLINE void MTL4::MeshRenderPipelineDescriptor::setSupportObjectBinaryLinking(
+    const bool supportObjectBinaryLinking) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setSupportObjectBinaryLinking_), supportObjectBinaryLinking);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setSupportObjectBinaryLinking_), supportObjectBinaryLinking);
 }
 
 _MTL_INLINE bool MTL4::MeshRenderPipelineDescriptor::supportFragmentBinaryLinking() const
 {
-    return Object::sendMessageSafe<bool>(this, _MTL_PRIVATE_SEL(supportFragmentBinaryLinking));
+    return sendMessageSafe<bool>(this, _MTL_PRIVATE_SEL(supportFragmentBinaryLinking));
 }
 
 _MTL_INLINE MTL4::IndirectCommandBufferSupportState MTL4::MeshRenderPipelineDescriptor::supportIndirectCommandBuffers()
     const
 {
-    return Object::sendMessage<MTL4::IndirectCommandBufferSupportState>(
-        this, _MTL_PRIVATE_SEL(supportIndirectCommandBuffers));
+    return sendMessage<IndirectCommandBufferSupportState>(this, _MTL_PRIVATE_SEL(supportIndirectCommandBuffers));
 }
 
 _MTL_INLINE bool MTL4::MeshRenderPipelineDescriptor::supportMeshBinaryLinking() const
 {
-    return Object::sendMessageSafe<bool>(this, _MTL_PRIVATE_SEL(supportMeshBinaryLinking));
+    return sendMessageSafe<bool>(this, _MTL_PRIVATE_SEL(supportMeshBinaryLinking));
 }
 
 _MTL_INLINE bool MTL4::MeshRenderPipelineDescriptor::supportObjectBinaryLinking() const
 {
-    return Object::sendMessageSafe<bool>(this, _MTL_PRIVATE_SEL(supportObjectBinaryLinking));
+    return sendMessageSafe<bool>(this, _MTL_PRIVATE_SEL(supportObjectBinaryLinking));
 }

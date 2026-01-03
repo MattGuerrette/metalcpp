@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include "../Foundation/Foundation.hpp"
@@ -31,35 +32,36 @@ namespace MTL
 {
     class Device;
 
+    /// @see https://developer.apple.com/documentation/metal/mtlfunctionhandle?language=objc
     class FunctionHandle : public NS::Referencing<FunctionHandle>
     {
     public:
-        Device* device() const;
+        [[nodiscard]] Device* device() const;
 
-        FunctionType functionType() const;
+        [[nodiscard]] FunctionType functionType() const;
 
-        ResourceID gpuResourceID() const;
+        [[nodiscard]] ResourceID gpuResourceID() const;
 
-        NS::String* name() const;
+        [[nodiscard]] NS::String* name() const;
     };
 
 } // namespace MTL
 _MTL_INLINE MTL::Device* MTL::FunctionHandle::device() const
 {
-    return Object::sendMessage<MTL::Device*>(this, _MTL_PRIVATE_SEL(device));
+    return sendMessage<Device*>(this, _MTL_PRIVATE_SEL(device));
 }
 
 _MTL_INLINE MTL::FunctionType MTL::FunctionHandle::functionType() const
 {
-    return Object::sendMessage<MTL::FunctionType>(this, _MTL_PRIVATE_SEL(functionType));
+    return sendMessage<FunctionType>(this, _MTL_PRIVATE_SEL(functionType));
 }
 
 _MTL_INLINE MTL::ResourceID MTL::FunctionHandle::gpuResourceID() const
 {
-    return Object::sendMessage<MTL::ResourceID>(this, _MTL_PRIVATE_SEL(gpuResourceID));
+    return sendMessage<ResourceID>(this, _MTL_PRIVATE_SEL(gpuResourceID));
 }
 
 _MTL_INLINE NS::String* MTL::FunctionHandle::name() const
 {
-    return Object::sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(name));
+    return sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(name));
 }

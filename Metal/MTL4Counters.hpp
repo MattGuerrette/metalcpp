@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include <cstdint>
@@ -25,8 +26,6 @@
 #include "MTLDefines.hpp"
 #include "MTLHeaderBridge.hpp"
 #include "MTLPrivate.hpp"
-
-#include <cstdint>
 
 namespace MTL4
 {
@@ -46,93 +45,100 @@ namespace MTL4
         uint64_t timestamp;
     } _MTL_PACKED;
 
+    /// @see https://developer.apple.com/documentation/metal/mtl4counterheapdescriptor
     class CounterHeapDescriptor : public NS::Copying<CounterHeapDescriptor>
     {
     public:
-        static CounterHeapDescriptor* alloc();
+        [[nodiscard]] static CounterHeapDescriptor* alloc();
 
-        NS::UInteger count() const;
+        [[nodiscard]] NS::UInteger count() const;
 
-        CounterHeapDescriptor* init();
+        [[nodiscard]] CounterHeapDescriptor* init();
 
-        void setCount(NS::UInteger count);
+        [[nodiscard]] CounterHeapType type() const;
 
-        void            setType(MTL4::CounterHeapType type);
-        CounterHeapType type() const;
+        void setCount(NS::UInteger count) const;
+
+        void setType(CounterHeapType type) const;
     };
+
+    /// @see https://developer.apple.com/documentation/metal/mtl4counterheap
     class CounterHeap : public NS::Referencing<CounterHeap>
     {
     public:
-        NS::UInteger count() const;
-        void         invalidateCounterRange(NS::Range range);
+        [[nodiscard]] NS::UInteger count() const;
 
-        NS::String* label() const;
+        [[nodiscard]] NS::String* label() const;
 
-        NS::Data* resolveCounterRange(NS::Range range);
+        [[nodiscard]] NS::Data* resolveCounterRange(NS::Range range) const;
 
-        void setLabel(const NS::String* label);
+        [[nodiscard]] CounterHeapType type() const;
 
-        CounterHeapType type() const;
+        void setLabel(const NS::String* label) const;
+
+        void invalidateCounterRange(NS::Range range) const;
     };
 
 } // namespace MTL4
 
 _MTL_INLINE MTL4::CounterHeapDescriptor* MTL4::CounterHeapDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL4::CounterHeapDescriptor>(_MTL_PRIVATE_CLS(MTL4CounterHeapDescriptor));
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<CounterHeapDescriptor>(_MTL_PRIVATE_CLS(MTL4CounterHeapDescriptor));
 }
 
 _MTL_INLINE NS::UInteger MTL4::CounterHeapDescriptor::count() const
 {
-    return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(count));
+    return sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(count));
 }
 
 _MTL_INLINE MTL4::CounterHeapDescriptor* MTL4::CounterHeapDescriptor::init()
 {
-    return NS::Object::init<MTL4::CounterHeapDescriptor>();
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<CounterHeapDescriptor>();
 }
 
-_MTL_INLINE void MTL4::CounterHeapDescriptor::setCount(NS::UInteger count)
+_MTL_INLINE void MTL4::CounterHeapDescriptor::setCount(const NS::UInteger count) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setCount_), count);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setCount_), count);
 }
 
-_MTL_INLINE void MTL4::CounterHeapDescriptor::setType(MTL4::CounterHeapType type)
+_MTL_INLINE void MTL4::CounterHeapDescriptor::setType(const CounterHeapType type) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setType_), type);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setType_), type);
 }
 
 _MTL_INLINE MTL4::CounterHeapType MTL4::CounterHeapDescriptor::type() const
 {
-    return Object::sendMessage<MTL4::CounterHeapType>(this, _MTL_PRIVATE_SEL(type));
+    return sendMessage<CounterHeapType>(this, _MTL_PRIVATE_SEL(type));
 }
 
 _MTL_INLINE NS::UInteger MTL4::CounterHeap::count() const
 {
-    return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(count));
+    return sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(count));
 }
 
-_MTL_INLINE void MTL4::CounterHeap::invalidateCounterRange(NS::Range range)
+_MTL_INLINE void MTL4::CounterHeap::invalidateCounterRange(const NS::Range range) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(invalidateCounterRange_), range);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(invalidateCounterRange_), range);
 }
 
 _MTL_INLINE NS::String* MTL4::CounterHeap::label() const
 {
-    return Object::sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
+    return sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
 }
 
-_MTL_INLINE NS::Data* MTL4::CounterHeap::resolveCounterRange(NS::Range range)
+_MTL_INLINE NS::Data* MTL4::CounterHeap::resolveCounterRange(const NS::Range range) const
 {
-    return Object::sendMessage<NS::Data*>(this, _MTL_PRIVATE_SEL(resolveCounterRange_), range);
+    return sendMessage<NS::Data*>(this, _MTL_PRIVATE_SEL(resolveCounterRange_), range);
 }
 
-_MTL_INLINE void MTL4::CounterHeap::setLabel(const NS::String* label)
+_MTL_INLINE void MTL4::CounterHeap::setLabel(const NS::String* label) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setLabel_), label);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setLabel_), label);
 }
 
 _MTL_INLINE MTL4::CounterHeapType MTL4::CounterHeap::type() const
 {
-    return Object::sendMessage<MTL4::CounterHeapType>(this, _MTL_PRIVATE_SEL(type));
+    return sendMessage<CounterHeapType>(this, _MTL_PRIVATE_SEL(type));
 }

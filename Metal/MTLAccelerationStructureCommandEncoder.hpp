@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include "../Foundation/Foundation.hpp"
@@ -41,142 +42,153 @@ namespace MTL
     class Heap;
     class Resource;
 
+    /// @see https://developer.apple.com/documentation/metal/mtlaccelerationstructurecommandencoder
     class AccelerationStructureCommandEncoder
         : public NS::Referencing<AccelerationStructureCommandEncoder, CommandEncoder>
     {
     public:
-        void buildAccelerationStructure(const MTL::AccelerationStructure*           accelerationStructure,
-                                        const MTL::AccelerationStructureDescriptor* descriptor,
-                                        const MTL::Buffer*                          scratchBuffer,
-                                        NS::UInteger                                scratchBufferOffset);
+        void buildAccelerationStructure(const AccelerationStructure*           accelerationStructure,
+                                        const AccelerationStructureDescriptor* descriptor,
+                                        const Buffer*                          scratchBuffer,
+                                        NS::UInteger                           scratchBufferOffset) const;
 
-        void copyAccelerationStructure(const MTL::AccelerationStructure* sourceAccelerationStructure,
-                                       const MTL::AccelerationStructure* destinationAccelerationStructure);
+        void copyAccelerationStructure(const AccelerationStructure* sourceAccelerationStructure,
+                                       const AccelerationStructure* destinationAccelerationStructure) const;
 
-        void copyAndCompactAccelerationStructure(const MTL::AccelerationStructure* sourceAccelerationStructure,
-                                                 const MTL::AccelerationStructure* destinationAccelerationStructure);
+        void copyAndCompactAccelerationStructure(const AccelerationStructure* sourceAccelerationStructure,
+                                                 const AccelerationStructure* destinationAccelerationStructure) const;
 
-        void refitAccelerationStructure(const MTL::AccelerationStructure*           sourceAccelerationStructure,
-                                        const MTL::AccelerationStructureDescriptor* descriptor,
-                                        const MTL::AccelerationStructure*           destinationAccelerationStructure,
-                                        const MTL::Buffer*                          scratchBuffer,
-                                        NS::UInteger                                scratchBufferOffset);
-        void refitAccelerationStructure(const MTL::AccelerationStructure*           sourceAccelerationStructure,
-                                        const MTL::AccelerationStructureDescriptor* descriptor,
-                                        const MTL::AccelerationStructure*           destinationAccelerationStructure,
-                                        const MTL::Buffer*                          scratchBuffer,
-                                        NS::UInteger                                scratchBufferOffset,
-                                        MTL::AccelerationStructureRefitOptions      options);
+        void refitAccelerationStructure(const AccelerationStructure*           sourceAccelerationStructure,
+                                        const AccelerationStructureDescriptor* descriptor,
+                                        const AccelerationStructure*           destinationAccelerationStructure,
+                                        const Buffer*                          scratchBuffer,
+                                        NS::UInteger                           scratchBufferOffset) const;
+        void refitAccelerationStructure(const AccelerationStructure*           sourceAccelerationStructure,
+                                        const AccelerationStructureDescriptor* descriptor,
+                                        const AccelerationStructure*           destinationAccelerationStructure,
+                                        const Buffer*                          scratchBuffer,
+                                        NS::UInteger                           scratchBufferOffset,
+                                        AccelerationStructureRefitOptions      options) const;
 
-        void sampleCountersInBuffer(const MTL::CounterSampleBuffer* sampleBuffer,
-                                    NS::UInteger                    sampleIndex,
-                                    bool                            barrier);
+        void sampleCountersInBuffer(const CounterSampleBuffer* sampleBuffer,
+                                    NS::UInteger               sampleIndex,
+                                    bool                       barrier) const;
 
-        void updateFence(const MTL::Fence* fence);
+        void updateFence(const Fence* fence) const;
 
-        void useHeap(const MTL::Heap* heap);
-        void useHeaps(const MTL::Heap* const heaps[], NS::UInteger count);
+        void useHeap(const Heap* heap) const;
+        void useHeaps(const Heap* const heaps[], NS::UInteger count) const;
 
-        void useResource(const MTL::Resource* resource, MTL::ResourceUsage usage);
-        void useResources(const MTL::Resource* const resources[], NS::UInteger count, MTL::ResourceUsage usage);
+        void useResource(const Resource* resource, ResourceUsage usage) const;
+        void useResources(const Resource* const resources[], NS::UInteger count, ResourceUsage usage) const;
 
-        void waitForFence(const MTL::Fence* fence);
+        void waitForFence(const Fence* fence) const;
 
-        void writeCompactedAccelerationStructureSize(const MTL::AccelerationStructure* accelerationStructure,
-                                                     const MTL::Buffer*                buffer,
-                                                     NS::UInteger                      offset);
-        void writeCompactedAccelerationStructureSize(const MTL::AccelerationStructure* accelerationStructure,
-                                                     const MTL::Buffer*                buffer,
-                                                     NS::UInteger                      offset,
-                                                     MTL::DataType                     sizeDataType);
+        void writeCompactedAccelerationStructureSize(const AccelerationStructure* accelerationStructure,
+                                                     const Buffer*                buffer,
+                                                     NS::UInteger                 offset) const;
+        void writeCompactedAccelerationStructureSize(const AccelerationStructure* accelerationStructure,
+                                                     const Buffer*                buffer,
+                                                     NS::UInteger                 offset,
+                                                     DataType                     sizeDataType) const;
     };
+
+    /// @see
+    /// https://developer.apple.com/documentation/metal/mtlaccelerationstructurepasssamplebufferattachmentdescriptor
     class AccelerationStructurePassSampleBufferAttachmentDescriptor
         : public NS::Copying<AccelerationStructurePassSampleBufferAttachmentDescriptor>
     {
     public:
-        static AccelerationStructurePassSampleBufferAttachmentDescriptor* alloc();
+        [[nodiscard]] static AccelerationStructurePassSampleBufferAttachmentDescriptor* alloc();
 
-        NS::UInteger endOfEncoderSampleIndex() const;
+        [[nodiscard]] NS::UInteger endOfEncoderSampleIndex() const;
 
-        AccelerationStructurePassSampleBufferAttachmentDescriptor* init();
+        [[nodiscard]] AccelerationStructurePassSampleBufferAttachmentDescriptor* init();
 
-        CounterSampleBuffer* sampleBuffer() const;
+        [[nodiscard]] CounterSampleBuffer* sampleBuffer() const;
 
-        void setEndOfEncoderSampleIndex(NS::UInteger endOfEncoderSampleIndex);
+        [[nodiscard]] NS::UInteger startOfEncoderSampleIndex() const;
 
-        void setSampleBuffer(const MTL::CounterSampleBuffer* sampleBuffer);
+        void setEndOfEncoderSampleIndex(NS::UInteger endOfEncoderSampleIndex) const;
 
-        void         setStartOfEncoderSampleIndex(NS::UInteger startOfEncoderSampleIndex);
-        NS::UInteger startOfEncoderSampleIndex() const;
+        void setSampleBuffer(const CounterSampleBuffer* sampleBuffer) const;
+
+        void setStartOfEncoderSampleIndex(NS::UInteger startOfEncoderSampleIndex) const;
     };
+
+    /// @see
+    /// https://developer.apple.com/documentation/metal/mtlaccelerationstructurepasssamplebufferattachmentdescriptorarray
     class AccelerationStructurePassSampleBufferAttachmentDescriptorArray
         : public NS::Referencing<AccelerationStructurePassSampleBufferAttachmentDescriptorArray>
     {
     public:
-        static AccelerationStructurePassSampleBufferAttachmentDescriptorArray* alloc();
+        [[nodiscard]] static AccelerationStructurePassSampleBufferAttachmentDescriptorArray* alloc();
 
-        AccelerationStructurePassSampleBufferAttachmentDescriptorArray* init();
+        [[nodiscard]] AccelerationStructurePassSampleBufferAttachmentDescriptorArray* init();
 
-        AccelerationStructurePassSampleBufferAttachmentDescriptor* object(NS::UInteger attachmentIndex);
-        void setObject(const MTL::AccelerationStructurePassSampleBufferAttachmentDescriptor* attachment,
-                       NS::UInteger                                                          attachmentIndex);
+        [[nodiscard]] AccelerationStructurePassSampleBufferAttachmentDescriptor* object(
+            NS::UInteger attachmentIndex) const;
+
+        void setObject(const AccelerationStructurePassSampleBufferAttachmentDescriptor* attachment,
+                       NS::UInteger                                                     attachmentIndex) const;
     };
+
+    /// @see https://developer.apple.com/documentation/metal/mtlaccelerationstructurepassdescriptor
     class AccelerationStructurePassDescriptor : public NS::Copying<AccelerationStructurePassDescriptor>
     {
     public:
-        static AccelerationStructurePassDescriptor* accelerationStructurePassDescriptor();
+        [[nodiscard]] static AccelerationStructurePassDescriptor* accelerationStructurePassDescriptor();
 
-        static AccelerationStructurePassDescriptor* alloc();
+        [[nodiscard]] static AccelerationStructurePassDescriptor* alloc();
 
-        AccelerationStructurePassDescriptor* init();
+        [[nodiscard]] AccelerationStructurePassDescriptor* init();
 
-        AccelerationStructurePassSampleBufferAttachmentDescriptorArray* sampleBufferAttachments() const;
+        [[nodiscard]] AccelerationStructurePassSampleBufferAttachmentDescriptorArray* sampleBufferAttachments() const;
     };
 
 } // namespace MTL
 _MTL_INLINE void MTL::AccelerationStructureCommandEncoder::buildAccelerationStructure(
-    const MTL::AccelerationStructure*           accelerationStructure,
-    const MTL::AccelerationStructureDescriptor* descriptor,
-    const MTL::Buffer*                          scratchBuffer,
-    NS::UInteger                                scratchBufferOffset)
+    const AccelerationStructure*           accelerationStructure,
+    const AccelerationStructureDescriptor* descriptor,
+    const Buffer*                          scratchBuffer,
+    const NS::UInteger                     scratchBufferOffset) const
 {
-    Object::sendMessage<void>(
-        this,
-        _MTL_PRIVATE_SEL(buildAccelerationStructure_descriptor_scratchBuffer_scratchBufferOffset_),
-        accelerationStructure,
-        descriptor,
-        scratchBuffer,
-        scratchBufferOffset);
+    sendMessage<void>(this,
+                      _MTL_PRIVATE_SEL(buildAccelerationStructure_descriptor_scratchBuffer_scratchBufferOffset_),
+                      accelerationStructure,
+                      descriptor,
+                      scratchBuffer,
+                      scratchBufferOffset);
 }
 
 _MTL_INLINE void MTL::AccelerationStructureCommandEncoder::copyAccelerationStructure(
-    const MTL::AccelerationStructure* sourceAccelerationStructure,
-    const MTL::AccelerationStructure* destinationAccelerationStructure)
+    const AccelerationStructure* sourceAccelerationStructure,
+    const AccelerationStructure* destinationAccelerationStructure) const
 {
-    Object::sendMessage<void>(this,
-                              _MTL_PRIVATE_SEL(copyAccelerationStructure_toAccelerationStructure_),
-                              sourceAccelerationStructure,
-                              destinationAccelerationStructure);
+    sendMessage<void>(this,
+                      _MTL_PRIVATE_SEL(copyAccelerationStructure_toAccelerationStructure_),
+                      sourceAccelerationStructure,
+                      destinationAccelerationStructure);
 }
 
 _MTL_INLINE void MTL::AccelerationStructureCommandEncoder::copyAndCompactAccelerationStructure(
-    const MTL::AccelerationStructure* sourceAccelerationStructure,
-    const MTL::AccelerationStructure* destinationAccelerationStructure)
+    const AccelerationStructure* sourceAccelerationStructure,
+    const AccelerationStructure* destinationAccelerationStructure) const
 {
-    Object::sendMessage<void>(this,
-                              _MTL_PRIVATE_SEL(copyAndCompactAccelerationStructure_toAccelerationStructure_),
-                              sourceAccelerationStructure,
-                              destinationAccelerationStructure);
+    sendMessage<void>(this,
+                      _MTL_PRIVATE_SEL(copyAndCompactAccelerationStructure_toAccelerationStructure_),
+                      sourceAccelerationStructure,
+                      destinationAccelerationStructure);
 }
 
 _MTL_INLINE void MTL::AccelerationStructureCommandEncoder::refitAccelerationStructure(
-    const MTL::AccelerationStructure*           sourceAccelerationStructure,
-    const MTL::AccelerationStructureDescriptor* descriptor,
-    const MTL::AccelerationStructure*           destinationAccelerationStructure,
-    const MTL::Buffer*                          scratchBuffer,
-    NS::UInteger                                scratchBufferOffset)
+    const AccelerationStructure*           sourceAccelerationStructure,
+    const AccelerationStructureDescriptor* descriptor,
+    const AccelerationStructure*           destinationAccelerationStructure,
+    const Buffer*                          scratchBuffer,
+    const NS::UInteger                     scratchBufferOffset) const
 {
-    Object::sendMessage<void>(
+    sendMessage<void>(
         this,
         _MTL_PRIVATE_SEL(refitAccelerationStructure_descriptor_destination_scratchBuffer_scratchBufferOffset_),
         sourceAccelerationStructure,
@@ -187,14 +199,14 @@ _MTL_INLINE void MTL::AccelerationStructureCommandEncoder::refitAccelerationStru
 }
 
 _MTL_INLINE void MTL::AccelerationStructureCommandEncoder::refitAccelerationStructure(
-    const MTL::AccelerationStructure*           sourceAccelerationStructure,
-    const MTL::AccelerationStructureDescriptor* descriptor,
-    const MTL::AccelerationStructure*           destinationAccelerationStructure,
-    const MTL::Buffer*                          scratchBuffer,
-    NS::UInteger                                scratchBufferOffset,
-    MTL::AccelerationStructureRefitOptions      options)
+    const AccelerationStructure*            sourceAccelerationStructure,
+    const AccelerationStructureDescriptor*  descriptor,
+    const AccelerationStructure*            destinationAccelerationStructure,
+    const Buffer*                           scratchBuffer,
+    const NS::UInteger                      scratchBufferOffset,
+    const AccelerationStructureRefitOptions options) const
 {
-    Object::sendMessage<void>(
+    sendMessage<void>(
         this,
         _MTL_PRIVATE_SEL(refitAccelerationStructure_descriptor_destination_scratchBuffer_scratchBufferOffset_options_),
         sourceAccelerationStructure,
@@ -206,165 +218,172 @@ _MTL_INLINE void MTL::AccelerationStructureCommandEncoder::refitAccelerationStru
 }
 
 _MTL_INLINE void MTL::AccelerationStructureCommandEncoder::sampleCountersInBuffer(
-    const MTL::CounterSampleBuffer* sampleBuffer, NS::UInteger sampleIndex, bool barrier)
+    const CounterSampleBuffer* sampleBuffer, const NS::UInteger sampleIndex, const bool barrier) const
 {
-    Object::sendMessage<void>(
+    sendMessage<void>(
         this, _MTL_PRIVATE_SEL(sampleCountersInBuffer_atSampleIndex_withBarrier_), sampleBuffer, sampleIndex, barrier);
 }
 
-_MTL_INLINE void MTL::AccelerationStructureCommandEncoder::updateFence(const MTL::Fence* fence)
+_MTL_INLINE void MTL::AccelerationStructureCommandEncoder::updateFence(const Fence* fence) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(updateFence_), fence);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(updateFence_), fence);
 }
 
-_MTL_INLINE void MTL::AccelerationStructureCommandEncoder::useHeap(const MTL::Heap* heap)
+_MTL_INLINE void MTL::AccelerationStructureCommandEncoder::useHeap(const Heap* heap) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(useHeap_), heap);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(useHeap_), heap);
 }
 
-_MTL_INLINE void MTL::AccelerationStructureCommandEncoder::useHeaps(const MTL::Heap* const heaps[], NS::UInteger count)
+_MTL_INLINE void MTL::AccelerationStructureCommandEncoder::useHeaps(const Heap* const  heaps[],
+                                                                    const NS::UInteger count) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(useHeaps_count_), heaps, count);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(useHeaps_count_), heaps, count);
 }
 
-_MTL_INLINE void MTL::AccelerationStructureCommandEncoder::useResource(const MTL::Resource* resource,
-                                                                       MTL::ResourceUsage   usage)
+_MTL_INLINE void MTL::AccelerationStructureCommandEncoder::useResource(const Resource*     resource,
+                                                                       const ResourceUsage usage) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(useResource_usage_), resource, usage);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(useResource_usage_), resource, usage);
 }
 
-_MTL_INLINE void MTL::AccelerationStructureCommandEncoder::useResources(const MTL::Resource* const resources[],
-                                                                        NS::UInteger               count,
-                                                                        MTL::ResourceUsage         usage)
+_MTL_INLINE void MTL::AccelerationStructureCommandEncoder::useResources(const Resource* const resources[],
+                                                                        const NS::UInteger    count,
+                                                                        const ResourceUsage   usage) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(useResources_count_usage_), resources, count, usage);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(useResources_count_usage_), resources, count, usage);
 }
 
-_MTL_INLINE void MTL::AccelerationStructureCommandEncoder::waitForFence(const MTL::Fence* fence)
+_MTL_INLINE void MTL::AccelerationStructureCommandEncoder::waitForFence(const Fence* fence) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(waitForFence_), fence);
-}
-
-_MTL_INLINE void MTL::AccelerationStructureCommandEncoder::writeCompactedAccelerationStructureSize(
-    const MTL::AccelerationStructure* accelerationStructure, const MTL::Buffer* buffer, NS::UInteger offset)
-{
-    Object::sendMessage<void>(this,
-                              _MTL_PRIVATE_SEL(writeCompactedAccelerationStructureSize_toBuffer_offset_),
-                              accelerationStructure,
-                              buffer,
-                              offset);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(waitForFence_), fence);
 }
 
 _MTL_INLINE void MTL::AccelerationStructureCommandEncoder::writeCompactedAccelerationStructureSize(
-    const MTL::AccelerationStructure* accelerationStructure,
-    const MTL::Buffer*                buffer,
-    NS::UInteger                      offset,
-    MTL::DataType                     sizeDataType)
+    const AccelerationStructure* accelerationStructure, const Buffer* buffer, const NS::UInteger offset) const
 {
-    Object::sendMessage<void>(this,
-                              _MTL_PRIVATE_SEL(writeCompactedAccelerationStructureSize_toBuffer_offset_sizeDataType_),
-                              accelerationStructure,
-                              buffer,
-                              offset,
-                              sizeDataType);
+    sendMessage<void>(this,
+                      _MTL_PRIVATE_SEL(writeCompactedAccelerationStructureSize_toBuffer_offset_),
+                      accelerationStructure,
+                      buffer,
+                      offset);
+}
+
+_MTL_INLINE void MTL::AccelerationStructureCommandEncoder::writeCompactedAccelerationStructureSize(
+    const AccelerationStructure* accelerationStructure,
+    const Buffer*                buffer,
+    const NS::UInteger           offset,
+    const DataType               sizeDataType) const
+{
+    sendMessage<void>(this,
+                      _MTL_PRIVATE_SEL(writeCompactedAccelerationStructureSize_toBuffer_offset_sizeDataType_),
+                      accelerationStructure,
+                      buffer,
+                      offset,
+                      sizeDataType);
 }
 
 _MTL_INLINE MTL::AccelerationStructurePassSampleBufferAttachmentDescriptor*
             MTL::AccelerationStructurePassSampleBufferAttachmentDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL::AccelerationStructurePassSampleBufferAttachmentDescriptor>(
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<AccelerationStructurePassSampleBufferAttachmentDescriptor>(
         _MTL_PRIVATE_CLS(MTLAccelerationStructurePassSampleBufferAttachmentDescriptor));
 }
 
 _MTL_INLINE NS::UInteger MTL::AccelerationStructurePassSampleBufferAttachmentDescriptor::endOfEncoderSampleIndex() const
 {
-    return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(endOfEncoderSampleIndex));
+    return sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(endOfEncoderSampleIndex));
 }
 
 _MTL_INLINE MTL::AccelerationStructurePassSampleBufferAttachmentDescriptor*
             MTL::AccelerationStructurePassSampleBufferAttachmentDescriptor::init()
 {
-    return NS::Object::init<MTL::AccelerationStructurePassSampleBufferAttachmentDescriptor>();
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<AccelerationStructurePassSampleBufferAttachmentDescriptor>();
 }
 
 _MTL_INLINE MTL::CounterSampleBuffer* MTL::AccelerationStructurePassSampleBufferAttachmentDescriptor::sampleBuffer()
     const
 {
-    return Object::sendMessage<MTL::CounterSampleBuffer*>(this, _MTL_PRIVATE_SEL(sampleBuffer));
+    return sendMessage<CounterSampleBuffer*>(this, _MTL_PRIVATE_SEL(sampleBuffer));
 }
 
 _MTL_INLINE void MTL::AccelerationStructurePassSampleBufferAttachmentDescriptor::setEndOfEncoderSampleIndex(
-    NS::UInteger endOfEncoderSampleIndex)
+    const NS::UInteger endOfEncoderSampleIndex) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setEndOfEncoderSampleIndex_), endOfEncoderSampleIndex);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setEndOfEncoderSampleIndex_), endOfEncoderSampleIndex);
 }
 
 _MTL_INLINE void MTL::AccelerationStructurePassSampleBufferAttachmentDescriptor::setSampleBuffer(
-    const MTL::CounterSampleBuffer* sampleBuffer)
+    const CounterSampleBuffer* sampleBuffer) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setSampleBuffer_), sampleBuffer);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setSampleBuffer_), sampleBuffer);
 }
 
 _MTL_INLINE void MTL::AccelerationStructurePassSampleBufferAttachmentDescriptor::setStartOfEncoderSampleIndex(
-    NS::UInteger startOfEncoderSampleIndex)
+    const NS::UInteger startOfEncoderSampleIndex) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setStartOfEncoderSampleIndex_), startOfEncoderSampleIndex);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setStartOfEncoderSampleIndex_), startOfEncoderSampleIndex);
 }
 
 _MTL_INLINE NS::UInteger MTL::AccelerationStructurePassSampleBufferAttachmentDescriptor::startOfEncoderSampleIndex()
     const
 {
-    return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(startOfEncoderSampleIndex));
+    return sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(startOfEncoderSampleIndex));
 }
 
 _MTL_INLINE MTL::AccelerationStructurePassSampleBufferAttachmentDescriptorArray*
             MTL::AccelerationStructurePassSampleBufferAttachmentDescriptorArray::alloc()
 {
-    return NS::Object::alloc<MTL::AccelerationStructurePassSampleBufferAttachmentDescriptorArray>(
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<AccelerationStructurePassSampleBufferAttachmentDescriptorArray>(
         _MTL_PRIVATE_CLS(MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray));
 }
 
 _MTL_INLINE MTL::AccelerationStructurePassSampleBufferAttachmentDescriptorArray*
             MTL::AccelerationStructurePassSampleBufferAttachmentDescriptorArray::init()
 {
-    return NS::Object::init<MTL::AccelerationStructurePassSampleBufferAttachmentDescriptorArray>();
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<AccelerationStructurePassSampleBufferAttachmentDescriptorArray>();
 }
 
 _MTL_INLINE MTL::AccelerationStructurePassSampleBufferAttachmentDescriptor*
-            MTL::AccelerationStructurePassSampleBufferAttachmentDescriptorArray::object(NS::UInteger attachmentIndex)
+MTL::AccelerationStructurePassSampleBufferAttachmentDescriptorArray::object(const NS::UInteger attachmentIndex) const
 {
-    return Object::sendMessage<MTL::AccelerationStructurePassSampleBufferAttachmentDescriptor*>(
+    return sendMessage<AccelerationStructurePassSampleBufferAttachmentDescriptor*>(
         this, _MTL_PRIVATE_SEL(objectAtIndexedSubscript_), attachmentIndex);
 }
 
 _MTL_INLINE void MTL::AccelerationStructurePassSampleBufferAttachmentDescriptorArray::setObject(
-    const MTL::AccelerationStructurePassSampleBufferAttachmentDescriptor* attachment, NS::UInteger attachmentIndex)
+    const AccelerationStructurePassSampleBufferAttachmentDescriptor* attachment,
+    const NS::UInteger                                               attachmentIndex) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setObject_atIndexedSubscript_), attachment, attachmentIndex);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setObject_atIndexedSubscript_), attachment, attachmentIndex);
 }
 
 _MTL_INLINE MTL::AccelerationStructurePassDescriptor*
             MTL::AccelerationStructurePassDescriptor::accelerationStructurePassDescriptor()
 {
-    return Object::sendMessage<MTL::AccelerationStructurePassDescriptor*>(
-        _MTL_PRIVATE_CLS(MTLAccelerationStructurePassDescriptor),
-        _MTL_PRIVATE_SEL(accelerationStructurePassDescriptor));
+    return sendMessage<AccelerationStructurePassDescriptor*>(_MTL_PRIVATE_CLS(MTLAccelerationStructurePassDescriptor),
+                                                             _MTL_PRIVATE_SEL(accelerationStructurePassDescriptor));
 }
 
 _MTL_INLINE MTL::AccelerationStructurePassDescriptor* MTL::AccelerationStructurePassDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL::AccelerationStructurePassDescriptor>(
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<AccelerationStructurePassDescriptor>(
         _MTL_PRIVATE_CLS(MTLAccelerationStructurePassDescriptor));
 }
 
 _MTL_INLINE MTL::AccelerationStructurePassDescriptor* MTL::AccelerationStructurePassDescriptor::init()
 {
-    return NS::Object::init<MTL::AccelerationStructurePassDescriptor>();
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<AccelerationStructurePassDescriptor>();
 }
 
 _MTL_INLINE MTL::AccelerationStructurePassSampleBufferAttachmentDescriptorArray*
             MTL::AccelerationStructurePassDescriptor::sampleBufferAttachments() const
 {
-    return Object::sendMessage<MTL::AccelerationStructurePassSampleBufferAttachmentDescriptorArray*>(
+    return sendMessage<AccelerationStructurePassSampleBufferAttachmentDescriptorArray*>(
         this, _MTL_PRIVATE_SEL(sampleBufferAttachments));
 }

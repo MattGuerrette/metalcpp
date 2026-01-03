@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include "../Foundation/Foundation.hpp"
@@ -29,27 +30,22 @@ namespace MTL
 {
     class Device;
 
+    /// @see https://developer.apple.com/documentation/metal/mtlfence?language=objc
     class Fence : public NS::Referencing<Fence>
     {
     public:
-        Device* device() const;
+        [[nodiscard]] Device* device() const;
 
-        NS::String* label() const;
-        void        setLabel(const NS::String* label);
+        [[nodiscard]] NS::String* label() const;
+        void                      setLabel(const NS::String* label) const;
     };
 
 } // namespace MTL
-_MTL_INLINE MTL::Device* MTL::Fence::device() const
-{
-    return Object::sendMessage<MTL::Device*>(this, _MTL_PRIVATE_SEL(device));
-}
+_MTL_INLINE MTL::Device* MTL::Fence::device() const { return sendMessage<Device*>(this, _MTL_PRIVATE_SEL(device)); }
 
-_MTL_INLINE NS::String* MTL::Fence::label() const
-{
-    return Object::sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
-}
+_MTL_INLINE NS::String* MTL::Fence::label() const { return sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label)); }
 
-_MTL_INLINE void MTL::Fence::setLabel(const NS::String* label)
+_MTL_INLINE void MTL::Fence::setLabel(const NS::String* label) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setLabel_), label);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setLabel_), label);
 }

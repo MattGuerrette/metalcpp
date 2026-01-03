@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include "../Foundation/Foundation.hpp"
@@ -37,42 +38,43 @@ namespace MTL
         DynamicLibraryErrorUnsupported           = 5,
     };
 
+    /// @see https://developer.apple.com/documentation/metal/mtldynamiclibrary?language=objc
     class DynamicLibrary : public NS::Referencing<DynamicLibrary>
     {
     public:
-        Device* device() const;
+        [[nodiscard]] Device* device() const;
 
-        NS::String* installName() const;
+        [[nodiscard]] NS::String* installName() const;
 
-        NS::String* label() const;
+        [[nodiscard]] NS::String* label() const;
 
-        bool serializeToURL(const NS::URL* url, NS::Error** error);
+        [[nodiscard]] bool serializeToURL(const NS::URL* url, NS::Error** error) const;
 
-        void setLabel(const NS::String* label);
+        void setLabel(const NS::String* label) const;
     };
 
 } // namespace MTL
 _MTL_INLINE MTL::Device* MTL::DynamicLibrary::device() const
 {
-    return Object::sendMessage<MTL::Device*>(this, _MTL_PRIVATE_SEL(device));
+    return sendMessage<Device*>(this, _MTL_PRIVATE_SEL(device));
 }
 
 _MTL_INLINE NS::String* MTL::DynamicLibrary::installName() const
 {
-    return Object::sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(installName));
+    return sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(installName));
 }
 
 _MTL_INLINE NS::String* MTL::DynamicLibrary::label() const
 {
-    return Object::sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
+    return sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
 }
 
-_MTL_INLINE bool MTL::DynamicLibrary::serializeToURL(const NS::URL* url, NS::Error** error)
+_MTL_INLINE bool MTL::DynamicLibrary::serializeToURL(const NS::URL* url, NS::Error** error) const
 {
-    return Object::sendMessage<bool>(this, _MTL_PRIVATE_SEL(serializeToURL_error_), url, error);
+    return sendMessage<bool>(this, _MTL_PRIVATE_SEL(serializeToURL_error_), url, error);
 }
 
-_MTL_INLINE void MTL::DynamicLibrary::setLabel(const NS::String* label)
+_MTL_INLINE void MTL::DynamicLibrary::setLabel(const NS::String* label) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setLabel_), label);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setLabel_), label);
 }

@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include <CoreFoundation/CoreFoundation.h>
@@ -33,30 +34,31 @@ namespace MTL4
     class CommitFeedback;
 
     using CommitFeedbackHandler         = void (^)(MTL4::CommitFeedback*);
-    using CommitFeedbackHandlerFunction = std::function<void(MTL4::CommitFeedback*)>;
+    using CommitFeedbackHandlerFunction = std::function<void(CommitFeedback*)>;
 
+    /// @see https://developer.apple.com/documentation/metal/mtl4commitfeedback
     class CommitFeedback : public NS::Referencing<CommitFeedback>
     {
     public:
-        CFTimeInterval GPUEndTime() const;
+        [[nodiscard]] CFTimeInterval GPUEndTime() const;
 
-        CFTimeInterval GPUStartTime() const;
+        [[nodiscard]] CFTimeInterval GPUStartTime() const;
 
-        NS::Error* error() const;
+        [[nodiscard]] NS::Error* error() const;
     };
 
 } // namespace MTL4
 _MTL_INLINE CFTimeInterval MTL4::CommitFeedback::GPUEndTime() const
 {
-    return Object::sendMessage<CFTimeInterval>(this, _MTL_PRIVATE_SEL(GPUEndTime));
+    return sendMessage<CFTimeInterval>(this, _MTL_PRIVATE_SEL(GPUEndTime));
 }
 
 _MTL_INLINE CFTimeInterval MTL4::CommitFeedback::GPUStartTime() const
 {
-    return Object::sendMessage<CFTimeInterval>(this, _MTL_PRIVATE_SEL(GPUStartTime));
+    return sendMessage<CFTimeInterval>(this, _MTL_PRIVATE_SEL(GPUStartTime));
 }
 
 _MTL_INLINE NS::Error* MTL4::CommitFeedback::error() const
 {
-    return Object::sendMessage<NS::Error*>(this, _MTL_PRIVATE_SEL(error));
+    return sendMessage<NS::Error*>(this, _MTL_PRIVATE_SEL(error));
 }

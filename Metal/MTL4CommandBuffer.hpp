@@ -158,7 +158,9 @@ _MTL_INLINE MTL4::MachineLearningCommandEncoder* MTL4::CommandBuffer::machineLea
 }
 
 _MTL_INLINE void MTL4::CommandBuffer::popDebugGroup() const
-{ sendMessage<void>(this, _MTL_PRIVATE_SEL(popDebugGroup)); }
+{
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(popDebugGroup));
+}
 
 _MTL_INLINE void MTL4::CommandBuffer::pushDebugGroup(const NS::String* string) const
 {
@@ -179,7 +181,7 @@ _MTL_INLINE MTL4::RenderCommandEncoder* MTL4::CommandBuffer::renderCommandEncode
 }
 
 _MTL_INLINE void MTL4::CommandBuffer::resolveCounterHeap(const CounterHeap* counterHeap,
-                                                         const NS::Range          range,
+                                                         const NS::Range    range,
                                                          const BufferRange  bufferRange,
                                                          const MTL::Fence*  fenceToWait,
                                                          const MTL::Fence*  fenceToUpdate) const
@@ -204,12 +206,13 @@ _MTL_INLINE void MTL4::CommandBuffer::useResidencySet(const MTL::ResidencySet* r
 }
 
 _MTL_INLINE void MTL4::CommandBuffer::useResidencySets(const MTL::ResidencySet* const residencySets[],
-                                                       NS::UInteger                   count) const
+                                                       const NS::UInteger             count) const
 {
     sendMessage<void>(this, _MTL_PRIVATE_SEL(useResidencySets_count_), residencySets, count);
 }
 
-_MTL_INLINE void MTL4::CommandBuffer::writeTimestampIntoHeap(const CounterHeap* counterHeap, NS::UInteger index) const
+_MTL_INLINE void MTL4::CommandBuffer::writeTimestampIntoHeap(const CounterHeap* counterHeap,
+                                                             const NS::UInteger index) const
 {
     sendMessage<void>(this, _MTL_PRIVATE_SEL(writeTimestampIntoHeap_atIndex_), counterHeap, index);
 }

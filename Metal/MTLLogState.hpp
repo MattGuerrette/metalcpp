@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include "../Foundation/Foundation.hpp"
@@ -28,83 +29,92 @@
 namespace MTL
 {
     class LogStateDescriptor;
+
+    /// @see https://developer.apple.com/documentation/metal/mtlloglevel?language=objc
     _MTL_ENUM(NS::Integer, LogLevel){
         LogLevelUndefined = 0, LogLevelDebug = 1, LogLevelInfo = 2,
         LogLevelNotice = 3,    LogLevelError = 4, LogLevelFault = 5,
     };
 
+    /// @see https://developer.apple.com/documentation/metal/mtllogstateerror?language=objc
     _MTL_ENUM(NS::UInteger, LogStateError){
         LogStateErrorInvalidSize = 1,
         LogStateErrorInvalid     = 2,
     };
 
     using LogHandlerFunction =
-        std::function<void(NS::String* subsystem, NS::String* category, MTL::LogLevel logLevel, NS::String* message)>;
+        std::function<void(NS::String* subsystem, NS::String* category, LogLevel logLevel, NS::String* message)>;
 
     _MTL_CONST(NS::ErrorDomain, LogStateErrorDomain);
+
+    /// @see https://developer.apple.com/documentation/metal/mtllogstate?language=objc
     class LogState : public NS::Referencing<LogState>
     {
     public:
-        void addLogHandler(void (^block)(NS::String*, NS::String*, MTL::LogLevel, NS::String*));
-        void addLogHandler(const MTL::LogHandlerFunction& handler);
+        void addLogHandler(void (^block)(NS::String*, NS::String*, LogLevel, NS::String*));
+        void addLogHandler(const LogHandlerFunction& handler);
     };
+
+    /// @see https://developer.apple.com/documentation/metal/mtllogstatedescriptor?language=objc
     class LogStateDescriptor : public NS::Copying<LogStateDescriptor>
     {
     public:
-        static LogStateDescriptor* alloc();
+        [[nodiscard]] static LogStateDescriptor* alloc();
 
-        NS::Integer bufferSize() const;
+        [[nodiscard]] NS::Integer bufferSize() const;
 
-        LogStateDescriptor* init();
+        [[nodiscard]] LogStateDescriptor* init();
 
-        LogLevel level() const;
+        [[nodiscard]] LogLevel level() const;
 
-        void setBufferSize(NS::Integer bufferSize);
+        void setBufferSize(NS::Integer bufferSize) const;
 
-        void setLevel(MTL::LogLevel level);
+        void setLevel(LogLevel level) const;
     };
 
 } // namespace MTL
 _MTL_PRIVATE_DEF_CONST(NS::ErrorDomain, LogStateErrorDomain);
-_MTL_INLINE void MTL::LogState::addLogHandler(void (^block)(NS::String*, NS::String*, MTL::LogLevel, NS::String*))
+_MTL_INLINE void MTL::LogState::addLogHandler(void (^block)(NS::String*, NS::String*, LogLevel, NS::String*))
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(addLogHandler_), block);
 }
 
-_MTL_INLINE void MTL::LogState::addLogHandler(const MTL::LogHandlerFunction& handler)
+_MTL_INLINE void MTL::LogState::addLogHandler(const LogHandlerFunction& handler)
 {
     __block LogHandlerFunction function = handler;
-    addLogHandler(^void(NS::String* subsystem, NS::String* category, MTL::LogLevel logLevel, NS::String* message) {
+    addLogHandler(^void(NS::String* subsystem, NS::String* category, LogLevel logLevel, NS::String* message) {
       function(subsystem, category, logLevel, message);
     });
 }
 
 _MTL_INLINE MTL::LogStateDescriptor* MTL::LogStateDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL::LogStateDescriptor>(_MTL_PRIVATE_CLS(MTLLogStateDescriptor));
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<LogStateDescriptor>(_MTL_PRIVATE_CLS(MTLLogStateDescriptor));
 }
 
 _MTL_INLINE NS::Integer MTL::LogStateDescriptor::bufferSize() const
 {
-    return Object::sendMessage<NS::Integer>(this, _MTL_PRIVATE_SEL(bufferSize));
+    return sendMessage<NS::Integer>(this, _MTL_PRIVATE_SEL(bufferSize));
 }
 
 _MTL_INLINE MTL::LogStateDescriptor* MTL::LogStateDescriptor::init()
 {
-    return NS::Object::init<MTL::LogStateDescriptor>();
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<LogStateDescriptor>();
 }
 
 _MTL_INLINE MTL::LogLevel MTL::LogStateDescriptor::level() const
 {
-    return Object::sendMessage<MTL::LogLevel>(this, _MTL_PRIVATE_SEL(level));
+    return sendMessage<LogLevel>(this, _MTL_PRIVATE_SEL(level));
 }
 
-_MTL_INLINE void MTL::LogStateDescriptor::setBufferSize(NS::Integer bufferSize)
+_MTL_INLINE void MTL::LogStateDescriptor::setBufferSize(const NS::Integer bufferSize) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setBufferSize_), bufferSize);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setBufferSize_), bufferSize);
 }
 
-_MTL_INLINE void MTL::LogStateDescriptor::setLevel(MTL::LogLevel level)
+_MTL_INLINE void MTL::LogStateDescriptor::setLevel(const LogLevel level) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setLevel_), level);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setLevel_), level);
 }

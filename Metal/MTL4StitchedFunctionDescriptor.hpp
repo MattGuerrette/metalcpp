@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include "../Foundation/Foundation.hpp"
@@ -38,49 +39,53 @@ namespace MTL
 
 namespace MTL4
 {
+    /// @see https://developer.apple.com/documentation/metal/mtl4stitchedfunctiondescriptor
     class StitchedFunctionDescriptor : public NS::Copying<StitchedFunctionDescriptor, FunctionDescriptor>
     {
     public:
-        static StitchedFunctionDescriptor* alloc();
+        [[nodiscard]] static StitchedFunctionDescriptor* alloc();
 
-        NS::Array* functionDescriptors() const;
+        [[nodiscard]] NS::Array* functionDescriptors() const;
 
-        MTL::FunctionStitchingGraph* functionGraph() const;
+        [[nodiscard]] MTL::FunctionStitchingGraph* functionGraph() const;
 
-        StitchedFunctionDescriptor* init();
+        [[nodiscard]] StitchedFunctionDescriptor* init();
 
-        void setFunctionDescriptors(const NS::Array* functionDescriptors);
+        void setFunctionDescriptors(const NS::Array* functionDescriptors) const;
 
-        void setFunctionGraph(const MTL::FunctionStitchingGraph* functionGraph);
+        void setFunctionGraph(const MTL::FunctionStitchingGraph* functionGraph) const;
     };
 
 } // namespace MTL4
 _MTL_INLINE MTL4::StitchedFunctionDescriptor* MTL4::StitchedFunctionDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL4::StitchedFunctionDescriptor>(_MTL_PRIVATE_CLS(MTL4StitchedFunctionDescriptor));
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<StitchedFunctionDescriptor>(_MTL_PRIVATE_CLS(MTL4StitchedFunctionDescriptor));
 }
 
 _MTL_INLINE NS::Array* MTL4::StitchedFunctionDescriptor::functionDescriptors() const
 {
-    return Object::sendMessage<NS::Array*>(this, _MTL_PRIVATE_SEL(functionDescriptors));
+    return sendMessage<NS::Array*>(this, _MTL_PRIVATE_SEL(functionDescriptors));
 }
 
 _MTL_INLINE MTL::FunctionStitchingGraph* MTL4::StitchedFunctionDescriptor::functionGraph() const
 {
-    return Object::sendMessage<MTL::FunctionStitchingGraph*>(this, _MTL_PRIVATE_SEL(functionGraph));
+    return sendMessage<MTL::FunctionStitchingGraph*>(this, _MTL_PRIVATE_SEL(functionGraph));
 }
 
 _MTL_INLINE MTL4::StitchedFunctionDescriptor* MTL4::StitchedFunctionDescriptor::init()
 {
-    return NS::Object::init<MTL4::StitchedFunctionDescriptor>();
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<StitchedFunctionDescriptor>();
 }
 
-_MTL_INLINE void MTL4::StitchedFunctionDescriptor::setFunctionDescriptors(const NS::Array* functionDescriptors)
+_MTL_INLINE void MTL4::StitchedFunctionDescriptor::setFunctionDescriptors(const NS::Array* functionDescriptors) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setFunctionDescriptors_), functionDescriptors);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setFunctionDescriptors_), functionDescriptors);
 }
 
-_MTL_INLINE void MTL4::StitchedFunctionDescriptor::setFunctionGraph(const MTL::FunctionStitchingGraph* functionGraph)
+_MTL_INLINE void MTL4::StitchedFunctionDescriptor::setFunctionGraph(
+    const MTL::FunctionStitchingGraph* functionGraph) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setFunctionGraph_), functionGraph);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setFunctionGraph_), functionGraph);
 }

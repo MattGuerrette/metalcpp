@@ -18,15 +18,15 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include "../Foundation/Foundation.hpp"
 #include "MTLDefines.hpp"
-#include "MTLHeaderBridge.hpp"
-#include "MTLPrivate.hpp"
 
 namespace MTL
 {
+    /// @see https://developer.apple.com/documentation/metal/mtlpixelformat?language=objc
     _MTL_ENUM(NS::UInteger, PixelFormat){
         PixelFormatInvalid               = 0,
         PixelFormatA8Unorm               = 1,

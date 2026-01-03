@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include "../Foundation/Foundation.hpp"
@@ -29,6 +30,7 @@ namespace MTL4
 {
     class FunctionDescriptor;
 
+    /// @see https://developer.apple.com/documentation/metal/mtl4functiondescriptor
     class FunctionDescriptor : public NS::Copying<FunctionDescriptor>
     {
     public:
@@ -40,10 +42,12 @@ namespace MTL4
 } // namespace MTL4
 _MTL_INLINE MTL4::FunctionDescriptor* MTL4::FunctionDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL4::FunctionDescriptor>(_MTL_PRIVATE_CLS(MTL4FunctionDescriptor));
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<FunctionDescriptor>(_MTL_PRIVATE_CLS(MTL4FunctionDescriptor));
 }
 
 _MTL_INLINE MTL4::FunctionDescriptor* MTL4::FunctionDescriptor::init()
 {
-    return NS::Object::init<MTL4::FunctionDescriptor>();
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<FunctionDescriptor>();
 }

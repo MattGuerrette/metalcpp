@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include "../Foundation/Foundation.hpp"
@@ -32,182 +33,197 @@ namespace MTL
     class IOCommandQueueDescriptor;
     class IOScratchBuffer;
     class IOScratchBufferAllocator;
+
+    /// @see https://developer.apple.com/documentation/metal/mtliopriority?language=objc
     _MTL_ENUM(NS::Integer, IOPriority){
         IOPriorityHigh   = 0,
         IOPriorityNormal = 1,
         IOPriorityLow    = 2,
     };
 
+    /// @see https://developer.apple.com/documentation/metal/mtliocommandqueuetype?language=objc
     _MTL_ENUM(NS::Integer, IOCommandQueueType){
         IOCommandQueueTypeConcurrent = 0,
         IOCommandQueueTypeSerial     = 1,
     };
 
+    /// @see https://developer.apple.com/documentation/metal/mtlioerror?language=objc
     _MTL_ENUM(NS::Integer, IOError){
         IOErrorURLInvalid = 1,
         IOErrorInternal   = 2,
     };
 
     _MTL_CONST(NS::ErrorDomain, IOErrorDomain);
+
+    /// @see https://developer.apple.com/documentation/metal/mtliocommandqueue?language=objc
     class IOCommandQueue : public NS::Referencing<IOCommandQueue>
     {
     public:
-        IOCommandBuffer* commandBuffer();
-        IOCommandBuffer* commandBufferWithUnretainedReferences();
+        [[nodiscard]] IOCommandBuffer* commandBuffer() const;
+        [[nodiscard]] IOCommandBuffer* commandBufferWithUnretainedReferences() const;
 
-        void enqueueBarrier();
+        void enqueueBarrier() const;
 
-        NS::String* label() const;
-        void        setLabel(const NS::String* label);
+        [[nodiscard]] NS::String* label() const;
+        void                      setLabel(const NS::String* label) const;
     };
+
+    /// @see https://developer.apple.com/documentation/metal/mtlioscratchbuffer?language=objc
     class IOScratchBuffer : public NS::Referencing<IOScratchBuffer>
     {
     public:
-        Buffer* buffer() const;
+        [[nodiscard]] Buffer* buffer() const;
     };
+
+    /// @see https://developer.apple.com/documentation/metal/mtlioscratchbufferallocator?language=objc
     class IOScratchBufferAllocator : public NS::Referencing<IOScratchBufferAllocator>
     {
     public:
-        IOScratchBuffer* newScratchBuffer(NS::UInteger minimumSize);
+        [[nodiscard]] IOScratchBuffer* newScratchBuffer(NS::UInteger minimumSize) const;
     };
+
+    /// @see https://developer.apple.com/documentation/metal/mtliocommandqueuedescriptor?language=objc
     class IOCommandQueueDescriptor : public NS::Copying<IOCommandQueueDescriptor>
     {
     public:
-        static IOCommandQueueDescriptor* alloc();
+        [[nodiscard]] static IOCommandQueueDescriptor* alloc();
 
-        IOCommandQueueDescriptor* init();
+        [[nodiscard]] IOCommandQueueDescriptor* init();
 
-        NS::UInteger maxCommandBufferCount() const;
+        [[nodiscard]] NS::UInteger maxCommandBufferCount() const;
 
-        NS::UInteger maxCommandsInFlight() const;
+        [[nodiscard]] NS::UInteger maxCommandsInFlight() const;
 
-        IOPriority priority() const;
+        [[nodiscard]] IOPriority priority() const;
 
-        IOScratchBufferAllocator* scratchBufferAllocator() const;
+        [[nodiscard]] IOScratchBufferAllocator* scratchBufferAllocator() const;
 
-        void setMaxCommandBufferCount(NS::UInteger maxCommandBufferCount);
+        void setMaxCommandBufferCount(NS::UInteger maxCommandBufferCount) const;
 
-        void setMaxCommandsInFlight(NS::UInteger maxCommandsInFlight);
+        void setMaxCommandsInFlight(NS::UInteger maxCommandsInFlight) const;
 
-        void setPriority(MTL::IOPriority priority);
+        void setPriority(IOPriority priority) const;
 
-        void setScratchBufferAllocator(const MTL::IOScratchBufferAllocator* scratchBufferAllocator);
+        void setScratchBufferAllocator(const IOScratchBufferAllocator* scratchBufferAllocator) const;
 
-        void               setType(MTL::IOCommandQueueType type);
-        IOCommandQueueType type() const;
+        void                             setType(IOCommandQueueType type) const;
+        [[nodiscard]] IOCommandQueueType type() const;
     };
+
+    /// @see https://developer.apple.com/documentation/metal/mtliofilehandle?language=objc
     class IOFileHandle : public NS::Referencing<IOFileHandle>
     {
     public:
-        NS::String* label() const;
-        void        setLabel(const NS::String* label);
+        [[nodiscard]] NS::String* label() const;
+        void                      setLabel(const NS::String* label) const;
     };
 
 } // namespace MTL
 _MTL_PRIVATE_DEF_CONST(NS::ErrorDomain, IOErrorDomain);
-_MTL_INLINE MTL::IOCommandBuffer* MTL::IOCommandQueue::commandBuffer()
+_MTL_INLINE MTL::IOCommandBuffer* MTL::IOCommandQueue::commandBuffer() const
 {
-    return Object::sendMessage<MTL::IOCommandBuffer*>(this, _MTL_PRIVATE_SEL(commandBuffer));
+    return sendMessage<IOCommandBuffer*>(this, _MTL_PRIVATE_SEL(commandBuffer));
 }
 
-_MTL_INLINE MTL::IOCommandBuffer* MTL::IOCommandQueue::commandBufferWithUnretainedReferences()
+_MTL_INLINE MTL::IOCommandBuffer* MTL::IOCommandQueue::commandBufferWithUnretainedReferences() const
 {
-    return Object::sendMessage<MTL::IOCommandBuffer*>(this, _MTL_PRIVATE_SEL(commandBufferWithUnretainedReferences));
+    return sendMessage<IOCommandBuffer*>(this, _MTL_PRIVATE_SEL(commandBufferWithUnretainedReferences));
 }
 
-_MTL_INLINE void MTL::IOCommandQueue::enqueueBarrier()
+_MTL_INLINE void MTL::IOCommandQueue::enqueueBarrier() const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(enqueueBarrier));
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(enqueueBarrier));
 }
 
 _MTL_INLINE NS::String* MTL::IOCommandQueue::label() const
 {
-    return Object::sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
+    return sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
 }
 
-_MTL_INLINE void MTL::IOCommandQueue::setLabel(const NS::String* label)
+_MTL_INLINE void MTL::IOCommandQueue::setLabel(const NS::String* label) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setLabel_), label);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setLabel_), label);
 }
 
 _MTL_INLINE MTL::Buffer* MTL::IOScratchBuffer::buffer() const
 {
-    return Object::sendMessage<MTL::Buffer*>(this, _MTL_PRIVATE_SEL(buffer));
+    return sendMessage<Buffer*>(this, _MTL_PRIVATE_SEL(buffer));
 }
 
-_MTL_INLINE MTL::IOScratchBuffer* MTL::IOScratchBufferAllocator::newScratchBuffer(NS::UInteger minimumSize)
+_MTL_INLINE MTL::IOScratchBuffer* MTL::IOScratchBufferAllocator::newScratchBuffer(const NS::UInteger minimumSize) const
 {
-    return Object::sendMessage<MTL::IOScratchBuffer*>(
-        this, _MTL_PRIVATE_SEL(newScratchBufferWithMinimumSize_), minimumSize);
+    return sendMessage<IOScratchBuffer*>(this, _MTL_PRIVATE_SEL(newScratchBufferWithMinimumSize_), minimumSize);
 }
 
 _MTL_INLINE MTL::IOCommandQueueDescriptor* MTL::IOCommandQueueDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL::IOCommandQueueDescriptor>(_MTL_PRIVATE_CLS(MTLIOCommandQueueDescriptor));
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<IOCommandQueueDescriptor>(_MTL_PRIVATE_CLS(MTLIOCommandQueueDescriptor));
 }
 
 _MTL_INLINE MTL::IOCommandQueueDescriptor* MTL::IOCommandQueueDescriptor::init()
 {
-    return NS::Object::init<MTL::IOCommandQueueDescriptor>();
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<IOCommandQueueDescriptor>();
 }
 
 _MTL_INLINE NS::UInteger MTL::IOCommandQueueDescriptor::maxCommandBufferCount() const
 {
-    return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(maxCommandBufferCount));
+    return sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(maxCommandBufferCount));
 }
 
 _MTL_INLINE NS::UInteger MTL::IOCommandQueueDescriptor::maxCommandsInFlight() const
 {
-    return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(maxCommandsInFlight));
+    return sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(maxCommandsInFlight));
 }
 
 _MTL_INLINE MTL::IOPriority MTL::IOCommandQueueDescriptor::priority() const
 {
-    return Object::sendMessage<MTL::IOPriority>(this, _MTL_PRIVATE_SEL(priority));
+    return sendMessage<IOPriority>(this, _MTL_PRIVATE_SEL(priority));
 }
 
 _MTL_INLINE MTL::IOScratchBufferAllocator* MTL::IOCommandQueueDescriptor::scratchBufferAllocator() const
 {
-    return Object::sendMessage<MTL::IOScratchBufferAllocator*>(this, _MTL_PRIVATE_SEL(scratchBufferAllocator));
+    return sendMessage<IOScratchBufferAllocator*>(this, _MTL_PRIVATE_SEL(scratchBufferAllocator));
 }
 
-_MTL_INLINE void MTL::IOCommandQueueDescriptor::setMaxCommandBufferCount(NS::UInteger maxCommandBufferCount)
+_MTL_INLINE void MTL::IOCommandQueueDescriptor::setMaxCommandBufferCount(const NS::UInteger maxCommandBufferCount) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMaxCommandBufferCount_), maxCommandBufferCount);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setMaxCommandBufferCount_), maxCommandBufferCount);
 }
 
-_MTL_INLINE void MTL::IOCommandQueueDescriptor::setMaxCommandsInFlight(NS::UInteger maxCommandsInFlight)
+_MTL_INLINE void MTL::IOCommandQueueDescriptor::setMaxCommandsInFlight(const NS::UInteger maxCommandsInFlight) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMaxCommandsInFlight_), maxCommandsInFlight);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setMaxCommandsInFlight_), maxCommandsInFlight);
 }
 
-_MTL_INLINE void MTL::IOCommandQueueDescriptor::setPriority(MTL::IOPriority priority)
+_MTL_INLINE void MTL::IOCommandQueueDescriptor::setPriority(const IOPriority priority) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setPriority_), priority);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setPriority_), priority);
 }
 
 _MTL_INLINE void MTL::IOCommandQueueDescriptor::setScratchBufferAllocator(
-    const MTL::IOScratchBufferAllocator* scratchBufferAllocator)
+    const IOScratchBufferAllocator* scratchBufferAllocator) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setScratchBufferAllocator_), scratchBufferAllocator);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setScratchBufferAllocator_), scratchBufferAllocator);
 }
 
-_MTL_INLINE void MTL::IOCommandQueueDescriptor::setType(MTL::IOCommandQueueType type)
+_MTL_INLINE void MTL::IOCommandQueueDescriptor::setType(const IOCommandQueueType type) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setType_), type);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setType_), type);
 }
 
 _MTL_INLINE MTL::IOCommandQueueType MTL::IOCommandQueueDescriptor::type() const
 {
-    return Object::sendMessage<MTL::IOCommandQueueType>(this, _MTL_PRIVATE_SEL(type));
+    return sendMessage<IOCommandQueueType>(this, _MTL_PRIVATE_SEL(type));
 }
 
 _MTL_INLINE NS::String* MTL::IOFileHandle::label() const
 {
-    return Object::sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
+    return sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
 }
 
-_MTL_INLINE void MTL::IOFileHandle::setLabel(const NS::String* label)
+_MTL_INLINE void MTL::IOFileHandle::setLabel(const NS::String* label) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setLabel_), label);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setLabel_), label);
 }

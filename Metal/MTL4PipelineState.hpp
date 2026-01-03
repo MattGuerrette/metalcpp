@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include "../Foundation/Foundation.hpp"
@@ -57,91 +58,101 @@ namespace MTL4
         ShaderReflectionBufferTypeInfo = 1 << 1,
     };
 
+    /// @see https://developer.apple.com/documentation/metal/mtl4pipelineoptions
     class PipelineOptions : public NS::Copying<PipelineOptions>
     {
     public:
-        static PipelineOptions* alloc();
+        [[nodiscard]] static PipelineOptions* alloc();
 
-        PipelineOptions* init();
+        [[nodiscard]] PipelineOptions* init();
 
-        void setShaderReflection(MTL4::ShaderReflection shaderReflection);
+        [[nodiscard]] ShaderReflection shaderReflection() const;
 
-        void setShaderValidation(MTL::ShaderValidation shaderValidation);
+        [[nodiscard]] MTL::ShaderValidation shaderValidation() const;
 
-        ShaderReflection shaderReflection() const;
+        void setShaderReflection(ShaderReflection shaderReflection) const;
 
-        MTL::ShaderValidation shaderValidation() const;
+        void setShaderValidation(MTL::ShaderValidation shaderValidation) const;
     };
+
+    /// @see https://developer.apple.com/documentation/metal/mtl4pipelinedescriptor
     class PipelineDescriptor : public NS::Copying<PipelineDescriptor>
     {
     public:
-        static PipelineDescriptor* alloc();
+        [[nodiscard]] static PipelineDescriptor* alloc();
 
-        PipelineDescriptor* init();
+        [[nodiscard]] PipelineDescriptor* init();
 
-        NS::String* label() const;
+        [[nodiscard]] NS::String* label() const;
 
-        PipelineOptions* options() const;
+        [[nodiscard]] PipelineOptions* options() const;
 
-        void setLabel(const NS::String* label);
+        void setLabel(const NS::String* label) const;
 
-        void setOptions(const MTL4::PipelineOptions* options);
+        void setOptions(const PipelineOptions* options) const;
     };
 
 } // namespace MTL4
 _MTL_INLINE MTL4::PipelineOptions* MTL4::PipelineOptions::alloc()
 {
-    return NS::Object::alloc<MTL4::PipelineOptions>(_MTL_PRIVATE_CLS(MTL4PipelineOptions));
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<PipelineOptions>(_MTL_PRIVATE_CLS(MTL4PipelineOptions));
 }
 
-_MTL_INLINE MTL4::PipelineOptions* MTL4::PipelineOptions::init() { return NS::Object::init<MTL4::PipelineOptions>(); }
-
-_MTL_INLINE void MTL4::PipelineOptions::setShaderReflection(MTL4::ShaderReflection shaderReflection)
+_MTL_INLINE MTL4::PipelineOptions* MTL4::PipelineOptions::init()
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setShaderReflection_), shaderReflection);
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<PipelineOptions>();
 }
 
-_MTL_INLINE void MTL4::PipelineOptions::setShaderValidation(MTL::ShaderValidation shaderValidation)
+_MTL_INLINE void MTL4::PipelineOptions::setShaderReflection(const ShaderReflection shaderReflection) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setShaderValidation_), shaderValidation);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setShaderReflection_), shaderReflection);
+}
+
+_MTL_INLINE void MTL4::PipelineOptions::setShaderValidation(const MTL::ShaderValidation shaderValidation) const
+{
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setShaderValidation_), shaderValidation);
 }
 
 _MTL_INLINE MTL4::ShaderReflection MTL4::PipelineOptions::shaderReflection() const
 {
-    return Object::sendMessage<MTL4::ShaderReflection>(this, _MTL_PRIVATE_SEL(shaderReflection));
+    return sendMessage<ShaderReflection>(this, _MTL_PRIVATE_SEL(shaderReflection));
 }
 
 _MTL_INLINE MTL::ShaderValidation MTL4::PipelineOptions::shaderValidation() const
 {
-    return Object::sendMessage<MTL::ShaderValidation>(this, _MTL_PRIVATE_SEL(shaderValidation));
+    return sendMessage<MTL::ShaderValidation>(this, _MTL_PRIVATE_SEL(shaderValidation));
 }
 
 _MTL_INLINE MTL4::PipelineDescriptor* MTL4::PipelineDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL4::PipelineDescriptor>(_MTL_PRIVATE_CLS(MTL4PipelineDescriptor));
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<PipelineDescriptor>(_MTL_PRIVATE_CLS(MTL4PipelineDescriptor));
 }
 
 _MTL_INLINE MTL4::PipelineDescriptor* MTL4::PipelineDescriptor::init()
 {
-    return NS::Object::init<MTL4::PipelineDescriptor>();
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<PipelineDescriptor>();
 }
 
 _MTL_INLINE NS::String* MTL4::PipelineDescriptor::label() const
 {
-    return Object::sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
+    return sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
 }
 
 _MTL_INLINE MTL4::PipelineOptions* MTL4::PipelineDescriptor::options() const
 {
-    return Object::sendMessage<MTL4::PipelineOptions*>(this, _MTL_PRIVATE_SEL(options));
+    return sendMessage<PipelineOptions*>(this, _MTL_PRIVATE_SEL(options));
 }
 
-_MTL_INLINE void MTL4::PipelineDescriptor::setLabel(const NS::String* label)
+_MTL_INLINE void MTL4::PipelineDescriptor::setLabel(const NS::String* label) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setLabel_), label);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setLabel_), label);
 }
 
-_MTL_INLINE void MTL4::PipelineDescriptor::setOptions(const MTL4::PipelineOptions* options)
+_MTL_INLINE void MTL4::PipelineDescriptor::setOptions(const PipelineOptions* options) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setOptions_), options);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setOptions_), options);
 }

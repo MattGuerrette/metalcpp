@@ -18,11 +18,10 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include "MTLDefines.hpp"
-#include "MTLHeaderBridge.hpp"
-#include "MTLPrivate.hpp"
 
 namespace MTL
 {

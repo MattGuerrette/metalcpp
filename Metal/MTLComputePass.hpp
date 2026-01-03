@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include "../Foundation/Foundation.hpp"
@@ -33,152 +34,165 @@ namespace MTL
     class ComputePassSampleBufferAttachmentDescriptorArray;
     class CounterSampleBuffer;
 
+    /// @see
+    /// https://developer.apple.com/documentation/metal/mtlcomputepasssamplebufferattachmentdescriptor?language=objc
     class ComputePassSampleBufferAttachmentDescriptor : public NS::Copying<ComputePassSampleBufferAttachmentDescriptor>
     {
     public:
-        static ComputePassSampleBufferAttachmentDescriptor* alloc();
+        [[nodiscard]] static ComputePassSampleBufferAttachmentDescriptor* alloc();
 
-        NS::UInteger endOfEncoderSampleIndex() const;
+        [[nodiscard]] NS::UInteger endOfEncoderSampleIndex() const;
 
-        ComputePassSampleBufferAttachmentDescriptor* init();
+        [[nodiscard]] ComputePassSampleBufferAttachmentDescriptor* init();
 
-        CounterSampleBuffer* sampleBuffer() const;
+        [[nodiscard]] CounterSampleBuffer* sampleBuffer() const;
 
-        void setEndOfEncoderSampleIndex(NS::UInteger endOfEncoderSampleIndex);
+        void setEndOfEncoderSampleIndex(NS::UInteger endOfEncoderSampleIndex) const;
 
-        void setSampleBuffer(const MTL::CounterSampleBuffer* sampleBuffer);
+        void setSampleBuffer(const CounterSampleBuffer* sampleBuffer) const;
 
-        void         setStartOfEncoderSampleIndex(NS::UInteger startOfEncoderSampleIndex);
-        NS::UInteger startOfEncoderSampleIndex() const;
+        void                       setStartOfEncoderSampleIndex(NS::UInteger startOfEncoderSampleIndex) const;
+        [[nodiscard]] NS::UInteger startOfEncoderSampleIndex() const;
     };
+
+    /// @see
+    /// https://developer.apple.com/documentation/metal/mtlcomputepasssamplebufferattachmentdescriptorarray?language=objc
     class ComputePassSampleBufferAttachmentDescriptorArray
         : public NS::Referencing<ComputePassSampleBufferAttachmentDescriptorArray>
     {
     public:
-        static ComputePassSampleBufferAttachmentDescriptorArray* alloc();
+        [[nodiscard]] static ComputePassSampleBufferAttachmentDescriptorArray* alloc();
 
-        ComputePassSampleBufferAttachmentDescriptorArray* init();
+        [[nodiscard]] ComputePassSampleBufferAttachmentDescriptorArray* init();
 
-        ComputePassSampleBufferAttachmentDescriptor* object(NS::UInteger attachmentIndex);
-        void setObject(const MTL::ComputePassSampleBufferAttachmentDescriptor* attachment,
-                       NS::UInteger                                            attachmentIndex);
+        [[nodiscard]] ComputePassSampleBufferAttachmentDescriptor* object(NS::UInteger attachmentIndex) const;
+        void setObject(const ComputePassSampleBufferAttachmentDescriptor* attachment,
+                       NS::UInteger                                       attachmentIndex) const;
     };
+
+    /// @see https://developer.apple.com/documentation/metal/mtlcomputepassdescriptor?language=objc
     class ComputePassDescriptor : public NS::Copying<ComputePassDescriptor>
     {
     public:
-        static ComputePassDescriptor* alloc();
+        [[nodiscard]] static ComputePassDescriptor* alloc();
 
-        static ComputePassDescriptor* computePassDescriptor();
+        [[nodiscard]] static ComputePassDescriptor* computePassDescriptor();
 
-        DispatchType dispatchType() const;
+        [[nodiscard]] DispatchType dispatchType() const;
 
-        ComputePassDescriptor* init();
+        [[nodiscard]] ComputePassDescriptor* init();
 
-        ComputePassSampleBufferAttachmentDescriptorArray* sampleBufferAttachments() const;
+        [[nodiscard]] ComputePassSampleBufferAttachmentDescriptorArray* sampleBufferAttachments() const;
 
-        void setDispatchType(MTL::DispatchType dispatchType);
+        void setDispatchType(DispatchType dispatchType) const;
     };
 
 } // namespace MTL
 _MTL_INLINE MTL::ComputePassSampleBufferAttachmentDescriptor* MTL::ComputePassSampleBufferAttachmentDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL::ComputePassSampleBufferAttachmentDescriptor>(
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<ComputePassSampleBufferAttachmentDescriptor>(
         _MTL_PRIVATE_CLS(MTLComputePassSampleBufferAttachmentDescriptor));
 }
 
 _MTL_INLINE NS::UInteger MTL::ComputePassSampleBufferAttachmentDescriptor::endOfEncoderSampleIndex() const
 {
-    return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(endOfEncoderSampleIndex));
+    return sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(endOfEncoderSampleIndex));
 }
 
 _MTL_INLINE MTL::ComputePassSampleBufferAttachmentDescriptor* MTL::ComputePassSampleBufferAttachmentDescriptor::init()
 {
-    return NS::Object::init<MTL::ComputePassSampleBufferAttachmentDescriptor>();
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<ComputePassSampleBufferAttachmentDescriptor>();
 }
 
 _MTL_INLINE MTL::CounterSampleBuffer* MTL::ComputePassSampleBufferAttachmentDescriptor::sampleBuffer() const
 {
-    return Object::sendMessage<MTL::CounterSampleBuffer*>(this, _MTL_PRIVATE_SEL(sampleBuffer));
+    return sendMessage<CounterSampleBuffer*>(this, _MTL_PRIVATE_SEL(sampleBuffer));
 }
 
 _MTL_INLINE void MTL::ComputePassSampleBufferAttachmentDescriptor::setEndOfEncoderSampleIndex(
-    NS::UInteger endOfEncoderSampleIndex)
+    const NS::UInteger endOfEncoderSampleIndex) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setEndOfEncoderSampleIndex_), endOfEncoderSampleIndex);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setEndOfEncoderSampleIndex_), endOfEncoderSampleIndex);
 }
 
 _MTL_INLINE void MTL::ComputePassSampleBufferAttachmentDescriptor::setSampleBuffer(
-    const MTL::CounterSampleBuffer* sampleBuffer)
+    const CounterSampleBuffer* sampleBuffer) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setSampleBuffer_), sampleBuffer);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setSampleBuffer_), sampleBuffer);
 }
 
 _MTL_INLINE void MTL::ComputePassSampleBufferAttachmentDescriptor::setStartOfEncoderSampleIndex(
-    NS::UInteger startOfEncoderSampleIndex)
+    const NS::UInteger startOfEncoderSampleIndex) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setStartOfEncoderSampleIndex_), startOfEncoderSampleIndex);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setStartOfEncoderSampleIndex_), startOfEncoderSampleIndex);
 }
 
 _MTL_INLINE NS::UInteger MTL::ComputePassSampleBufferAttachmentDescriptor::startOfEncoderSampleIndex() const
 {
-    return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(startOfEncoderSampleIndex));
+    return sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(startOfEncoderSampleIndex));
 }
 
 _MTL_INLINE MTL::ComputePassSampleBufferAttachmentDescriptorArray*
             MTL::ComputePassSampleBufferAttachmentDescriptorArray::alloc()
 {
-    return NS::Object::alloc<MTL::ComputePassSampleBufferAttachmentDescriptorArray>(
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<ComputePassSampleBufferAttachmentDescriptorArray>(
         _MTL_PRIVATE_CLS(MTLComputePassSampleBufferAttachmentDescriptorArray));
 }
 
 _MTL_INLINE MTL::ComputePassSampleBufferAttachmentDescriptorArray*
             MTL::ComputePassSampleBufferAttachmentDescriptorArray::init()
 {
-    return NS::Object::init<MTL::ComputePassSampleBufferAttachmentDescriptorArray>();
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<ComputePassSampleBufferAttachmentDescriptorArray>();
 }
 
 _MTL_INLINE MTL::ComputePassSampleBufferAttachmentDescriptor*
-            MTL::ComputePassSampleBufferAttachmentDescriptorArray::object(NS::UInteger attachmentIndex)
+            MTL::ComputePassSampleBufferAttachmentDescriptorArray::object(const NS::UInteger attachmentIndex) const
 {
-    return Object::sendMessage<MTL::ComputePassSampleBufferAttachmentDescriptor*>(
+    return sendMessage<ComputePassSampleBufferAttachmentDescriptor*>(
         this, _MTL_PRIVATE_SEL(objectAtIndexedSubscript_), attachmentIndex);
 }
 
 _MTL_INLINE void MTL::ComputePassSampleBufferAttachmentDescriptorArray::setObject(
-    const MTL::ComputePassSampleBufferAttachmentDescriptor* attachment, NS::UInteger attachmentIndex)
+    const ComputePassSampleBufferAttachmentDescriptor* attachment, const NS::UInteger attachmentIndex) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setObject_atIndexedSubscript_), attachment, attachmentIndex);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setObject_atIndexedSubscript_), attachment, attachmentIndex);
 }
 
 _MTL_INLINE MTL::ComputePassDescriptor* MTL::ComputePassDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL::ComputePassDescriptor>(_MTL_PRIVATE_CLS(MTLComputePassDescriptor));
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<ComputePassDescriptor>(_MTL_PRIVATE_CLS(MTLComputePassDescriptor));
 }
 
 _MTL_INLINE MTL::ComputePassDescriptor* MTL::ComputePassDescriptor::computePassDescriptor()
 {
-    return Object::sendMessage<MTL::ComputePassDescriptor*>(_MTL_PRIVATE_CLS(MTLComputePassDescriptor),
-                                                            _MTL_PRIVATE_SEL(computePassDescriptor));
+    return sendMessage<ComputePassDescriptor*>(_MTL_PRIVATE_CLS(MTLComputePassDescriptor),
+                                               _MTL_PRIVATE_SEL(computePassDescriptor));
 }
 
 _MTL_INLINE MTL::DispatchType MTL::ComputePassDescriptor::dispatchType() const
 {
-    return Object::sendMessage<MTL::DispatchType>(this, _MTL_PRIVATE_SEL(dispatchType));
+    return sendMessage<DispatchType>(this, _MTL_PRIVATE_SEL(dispatchType));
 }
 
 _MTL_INLINE MTL::ComputePassDescriptor* MTL::ComputePassDescriptor::init()
 {
-    return NS::Object::init<MTL::ComputePassDescriptor>();
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<ComputePassDescriptor>();
 }
 
 _MTL_INLINE MTL::ComputePassSampleBufferAttachmentDescriptorArray* MTL::ComputePassDescriptor::sampleBufferAttachments()
     const
 {
-    return Object::sendMessage<MTL::ComputePassSampleBufferAttachmentDescriptorArray*>(
-        this, _MTL_PRIVATE_SEL(sampleBufferAttachments));
+    return sendMessage<ComputePassSampleBufferAttachmentDescriptorArray*>(this,
+                                                                          _MTL_PRIVATE_SEL(sampleBufferAttachments));
 }
 
-_MTL_INLINE void MTL::ComputePassDescriptor::setDispatchType(MTL::DispatchType dispatchType)
+_MTL_INLINE void MTL::ComputePassDescriptor::setDispatchType(const DispatchType dispatchType) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setDispatchType_), dispatchType);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setDispatchType_), dispatchType);
 }

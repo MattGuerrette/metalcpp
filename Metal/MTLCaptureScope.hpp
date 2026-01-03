@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -31,18 +32,19 @@
 
 namespace MTL
 {
+    /// @see https://developer.apple.com/documentation/metal/mtlcapturescope?language=objc
     class CaptureScope : public NS::Referencing<CaptureScope>
     {
     public:
-        class Device* device() const;
+        [[nodiscard]] Device* device() const;
 
-        NS::String* label() const;
-        void        setLabel(const NS::String* pLabel);
+        [[nodiscard]] NS::String* label() const;
+        void                      setLabel(const NS::String* pLabel) const;
 
-        class CommandQueue* commandQueue() const;
+        [[nodiscard]] CommandQueue* commandQueue() const;
 
-        void beginScope();
-        void endScope();
+        void beginScope() const;
+        void endScope() const;
     };
 } // namespace MTL
 
@@ -50,39 +52,36 @@ namespace MTL
 
 _MTL_INLINE MTL::Device* MTL::CaptureScope::device() const
 {
-    return Object::sendMessage<Device*>(this, _MTL_PRIVATE_SEL(device));
+    return sendMessage<Device*>(this, _MTL_PRIVATE_SEL(device));
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 _MTL_INLINE NS::String* MTL::CaptureScope::label() const
 {
-    return Object::sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
+    return sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_MTL_INLINE void MTL::CaptureScope::setLabel(const NS::String* pLabel)
+_MTL_INLINE void MTL::CaptureScope::setLabel(const NS::String* pLabel) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setLabel_), pLabel);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setLabel_), pLabel);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 _MTL_INLINE MTL::CommandQueue* MTL::CaptureScope::commandQueue() const
 {
-    return Object::sendMessage<CommandQueue*>(this, _MTL_PRIVATE_SEL(commandQueue));
+    return sendMessage<CommandQueue*>(this, _MTL_PRIVATE_SEL(commandQueue));
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_MTL_INLINE void MTL::CaptureScope::beginScope()
-{
-    return Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(beginScope));
-}
+_MTL_INLINE void MTL::CaptureScope::beginScope() const { return sendMessage<void>(this, _MTL_PRIVATE_SEL(beginScope)); }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_MTL_INLINE void MTL::CaptureScope::endScope() { return Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(endScope)); }
+_MTL_INLINE void MTL::CaptureScope::endScope() const { return sendMessage<void>(this, _MTL_PRIVATE_SEL(endScope)); }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------

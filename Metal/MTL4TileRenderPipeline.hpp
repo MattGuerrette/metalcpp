@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include "../Foundation/Foundation.hpp"
@@ -41,141 +42,140 @@ namespace MTL
 
 namespace MTL4
 {
+    /// @see https://developer.apple.com/documentation/metal/mtl4tilerenderpipelinedescriptor
     class TileRenderPipelineDescriptor : public NS::Copying<TileRenderPipelineDescriptor, PipelineDescriptor>
     {
     public:
-        static TileRenderPipelineDescriptor* alloc();
+        [[nodiscard]] static TileRenderPipelineDescriptor* alloc();
 
-        MTL::TileRenderPipelineColorAttachmentDescriptorArray* colorAttachments() const;
+        [[nodiscard]] MTL::TileRenderPipelineColorAttachmentDescriptorArray* colorAttachments() const;
 
-        TileRenderPipelineDescriptor* init();
+        [[nodiscard]] TileRenderPipelineDescriptor* init();
 
-        NS::UInteger maxTotalThreadsPerThreadgroup() const;
+        [[nodiscard]] NS::UInteger maxTotalThreadsPerThreadgroup() const;
 
-        NS::UInteger rasterSampleCount() const;
+        [[nodiscard]] NS::UInteger rasterSampleCount() const;
 
-        MTL::Size requiredThreadsPerThreadgroup() const;
+        [[nodiscard]] MTL::Size requiredThreadsPerThreadgroup() const;
 
-        void reset();
+        [[nodiscard]] StaticLinkingDescriptor* staticLinkingDescriptor() const;
 
-        void setMaxTotalThreadsPerThreadgroup(NS::UInteger maxTotalThreadsPerThreadgroup);
+        [[nodiscard]] bool supportBinaryLinking() const;
 
-        void setRasterSampleCount(NS::UInteger rasterSampleCount);
+        [[nodiscard]] bool threadgroupSizeMatchesTileSize() const;
 
-        void setRequiredThreadsPerThreadgroup(MTL::Size requiredThreadsPerThreadgroup);
+        [[nodiscard]] FunctionDescriptor* tileFunctionDescriptor() const;
 
-        void setStaticLinkingDescriptor(const MTL4::StaticLinkingDescriptor* staticLinkingDescriptor);
+        void reset() const;
 
-        void setSupportBinaryLinking(bool supportBinaryLinking);
+        void setMaxTotalThreadsPerThreadgroup(NS::UInteger maxTotalThreadsPerThreadgroup) const;
 
-        void setThreadgroupSizeMatchesTileSize(bool threadgroupSizeMatchesTileSize);
+        void setRasterSampleCount(NS::UInteger rasterSampleCount) const;
 
-        void setTileFunctionDescriptor(const MTL4::FunctionDescriptor* tileFunctionDescriptor);
+        void setRequiredThreadsPerThreadgroup(const MTL::Size& requiredThreadsPerThreadgroup) const;
 
-        StaticLinkingDescriptor* staticLinkingDescriptor() const;
+        void setStaticLinkingDescriptor(const StaticLinkingDescriptor* staticLinkingDescriptor) const;
 
-        bool supportBinaryLinking() const;
+        void setSupportBinaryLinking(bool supportBinaryLinking) const;
 
-        bool threadgroupSizeMatchesTileSize() const;
+        void setThreadgroupSizeMatchesTileSize(bool threadgroupSizeMatchesTileSize) const;
 
-        FunctionDescriptor* tileFunctionDescriptor() const;
+        void setTileFunctionDescriptor(const FunctionDescriptor* tileFunctionDescriptor) const;
     };
 
 } // namespace MTL4
 _MTL_INLINE MTL4::TileRenderPipelineDescriptor* MTL4::TileRenderPipelineDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL4::TileRenderPipelineDescriptor>(_MTL_PRIVATE_CLS(MTL4TileRenderPipelineDescriptor));
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<TileRenderPipelineDescriptor>(_MTL_PRIVATE_CLS(MTL4TileRenderPipelineDescriptor));
 }
 
 _MTL_INLINE MTL::TileRenderPipelineColorAttachmentDescriptorArray*
             MTL4::TileRenderPipelineDescriptor::colorAttachments() const
 {
-    return Object::sendMessage<MTL::TileRenderPipelineColorAttachmentDescriptorArray*>(
-        this, _MTL_PRIVATE_SEL(colorAttachments));
+    return sendMessage<MTL::TileRenderPipelineColorAttachmentDescriptorArray*>(this,
+                                                                               _MTL_PRIVATE_SEL(colorAttachments));
 }
 
 _MTL_INLINE MTL4::TileRenderPipelineDescriptor* MTL4::TileRenderPipelineDescriptor::init()
 {
-    return NS::Object::init<MTL4::TileRenderPipelineDescriptor>();
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<TileRenderPipelineDescriptor>();
 }
 
 _MTL_INLINE NS::UInteger MTL4::TileRenderPipelineDescriptor::maxTotalThreadsPerThreadgroup() const
 {
-    return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(maxTotalThreadsPerThreadgroup));
+    return sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(maxTotalThreadsPerThreadgroup));
 }
 
 _MTL_INLINE NS::UInteger MTL4::TileRenderPipelineDescriptor::rasterSampleCount() const
 {
-    return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(rasterSampleCount));
+    return sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(rasterSampleCount));
 }
 
 _MTL_INLINE MTL::Size MTL4::TileRenderPipelineDescriptor::requiredThreadsPerThreadgroup() const
 {
-    return Object::sendMessage<MTL::Size>(this, _MTL_PRIVATE_SEL(requiredThreadsPerThreadgroup));
+    return sendMessage<MTL::Size>(this, _MTL_PRIVATE_SEL(requiredThreadsPerThreadgroup));
 }
 
-_MTL_INLINE void MTL4::TileRenderPipelineDescriptor::reset()
-{
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(reset));
-}
+_MTL_INLINE void MTL4::TileRenderPipelineDescriptor::reset() const { sendMessage<void>(this, _MTL_PRIVATE_SEL(reset)); }
 
 _MTL_INLINE void MTL4::TileRenderPipelineDescriptor::setMaxTotalThreadsPerThreadgroup(
-    NS::UInteger maxTotalThreadsPerThreadgroup)
+    const NS::UInteger maxTotalThreadsPerThreadgroup) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMaxTotalThreadsPerThreadgroup_), maxTotalThreadsPerThreadgroup);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setMaxTotalThreadsPerThreadgroup_), maxTotalThreadsPerThreadgroup);
 }
 
-_MTL_INLINE void MTL4::TileRenderPipelineDescriptor::setRasterSampleCount(NS::UInteger rasterSampleCount)
+_MTL_INLINE void MTL4::TileRenderPipelineDescriptor::setRasterSampleCount(const NS::UInteger rasterSampleCount) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setRasterSampleCount_), rasterSampleCount);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setRasterSampleCount_), rasterSampleCount);
 }
 
 _MTL_INLINE void MTL4::TileRenderPipelineDescriptor::setRequiredThreadsPerThreadgroup(
-    MTL::Size requiredThreadsPerThreadgroup)
+    const MTL::Size& requiredThreadsPerThreadgroup) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setRequiredThreadsPerThreadgroup_), requiredThreadsPerThreadgroup);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setRequiredThreadsPerThreadgroup_), requiredThreadsPerThreadgroup);
 }
 
 _MTL_INLINE void MTL4::TileRenderPipelineDescriptor::setStaticLinkingDescriptor(
-    const MTL4::StaticLinkingDescriptor* staticLinkingDescriptor)
+    const StaticLinkingDescriptor* staticLinkingDescriptor) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setStaticLinkingDescriptor_), staticLinkingDescriptor);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setStaticLinkingDescriptor_), staticLinkingDescriptor);
 }
 
-_MTL_INLINE void MTL4::TileRenderPipelineDescriptor::setSupportBinaryLinking(bool supportBinaryLinking)
+_MTL_INLINE void MTL4::TileRenderPipelineDescriptor::setSupportBinaryLinking(const bool supportBinaryLinking) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setSupportBinaryLinking_), supportBinaryLinking);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setSupportBinaryLinking_), supportBinaryLinking);
 }
 
 _MTL_INLINE void MTL4::TileRenderPipelineDescriptor::setThreadgroupSizeMatchesTileSize(
-    bool threadgroupSizeMatchesTileSize)
+    const bool threadgroupSizeMatchesTileSize) const
 {
-    Object::sendMessage<void>(
-        this, _MTL_PRIVATE_SEL(setThreadgroupSizeMatchesTileSize_), threadgroupSizeMatchesTileSize);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setThreadgroupSizeMatchesTileSize_), threadgroupSizeMatchesTileSize);
 }
 
 _MTL_INLINE void MTL4::TileRenderPipelineDescriptor::setTileFunctionDescriptor(
-    const MTL4::FunctionDescriptor* tileFunctionDescriptor)
+    const FunctionDescriptor* tileFunctionDescriptor) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setTileFunctionDescriptor_), tileFunctionDescriptor);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setTileFunctionDescriptor_), tileFunctionDescriptor);
 }
 
 _MTL_INLINE MTL4::StaticLinkingDescriptor* MTL4::TileRenderPipelineDescriptor::staticLinkingDescriptor() const
 {
-    return Object::sendMessage<MTL4::StaticLinkingDescriptor*>(this, _MTL_PRIVATE_SEL(staticLinkingDescriptor));
+    return sendMessage<StaticLinkingDescriptor*>(this, _MTL_PRIVATE_SEL(staticLinkingDescriptor));
 }
 
 _MTL_INLINE bool MTL4::TileRenderPipelineDescriptor::supportBinaryLinking() const
 {
-    return Object::sendMessageSafe<bool>(this, _MTL_PRIVATE_SEL(supportBinaryLinking));
+    return sendMessageSafe<bool>(this, _MTL_PRIVATE_SEL(supportBinaryLinking));
 }
 
 _MTL_INLINE bool MTL4::TileRenderPipelineDescriptor::threadgroupSizeMatchesTileSize() const
 {
-    return Object::sendMessage<bool>(this, _MTL_PRIVATE_SEL(threadgroupSizeMatchesTileSize));
+    return sendMessage<bool>(this, _MTL_PRIVATE_SEL(threadgroupSizeMatchesTileSize));
 }
 
 _MTL_INLINE MTL4::FunctionDescriptor* MTL4::TileRenderPipelineDescriptor::tileFunctionDescriptor() const
 {
-    return Object::sendMessage<MTL4::FunctionDescriptor*>(this, _MTL_PRIVATE_SEL(tileFunctionDescriptor));
+    return sendMessage<FunctionDescriptor*>(this, _MTL_PRIVATE_SEL(tileFunctionDescriptor));
 }

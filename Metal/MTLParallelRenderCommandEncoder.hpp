@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include "../Foundation/Foundation.hpp"
@@ -31,58 +32,59 @@ namespace MTL
 {
     class RenderCommandEncoder;
 
+    /// @see https://developer.apple.com/documentation/metal/mtlparallelrendercommandencoder?language=objc
     class ParallelRenderCommandEncoder : public NS::Referencing<ParallelRenderCommandEncoder, CommandEncoder>
     {
     public:
-        RenderCommandEncoder* renderCommandEncoder();
+        [[nodiscard]] RenderCommandEncoder* renderCommandEncoder() const;
 
-        void setColorStoreAction(MTL::StoreAction storeAction, NS::UInteger colorAttachmentIndex);
-        void setColorStoreActionOptions(MTL::StoreActionOptions storeActionOptions, NS::UInteger colorAttachmentIndex);
+        void setColorStoreAction(StoreAction storeAction, NS::UInteger colorAttachmentIndex) const;
+        void setColorStoreActionOptions(StoreActionOptions storeActionOptions, NS::UInteger colorAttachmentIndex) const;
 
-        void setDepthStoreAction(MTL::StoreAction storeAction);
-        void setDepthStoreActionOptions(MTL::StoreActionOptions storeActionOptions);
+        void setDepthStoreAction(StoreAction storeAction) const;
+        void setDepthStoreActionOptions(StoreActionOptions storeActionOptions) const;
 
-        void setStencilStoreAction(MTL::StoreAction storeAction);
-        void setStencilStoreActionOptions(MTL::StoreActionOptions storeActionOptions);
+        void setStencilStoreAction(StoreAction storeAction) const;
+        void setStencilStoreActionOptions(StoreActionOptions storeActionOptions) const;
     };
 
 } // namespace MTL
-_MTL_INLINE MTL::RenderCommandEncoder* MTL::ParallelRenderCommandEncoder::renderCommandEncoder()
+_MTL_INLINE MTL::RenderCommandEncoder* MTL::ParallelRenderCommandEncoder::renderCommandEncoder() const
 {
-    return Object::sendMessage<MTL::RenderCommandEncoder*>(this, _MTL_PRIVATE_SEL(renderCommandEncoder));
+    return sendMessage<RenderCommandEncoder*>(this, _MTL_PRIVATE_SEL(renderCommandEncoder));
 }
 
-_MTL_INLINE void MTL::ParallelRenderCommandEncoder::setColorStoreAction(MTL::StoreAction storeAction,
-                                                                        NS::UInteger     colorAttachmentIndex)
+_MTL_INLINE void MTL::ParallelRenderCommandEncoder::setColorStoreAction(const StoreAction  storeAction,
+                                                                        const NS::UInteger colorAttachmentIndex) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setColorStoreAction_atIndex_), storeAction, colorAttachmentIndex);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setColorStoreAction_atIndex_), storeAction, colorAttachmentIndex);
 }
 
 _MTL_INLINE void MTL::ParallelRenderCommandEncoder::setColorStoreActionOptions(
-    MTL::StoreActionOptions storeActionOptions, NS::UInteger colorAttachmentIndex)
+    const StoreActionOptions storeActionOptions, const NS::UInteger colorAttachmentIndex) const
 {
-    Object::sendMessage<void>(
+    sendMessage<void>(
         this, _MTL_PRIVATE_SEL(setColorStoreActionOptions_atIndex_), storeActionOptions, colorAttachmentIndex);
 }
 
-_MTL_INLINE void MTL::ParallelRenderCommandEncoder::setDepthStoreAction(MTL::StoreAction storeAction)
+_MTL_INLINE void MTL::ParallelRenderCommandEncoder::setDepthStoreAction(const StoreAction storeAction) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setDepthStoreAction_), storeAction);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setDepthStoreAction_), storeAction);
 }
 
 _MTL_INLINE void MTL::ParallelRenderCommandEncoder::setDepthStoreActionOptions(
-    MTL::StoreActionOptions storeActionOptions)
+    const StoreActionOptions storeActionOptions) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setDepthStoreActionOptions_), storeActionOptions);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setDepthStoreActionOptions_), storeActionOptions);
 }
 
-_MTL_INLINE void MTL::ParallelRenderCommandEncoder::setStencilStoreAction(MTL::StoreAction storeAction)
+_MTL_INLINE void MTL::ParallelRenderCommandEncoder::setStencilStoreAction(const StoreAction storeAction) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setStencilStoreAction_), storeAction);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setStencilStoreAction_), storeAction);
 }
 
 _MTL_INLINE void MTL::ParallelRenderCommandEncoder::setStencilStoreActionOptions(
-    MTL::StoreActionOptions storeActionOptions)
+    const StoreActionOptions storeActionOptions) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setStencilStoreActionOptions_), storeActionOptions);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setStencilStoreActionOptions_), storeActionOptions);
 }

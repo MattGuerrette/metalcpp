@@ -18,12 +18,11 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include "MTLDefines.hpp"
 #include "MTLDevice.hpp"
-#include "MTLHeaderBridge.hpp"
-#include "MTLPrivate.hpp"
 
 #include "../Foundation/Foundation.hpp"
 
@@ -31,18 +30,21 @@ namespace MTL
 {
     using IOCompressionContext = void*;
 
+    /// @see https://developer.apple.com/documentation/metal/mtliocompressionstatus?language=objc
     _MTL_ENUM(NS::Integer, IOCompressionStatus){
         IOCompressionStatusComplete = 0,
         IOCompressionStatusError    = 1,
     };
 
-    size_t IOCompressionContextDefaultChunkSize();
+    [[nodiscard]] size_t IOCompressionContextDefaultChunkSize();
 
-    IOCompressionContext IOCreateCompressionContext(const char* path, IOCompressionMethod type, size_t chunkSize);
+    [[nodiscard]] IOCompressionContext IOCreateCompressionContext(const char*         path,
+                                                                  IOCompressionMethod type,
+                                                                  size_t              chunkSize);
 
     void IOCompressionContextAppendData(IOCompressionContext context, const void* data, size_t size);
 
-    IOCompressionStatus IOFlushAndDestroyCompressionContext(IOCompressionContext context);
+    [[nodiscard]] IOCompressionStatus IOFlushAndDestroyCompressionContext(IOCompressionContext context);
 
 } // namespace MTL
 

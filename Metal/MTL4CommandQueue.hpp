@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include <cstdint>
@@ -56,6 +57,7 @@ namespace MTL4
         CommandQueueErrorInternal = 6,
     };
 
+    /// @see https://developer.apple.com/documentation/metal/mtl4updatesparsetexturemappingoperation
     struct UpdateSparseTextureMappingOperation
     {
         MTL::SparseTextureMappingMode mode;
@@ -65,6 +67,7 @@ namespace MTL4
         NS::UInteger                  heapOffset;
     } _MTL_PACKED;
 
+    /// @see https://developer.apple.com/documentation/metal/mtl4copysparsetexturemappingoperation
     struct CopySparseTextureMappingOperation
     {
         MTL::Region  sourceRegion;
@@ -75,6 +78,7 @@ namespace MTL4
         NS::UInteger destinationSlice;
     } _MTL_PACKED;
 
+    /// @see https://developer.apple.com/documentation/metal/mtl4updatesparsebuffermappingoperation
     struct UpdateSparseBufferMappingOperation
     {
         MTL::SparseTextureMappingMode mode;
@@ -82,241 +86,252 @@ namespace MTL4
         NS::UInteger                  heapOffset;
     } _MTL_PACKED;
 
+    /// @see https://developer.apple.com/documentation/metal/mtl4copysparsebuffermappingoperation
     struct CopySparseBufferMappingOperation
     {
         NS::Range    sourceRange;
         NS::UInteger destinationOffset;
     } _MTL_PACKED;
 
+    /// @see https://developer.apple.com/documentation/metal/mtl4commitoptions
     class CommitOptions : public NS::Referencing<CommitOptions>
     {
     public:
-        void addFeedbackHandler(const MTL4::CommitFeedbackHandler block);
-        void addFeedbackHandler(const MTL4::CommitFeedbackHandlerFunction& function);
+        void addFeedbackHandler(CommitFeedbackHandler block);
+        void addFeedbackHandler(const CommitFeedbackHandlerFunction& function);
 
         static CommitOptions* alloc();
 
         CommitOptions* init();
     };
+
+    /// @see https://developer.apple.com/documentation/metal/mtl4commandqueuedescriptor
     class CommandQueueDescriptor : public NS::Copying<CommandQueueDescriptor>
     {
     public:
-        static CommandQueueDescriptor* alloc();
+        [[nodiscard]] static CommandQueueDescriptor* alloc();
 
-        dispatch_queue_t feedbackQueue() const;
+        [[nodiscard]] dispatch_queue_t feedbackQueue() const;
 
-        CommandQueueDescriptor* init();
+        [[nodiscard]] CommandQueueDescriptor* init();
 
-        NS::String* label() const;
+        [[nodiscard]] NS::String* label() const;
 
-        void setFeedbackQueue(const dispatch_queue_t feedbackQueue);
+        void setFeedbackQueue(dispatch_queue_t feedbackQueue) const;
 
-        void setLabel(const NS::String* label);
+        void setLabel(const NS::String* label) const;
     };
+
+    /// @see https://developer.apple.com/documentation/metal/mtl4commandqueue
     class CommandQueue : public NS::Referencing<CommandQueue>
     {
     public:
-        void addResidencySet(const MTL::ResidencySet* residencySet);
-        void addResidencySets(const MTL::ResidencySet* const residencySets[], NS::UInteger count);
+        void addResidencySet(const MTL::ResidencySet* residencySet) const;
+        void addResidencySets(const MTL::ResidencySet* const residencySets[], NS::UInteger count) const;
 
-        void commit(const MTL4::CommandBuffer* const commandBuffers[], NS::UInteger count);
-        void commit(const MTL4::CommandBuffer* const commandBuffers[],
-                    NS::UInteger                     count,
-                    const MTL4::CommitOptions*       options);
+        void commit(const CommandBuffer* const commandBuffers[], NS::UInteger count) const;
+        void commit(const CommandBuffer* const commandBuffers[],
+                    NS::UInteger               count,
+                    const CommitOptions*       options) const;
 
-        void copyBufferMappingsFromBuffer(const MTL::Buffer*                            sourceBuffer,
-                                          const MTL::Buffer*                            destinationBuffer,
-                                          const MTL4::CopySparseBufferMappingOperation* operations,
-                                          NS::UInteger                                  count);
+        void copyBufferMappingsFromBuffer(const MTL::Buffer*                      sourceBuffer,
+                                          const MTL::Buffer*                      destinationBuffer,
+                                          const CopySparseBufferMappingOperation* operations,
+                                          NS::UInteger                            count) const;
 
-        void copyTextureMappingsFromTexture(const MTL::Texture*                            sourceTexture,
-                                            const MTL::Texture*                            destinationTexture,
-                                            const MTL4::CopySparseTextureMappingOperation* operations,
-                                            NS::UInteger                                   count);
+        void copyTextureMappingsFromTexture(const MTL::Texture*                      sourceTexture,
+                                            const MTL::Texture*                      destinationTexture,
+                                            const CopySparseTextureMappingOperation* operations,
+                                            NS::UInteger                             count) const;
 
-        MTL::Device* device() const;
+        [[nodiscard]] MTL::Device* device() const;
 
-        NS::String* label() const;
+        [[nodiscard]] NS::String* label() const;
 
-        void removeResidencySet(const MTL::ResidencySet* residencySet);
-        void removeResidencySets(const MTL::ResidencySet* const residencySets[], NS::UInteger count);
+        void removeResidencySet(const MTL::ResidencySet* residencySet) const;
+        void removeResidencySets(const MTL::ResidencySet* const residencySets[], NS::UInteger count) const;
 
-        void signalDrawable(const MTL::Drawable* drawable);
+        void signalDrawable(const MTL::Drawable* drawable) const;
 
-        void signalEvent(const MTL::Event* event, uint64_t value);
+        void signalEvent(const MTL::Event* event, uint64_t value) const;
 
-        void updateBufferMappings(const MTL::Buffer*                              buffer,
-                                  const MTL::Heap*                                heap,
-                                  const MTL4::UpdateSparseBufferMappingOperation* operations,
-                                  NS::UInteger                                    count);
+        void updateBufferMappings(const MTL::Buffer*                        buffer,
+                                  const MTL::Heap*                          heap,
+                                  const UpdateSparseBufferMappingOperation* operations,
+                                  NS::UInteger                              count) const;
 
-        void updateTextureMappings(const MTL::Texture*                              texture,
-                                   const MTL::Heap*                                 heap,
-                                   const MTL4::UpdateSparseTextureMappingOperation* operations,
-                                   NS::UInteger                                     count);
+        void updateTextureMappings(const MTL::Texture*                        texture,
+                                   const MTL::Heap*                           heap,
+                                   const UpdateSparseTextureMappingOperation* operations,
+                                   NS::UInteger                               count) const;
 
-        void wait(const MTL::Event* event, uint64_t value);
-        void wait(const MTL::Drawable* drawable);
+        void wait(const MTL::Event* event, uint64_t value) const;
+        void wait(const MTL::Drawable* drawable) const;
     };
 
 } // namespace MTL4
 
-_MTL_INLINE void MTL4::CommitOptions::addFeedbackHandler(const MTL4::CommitFeedbackHandler block)
+_MTL_INLINE void MTL4::CommitOptions::addFeedbackHandler(const CommitFeedbackHandler block)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(addFeedbackHandler_), block);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(addFeedbackHandler_), block);
 }
 
-_MTL_INLINE void MTL4::CommitOptions::addFeedbackHandler(const MTL4::CommitFeedbackHandlerFunction& function)
+_MTL_INLINE void MTL4::CommitOptions::addFeedbackHandler(const CommitFeedbackHandlerFunction& function)
 {
-    __block MTL4::CommitFeedbackHandlerFunction blockFunction = function;
-    addFeedbackHandler(^(MTL4::CommitFeedback* pFeedback) {
+    __block CommitFeedbackHandlerFunction blockFunction = function;
+    addFeedbackHandler(^(CommitFeedback* pFeedback) {
       blockFunction(pFeedback);
     });
 }
 
 _MTL_INLINE MTL4::CommitOptions* MTL4::CommitOptions::alloc()
 {
-    return NS::Object::alloc<MTL4::CommitOptions>(_MTL_PRIVATE_CLS(MTL4CommitOptions));
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<CommitOptions>(_MTL_PRIVATE_CLS(MTL4CommitOptions));
 }
 
-_MTL_INLINE MTL4::CommitOptions* MTL4::CommitOptions::init() { return NS::Object::init<MTL4::CommitOptions>(); }
+_MTL_INLINE MTL4::CommitOptions* MTL4::CommitOptions::init()
+{
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<CommitOptions>();
+}
 
 _MTL_INLINE MTL4::CommandQueueDescriptor* MTL4::CommandQueueDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL4::CommandQueueDescriptor>(_MTL_PRIVATE_CLS(MTL4CommandQueueDescriptor));
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<CommandQueueDescriptor>(_MTL_PRIVATE_CLS(MTL4CommandQueueDescriptor));
 }
 
 _MTL_INLINE dispatch_queue_t MTL4::CommandQueueDescriptor::feedbackQueue() const
 {
-    return Object::sendMessage<dispatch_queue_t>(this, _MTL_PRIVATE_SEL(feedbackQueue));
+    return sendMessage<dispatch_queue_t>(this, _MTL_PRIVATE_SEL(feedbackQueue));
 }
 
 _MTL_INLINE MTL4::CommandQueueDescriptor* MTL4::CommandQueueDescriptor::init()
 {
-    return NS::Object::init<MTL4::CommandQueueDescriptor>();
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<CommandQueueDescriptor>();
 }
 
 _MTL_INLINE NS::String* MTL4::CommandQueueDescriptor::label() const
 {
-    return Object::sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
+    return sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
 }
 
-_MTL_INLINE void MTL4::CommandQueueDescriptor::setFeedbackQueue(const dispatch_queue_t feedbackQueue)
+_MTL_INLINE void MTL4::CommandQueueDescriptor::setFeedbackQueue(const dispatch_queue_t feedbackQueue) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setFeedbackQueue_), feedbackQueue);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setFeedbackQueue_), feedbackQueue);
 }
 
-_MTL_INLINE void MTL4::CommandQueueDescriptor::setLabel(const NS::String* label)
+_MTL_INLINE void MTL4::CommandQueueDescriptor::setLabel(const NS::String* label) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setLabel_), label);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setLabel_), label);
 }
 
-_MTL_INLINE void MTL4::CommandQueue::addResidencySet(const MTL::ResidencySet* residencySet)
+_MTL_INLINE void MTL4::CommandQueue::addResidencySet(const MTL::ResidencySet* residencySet) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(addResidencySet_), residencySet);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(addResidencySet_), residencySet);
 }
 
 _MTL_INLINE void MTL4::CommandQueue::addResidencySets(const MTL::ResidencySet* const residencySets[],
-                                                      NS::UInteger                   count)
+                                                      const NS::UInteger             count) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(addResidencySets_count_), residencySets, count);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(addResidencySets_count_), residencySets, count);
 }
 
-_MTL_INLINE void MTL4::CommandQueue::commit(const MTL4::CommandBuffer* const commandBuffers[], NS::UInteger count)
+_MTL_INLINE void MTL4::CommandQueue::commit(const CommandBuffer* const commandBuffers[], const NS::UInteger count) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(commit_count_), commandBuffers, count);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(commit_count_), commandBuffers, count);
 }
 
-_MTL_INLINE void MTL4::CommandQueue::commit(const MTL4::CommandBuffer* const commandBuffers[],
-                                            NS::UInteger                     count,
-                                            const MTL4::CommitOptions*       options)
+_MTL_INLINE void MTL4::CommandQueue::commit(const CommandBuffer* const commandBuffers[],
+                                            const NS::UInteger         count,
+                                            const CommitOptions*       options) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(commit_count_options_), commandBuffers, count, options);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(commit_count_options_), commandBuffers, count, options);
 }
 
-_MTL_INLINE void MTL4::CommandQueue::copyBufferMappingsFromBuffer(
-    const MTL::Buffer*                            sourceBuffer,
-    const MTL::Buffer*                            destinationBuffer,
-    const MTL4::CopySparseBufferMappingOperation* operations,
-    NS::UInteger                                  count)
+_MTL_INLINE void MTL4::CommandQueue::copyBufferMappingsFromBuffer(const MTL::Buffer* sourceBuffer,
+                                                                  const MTL::Buffer* destinationBuffer,
+                                                                  const CopySparseBufferMappingOperation* operations,
+                                                                  const NS::UInteger                      count) const
 {
-    Object::sendMessage<void>(this,
-                              _MTL_PRIVATE_SEL(copyBufferMappingsFromBuffer_toBuffer_operations_count_),
-                              sourceBuffer,
-                              destinationBuffer,
-                              operations,
-                              count);
+    sendMessage<void>(this,
+                      _MTL_PRIVATE_SEL(copyBufferMappingsFromBuffer_toBuffer_operations_count_),
+                      sourceBuffer,
+                      destinationBuffer,
+                      operations,
+                      count);
 }
 
-_MTL_INLINE void MTL4::CommandQueue::copyTextureMappingsFromTexture(
-    const MTL::Texture*                            sourceTexture,
-    const MTL::Texture*                            destinationTexture,
-    const MTL4::CopySparseTextureMappingOperation* operations,
-    NS::UInteger                                   count)
+_MTL_INLINE void MTL4::CommandQueue::copyTextureMappingsFromTexture(const MTL::Texture* sourceTexture,
+                                                                    const MTL::Texture* destinationTexture,
+                                                                    const CopySparseTextureMappingOperation* operations,
+                                                                    const NS::UInteger count) const
 {
-    Object::sendMessage<void>(this,
-                              _MTL_PRIVATE_SEL(copyTextureMappingsFromTexture_toTexture_operations_count_),
-                              sourceTexture,
-                              destinationTexture,
-                              operations,
-                              count);
+    sendMessage<void>(this,
+                      _MTL_PRIVATE_SEL(copyTextureMappingsFromTexture_toTexture_operations_count_),
+                      sourceTexture,
+                      destinationTexture,
+                      operations,
+                      count);
 }
 
 _MTL_INLINE MTL::Device* MTL4::CommandQueue::device() const
 {
-    return Object::sendMessage<MTL::Device*>(this, _MTL_PRIVATE_SEL(device));
+    return sendMessage<MTL::Device*>(this, _MTL_PRIVATE_SEL(device));
 }
 
 _MTL_INLINE NS::String* MTL4::CommandQueue::label() const
 {
-    return Object::sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
+    return sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
 }
 
-_MTL_INLINE void MTL4::CommandQueue::removeResidencySet(const MTL::ResidencySet* residencySet)
+_MTL_INLINE void MTL4::CommandQueue::removeResidencySet(const MTL::ResidencySet* residencySet) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(removeResidencySet_), residencySet);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(removeResidencySet_), residencySet);
 }
 
 _MTL_INLINE void MTL4::CommandQueue::removeResidencySets(const MTL::ResidencySet* const residencySets[],
-                                                         NS::UInteger                   count)
+                                                         const NS::UInteger             count) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(removeResidencySets_count_), residencySets, count);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(removeResidencySets_count_), residencySets, count);
 }
 
-_MTL_INLINE void MTL4::CommandQueue::signalDrawable(const MTL::Drawable* drawable)
+_MTL_INLINE void MTL4::CommandQueue::signalDrawable(const MTL::Drawable* drawable) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(signalDrawable_), drawable);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(signalDrawable_), drawable);
 }
 
-_MTL_INLINE void MTL4::CommandQueue::signalEvent(const MTL::Event* event, uint64_t value)
+_MTL_INLINE void MTL4::CommandQueue::signalEvent(const MTL::Event* event, const uint64_t value) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(signalEvent_value_), event, value);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(signalEvent_value_), event, value);
 }
 
-_MTL_INLINE void MTL4::CommandQueue::updateBufferMappings(const MTL::Buffer*                              buffer,
-                                                          const MTL::Heap*                                heap,
-                                                          const MTL4::UpdateSparseBufferMappingOperation* operations,
-                                                          NS::UInteger                                    count)
+_MTL_INLINE void MTL4::CommandQueue::updateBufferMappings(const MTL::Buffer*                        buffer,
+                                                          const MTL::Heap*                          heap,
+                                                          const UpdateSparseBufferMappingOperation* operations,
+                                                          const NS::UInteger                        count) const
 {
-    Object::sendMessage<void>(
+    sendMessage<void>(
         this, _MTL_PRIVATE_SEL(updateBufferMappings_heap_operations_count_), buffer, heap, operations, count);
 }
 
-_MTL_INLINE void MTL4::CommandQueue::updateTextureMappings(const MTL::Texture*                              texture,
-                                                           const MTL::Heap*                                 heap,
-                                                           const MTL4::UpdateSparseTextureMappingOperation* operations,
-                                                           NS::UInteger                                     count)
+_MTL_INLINE void MTL4::CommandQueue::updateTextureMappings(const MTL::Texture*                        texture,
+                                                           const MTL::Heap*                           heap,
+                                                           const UpdateSparseTextureMappingOperation* operations,
+                                                           const NS::UInteger                         count) const
 {
-    Object::sendMessage<void>(
+    sendMessage<void>(
         this, _MTL_PRIVATE_SEL(updateTextureMappings_heap_operations_count_), texture, heap, operations, count);
 }
 
-_MTL_INLINE void MTL4::CommandQueue::wait(const MTL::Event* event, uint64_t value)
+_MTL_INLINE void MTL4::CommandQueue::wait(const MTL::Event* event, const uint64_t value) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(waitForEvent_value_), event, value);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(waitForEvent_value_), event, value);
 }
 
-_MTL_INLINE void MTL4::CommandQueue::wait(const MTL::Drawable* drawable)
+_MTL_INLINE void MTL4::CommandQueue::wait(const MTL::Drawable* drawable) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(waitForDrawable_), drawable);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(waitForDrawable_), drawable);
 }

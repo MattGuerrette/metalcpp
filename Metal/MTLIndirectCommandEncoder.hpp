@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include "../Foundation/Foundation.hpp"
@@ -34,132 +35,135 @@ namespace MTL
     class ComputePipelineState;
     class RenderPipelineState;
 
+    /// @see https://developer.apple.com/documentation/metal/mtlindirectrendercommand?language=objc
     class IndirectRenderCommand : public NS::Referencing<IndirectRenderCommand>
     {
     public:
-        void clearBarrier();
+        void clearBarrier() const;
 
-        void drawIndexedPatches(NS::UInteger       numberOfPatchControlPoints,
-                                NS::UInteger       patchStart,
-                                NS::UInteger       patchCount,
-                                const MTL::Buffer* patchIndexBuffer,
-                                NS::UInteger       patchIndexBufferOffset,
-                                const MTL::Buffer* controlPointIndexBuffer,
-                                NS::UInteger       controlPointIndexBufferOffset,
-                                NS::UInteger       instanceCount,
-                                NS::UInteger       baseInstance,
-                                const MTL::Buffer* buffer,
-                                NS::UInteger       offset,
-                                NS::UInteger       instanceStride);
+        void drawIndexedPatches(NS::UInteger  numberOfPatchControlPoints,
+                                NS::UInteger  patchStart,
+                                NS::UInteger  patchCount,
+                                const Buffer* patchIndexBuffer,
+                                NS::UInteger  patchIndexBufferOffset,
+                                const Buffer* controlPointIndexBuffer,
+                                NS::UInteger  controlPointIndexBufferOffset,
+                                NS::UInteger  instanceCount,
+                                NS::UInteger  baseInstance,
+                                const Buffer* buffer,
+                                NS::UInteger  offset,
+                                NS::UInteger  instanceStride) const;
 
-        void drawIndexedPrimitives(MTL::PrimitiveType primitiveType,
-                                   NS::UInteger       indexCount,
-                                   MTL::IndexType     indexType,
-                                   const MTL::Buffer* indexBuffer,
-                                   NS::UInteger       indexBufferOffset,
-                                   NS::UInteger       instanceCount,
-                                   NS::Integer        baseVertex,
-                                   NS::UInteger       baseInstance);
+        void drawIndexedPrimitives(PrimitiveType primitiveType,
+                                   NS::UInteger  indexCount,
+                                   IndexType     indexType,
+                                   const Buffer* indexBuffer,
+                                   NS::UInteger  indexBufferOffset,
+                                   NS::UInteger  instanceCount,
+                                   NS::Integer   baseVertex,
+                                   NS::UInteger  baseInstance) const;
 
-        void drawMeshThreadgroups(MTL::Size threadgroupsPerGrid,
-                                  MTL::Size threadsPerObjectThreadgroup,
-                                  MTL::Size threadsPerMeshThreadgroup);
+        void drawMeshThreadgroups(const Size& threadgroupsPerGrid,
+                                  const Size& threadsPerObjectThreadgroup,
+                                  const Size& threadsPerMeshThreadgroup) const;
 
-        void drawMeshThreads(MTL::Size threadsPerGrid,
-                             MTL::Size threadsPerObjectThreadgroup,
-                             MTL::Size threadsPerMeshThreadgroup);
+        void drawMeshThreads(const Size& threadsPerGrid,
+                             const Size& threadsPerObjectThreadgroup,
+                             const Size& threadsPerMeshThreadgroup) const;
 
-        void drawPatches(NS::UInteger       numberOfPatchControlPoints,
-                         NS::UInteger       patchStart,
-                         NS::UInteger       patchCount,
-                         const MTL::Buffer* patchIndexBuffer,
-                         NS::UInteger       patchIndexBufferOffset,
-                         NS::UInteger       instanceCount,
-                         NS::UInteger       baseInstance,
-                         const MTL::Buffer* buffer,
-                         NS::UInteger       offset,
-                         NS::UInteger       instanceStride);
+        void drawPatches(NS::UInteger  numberOfPatchControlPoints,
+                         NS::UInteger  patchStart,
+                         NS::UInteger  patchCount,
+                         const Buffer* patchIndexBuffer,
+                         NS::UInteger  patchIndexBufferOffset,
+                         NS::UInteger  instanceCount,
+                         NS::UInteger  baseInstance,
+                         const Buffer* buffer,
+                         NS::UInteger  offset,
+                         NS::UInteger  instanceStride) const;
 
-        void drawPrimitives(MTL::PrimitiveType primitiveType,
-                            NS::UInteger       vertexStart,
-                            NS::UInteger       vertexCount,
-                            NS::UInteger       instanceCount,
-                            NS::UInteger       baseInstance);
+        void drawPrimitives(PrimitiveType primitiveType,
+                            NS::UInteger  vertexStart,
+                            NS::UInteger  vertexCount,
+                            NS::UInteger  instanceCount,
+                            NS::UInteger  baseInstance) const;
 
-        void reset();
+        void reset() const;
 
-        void setBarrier();
+        void setBarrier() const;
 
-        void setCullMode(MTL::CullMode cullMode);
+        void setCullMode(CullMode cullMode) const;
 
-        void setDepthBias(float depthBias, float slopeScale, float clamp);
+        void setDepthBias(float depthBias, float slopeScale, float clamp) const;
 
-        void setDepthClipMode(MTL::DepthClipMode depthClipMode);
+        void setDepthClipMode(DepthClipMode depthClipMode) const;
 
-        void setDepthStencilState(const MTL::DepthStencilState* depthStencilState);
+        void setDepthStencilState(const DepthStencilState* depthStencilState) const;
 
-        void setFragmentBuffer(const MTL::Buffer* buffer, NS::UInteger offset, NS::UInteger index);
+        void setFragmentBuffer(const Buffer* buffer, NS::UInteger offset, NS::UInteger index) const;
 
-        void setFrontFacingWinding(MTL::Winding frontFacingWindning);
+        void setFrontFacingWinding(Winding frontFacingWinding) const;
 
-        void setMeshBuffer(const MTL::Buffer* buffer, NS::UInteger offset, NS::UInteger index);
+        void setMeshBuffer(const Buffer* buffer, NS::UInteger offset, NS::UInteger index) const;
 
-        void setObjectBuffer(const MTL::Buffer* buffer, NS::UInteger offset, NS::UInteger index);
+        void setObjectBuffer(const Buffer* buffer, NS::UInteger offset, NS::UInteger index) const;
 
-        void setObjectThreadgroupMemoryLength(NS::UInteger length, NS::UInteger index);
+        void setObjectThreadgroupMemoryLength(NS::UInteger length, NS::UInteger index) const;
 
-        void setRenderPipelineState(const MTL::RenderPipelineState* pipelineState);
+        void setRenderPipelineState(const RenderPipelineState* pipelineState) const;
 
-        void setTriangleFillMode(MTL::TriangleFillMode fillMode);
+        void setTriangleFillMode(TriangleFillMode fillMode) const;
 
-        void setVertexBuffer(const MTL::Buffer* buffer, NS::UInteger offset, NS::UInteger index);
-        void setVertexBuffer(const MTL::Buffer* buffer, NS::UInteger offset, NS::UInteger stride, NS::UInteger index);
+        void setVertexBuffer(const Buffer* buffer, NS::UInteger offset, NS::UInteger index) const;
+        void setVertexBuffer(const Buffer* buffer, NS::UInteger offset, NS::UInteger stride, NS::UInteger index) const;
     };
+
+    /// @see https://developer.apple.com/documentation/metal/mtlindirectcomputecommand?language=objc
     class IndirectComputeCommand : public NS::Referencing<IndirectComputeCommand>
     {
     public:
-        void clearBarrier();
+        void clearBarrier() const;
 
-        void concurrentDispatchThreadgroups(MTL::Size threadgroupsPerGrid, MTL::Size threadsPerThreadgroup);
+        void concurrentDispatchThreadgroups(const Size& threadgroupsPerGrid, const Size& threadsPerThreadgroup) const;
 
-        void concurrentDispatchThreads(MTL::Size threadsPerGrid, MTL::Size threadsPerThreadgroup);
+        void concurrentDispatchThreads(const Size& threadsPerGrid, const Size& threadsPerThreadgroup) const;
 
-        void reset();
+        void reset() const;
 
-        void setBarrier();
+        void setBarrier() const;
 
-        void setComputePipelineState(const MTL::ComputePipelineState* pipelineState);
+        void setComputePipelineState(const ComputePipelineState* pipelineState) const;
 
-        void setImageblockWidth(NS::UInteger width, NS::UInteger height);
+        void setImageblockWidth(NS::UInteger width, NS::UInteger height) const;
 
-        void setKernelBuffer(const MTL::Buffer* buffer, NS::UInteger offset, NS::UInteger index);
-        void setKernelBuffer(const MTL::Buffer* buffer, NS::UInteger offset, NS::UInteger stride, NS::UInteger index);
+        void setKernelBuffer(const Buffer* buffer, NS::UInteger offset, NS::UInteger index) const;
+        void setKernelBuffer(const Buffer* buffer, NS::UInteger offset, NS::UInteger stride, NS::UInteger index) const;
 
-        void setStageInRegion(MTL::Region region);
+        void setStageInRegion(const Region& region) const;
 
-        void setThreadgroupMemoryLength(NS::UInteger length, NS::UInteger index);
+        void setThreadgroupMemoryLength(NS::UInteger length, NS::UInteger index) const;
     };
 
 } // namespace MTL
-_MTL_INLINE void MTL::IndirectRenderCommand::clearBarrier()
+_MTL_INLINE void MTL::IndirectRenderCommand::clearBarrier() const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(clearBarrier));
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(clearBarrier));
 }
 
-_MTL_INLINE void MTL::IndirectRenderCommand::drawIndexedPatches(NS::UInteger       numberOfPatchControlPoints,
-                                                                NS::UInteger       patchStart,
-                                                                NS::UInteger       patchCount,
-                                                                const MTL::Buffer* patchIndexBuffer,
-                                                                NS::UInteger       patchIndexBufferOffset,
-                                                                const MTL::Buffer* controlPointIndexBuffer,
-                                                                NS::UInteger       controlPointIndexBufferOffset,
-                                                                NS::UInteger       instanceCount,
-                                                                NS::UInteger       baseInstance,
-                                                                const MTL::Buffer* buffer,
-                                                                NS::UInteger       offset,
-                                                                NS::UInteger       instanceStride)
+_MTL_INLINE void MTL::IndirectRenderCommand::drawIndexedPatches(const NS::UInteger numberOfPatchControlPoints,
+                                                                const NS::UInteger patchStart,
+                                                                const NS::UInteger patchCount,
+                                                                const Buffer*      patchIndexBuffer,
+                                                                const NS::UInteger patchIndexBufferOffset,
+                                                                const Buffer*      controlPointIndexBuffer,
+                                                                const NS::UInteger controlPointIndexBufferOffset,
+                                                                const NS::UInteger instanceCount,
+                                                                const NS::UInteger baseInstance,
+                                                                const Buffer*      buffer,
+                                                                const NS::UInteger offset,
+                                                                const NS::UInteger instanceStride) const
 {
-    Object::sendMessage<void>(
+    sendMessage<void>(
         this,
         _MTL_PRIVATE_SEL(
             drawIndexedPatches_patchStart_patchCount_patchIndexBuffer_patchIndexBufferOffset_controlPointIndexBuffer_controlPointIndexBufferOffset_instanceCount_baseInstance_tessellationFactorBuffer_tessellationFactorBufferOffset_tessellationFactorBufferInstanceStride_),
@@ -177,16 +181,16 @@ _MTL_INLINE void MTL::IndirectRenderCommand::drawIndexedPatches(NS::UInteger    
         instanceStride);
 }
 
-_MTL_INLINE void MTL::IndirectRenderCommand::drawIndexedPrimitives(MTL::PrimitiveType primitiveType,
-                                                                   NS::UInteger       indexCount,
-                                                                   MTL::IndexType     indexType,
-                                                                   const MTL::Buffer* indexBuffer,
-                                                                   NS::UInteger       indexBufferOffset,
-                                                                   NS::UInteger       instanceCount,
-                                                                   NS::Integer        baseVertex,
-                                                                   NS::UInteger       baseInstance)
+_MTL_INLINE void MTL::IndirectRenderCommand::drawIndexedPrimitives(const PrimitiveType primitiveType,
+                                                                   const NS::UInteger  indexCount,
+                                                                   const IndexType     indexType,
+                                                                   const Buffer*       indexBuffer,
+                                                                   const NS::UInteger  indexBufferOffset,
+                                                                   const NS::UInteger  instanceCount,
+                                                                   const NS::Integer   baseVertex,
+                                                                   const NS::UInteger  baseInstance) const
 {
-    Object::sendMessage<void>(
+    sendMessage<void>(
         this,
         _MTL_PRIVATE_SEL(
             drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferOffset_instanceCount_baseVertex_baseInstance_),
@@ -200,41 +204,40 @@ _MTL_INLINE void MTL::IndirectRenderCommand::drawIndexedPrimitives(MTL::Primitiv
         baseInstance);
 }
 
-_MTL_INLINE void MTL::IndirectRenderCommand::drawMeshThreadgroups(MTL::Size threadgroupsPerGrid,
-                                                                  MTL::Size threadsPerObjectThreadgroup,
-                                                                  MTL::Size threadsPerMeshThreadgroup)
+_MTL_INLINE void MTL::IndirectRenderCommand::drawMeshThreadgroups(const Size& threadgroupsPerGrid,
+                                                                  const Size& threadsPerObjectThreadgroup,
+                                                                  const Size& threadsPerMeshThreadgroup) const
 {
-    Object::sendMessage<void>(
-        this,
-        _MTL_PRIVATE_SEL(drawMeshThreadgroups_threadsPerObjectThreadgroup_threadsPerMeshThreadgroup_),
-        threadgroupsPerGrid,
-        threadsPerObjectThreadgroup,
-        threadsPerMeshThreadgroup);
+    sendMessage<void>(this,
+                      _MTL_PRIVATE_SEL(drawMeshThreadgroups_threadsPerObjectThreadgroup_threadsPerMeshThreadgroup_),
+                      threadgroupsPerGrid,
+                      threadsPerObjectThreadgroup,
+                      threadsPerMeshThreadgroup);
 }
 
-_MTL_INLINE void MTL::IndirectRenderCommand::drawMeshThreads(MTL::Size threadsPerGrid,
-                                                             MTL::Size threadsPerObjectThreadgroup,
-                                                             MTL::Size threadsPerMeshThreadgroup)
+_MTL_INLINE void MTL::IndirectRenderCommand::drawMeshThreads(const Size& threadsPerGrid,
+                                                             const Size& threadsPerObjectThreadgroup,
+                                                             const Size& threadsPerMeshThreadgroup) const
 {
-    Object::sendMessage<void>(this,
-                              _MTL_PRIVATE_SEL(drawMeshThreads_threadsPerObjectThreadgroup_threadsPerMeshThreadgroup_),
-                              threadsPerGrid,
-                              threadsPerObjectThreadgroup,
-                              threadsPerMeshThreadgroup);
+    sendMessage<void>(this,
+                      _MTL_PRIVATE_SEL(drawMeshThreads_threadsPerObjectThreadgroup_threadsPerMeshThreadgroup_),
+                      threadsPerGrid,
+                      threadsPerObjectThreadgroup,
+                      threadsPerMeshThreadgroup);
 }
 
-_MTL_INLINE void MTL::IndirectRenderCommand::drawPatches(NS::UInteger       numberOfPatchControlPoints,
-                                                         NS::UInteger       patchStart,
-                                                         NS::UInteger       patchCount,
-                                                         const MTL::Buffer* patchIndexBuffer,
-                                                         NS::UInteger       patchIndexBufferOffset,
-                                                         NS::UInteger       instanceCount,
-                                                         NS::UInteger       baseInstance,
-                                                         const MTL::Buffer* buffer,
-                                                         NS::UInteger       offset,
-                                                         NS::UInteger       instanceStride)
+_MTL_INLINE void MTL::IndirectRenderCommand::drawPatches(const NS::UInteger numberOfPatchControlPoints,
+                                                         const NS::UInteger patchStart,
+                                                         const NS::UInteger patchCount,
+                                                         const Buffer*      patchIndexBuffer,
+                                                         const NS::UInteger patchIndexBufferOffset,
+                                                         const NS::UInteger instanceCount,
+                                                         const NS::UInteger baseInstance,
+                                                         const Buffer*      buffer,
+                                                         const NS::UInteger offset,
+                                                         const NS::UInteger instanceStride) const
 {
-    Object::sendMessage<void>(
+    sendMessage<void>(
         this,
         _MTL_PRIVATE_SEL(
             drawPatches_patchStart_patchCount_patchIndexBuffer_patchIndexBufferOffset_instanceCount_baseInstance_tessellationFactorBuffer_tessellationFactorBufferOffset_tessellationFactorBufferInstanceStride_),
@@ -250,167 +253,172 @@ _MTL_INLINE void MTL::IndirectRenderCommand::drawPatches(NS::UInteger       numb
         instanceStride);
 }
 
-_MTL_INLINE void MTL::IndirectRenderCommand::drawPrimitives(MTL::PrimitiveType primitiveType,
-                                                            NS::UInteger       vertexStart,
-                                                            NS::UInteger       vertexCount,
-                                                            NS::UInteger       instanceCount,
-                                                            NS::UInteger       baseInstance)
+_MTL_INLINE void MTL::IndirectRenderCommand::drawPrimitives(const PrimitiveType primitiveType,
+                                                            const NS::UInteger  vertexStart,
+                                                            const NS::UInteger  vertexCount,
+                                                            const NS::UInteger  instanceCount,
+                                                            const NS::UInteger  baseInstance) const
 {
-    Object::sendMessage<void>(this,
-                              _MTL_PRIVATE_SEL(drawPrimitives_vertexStart_vertexCount_instanceCount_baseInstance_),
-                              primitiveType,
-                              vertexStart,
-                              vertexCount,
-                              instanceCount,
-                              baseInstance);
+    sendMessage<void>(this,
+                      _MTL_PRIVATE_SEL(drawPrimitives_vertexStart_vertexCount_instanceCount_baseInstance_),
+                      primitiveType,
+                      vertexStart,
+                      vertexCount,
+                      instanceCount,
+                      baseInstance);
 }
 
-_MTL_INLINE void MTL::IndirectRenderCommand::reset() { Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(reset)); }
+_MTL_INLINE void MTL::IndirectRenderCommand::reset() const { sendMessage<void>(this, _MTL_PRIVATE_SEL(reset)); }
 
-_MTL_INLINE void MTL::IndirectRenderCommand::setBarrier()
+_MTL_INLINE void MTL::IndirectRenderCommand::setBarrier() const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setBarrier));
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setBarrier));
 }
 
-_MTL_INLINE void MTL::IndirectRenderCommand::setCullMode(MTL::CullMode cullMode)
+_MTL_INLINE void MTL::IndirectRenderCommand::setCullMode(const CullMode cullMode) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setCullMode_), cullMode);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setCullMode_), cullMode);
 }
 
-_MTL_INLINE void MTL::IndirectRenderCommand::setDepthBias(float depthBias, float slopeScale, float clamp)
+_MTL_INLINE void MTL::IndirectRenderCommand::setDepthBias(const float depthBias,
+                                                          const float slopeScale,
+                                                          const float clamp) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setDepthBias_slopeScale_clamp_), depthBias, slopeScale, clamp);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setDepthBias_slopeScale_clamp_), depthBias, slopeScale, clamp);
 }
 
-_MTL_INLINE void MTL::IndirectRenderCommand::setDepthClipMode(MTL::DepthClipMode depthClipMode)
+_MTL_INLINE void MTL::IndirectRenderCommand::setDepthClipMode(const DepthClipMode depthClipMode) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setDepthClipMode_), depthClipMode);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setDepthClipMode_), depthClipMode);
 }
 
-_MTL_INLINE void MTL::IndirectRenderCommand::setDepthStencilState(const MTL::DepthStencilState* depthStencilState)
+_MTL_INLINE void MTL::IndirectRenderCommand::setDepthStencilState(const DepthStencilState* depthStencilState) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setDepthStencilState_), depthStencilState);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setDepthStencilState_), depthStencilState);
 }
 
-_MTL_INLINE void MTL::IndirectRenderCommand::setFragmentBuffer(const MTL::Buffer* buffer,
-                                                               NS::UInteger       offset,
-                                                               NS::UInteger       index)
+_MTL_INLINE void MTL::IndirectRenderCommand::setFragmentBuffer(const Buffer*      buffer,
+                                                               const NS::UInteger offset,
+                                                               const NS::UInteger index) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setFragmentBuffer_offset_atIndex_), buffer, offset, index);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setFragmentBuffer_offset_atIndex_), buffer, offset, index);
 }
 
-_MTL_INLINE void MTL::IndirectRenderCommand::setFrontFacingWinding(MTL::Winding frontFacingWindning)
+_MTL_INLINE void MTL::IndirectRenderCommand::setFrontFacingWinding(const Winding frontFacingWinding) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setFrontFacingWinding_), frontFacingWindning);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setFrontFacingWinding_), frontFacingWinding);
 }
 
-_MTL_INLINE void MTL::IndirectRenderCommand::setMeshBuffer(const MTL::Buffer* buffer,
-                                                           NS::UInteger       offset,
-                                                           NS::UInteger       index)
+_MTL_INLINE void MTL::IndirectRenderCommand::setMeshBuffer(const Buffer*      buffer,
+                                                           const NS::UInteger offset,
+                                                           const NS::UInteger index) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMeshBuffer_offset_atIndex_), buffer, offset, index);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setMeshBuffer_offset_atIndex_), buffer, offset, index);
 }
 
-_MTL_INLINE void MTL::IndirectRenderCommand::setObjectBuffer(const MTL::Buffer* buffer,
-                                                             NS::UInteger       offset,
-                                                             NS::UInteger       index)
+_MTL_INLINE void MTL::IndirectRenderCommand::setObjectBuffer(const Buffer*      buffer,
+                                                             const NS::UInteger offset,
+                                                             const NS::UInteger index) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setObjectBuffer_offset_atIndex_), buffer, offset, index);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setObjectBuffer_offset_atIndex_), buffer, offset, index);
 }
 
-_MTL_INLINE void MTL::IndirectRenderCommand::setObjectThreadgroupMemoryLength(NS::UInteger length, NS::UInteger index)
+_MTL_INLINE void MTL::IndirectRenderCommand::setObjectThreadgroupMemoryLength(const NS::UInteger length,
+                                                                              const NS::UInteger index) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setObjectThreadgroupMemoryLength_atIndex_), length, index);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setObjectThreadgroupMemoryLength_atIndex_), length, index);
 }
 
-_MTL_INLINE void MTL::IndirectRenderCommand::setRenderPipelineState(const MTL::RenderPipelineState* pipelineState)
+_MTL_INLINE void MTL::IndirectRenderCommand::setRenderPipelineState(const RenderPipelineState* pipelineState) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setRenderPipelineState_), pipelineState);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setRenderPipelineState_), pipelineState);
 }
 
-_MTL_INLINE void MTL::IndirectRenderCommand::setTriangleFillMode(MTL::TriangleFillMode fillMode)
+_MTL_INLINE void MTL::IndirectRenderCommand::setTriangleFillMode(const TriangleFillMode fillMode) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setTriangleFillMode_), fillMode);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setTriangleFillMode_), fillMode);
 }
 
-_MTL_INLINE void MTL::IndirectRenderCommand::setVertexBuffer(const MTL::Buffer* buffer,
-                                                             NS::UInteger       offset,
-                                                             NS::UInteger       index)
+_MTL_INLINE void MTL::IndirectRenderCommand::setVertexBuffer(const Buffer*      buffer,
+                                                             const NS::UInteger offset,
+                                                             const NS::UInteger index) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setVertexBuffer_offset_atIndex_), buffer, offset, index);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setVertexBuffer_offset_atIndex_), buffer, offset, index);
 }
 
-_MTL_INLINE void MTL::IndirectRenderCommand::setVertexBuffer(const MTL::Buffer* buffer,
-                                                             NS::UInteger       offset,
-                                                             NS::UInteger       stride,
-                                                             NS::UInteger       index)
+_MTL_INLINE void MTL::IndirectRenderCommand::setVertexBuffer(const Buffer*      buffer,
+                                                             const NS::UInteger offset,
+                                                             const NS::UInteger stride,
+                                                             const NS::UInteger index) const
 {
-    Object::sendMessage<void>(
+    sendMessage<void>(
         this, _MTL_PRIVATE_SEL(setVertexBuffer_offset_attributeStride_atIndex_), buffer, offset, stride, index);
 }
 
-_MTL_INLINE void MTL::IndirectComputeCommand::clearBarrier()
+_MTL_INLINE void MTL::IndirectComputeCommand::clearBarrier() const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(clearBarrier));
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(clearBarrier));
 }
 
-_MTL_INLINE void MTL::IndirectComputeCommand::concurrentDispatchThreadgroups(MTL::Size threadgroupsPerGrid,
-                                                                             MTL::Size threadsPerThreadgroup)
+_MTL_INLINE void MTL::IndirectComputeCommand::concurrentDispatchThreadgroups(const Size& threadgroupsPerGrid,
+                                                                             const Size& threadsPerThreadgroup) const
 {
-    Object::sendMessage<void>(this,
-                              _MTL_PRIVATE_SEL(concurrentDispatchThreadgroups_threadsPerThreadgroup_),
-                              threadgroupsPerGrid,
-                              threadsPerThreadgroup);
+    sendMessage<void>(this,
+                      _MTL_PRIVATE_SEL(concurrentDispatchThreadgroups_threadsPerThreadgroup_),
+                      threadgroupsPerGrid,
+                      threadsPerThreadgroup);
 }
 
-_MTL_INLINE void MTL::IndirectComputeCommand::concurrentDispatchThreads(MTL::Size threadsPerGrid,
-                                                                        MTL::Size threadsPerThreadgroup)
+_MTL_INLINE void MTL::IndirectComputeCommand::concurrentDispatchThreads(const Size& threadsPerGrid,
+                                                                        const Size& threadsPerThreadgroup) const
 {
-    Object::sendMessage<void>(this,
-                              _MTL_PRIVATE_SEL(concurrentDispatchThreads_threadsPerThreadgroup_),
-                              threadsPerGrid,
-                              threadsPerThreadgroup);
+    sendMessage<void>(this,
+                      _MTL_PRIVATE_SEL(concurrentDispatchThreads_threadsPerThreadgroup_),
+                      threadsPerGrid,
+                      threadsPerThreadgroup);
 }
 
-_MTL_INLINE void MTL::IndirectComputeCommand::reset() { Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(reset)); }
+_MTL_INLINE void MTL::IndirectComputeCommand::reset() const { sendMessage<void>(this, _MTL_PRIVATE_SEL(reset)); }
 
-_MTL_INLINE void MTL::IndirectComputeCommand::setBarrier()
+_MTL_INLINE void MTL::IndirectComputeCommand::setBarrier() const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setBarrier));
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setBarrier));
 }
 
-_MTL_INLINE void MTL::IndirectComputeCommand::setComputePipelineState(const MTL::ComputePipelineState* pipelineState)
+_MTL_INLINE void MTL::IndirectComputeCommand::setComputePipelineState(const ComputePipelineState* pipelineState) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setComputePipelineState_), pipelineState);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setComputePipelineState_), pipelineState);
 }
 
-_MTL_INLINE void MTL::IndirectComputeCommand::setImageblockWidth(NS::UInteger width, NS::UInteger height)
+_MTL_INLINE void MTL::IndirectComputeCommand::setImageblockWidth(const NS::UInteger width,
+                                                                 const NS::UInteger height) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setImageblockWidth_height_), width, height);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setImageblockWidth_height_), width, height);
 }
 
-_MTL_INLINE void MTL::IndirectComputeCommand::setKernelBuffer(const MTL::Buffer* buffer,
-                                                              NS::UInteger       offset,
-                                                              NS::UInteger       index)
+_MTL_INLINE void MTL::IndirectComputeCommand::setKernelBuffer(const Buffer*      buffer,
+                                                              const NS::UInteger offset,
+                                                              const NS::UInteger index) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setKernelBuffer_offset_atIndex_), buffer, offset, index);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setKernelBuffer_offset_atIndex_), buffer, offset, index);
 }
 
-_MTL_INLINE void MTL::IndirectComputeCommand::setKernelBuffer(const MTL::Buffer* buffer,
-                                                              NS::UInteger       offset,
-                                                              NS::UInteger       stride,
-                                                              NS::UInteger       index)
+_MTL_INLINE void MTL::IndirectComputeCommand::setKernelBuffer(const Buffer*      buffer,
+                                                              const NS::UInteger offset,
+                                                              const NS::UInteger stride,
+                                                              const NS::UInteger index) const
 {
-    Object::sendMessage<void>(
+    sendMessage<void>(
         this, _MTL_PRIVATE_SEL(setKernelBuffer_offset_attributeStride_atIndex_), buffer, offset, stride, index);
 }
 
-_MTL_INLINE void MTL::IndirectComputeCommand::setStageInRegion(MTL::Region region)
+_MTL_INLINE void MTL::IndirectComputeCommand::setStageInRegion(const Region& region) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setStageInRegion_), region);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setStageInRegion_), region);
 }
 
-_MTL_INLINE void MTL::IndirectComputeCommand::setThreadgroupMemoryLength(NS::UInteger length, NS::UInteger index)
+_MTL_INLINE void MTL::IndirectComputeCommand::setThreadgroupMemoryLength(const NS::UInteger length,
+                                                                         const NS::UInteger index) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setThreadgroupMemoryLength_atIndex_), length, index);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setThreadgroupMemoryLength_atIndex_), length, index);
 }

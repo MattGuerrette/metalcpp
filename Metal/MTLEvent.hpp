@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include <cstdint>
@@ -27,7 +28,6 @@
 #include "MTLHeaderBridge.hpp"
 #include "MTLPrivate.hpp"
 
-#include <cstdint>
 #include <functional>
 
 namespace MTL
@@ -40,143 +40,146 @@ namespace MTL
     using SharedEventNotificationBlock    = void (^)(SharedEvent* pEvent, std::uint64_t value);
     using SharedEventNotificationFunction = std::function<void(SharedEvent* pEvent, std::uint64_t value)>;
 
+    /// @see https://developer.apple.com/documentation/metal/mtlevent?language=objc
     class Event : public NS::Referencing<Event>
     {
     public:
-        Device* device() const;
+        [[nodiscard]] Device* device() const;
 
-        NS::String* label() const;
-        void        setLabel(const NS::String* label);
+        [[nodiscard]] NS::String* label() const;
+        void                      setLabel(const NS::String* label) const;
     };
+
+    /// @see https://developer.apple.com/documentation/metal/mtlsharedeventlistener?language=objc
     class SharedEventListener : public NS::Referencing<SharedEventListener>
     {
     public:
-        static SharedEventListener* alloc();
+        [[nodiscard]] static SharedEventListener* alloc();
 
-        dispatch_queue_t dispatchQueue() const;
+        [[nodiscard]] dispatch_queue_t dispatchQueue() const;
 
-        SharedEventListener* init();
-        SharedEventListener* init(const dispatch_queue_t dispatchQueue);
+        [[nodiscard]] SharedEventListener* init();
+        [[nodiscard]] SharedEventListener* init(dispatch_queue_t dispatchQueue) const;
 
-        static SharedEventListener* sharedListener();
+        [[nodiscard]] static SharedEventListener* sharedListener();
     };
+
+    /// @see https://developer.apple.com/documentation/metal/mtlsharedevent?language=objc
     class SharedEvent : public NS::Referencing<SharedEvent, Event>
     {
     public:
-        SharedEventHandle* newSharedEventHandle();
+        [[nodiscard]] SharedEventHandle* newSharedEventHandle() const;
 
-        void notifyListener(const MTL::SharedEventListener*         listener,
-                            uint64_t                                value,
-                            const MTL::SharedEventNotificationBlock block);
-        void notifyListener(const MTL::SharedEventListener*             listener,
-                            uint64_t                                    value,
-                            const MTL::SharedEventNotificationFunction& function);
+        void notifyListener(const SharedEventListener* listener, uint64_t value, SharedEventNotificationBlock block);
+        void notifyListener(const SharedEventListener*             listener,
+                            uint64_t                               value,
+                            const SharedEventNotificationFunction& function);
 
-        void     setSignaledValue(uint64_t signaledValue);
-        uint64_t signaledValue() const;
-        bool     waitUntilSignaledValue(uint64_t value, uint64_t milliseconds);
+        void                   setSignaledValue(uint64_t signaledValue) const;
+        [[nodiscard]] uint64_t signaledValue() const;
+        [[nodiscard]] bool     waitUntilSignaledValue(uint64_t value, uint64_t milliseconds) const;
     };
+
+    /// @see https://developer.apple.com/documentation/metal/mtlsharedeventhandle?language=objc
     class SharedEventHandle : public NS::SecureCoding<SharedEventHandle>
     {
     public:
-        static SharedEventHandle* alloc();
+        [[nodiscard]] static SharedEventHandle* alloc();
 
-        SharedEventHandle* init();
+        [[nodiscard]] SharedEventHandle* init();
 
-        NS::String* label() const;
+        [[nodiscard]] NS::String* label() const;
     };
 
 } // namespace MTL
-_MTL_INLINE MTL::Device* MTL::Event::device() const
-{
-    return Object::sendMessage<MTL::Device*>(this, _MTL_PRIVATE_SEL(device));
-}
+_MTL_INLINE MTL::Device* MTL::Event::device() const { return sendMessage<Device*>(this, _MTL_PRIVATE_SEL(device)); }
 
-_MTL_INLINE NS::String* MTL::Event::label() const
-{
-    return Object::sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
-}
+_MTL_INLINE NS::String* MTL::Event::label() const { return sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label)); }
 
-_MTL_INLINE void MTL::Event::setLabel(const NS::String* label)
+_MTL_INLINE void MTL::Event::setLabel(const NS::String* label) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setLabel_), label);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setLabel_), label);
 }
 
 _MTL_INLINE MTL::SharedEventListener* MTL::SharedEventListener::alloc()
 {
-    return NS::Object::alloc<MTL::SharedEventListener>(_MTL_PRIVATE_CLS(MTLSharedEventListener));
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<SharedEventListener>(_MTL_PRIVATE_CLS(MTLSharedEventListener));
 }
 
 _MTL_INLINE dispatch_queue_t MTL::SharedEventListener::dispatchQueue() const
 {
-    return Object::sendMessage<dispatch_queue_t>(this, _MTL_PRIVATE_SEL(dispatchQueue));
+    return sendMessage<dispatch_queue_t>(this, _MTL_PRIVATE_SEL(dispatchQueue));
 }
 
 _MTL_INLINE MTL::SharedEventListener* MTL::SharedEventListener::init()
 {
-    return NS::Object::init<MTL::SharedEventListener>();
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<SharedEventListener>();
 }
 
-_MTL_INLINE MTL::SharedEventListener* MTL::SharedEventListener::init(const dispatch_queue_t dispatchQueue)
+// ReSharper disable once CppParameterMayBeConst
+_MTL_INLINE MTL::SharedEventListener* MTL::SharedEventListener::init(dispatch_queue_t dispatchQueue) const
 {
-    return Object::sendMessage<MTL::SharedEventListener*>(
-        this, _MTL_PRIVATE_SEL(initWithDispatchQueue_), dispatchQueue);
+    return sendMessage<SharedEventListener*>(this, _MTL_PRIVATE_SEL(initWithDispatchQueue_), dispatchQueue);
 }
 
 _MTL_INLINE MTL::SharedEventListener* MTL::SharedEventListener::sharedListener()
 {
-    return Object::sendMessage<MTL::SharedEventListener*>(_MTL_PRIVATE_CLS(MTLSharedEventListener),
-                                                          _MTL_PRIVATE_SEL(sharedListener));
+    return sendMessage<SharedEventListener*>(_MTL_PRIVATE_CLS(MTLSharedEventListener),
+                                             _MTL_PRIVATE_SEL(sharedListener));
 }
 
-_MTL_INLINE MTL::SharedEventHandle* MTL::SharedEvent::newSharedEventHandle()
+_MTL_INLINE MTL::SharedEventHandle* MTL::SharedEvent::newSharedEventHandle() const
 {
-    return Object::sendMessage<MTL::SharedEventHandle*>(this, _MTL_PRIVATE_SEL(newSharedEventHandle));
+    return sendMessage<SharedEventHandle*>(this, _MTL_PRIVATE_SEL(newSharedEventHandle));
 }
 
-_MTL_INLINE void MTL::SharedEvent::notifyListener(const MTL::SharedEventListener*         listener,
-                                                  uint64_t                                value,
-                                                  const MTL::SharedEventNotificationBlock block)
+_MTL_INLINE void MTL::SharedEvent::notifyListener(const SharedEventListener*         listener,
+                                                  uint64_t                           value,
+                                                  const SharedEventNotificationBlock block)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(notifyListener_atValue_block_), listener, value, block);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(notifyListener_atValue_block_), listener, value, block);
 }
 
-_MTL_INLINE void MTL::SharedEvent::notifyListener(const MTL::SharedEventListener*             listener,
-                                                  uint64_t                                    value,
-                                                  const MTL::SharedEventNotificationFunction& function)
+_MTL_INLINE void MTL::SharedEvent::notifyListener(const SharedEventListener*             listener,
+                                                  uint64_t                               value,
+                                                  const SharedEventNotificationFunction& function)
 {
-    __block MTL::SharedEventNotificationFunction callback = function;
+    __block SharedEventNotificationFunction callback = function;
     notifyListener(listener, value, ^void(SharedEvent* pEvent, std::uint64_t innerValue) {
       callback(pEvent, innerValue);
     });
 }
 
-_MTL_INLINE void MTL::SharedEvent::setSignaledValue(uint64_t signaledValue)
+_MTL_INLINE void MTL::SharedEvent::setSignaledValue(const uint64_t signaledValue) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setSignaledValue_), signaledValue);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setSignaledValue_), signaledValue);
 }
 
 _MTL_INLINE uint64_t MTL::SharedEvent::signaledValue() const
 {
-    return Object::sendMessage<uint64_t>(this, _MTL_PRIVATE_SEL(signaledValue));
+    return sendMessage<uint64_t>(this, _MTL_PRIVATE_SEL(signaledValue));
 }
 
-_MTL_INLINE bool MTL::SharedEvent::waitUntilSignaledValue(uint64_t value, uint64_t milliseconds)
+_MTL_INLINE bool MTL::SharedEvent::waitUntilSignaledValue(const uint64_t value, const uint64_t milliseconds) const
 {
-    return Object::sendMessage<bool>(this, _MTL_PRIVATE_SEL(waitUntilSignaledValue_timeoutMS_), value, milliseconds);
+    return sendMessage<bool>(this, _MTL_PRIVATE_SEL(waitUntilSignaledValue_timeoutMS_), value, milliseconds);
 }
 
 _MTL_INLINE MTL::SharedEventHandle* MTL::SharedEventHandle::alloc()
 {
-    return NS::Object::alloc<MTL::SharedEventHandle>(_MTL_PRIVATE_CLS(MTLSharedEventHandle));
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<SharedEventHandle>(_MTL_PRIVATE_CLS(MTLSharedEventHandle));
 }
 
 _MTL_INLINE MTL::SharedEventHandle* MTL::SharedEventHandle::init()
 {
-    return NS::Object::init<MTL::SharedEventHandle>();
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<SharedEventHandle>();
 }
 
 _MTL_INLINE NS::String* MTL::SharedEventHandle::label() const
 {
-    return Object::sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
+    return sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
 }

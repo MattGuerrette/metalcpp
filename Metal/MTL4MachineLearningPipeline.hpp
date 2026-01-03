@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include "../Foundation/Foundation.hpp"
@@ -42,138 +43,148 @@ namespace MTL
 
 namespace MTL4
 {
+    /// @see https://developer.apple.com/documentation/metal/mtl4machinelearningpipelinedescriptor
     class MachineLearningPipelineDescriptor : public NS::Copying<MachineLearningPipelineDescriptor, PipelineDescriptor>
     {
     public:
-        static MachineLearningPipelineDescriptor* alloc();
+        [[nodiscard]] static MachineLearningPipelineDescriptor* alloc();
 
-        MachineLearningPipelineDescriptor* init();
+        [[nodiscard]] MachineLearningPipelineDescriptor* init();
 
-        MTL::TensorExtents* inputDimensionsAtBufferIndex(NS::Integer bufferIndex);
+        [[nodiscard]] MTL::TensorExtents* inputDimensionsAtBufferIndex(NS::Integer bufferIndex) const;
 
-        NS::String* label() const;
+        [[nodiscard]] NS::String* label() const;
 
-        FunctionDescriptor* machineLearningFunctionDescriptor() const;
+        [[nodiscard]] FunctionDescriptor* machineLearningFunctionDescriptor() const;
 
-        void reset();
+        void reset() const;
 
-        void setInputDimensions(const MTL::TensorExtents* dimensions, NS::Integer bufferIndex);
-        void setInputDimensions(const NS::Array* dimensions, NS::Range range);
+        void setInputDimensions(const MTL::TensorExtents* dimensions, NS::Integer bufferIndex) const;
+        void setInputDimensions(const NS::Array* dimensions, NS::Range range) const;
 
-        void setLabel(const NS::String* label);
+        void setLabel(const NS::String* label) const;
 
-        void setMachineLearningFunctionDescriptor(const MTL4::FunctionDescriptor* machineLearningFunctionDescriptor);
+        void setMachineLearningFunctionDescriptor(const FunctionDescriptor* machineLearningFunctionDescriptor) const;
     };
+
+    /// @see https://developer.apple.com/documentation/metal/mtl4machinelearningpipelinereflection
     class MachineLearningPipelineReflection : public NS::Referencing<MachineLearningPipelineReflection>
     {
     public:
-        static MachineLearningPipelineReflection* alloc();
+        [[nodiscard]] static MachineLearningPipelineReflection* alloc();
 
-        NS::Array* bindings() const;
+        [[nodiscard]] NS::Array* bindings() const;
 
-        MachineLearningPipelineReflection* init();
+        [[nodiscard]] MachineLearningPipelineReflection* init();
     };
+
+    /// @see https://developer.apple.com/documentation/metal/mtl4machinelearningpipelinestate
     class MachineLearningPipelineState : public NS::Referencing<MachineLearningPipelineState, MTL::Allocation>
     {
     public:
-        MTL::Device* device() const;
+        [[nodiscard]] MTL::Device* device() const;
 
-        NS::UInteger intermediatesHeapSize() const;
+        [[nodiscard]] NS::UInteger intermediatesHeapSize() const;
 
-        NS::String* label() const;
+        [[nodiscard]] NS::String* label() const;
 
-        MachineLearningPipelineReflection* reflection() const;
+        [[nodiscard]] MachineLearningPipelineReflection* reflection() const;
     };
 
 } // namespace MTL4
+
+
 _MTL_INLINE MTL4::MachineLearningPipelineDescriptor* MTL4::MachineLearningPipelineDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL4::MachineLearningPipelineDescriptor>(
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<MachineLearningPipelineDescriptor>(
         _MTL_PRIVATE_CLS(MTL4MachineLearningPipelineDescriptor));
 }
 
 _MTL_INLINE MTL4::MachineLearningPipelineDescriptor* MTL4::MachineLearningPipelineDescriptor::init()
 {
-    return NS::Object::init<MTL4::MachineLearningPipelineDescriptor>();
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<MachineLearningPipelineDescriptor>();
 }
 
 _MTL_INLINE MTL::TensorExtents* MTL4::MachineLearningPipelineDescriptor::inputDimensionsAtBufferIndex(
-    NS::Integer bufferIndex)
+    const NS::Integer bufferIndex) const
 {
-    return Object::sendMessage<MTL::TensorExtents*>(this, _MTL_PRIVATE_SEL(inputDimensionsAtBufferIndex_), bufferIndex);
+    return sendMessage<MTL::TensorExtents*>(this, _MTL_PRIVATE_SEL(inputDimensionsAtBufferIndex_), bufferIndex);
 }
 
 _MTL_INLINE NS::String* MTL4::MachineLearningPipelineDescriptor::label() const
 {
-    return Object::sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
+    return sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
 }
 
 _MTL_INLINE MTL4::FunctionDescriptor* MTL4::MachineLearningPipelineDescriptor::machineLearningFunctionDescriptor() const
 {
-    return Object::sendMessage<MTL4::FunctionDescriptor*>(this, _MTL_PRIVATE_SEL(machineLearningFunctionDescriptor));
+    return sendMessage<FunctionDescriptor*>(this, _MTL_PRIVATE_SEL(machineLearningFunctionDescriptor));
 }
 
-_MTL_INLINE void MTL4::MachineLearningPipelineDescriptor::reset()
+_MTL_INLINE void MTL4::MachineLearningPipelineDescriptor::reset() const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(reset));
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(reset));
 }
 
 _MTL_INLINE void MTL4::MachineLearningPipelineDescriptor::setInputDimensions(const MTL::TensorExtents* dimensions,
-                                                                             NS::Integer               bufferIndex)
+                                                                             const NS::Integer bufferIndex) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setInputDimensions_atBufferIndex_), dimensions, bufferIndex);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setInputDimensions_atBufferIndex_), dimensions, bufferIndex);
 }
 
 _MTL_INLINE void MTL4::MachineLearningPipelineDescriptor::setInputDimensions(const NS::Array* dimensions,
-                                                                             NS::Range        range)
+                                                                             const NS::Range  range) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setInputDimensions_withRange_), dimensions, range);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setInputDimensions_withRange_), dimensions, range);
 }
 
-_MTL_INLINE void MTL4::MachineLearningPipelineDescriptor::setLabel(const NS::String* label)
+_MTL_INLINE void MTL4::MachineLearningPipelineDescriptor::setLabel(const NS::String* label) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setLabel_), label);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setLabel_), label);
 }
 
 _MTL_INLINE void MTL4::MachineLearningPipelineDescriptor::setMachineLearningFunctionDescriptor(
-    const MTL4::FunctionDescriptor* machineLearningFunctionDescriptor)
+    const FunctionDescriptor* machineLearningFunctionDescriptor) const
 {
-    Object::sendMessage<void>(
-        this, _MTL_PRIVATE_SEL(setMachineLearningFunctionDescriptor_), machineLearningFunctionDescriptor);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setMachineLearningFunctionDescriptor_), machineLearningFunctionDescriptor);
 }
 
 _MTL_INLINE MTL4::MachineLearningPipelineReflection* MTL4::MachineLearningPipelineReflection::alloc()
 {
-    return NS::Object::alloc<MTL4::MachineLearningPipelineReflection>(
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<MachineLearningPipelineReflection>(
         _MTL_PRIVATE_CLS(MTL4MachineLearningPipelineReflection));
 }
 
 _MTL_INLINE NS::Array* MTL4::MachineLearningPipelineReflection::bindings() const
 {
-    return Object::sendMessage<NS::Array*>(this, _MTL_PRIVATE_SEL(bindings));
+    return sendMessage<NS::Array*>(this, _MTL_PRIVATE_SEL(bindings));
 }
 
 _MTL_INLINE MTL4::MachineLearningPipelineReflection* MTL4::MachineLearningPipelineReflection::init()
 {
-    return NS::Object::init<MTL4::MachineLearningPipelineReflection>();
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<MachineLearningPipelineReflection>();
 }
 
 _MTL_INLINE MTL::Device* MTL4::MachineLearningPipelineState::device() const
 {
-    return Object::sendMessage<MTL::Device*>(this, _MTL_PRIVATE_SEL(device));
+    return sendMessage<MTL::Device*>(this, _MTL_PRIVATE_SEL(device));
 }
 
 _MTL_INLINE NS::UInteger MTL4::MachineLearningPipelineState::intermediatesHeapSize() const
 {
-    return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(intermediatesHeapSize));
+    return sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(intermediatesHeapSize));
 }
 
 _MTL_INLINE NS::String* MTL4::MachineLearningPipelineState::label() const
 {
-    return Object::sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
+    return sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
 }
 
 _MTL_INLINE MTL4::MachineLearningPipelineReflection* MTL4::MachineLearningPipelineState::reflection() const
 {
-    return Object::sendMessage<MTL4::MachineLearningPipelineReflection*>(this, _MTL_PRIVATE_SEL(reflection));
+    return sendMessage<MachineLearningPipelineReflection*>(this, _MTL_PRIVATE_SEL(reflection));
 }

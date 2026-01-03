@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include <cstdint>
@@ -35,6 +36,7 @@ namespace MTL
     class IntersectionFunctionTableDescriptor;
     class VisibleFunctionTable;
 
+    /// @see https://developer.apple.com/documentation/metal/mtlintersectionfunctionsignature?language=objc
     _MTL_OPTIONS(NS::UInteger, IntersectionFunctionSignature){
         IntersectionFunctionSignatureNone                       = 0,
         IntersectionFunctionSignatureInstancing                 = 1,
@@ -49,6 +51,7 @@ namespace MTL
         IntersectionFunctionSignatureUserData                   = 1 << 9,
     };
 
+    /// @see https://developer.apple.com/documentation/metal/mtlintersectionfunctionbufferarguments?language=objc
     struct IntersectionFunctionBufferArguments
     {
         uint64_t intersectionFunctionBuffer;
@@ -56,139 +59,142 @@ namespace MTL
         uint64_t intersectionFunctionStride;
     } _MTL_PACKED;
 
+    /// @see https://developer.apple.com/documentation/metal/mtlintersectionfunctiontabledescriptor?language=objc
     class IntersectionFunctionTableDescriptor : public NS::Copying<IntersectionFunctionTableDescriptor>
     {
     public:
-        static IntersectionFunctionTableDescriptor* alloc();
+        [[nodiscard]] static IntersectionFunctionTableDescriptor* alloc();
 
-        NS::UInteger functionCount() const;
+        [[nodiscard]] NS::UInteger functionCount() const;
 
-        IntersectionFunctionTableDescriptor* init();
+        [[nodiscard]] IntersectionFunctionTableDescriptor* init();
 
-        static IntersectionFunctionTableDescriptor* intersectionFunctionTableDescriptor();
+        [[nodiscard]] static IntersectionFunctionTableDescriptor* intersectionFunctionTableDescriptor();
 
-        void setFunctionCount(NS::UInteger functionCount);
+        void setFunctionCount(NS::UInteger functionCount) const;
     };
+
+    /// @see https://developer.apple.com/documentation/metal/mtlintersectionfunctiontable?language=objc
     class IntersectionFunctionTable : public NS::Referencing<IntersectionFunctionTable, Resource>
     {
     public:
-        ResourceID gpuResourceID() const;
+        [[nodiscard]] ResourceID gpuResourceID() const;
 
-        void setBuffer(const MTL::Buffer* buffer, NS::UInteger offset, NS::UInteger index);
-        void setBuffers(const MTL::Buffer* const buffers[], const NS::UInteger offsets[], NS::Range range);
+        void setBuffer(const Buffer* buffer, NS::UInteger offset, NS::UInteger index) const;
+        void setBuffers(const Buffer* const buffers[], const NS::UInteger offsets[], NS::Range range) const;
 
-        void setFunction(const MTL::FunctionHandle* function, NS::UInteger index);
-        void setFunctions(const MTL::FunctionHandle* const functions[], NS::Range range);
+        void setFunction(const FunctionHandle* function, NS::UInteger index) const;
+        void setFunctions(const FunctionHandle* const functions[], NS::Range range) const;
 
-        void setOpaqueCurveIntersectionFunction(MTL::IntersectionFunctionSignature signature, NS::UInteger index);
-        void setOpaqueCurveIntersectionFunction(MTL::IntersectionFunctionSignature signature, NS::Range range);
+        void setOpaqueCurveIntersectionFunction(IntersectionFunctionSignature signature, NS::UInteger index) const;
+        void setOpaqueCurveIntersectionFunction(IntersectionFunctionSignature signature, NS::Range range) const;
 
-        void setOpaqueTriangleIntersectionFunction(MTL::IntersectionFunctionSignature signature, NS::UInteger index);
-        void setOpaqueTriangleIntersectionFunction(MTL::IntersectionFunctionSignature signature, NS::Range range);
+        void setOpaqueTriangleIntersectionFunction(IntersectionFunctionSignature signature, NS::UInteger index) const;
+        void setOpaqueTriangleIntersectionFunction(IntersectionFunctionSignature signature, NS::Range range) const;
 
-        void setVisibleFunctionTable(const MTL::VisibleFunctionTable* functionTable, NS::UInteger bufferIndex);
-        void setVisibleFunctionTables(const MTL::VisibleFunctionTable* const functionTables[], NS::Range bufferRange);
+        void setVisibleFunctionTable(const VisibleFunctionTable* functionTable, NS::UInteger bufferIndex) const;
+        void setVisibleFunctionTables(const VisibleFunctionTable* const functionTables[], NS::Range bufferRange) const;
     };
 
 } // namespace MTL
 
 _MTL_INLINE MTL::IntersectionFunctionTableDescriptor* MTL::IntersectionFunctionTableDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL::IntersectionFunctionTableDescriptor>(
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<IntersectionFunctionTableDescriptor>(
         _MTL_PRIVATE_CLS(MTLIntersectionFunctionTableDescriptor));
 }
 
 _MTL_INLINE NS::UInteger MTL::IntersectionFunctionTableDescriptor::functionCount() const
 {
-    return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(functionCount));
+    return sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(functionCount));
 }
 
 _MTL_INLINE MTL::IntersectionFunctionTableDescriptor* MTL::IntersectionFunctionTableDescriptor::init()
 {
-    return NS::Object::init<MTL::IntersectionFunctionTableDescriptor>();
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<IntersectionFunctionTableDescriptor>();
 }
 
 _MTL_INLINE MTL::IntersectionFunctionTableDescriptor*
             MTL::IntersectionFunctionTableDescriptor::intersectionFunctionTableDescriptor()
 {
-    return Object::sendMessage<MTL::IntersectionFunctionTableDescriptor*>(
-        _MTL_PRIVATE_CLS(MTLIntersectionFunctionTableDescriptor),
-        _MTL_PRIVATE_SEL(intersectionFunctionTableDescriptor));
+    return sendMessage<IntersectionFunctionTableDescriptor*>(_MTL_PRIVATE_CLS(MTLIntersectionFunctionTableDescriptor),
+                                                             _MTL_PRIVATE_SEL(intersectionFunctionTableDescriptor));
 }
 
-_MTL_INLINE void MTL::IntersectionFunctionTableDescriptor::setFunctionCount(NS::UInteger functionCount)
+_MTL_INLINE void MTL::IntersectionFunctionTableDescriptor::setFunctionCount(const NS::UInteger functionCount) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setFunctionCount_), functionCount);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setFunctionCount_), functionCount);
 }
 
 _MTL_INLINE MTL::ResourceID MTL::IntersectionFunctionTable::gpuResourceID() const
 {
-    return Object::sendMessage<MTL::ResourceID>(this, _MTL_PRIVATE_SEL(gpuResourceID));
+    return sendMessage<ResourceID>(this, _MTL_PRIVATE_SEL(gpuResourceID));
 }
 
-_MTL_INLINE void MTL::IntersectionFunctionTable::setBuffer(const MTL::Buffer* buffer,
-                                                           NS::UInteger       offset,
-                                                           NS::UInteger       index)
+_MTL_INLINE void MTL::IntersectionFunctionTable::setBuffer(const Buffer*      buffer,
+                                                           const NS::UInteger offset,
+                                                           const NS::UInteger index) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setBuffer_offset_atIndex_), buffer, offset, index);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setBuffer_offset_atIndex_), buffer, offset, index);
 }
 
-_MTL_INLINE void MTL::IntersectionFunctionTable::setBuffers(const MTL::Buffer* const buffers[],
-                                                            const NS::UInteger       offsets[],
-                                                            NS::Range                range)
+_MTL_INLINE void MTL::IntersectionFunctionTable::setBuffers(const Buffer* const buffers[],
+                                                            const NS::UInteger  offsets[],
+                                                            const NS::Range     range) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setBuffers_offsets_withRange_), buffers, offsets, range);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setBuffers_offsets_withRange_), buffers, offsets, range);
 }
 
-_MTL_INLINE void MTL::IntersectionFunctionTable::setFunction(const MTL::FunctionHandle* function, NS::UInteger index)
+_MTL_INLINE void MTL::IntersectionFunctionTable::setFunction(const FunctionHandle* function,
+                                                             const NS::UInteger    index) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setFunction_atIndex_), function, index);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setFunction_atIndex_), function, index);
 }
 
-_MTL_INLINE void MTL::IntersectionFunctionTable::setFunctions(const MTL::FunctionHandle* const functions[],
-                                                              NS::Range                        range)
+_MTL_INLINE void MTL::IntersectionFunctionTable::setFunctions(const FunctionHandle* const functions[],
+                                                              const NS::Range             range) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setFunctions_withRange_), functions, range);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setFunctions_withRange_), functions, range);
 }
 
 _MTL_INLINE void MTL::IntersectionFunctionTable::setOpaqueCurveIntersectionFunction(
-    MTL::IntersectionFunctionSignature signature, NS::UInteger index)
+    const IntersectionFunctionSignature signature, const NS::UInteger index) const
 {
-    Object::sendMessage<void>(
+    sendMessage<void>(
         this, _MTL_PRIVATE_SEL(setOpaqueCurveIntersectionFunctionWithSignature_atIndex_), signature, index);
 }
 
 _MTL_INLINE void MTL::IntersectionFunctionTable::setOpaqueCurveIntersectionFunction(
-    MTL::IntersectionFunctionSignature signature, NS::Range range)
+    const IntersectionFunctionSignature signature, const NS::Range range) const
 {
-    Object::sendMessage<void>(
+    sendMessage<void>(
         this, _MTL_PRIVATE_SEL(setOpaqueCurveIntersectionFunctionWithSignature_withRange_), signature, range);
 }
 
 _MTL_INLINE void MTL::IntersectionFunctionTable::setOpaqueTriangleIntersectionFunction(
-    MTL::IntersectionFunctionSignature signature, NS::UInteger index)
+    const IntersectionFunctionSignature signature, const NS::UInteger index) const
 {
-    Object::sendMessage<void>(
+    sendMessage<void>(
         this, _MTL_PRIVATE_SEL(setOpaqueTriangleIntersectionFunctionWithSignature_atIndex_), signature, index);
 }
 
 _MTL_INLINE void MTL::IntersectionFunctionTable::setOpaqueTriangleIntersectionFunction(
-    MTL::IntersectionFunctionSignature signature, NS::Range range)
+    const IntersectionFunctionSignature signature, const NS::Range range) const
 {
-    Object::sendMessage<void>(
+    sendMessage<void>(
         this, _MTL_PRIVATE_SEL(setOpaqueTriangleIntersectionFunctionWithSignature_withRange_), signature, range);
 }
 
-_MTL_INLINE void MTL::IntersectionFunctionTable::setVisibleFunctionTable(const MTL::VisibleFunctionTable* functionTable,
-                                                                         NS::UInteger                     bufferIndex)
+_MTL_INLINE void MTL::IntersectionFunctionTable::setVisibleFunctionTable(const VisibleFunctionTable* functionTable,
+                                                                         const NS::UInteger          bufferIndex) const
 {
-    Object::sendMessage<void>(
-        this, _MTL_PRIVATE_SEL(setVisibleFunctionTable_atBufferIndex_), functionTable, bufferIndex);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setVisibleFunctionTable_atBufferIndex_), functionTable, bufferIndex);
 }
 
 _MTL_INLINE void MTL::IntersectionFunctionTable::setVisibleFunctionTables(
-    const MTL::VisibleFunctionTable* const functionTables[], NS::Range bufferRange)
+    const VisibleFunctionTable* const functionTables[], const NS::Range bufferRange) const
 {
-    Object::sendMessage<void>(
-        this, _MTL_PRIVATE_SEL(setVisibleFunctionTables_withBufferRange_), functionTables, bufferRange);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setVisibleFunctionTables_withBufferRange_), functionTables, bufferRange);
 }

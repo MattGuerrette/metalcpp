@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include "../Foundation/Foundation.hpp"
@@ -34,55 +35,61 @@ namespace MTL4
         PipelineDataSetSerializerConfigurationCaptureBinaries    = 1 << 1,
     };
 
+    /// @see https://developer.apple.com/documentation/metal/mtl4pipelinedatasetserializerdescriptor
     class PipelineDataSetSerializerDescriptor : public NS::Copying<PipelineDataSetSerializerDescriptor>
     {
     public:
-        static PipelineDataSetSerializerDescriptor* alloc();
+        [[nodiscard]] static PipelineDataSetSerializerDescriptor* alloc();
 
-        PipelineDataSetSerializerConfiguration configuration() const;
+        [[nodiscard]] PipelineDataSetSerializerConfiguration configuration() const;
 
-        PipelineDataSetSerializerDescriptor* init();
+        [[nodiscard]] PipelineDataSetSerializerDescriptor* init();
 
-        void setConfiguration(MTL4::PipelineDataSetSerializerConfiguration configuration);
+        void setConfiguration(PipelineDataSetSerializerConfiguration configuration) const;
     };
+
+    /// @see https://developer.apple.com/documentation/metal/mtl4pipelinedatasetserializer
     class PipelineDataSetSerializer : public NS::Referencing<PipelineDataSetSerializer>
     {
     public:
-        bool serializeAsArchiveAndFlushToURL(const NS::URL* url, NS::Error** error);
+        [[nodiscard]] bool serializeAsArchiveAndFlushToURL(const NS::URL* url, NS::Error** error) const;
 
-        NS::Data* serializeAsPipelinesScript(NS::Error** error);
+        [[nodiscard]] NS::Data* serializeAsPipelinesScript(NS::Error** error) const;
     };
 
 } // namespace MTL4
 _MTL_INLINE MTL4::PipelineDataSetSerializerDescriptor* MTL4::PipelineDataSetSerializerDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL4::PipelineDataSetSerializerDescriptor>(
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<PipelineDataSetSerializerDescriptor>(
         _MTL_PRIVATE_CLS(MTL4PipelineDataSetSerializerDescriptor));
 }
 
 _MTL_INLINE MTL4::PipelineDataSetSerializerConfiguration MTL4::PipelineDataSetSerializerDescriptor::configuration()
     const
 {
-    return Object::sendMessage<MTL4::PipelineDataSetSerializerConfiguration>(this, _MTL_PRIVATE_SEL(configuration));
+    return sendMessage<PipelineDataSetSerializerConfiguration>(this, _MTL_PRIVATE_SEL(configuration));
 }
 
 _MTL_INLINE MTL4::PipelineDataSetSerializerDescriptor* MTL4::PipelineDataSetSerializerDescriptor::init()
 {
-    return NS::Object::init<MTL4::PipelineDataSetSerializerDescriptor>();
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<PipelineDataSetSerializerDescriptor>();
 }
 
 _MTL_INLINE void MTL4::PipelineDataSetSerializerDescriptor::setConfiguration(
-    MTL4::PipelineDataSetSerializerConfiguration configuration)
+    const PipelineDataSetSerializerConfiguration configuration) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setConfiguration_), configuration);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setConfiguration_), configuration);
 }
 
-_MTL_INLINE bool MTL4::PipelineDataSetSerializer::serializeAsArchiveAndFlushToURL(const NS::URL* url, NS::Error** error)
+_MTL_INLINE bool MTL4::PipelineDataSetSerializer::serializeAsArchiveAndFlushToURL(const NS::URL* url,
+                                                                                  NS::Error**    error) const
 {
-    return Object::sendMessage<bool>(this, _MTL_PRIVATE_SEL(serializeAsArchiveAndFlushToURL_error_), url, error);
+    return sendMessage<bool>(this, _MTL_PRIVATE_SEL(serializeAsArchiveAndFlushToURL_error_), url, error);
 }
 
-_MTL_INLINE NS::Data* MTL4::PipelineDataSetSerializer::serializeAsPipelinesScript(NS::Error** error)
+_MTL_INLINE NS::Data* MTL4::PipelineDataSetSerializer::serializeAsPipelinesScript(NS::Error** error) const
 {
-    return Object::sendMessage<NS::Data*>(this, _MTL_PRIVATE_SEL(serializeAsPipelinesScriptWithError_), error);
+    return sendMessage<NS::Data*>(this, _MTL_PRIVATE_SEL(serializeAsPipelinesScriptWithError_), error);
 }

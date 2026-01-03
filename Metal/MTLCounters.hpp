@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include <cstdint>
@@ -38,11 +39,11 @@ namespace MTL
         CounterSampleBufferErrorInternal    = 2,
     };
 
-    using CommonCounter    = NS::String*;
-    using CommonCounterSet = NS::String*;
+    using CommonCounter    = const NS::String*;
+    using CommonCounterSet = const NS::String*;
 
-    static const NS::UInteger CounterErrorValue = static_cast<NS::UInteger>(~0ULL);
-    static const NS::UInteger CounterDontSample = static_cast<NS::UInteger>(-1);
+    static constexpr NS::UInteger CounterErrorValue = ~0ULL;
+    static constexpr NS::UInteger CounterDontSample = static_cast<NS::UInteger>(-1);
     _MTL_CONST(NS::ErrorDomain, CounterErrorDomain);
     _MTL_CONST(CommonCounter, CommonCounterTimestamp);
     _MTL_CONST(CommonCounter, CommonCounterTessellationInputPatches);
@@ -62,11 +63,14 @@ namespace MTL
     _MTL_CONST(CommonCounterSet, CommonCounterSetTimestamp);
     _MTL_CONST(CommonCounterSet, CommonCounterSetStageUtilization);
     _MTL_CONST(CommonCounterSet, CommonCounterSetStatistic);
+
+    /// @see https://developer.apple.com/documentation/metal/mtlcounterresulttimestamp?language=objc
     struct CounterResultTimestamp
     {
         uint64_t timestamp;
     } _MTL_PACKED;
 
+    /// @see https://developer.apple.com/documentation/metal/mtlcounterresultstageutilization?language=objc
     struct CounterResultStageUtilization
     {
         uint64_t totalCycles;
@@ -77,6 +81,7 @@ namespace MTL
         uint64_t renderTargetCycles;
     } _MTL_PACKED;
 
+    /// @see https://developer.apple.com/documentation/metal/mtlcounterresultstatistic?language=objc
     struct CounterResultStatistic
     {
         uint64_t tessellationInputPatches;
@@ -89,50 +94,57 @@ namespace MTL
         uint64_t computeKernelInvocations;
     } _MTL_PACKED;
 
+    /// @see https://developer.apple.com/documentation/metal/mtlcounter?language=objc
     class Counter : public NS::Referencing<Counter>
     {
     public:
-        NS::String* name() const;
+        [[nodiscard]] NS::String* name() const;
     };
+
+    /// @see https://developer.apple.com/documentation/metal/mtlcounterset?language=objc
     class CounterSet : public NS::Referencing<CounterSet>
     {
     public:
-        NS::Array* counters() const;
+        [[nodiscard]] NS::Array* counters() const;
 
-        NS::String* name() const;
+        [[nodiscard]] NS::String* name() const;
     };
+
+    /// @see https://developer.apple.com/documentation/metal/mtlcountersamplebufferdescriptor?language=objc
     class CounterSampleBufferDescriptor : public NS::Copying<CounterSampleBufferDescriptor>
     {
     public:
-        static CounterSampleBufferDescriptor* alloc();
+        [[nodiscard]] static CounterSampleBufferDescriptor* alloc();
 
-        CounterSet* counterSet() const;
+        [[nodiscard]] CounterSet* counterSet() const;
 
-        CounterSampleBufferDescriptor* init();
+        [[nodiscard]] CounterSampleBufferDescriptor* init();
 
-        NS::String* label() const;
+        [[nodiscard]] NS::String* label() const;
 
-        NS::UInteger sampleCount() const;
+        [[nodiscard]] NS::UInteger sampleCount() const;
 
-        void setCounterSet(const MTL::CounterSet* counterSet);
+        void setCounterSet(const CounterSet* counterSet) const;
 
-        void setLabel(const NS::String* label);
+        void setLabel(const NS::String* label) const;
 
-        void setSampleCount(NS::UInteger sampleCount);
+        void setSampleCount(NS::UInteger sampleCount) const;
 
-        void        setStorageMode(MTL::StorageMode storageMode);
-        StorageMode storageMode() const;
+        void                      setStorageMode(StorageMode storageMode) const;
+        [[nodiscard]] StorageMode storageMode() const;
     };
+
+    /// @see https://developer.apple.com/documentation/metal/mtlcountersamplebuffer?language=objc
     class CounterSampleBuffer : public NS::Referencing<CounterSampleBuffer>
     {
     public:
-        Device* device() const;
+        [[nodiscard]] Device* device() const;
 
-        NS::String* label() const;
+        [[nodiscard]] NS::String* label() const;
 
-        NS::Data* resolveCounterRange(NS::Range range);
+        [[nodiscard]] NS::Data* resolveCounterRange(NS::Range range) const;
 
-        NS::UInteger sampleCount() const;
+        [[nodiscard]] NS::UInteger sampleCount() const;
     };
 
 } // namespace MTL
@@ -157,87 +169,83 @@ _MTL_PRIVATE_DEF_CONST(MTL::CommonCounterSet, CommonCounterSetTimestamp);
 _MTL_PRIVATE_DEF_CONST(MTL::CommonCounterSet, CommonCounterSetStageUtilization);
 _MTL_PRIVATE_DEF_CONST(MTL::CommonCounterSet, CommonCounterSetStatistic);
 
-_MTL_INLINE NS::String* MTL::Counter::name() const
-{
-    return Object::sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(name));
-}
+_MTL_INLINE NS::String* MTL::Counter::name() const { return sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(name)); }
 
 _MTL_INLINE NS::Array* MTL::CounterSet::counters() const
 {
-    return Object::sendMessage<NS::Array*>(this, _MTL_PRIVATE_SEL(counters));
+    return sendMessage<NS::Array*>(this, _MTL_PRIVATE_SEL(counters));
 }
 
-_MTL_INLINE NS::String* MTL::CounterSet::name() const
-{
-    return Object::sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(name));
-}
+_MTL_INLINE NS::String* MTL::CounterSet::name() const { return sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(name)); }
 
 _MTL_INLINE MTL::CounterSampleBufferDescriptor* MTL::CounterSampleBufferDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL::CounterSampleBufferDescriptor>(_MTL_PRIVATE_CLS(MTLCounterSampleBufferDescriptor));
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<CounterSampleBufferDescriptor>(_MTL_PRIVATE_CLS(MTLCounterSampleBufferDescriptor));
 }
 
 _MTL_INLINE MTL::CounterSet* MTL::CounterSampleBufferDescriptor::counterSet() const
 {
-    return Object::sendMessage<MTL::CounterSet*>(this, _MTL_PRIVATE_SEL(counterSet));
+    return sendMessage<CounterSet*>(this, _MTL_PRIVATE_SEL(counterSet));
 }
 
 _MTL_INLINE MTL::CounterSampleBufferDescriptor* MTL::CounterSampleBufferDescriptor::init()
 {
-    return NS::Object::init<MTL::CounterSampleBufferDescriptor>();
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<CounterSampleBufferDescriptor>();
 }
 
 _MTL_INLINE NS::String* MTL::CounterSampleBufferDescriptor::label() const
 {
-    return Object::sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
+    return sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
 }
 
 _MTL_INLINE NS::UInteger MTL::CounterSampleBufferDescriptor::sampleCount() const
 {
-    return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(sampleCount));
+    return sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(sampleCount));
 }
 
-_MTL_INLINE void MTL::CounterSampleBufferDescriptor::setCounterSet(const MTL::CounterSet* counterSet)
+_MTL_INLINE void MTL::CounterSampleBufferDescriptor::setCounterSet(const CounterSet* counterSet) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setCounterSet_), counterSet);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setCounterSet_), counterSet);
 }
 
-_MTL_INLINE void MTL::CounterSampleBufferDescriptor::setLabel(const NS::String* label)
+_MTL_INLINE void MTL::CounterSampleBufferDescriptor::setLabel(const NS::String* label) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setLabel_), label);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setLabel_), label);
 }
 
-_MTL_INLINE void MTL::CounterSampleBufferDescriptor::setSampleCount(NS::UInteger sampleCount)
+_MTL_INLINE void MTL::CounterSampleBufferDescriptor::setSampleCount(const NS::UInteger sampleCount) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setSampleCount_), sampleCount);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setSampleCount_), sampleCount);
 }
 
-_MTL_INLINE void MTL::CounterSampleBufferDescriptor::setStorageMode(MTL::StorageMode storageMode)
+_MTL_INLINE void MTL::CounterSampleBufferDescriptor::setStorageMode(const StorageMode storageMode) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setStorageMode_), storageMode);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setStorageMode_), storageMode);
 }
 
 _MTL_INLINE MTL::StorageMode MTL::CounterSampleBufferDescriptor::storageMode() const
 {
-    return Object::sendMessage<MTL::StorageMode>(this, _MTL_PRIVATE_SEL(storageMode));
+    return sendMessage<StorageMode>(this, _MTL_PRIVATE_SEL(storageMode));
 }
 
 _MTL_INLINE MTL::Device* MTL::CounterSampleBuffer::device() const
 {
-    return Object::sendMessage<MTL::Device*>(this, _MTL_PRIVATE_SEL(device));
+    return sendMessage<Device*>(this, _MTL_PRIVATE_SEL(device));
 }
 
 _MTL_INLINE NS::String* MTL::CounterSampleBuffer::label() const
 {
-    return Object::sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
+    return sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
 }
 
-_MTL_INLINE NS::Data* MTL::CounterSampleBuffer::resolveCounterRange(NS::Range range)
+_MTL_INLINE NS::Data* MTL::CounterSampleBuffer::resolveCounterRange(const NS::Range range) const
 {
-    return Object::sendMessage<NS::Data*>(this, _MTL_PRIVATE_SEL(resolveCounterRange_), range);
+    return sendMessage<NS::Data*>(this, _MTL_PRIVATE_SEL(resolveCounterRange_), range);
 }
 
 _MTL_INLINE NS::UInteger MTL::CounterSampleBuffer::sampleCount() const
 {
-    return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(sampleCount));
+    return sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(sampleCount));
 }

@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include "../Foundation/Foundation.hpp"
@@ -31,6 +32,7 @@ namespace MTL
     class FunctionDescriptor;
     class IntersectionFunctionDescriptor;
 
+    /// @see https://developer.apple.com/documentation/metal/mtlfunctionoptions?language=objc
     _MTL_OPTIONS(NS::UInteger, FunctionOptions){
         FunctionOptionNone                                = 0,
         FunctionOptionCompileToBinary                     = 1,
@@ -40,115 +42,122 @@ namespace MTL
         FunctionOptionPipelineIndependent                 = 1 << 3,
     };
 
+    /// @see https://developer.apple.com/documentation/metal/mtlfunctiondescriptor?language=objc
     class FunctionDescriptor : public NS::Copying<FunctionDescriptor>
     {
     public:
-        static FunctionDescriptor* alloc();
+        [[nodiscard]] static FunctionDescriptor* alloc();
 
-        NS::Array* binaryArchives() const;
+        [[nodiscard]] NS::Array* binaryArchives() const;
 
-        FunctionConstantValues* constantValues() const;
+        [[nodiscard]] FunctionConstantValues* constantValues() const;
 
-        static FunctionDescriptor* functionDescriptor();
+        [[nodiscard]] static FunctionDescriptor* functionDescriptor();
 
-        FunctionDescriptor* init();
+        [[nodiscard]] FunctionDescriptor* init();
 
-        NS::String* name() const;
+        [[nodiscard]] NS::String* name() const;
 
-        FunctionOptions options() const;
+        [[nodiscard]] FunctionOptions options() const;
 
-        void setBinaryArchives(const NS::Array* binaryArchives);
+        void setBinaryArchives(const NS::Array* binaryArchives) const;
 
-        void setConstantValues(const MTL::FunctionConstantValues* constantValues);
+        void setConstantValues(const FunctionConstantValues* constantValues) const;
 
-        void setName(const NS::String* name);
+        void setName(const NS::String* name) const;
 
-        void setOptions(MTL::FunctionOptions options);
+        void setOptions(FunctionOptions options) const;
 
-        void        setSpecializedName(const NS::String* specializedName);
-        NS::String* specializedName() const;
+        void                      setSpecializedName(const NS::String* specializedName) const;
+        [[nodiscard]] NS::String* specializedName() const;
     };
+
+    /// @see https://developer.apple.com/documentation/metal/mtlintersectionfunctiondescriptor?language=objc
     class IntersectionFunctionDescriptor : public NS::Copying<IntersectionFunctionDescriptor, FunctionDescriptor>
     {
     public:
-        static IntersectionFunctionDescriptor* alloc();
+        [[nodiscard]] static IntersectionFunctionDescriptor* alloc();
 
-        IntersectionFunctionDescriptor* init();
+        [[nodiscard]] IntersectionFunctionDescriptor* init();
     };
 
 } // namespace MTL
 _MTL_INLINE MTL::FunctionDescriptor* MTL::FunctionDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL::FunctionDescriptor>(_MTL_PRIVATE_CLS(MTLFunctionDescriptor));
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<FunctionDescriptor>(_MTL_PRIVATE_CLS(MTLFunctionDescriptor));
 }
 
 _MTL_INLINE NS::Array* MTL::FunctionDescriptor::binaryArchives() const
 {
-    return Object::sendMessage<NS::Array*>(this, _MTL_PRIVATE_SEL(binaryArchives));
+    return sendMessage<NS::Array*>(this, _MTL_PRIVATE_SEL(binaryArchives));
 }
 
 _MTL_INLINE MTL::FunctionConstantValues* MTL::FunctionDescriptor::constantValues() const
 {
-    return Object::sendMessage<MTL::FunctionConstantValues*>(this, _MTL_PRIVATE_SEL(constantValues));
+    return sendMessage<FunctionConstantValues*>(this, _MTL_PRIVATE_SEL(constantValues));
 }
 
 _MTL_INLINE MTL::FunctionDescriptor* MTL::FunctionDescriptor::functionDescriptor()
 {
-    return Object::sendMessage<MTL::FunctionDescriptor*>(_MTL_PRIVATE_CLS(MTLFunctionDescriptor),
-                                                         _MTL_PRIVATE_SEL(functionDescriptor));
+    return sendMessage<FunctionDescriptor*>(_MTL_PRIVATE_CLS(MTLFunctionDescriptor),
+                                            _MTL_PRIVATE_SEL(functionDescriptor));
 }
 
 _MTL_INLINE MTL::FunctionDescriptor* MTL::FunctionDescriptor::init()
 {
-    return NS::Object::init<MTL::FunctionDescriptor>();
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<FunctionDescriptor>();
 }
 
 _MTL_INLINE NS::String* MTL::FunctionDescriptor::name() const
 {
-    return Object::sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(name));
+    return sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(name));
 }
 
 _MTL_INLINE MTL::FunctionOptions MTL::FunctionDescriptor::options() const
 {
-    return Object::sendMessage<MTL::FunctionOptions>(this, _MTL_PRIVATE_SEL(options));
+    return sendMessage<FunctionOptions>(this, _MTL_PRIVATE_SEL(options));
 }
 
-_MTL_INLINE void MTL::FunctionDescriptor::setBinaryArchives(const NS::Array* binaryArchives)
+_MTL_INLINE void MTL::FunctionDescriptor::setBinaryArchives(const NS::Array* binaryArchives) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setBinaryArchives_), binaryArchives);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setBinaryArchives_), binaryArchives);
 }
 
-_MTL_INLINE void MTL::FunctionDescriptor::setConstantValues(const MTL::FunctionConstantValues* constantValues)
+_MTL_INLINE void MTL::FunctionDescriptor::setConstantValues(const FunctionConstantValues* constantValues) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setConstantValues_), constantValues);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setConstantValues_), constantValues);
 }
 
-_MTL_INLINE void MTL::FunctionDescriptor::setName(const NS::String* name)
+_MTL_INLINE void MTL::FunctionDescriptor::setName(const NS::String* name) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setName_), name);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setName_), name);
 }
 
-_MTL_INLINE void MTL::FunctionDescriptor::setOptions(MTL::FunctionOptions options)
+_MTL_INLINE void MTL::FunctionDescriptor::setOptions(const FunctionOptions options) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setOptions_), options);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setOptions_), options);
 }
 
-_MTL_INLINE void MTL::FunctionDescriptor::setSpecializedName(const NS::String* specializedName)
+_MTL_INLINE void MTL::FunctionDescriptor::setSpecializedName(const NS::String* specializedName) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setSpecializedName_), specializedName);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setSpecializedName_), specializedName);
 }
 
 _MTL_INLINE NS::String* MTL::FunctionDescriptor::specializedName() const
 {
-    return Object::sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(specializedName));
+    return sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(specializedName));
 }
 
 _MTL_INLINE MTL::IntersectionFunctionDescriptor* MTL::IntersectionFunctionDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL::IntersectionFunctionDescriptor>(_MTL_PRIVATE_CLS(MTLIntersectionFunctionDescriptor));
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<IntersectionFunctionDescriptor>(_MTL_PRIVATE_CLS(MTLIntersectionFunctionDescriptor));
 }
 
 _MTL_INLINE MTL::IntersectionFunctionDescriptor* MTL::IntersectionFunctionDescriptor::init()
 {
-    return NS::Object::init<MTL::IntersectionFunctionDescriptor>();
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<IntersectionFunctionDescriptor>();
 }

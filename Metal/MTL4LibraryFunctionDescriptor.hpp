@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include "../Foundation/Foundation.hpp"
@@ -38,49 +39,52 @@ namespace MTL
 
 namespace MTL4
 {
+    /// @see https://developer.apple.com/documentation/metal/mtl4libraryfunctiondescriptor
     class LibraryFunctionDescriptor : public NS::Copying<LibraryFunctionDescriptor, FunctionDescriptor>
     {
     public:
-        static LibraryFunctionDescriptor* alloc();
+        [[nodiscard]] static LibraryFunctionDescriptor* alloc();
 
-        LibraryFunctionDescriptor* init();
+        [[nodiscard]] LibraryFunctionDescriptor* init();
 
-        MTL::Library* library() const;
+        [[nodiscard]] MTL::Library* library() const;
 
-        NS::String* name() const;
+        [[nodiscard]] NS::String* name() const;
 
-        void setLibrary(const MTL::Library* library);
+        void setLibrary(const MTL::Library* library) const;
 
-        void setName(const NS::String* name);
+        void setName(const NS::String* name) const;
     };
 
 } // namespace MTL4
 _MTL_INLINE MTL4::LibraryFunctionDescriptor* MTL4::LibraryFunctionDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL4::LibraryFunctionDescriptor>(_MTL_PRIVATE_CLS(MTL4LibraryFunctionDescriptor));
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<LibraryFunctionDescriptor>(_MTL_PRIVATE_CLS(MTL4LibraryFunctionDescriptor));
 }
 
 _MTL_INLINE MTL4::LibraryFunctionDescriptor* MTL4::LibraryFunctionDescriptor::init()
 {
-    return NS::Object::init<MTL4::LibraryFunctionDescriptor>();
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<LibraryFunctionDescriptor>();
 }
 
 _MTL_INLINE MTL::Library* MTL4::LibraryFunctionDescriptor::library() const
 {
-    return Object::sendMessage<MTL::Library*>(this, _MTL_PRIVATE_SEL(library));
+    return sendMessage<MTL::Library*>(this, _MTL_PRIVATE_SEL(library));
 }
 
 _MTL_INLINE NS::String* MTL4::LibraryFunctionDescriptor::name() const
 {
-    return Object::sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(name));
+    return sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(name));
 }
 
-_MTL_INLINE void MTL4::LibraryFunctionDescriptor::setLibrary(const MTL::Library* library)
+_MTL_INLINE void MTL4::LibraryFunctionDescriptor::setLibrary(const MTL::Library* library) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setLibrary_), library);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setLibrary_), library);
 }
 
-_MTL_INLINE void MTL4::LibraryFunctionDescriptor::setName(const NS::String* name)
+_MTL_INLINE void MTL4::LibraryFunctionDescriptor::setName(const NS::String* name) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setName_), name);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setName_), name);
 }

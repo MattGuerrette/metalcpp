@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include "../Foundation/Foundation.hpp"
@@ -35,29 +36,30 @@ namespace MTL4
         CompilerTaskStatusFinished  = 3,
     };
 
+    /// @see https://developer.apple.com/documentation/metal/mtl4compilertask
     class CompilerTask : public NS::Referencing<CompilerTask>
     {
     public:
-        Compiler* compiler() const;
+        [[nodiscard]] Compiler* compiler() const;
 
-        CompilerTaskStatus status() const;
+        [[nodiscard]] CompilerTaskStatus status() const;
 
-        void waitUntilCompleted();
+        void waitUntilCompleted() const;
     };
 
 } // namespace MTL4
 
 _MTL_INLINE MTL4::Compiler* MTL4::CompilerTask::compiler() const
 {
-    return Object::sendMessage<MTL4::Compiler*>(this, _MTL_PRIVATE_SEL(compiler));
+    return sendMessage<Compiler*>(this, _MTL_PRIVATE_SEL(compiler));
 }
 
 _MTL_INLINE MTL4::CompilerTaskStatus MTL4::CompilerTask::status() const
 {
-    return Object::sendMessage<MTL4::CompilerTaskStatus>(this, _MTL_PRIVATE_SEL(status));
+    return sendMessage<CompilerTaskStatus>(this, _MTL_PRIVATE_SEL(status));
 }
 
-_MTL_INLINE void MTL4::CompilerTask::waitUntilCompleted()
+_MTL_INLINE void MTL4::CompilerTask::waitUntilCompleted() const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(waitUntilCompleted));
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(waitUntilCompleted));
 }
