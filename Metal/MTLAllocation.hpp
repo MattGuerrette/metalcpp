@@ -27,13 +27,13 @@
 
 namespace MTL
 {
-class Allocation : public NS::Referencing<Allocation>
-{
-public:
-    NS::UInteger allocatedSize() const;
-};
+    class Allocation : public NS::Referencing<Allocation>
+    {
+    public:
+        NS::UInteger allocatedSize() const;
+    };
 
-}
+} // namespace MTL
 _MTL_INLINE NS::UInteger MTL::Allocation::allocatedSize() const
 {
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(allocatedSize));

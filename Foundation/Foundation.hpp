@@ -20,6 +20,23 @@
 
 #pragma once
 
+#define METAL_CPP_CPLUSPLUS __cplusplus
+
+#if 202002L < METAL_CPP_CPLUSPLUS
+#define METAL_CPP_VERSION 23
+#elif 201703L < METAL_CPP_CPLUSPLUS
+#define METAL_CPP_VERSION 20
+#elif 201402L < METAL_CPP_CPLUSPLUS
+#define METAL_CPP_VERSION 17
+#else
+#error "Metal C++ requires at least C++17"
+#endif
+
+#if 23 <= METAL_CPP_VERSION && __has_include(<expected>)
+#define METAL_CPP_HAS_EXPECTED 1
+#include <expected>
+#endif
+
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 #include "NSArray.hpp"

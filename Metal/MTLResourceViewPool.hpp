@@ -28,40 +28,42 @@
 
 namespace MTL
 {
-class Device;
-class ResourceViewPool;
-class ResourceViewPoolDescriptor;
+    class Device;
+    class ResourceViewPool;
+    class ResourceViewPoolDescriptor;
 
-class ResourceViewPoolDescriptor : public NS::Copying<ResourceViewPoolDescriptor>
-{
-public:
-    static ResourceViewPoolDescriptor* alloc();
+    class ResourceViewPoolDescriptor : public NS::Copying<ResourceViewPoolDescriptor>
+    {
+    public:
+        static ResourceViewPoolDescriptor* alloc();
 
-    ResourceViewPoolDescriptor*        init();
+        ResourceViewPoolDescriptor* init();
 
-    NS::String*                        label() const;
+        NS::String* label() const;
 
-    NS::UInteger                       resourceViewCount() const;
+        NS::UInteger resourceViewCount() const;
 
-    void                               setLabel(const NS::String* label);
+        void setLabel(const NS::String* label);
 
-    void                               setResourceViewCount(NS::UInteger resourceViewCount);
-};
-class ResourceViewPool : public NS::Referencing<ResourceViewPool>
-{
-public:
-    ResourceID   baseResourceID() const;
+        void setResourceViewCount(NS::UInteger resourceViewCount);
+    };
+    class ResourceViewPool : public NS::Referencing<ResourceViewPool>
+    {
+    public:
+        ResourceID baseResourceID() const;
 
-    ResourceID   copyResourceViewsFromPool(const MTL::ResourceViewPool* sourcePool, NS::Range sourceRange, NS::UInteger destinationIndex);
+        ResourceID copyResourceViewsFromPool(const MTL::ResourceViewPool* sourcePool,
+                                             NS::Range                    sourceRange,
+                                             NS::UInteger                 destinationIndex);
 
-    Device*      device() const;
+        Device* device() const;
 
-    NS::String*  label() const;
+        NS::String* label() const;
 
-    NS::UInteger resourceViewCount() const;
-};
+        NS::UInteger resourceViewCount() const;
+    };
 
-}
+} // namespace MTL
 _MTL_INLINE MTL::ResourceViewPoolDescriptor* MTL::ResourceViewPoolDescriptor::alloc()
 {
     return NS::Object::alloc<MTL::ResourceViewPoolDescriptor>(_MTL_PRIVATE_CLS(MTLResourceViewPoolDescriptor));
@@ -97,9 +99,16 @@ _MTL_INLINE MTL::ResourceID MTL::ResourceViewPool::baseResourceID() const
     return Object::sendMessage<MTL::ResourceID>(this, _MTL_PRIVATE_SEL(baseResourceID));
 }
 
-_MTL_INLINE MTL::ResourceID MTL::ResourceViewPool::copyResourceViewsFromPool(const MTL::ResourceViewPool* sourcePool, NS::Range sourceRange, NS::UInteger destinationIndex)
+_MTL_INLINE MTL::ResourceID MTL::ResourceViewPool::copyResourceViewsFromPool(const MTL::ResourceViewPool* sourcePool,
+                                                                             NS::Range                    sourceRange,
+                                                                             NS::UInteger destinationIndex)
 {
-    return Object::sendMessage<MTL::ResourceID>(this, _MTL_PRIVATE_SEL(copyResourceViewsFromPool_sourceRange_destinationIndex_), sourcePool, sourceRange, destinationIndex);
+    return Object::sendMessage<MTL::ResourceID>(
+        this,
+        _MTL_PRIVATE_SEL(copyResourceViewsFromPool_sourceRange_destinationIndex_),
+        sourcePool,
+        sourceRange,
+        destinationIndex);
 }
 
 _MTL_INLINE MTL::Device* MTL::ResourceViewPool::device() const

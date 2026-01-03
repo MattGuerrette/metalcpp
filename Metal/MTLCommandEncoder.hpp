@@ -27,58 +27,59 @@
 
 namespace MTL
 {
-class Device;
+    class Device;
 
-_MTL_OPTIONS(NS::UInteger, ResourceUsage) {
-    ResourceUsageRead = 1,
-    ResourceUsageWrite = 1 << 1,
-    ResourceUsageSample = 1 << 2,
-};
+    _MTL_OPTIONS(NS::UInteger, ResourceUsage){
+        ResourceUsageRead   = 1,
+        ResourceUsageWrite  = 1 << 1,
+        ResourceUsageSample = 1 << 2,
+    };
 
-_MTL_OPTIONS(NS::UInteger, BarrierScope) {
-    BarrierScopeBuffers = 1,
-    BarrierScopeTextures = 1 << 1,
-    BarrierScopeRenderTargets = 1 << 2,
-};
+    _MTL_OPTIONS(NS::UInteger, BarrierScope){
+        BarrierScopeBuffers       = 1,
+        BarrierScopeTextures      = 1 << 1,
+        BarrierScopeRenderTargets = 1 << 2,
+    };
 
-_MTL_OPTIONS(NS::UInteger, Stages) {
-    StageVertex = 1,
-    StageFragment = 1 << 1,
-    StageTile = 1 << 2,
-    StageObject = 1 << 3,
-    StageMesh = 1 << 4,
-    StageResourceState = 1 << 26,
-    StageDispatch = 1 << 27,
-    StageBlit = 1 << 28,
-    StageAccelerationStructure = 1 << 29,
-    StageMachineLearning = 1 << 30,
-    StageAll = 9223372036854775807,
-};
+    _MTL_OPTIONS(NS::UInteger, Stages){
+        StageVertex                = 1,
+        StageFragment              = 1 << 1,
+        StageTile                  = 1 << 2,
+        StageObject                = 1 << 3,
+        StageMesh                  = 1 << 4,
+        StageResourceState         = 1 << 26,
+        StageDispatch              = 1 << 27,
+        StageBlit                  = 1 << 28,
+        StageAccelerationStructure = 1 << 29,
+        StageMachineLearning       = 1 << 30,
+        StageAll                   = 9223372036854775807,
+    };
 
-class CommandEncoder : public NS::Referencing<CommandEncoder>
-{
-public:
-    void        barrierAfterQueueStages(MTL::Stages afterQueueStages, MTL::Stages beforeStages);
+    class CommandEncoder : public NS::Referencing<CommandEncoder>
+    {
+    public:
+        void barrierAfterQueueStages(MTL::Stages afterQueueStages, MTL::Stages beforeStages);
 
-    Device*     device() const;
+        Device* device() const;
 
-    void        endEncoding();
+        void endEncoding();
 
-    void        insertDebugSignpost(const NS::String* string);
+        void insertDebugSignpost(const NS::String* string);
 
-    NS::String* label() const;
+        NS::String* label() const;
 
-    void        popDebugGroup();
+        void popDebugGroup();
 
-    void        pushDebugGroup(const NS::String* string);
+        void pushDebugGroup(const NS::String* string);
 
-    void        setLabel(const NS::String* label);
-};
+        void setLabel(const NS::String* label);
+    };
 
-}
+} // namespace MTL
 _MTL_INLINE void MTL::CommandEncoder::barrierAfterQueueStages(MTL::Stages afterQueueStages, MTL::Stages beforeStages)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(barrierAfterQueueStages_beforeStages_), afterQueueStages, beforeStages);
+    Object::sendMessage<void>(
+        this, _MTL_PRIVATE_SEL(barrierAfterQueueStages_beforeStages_), afterQueueStages, beforeStages);
 }
 
 _MTL_INLINE MTL::Device* MTL::CommandEncoder::device() const
@@ -86,10 +87,7 @@ _MTL_INLINE MTL::Device* MTL::CommandEncoder::device() const
     return Object::sendMessage<MTL::Device*>(this, _MTL_PRIVATE_SEL(device));
 }
 
-_MTL_INLINE void MTL::CommandEncoder::endEncoding()
-{
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(endEncoding));
-}
+_MTL_INLINE void MTL::CommandEncoder::endEncoding() { Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(endEncoding)); }
 
 _MTL_INLINE void MTL::CommandEncoder::insertDebugSignpost(const NS::String* string)
 {

@@ -29,32 +29,32 @@
 
 namespace MTL
 {
-class FunctionHandle;
-class VisibleFunctionTableDescriptor;
+    class FunctionHandle;
+    class VisibleFunctionTableDescriptor;
 
-class VisibleFunctionTableDescriptor : public NS::Copying<VisibleFunctionTableDescriptor>
-{
-public:
-    static VisibleFunctionTableDescriptor* alloc();
+    class VisibleFunctionTableDescriptor : public NS::Copying<VisibleFunctionTableDescriptor>
+    {
+    public:
+        static VisibleFunctionTableDescriptor* alloc();
 
-    NS::UInteger                           functionCount() const;
+        NS::UInteger functionCount() const;
 
-    VisibleFunctionTableDescriptor*        init();
+        VisibleFunctionTableDescriptor* init();
 
-    void                                   setFunctionCount(NS::UInteger functionCount);
+        void setFunctionCount(NS::UInteger functionCount);
 
-    static VisibleFunctionTableDescriptor* visibleFunctionTableDescriptor();
-};
-class VisibleFunctionTable : public NS::Referencing<VisibleFunctionTable, Resource>
-{
-public:
-    ResourceID gpuResourceID() const;
+        static VisibleFunctionTableDescriptor* visibleFunctionTableDescriptor();
+    };
+    class VisibleFunctionTable : public NS::Referencing<VisibleFunctionTable, Resource>
+    {
+    public:
+        ResourceID gpuResourceID() const;
 
-    void       setFunction(const MTL::FunctionHandle* function, NS::UInteger index);
-    void       setFunctions(const MTL::FunctionHandle* const functions[], NS::Range range);
-};
+        void setFunction(const MTL::FunctionHandle* function, NS::UInteger index);
+        void setFunctions(const MTL::FunctionHandle* const functions[], NS::Range range);
+    };
 
-}
+} // namespace MTL
 _MTL_INLINE MTL::VisibleFunctionTableDescriptor* MTL::VisibleFunctionTableDescriptor::alloc()
 {
     return NS::Object::alloc<MTL::VisibleFunctionTableDescriptor>(_MTL_PRIVATE_CLS(MTLVisibleFunctionTableDescriptor));
@@ -77,7 +77,8 @@ _MTL_INLINE void MTL::VisibleFunctionTableDescriptor::setFunctionCount(NS::UInte
 
 _MTL_INLINE MTL::VisibleFunctionTableDescriptor* MTL::VisibleFunctionTableDescriptor::visibleFunctionTableDescriptor()
 {
-    return Object::sendMessage<MTL::VisibleFunctionTableDescriptor*>(_MTL_PRIVATE_CLS(MTLVisibleFunctionTableDescriptor), _MTL_PRIVATE_SEL(visibleFunctionTableDescriptor));
+    return Object::sendMessage<MTL::VisibleFunctionTableDescriptor*>(
+        _MTL_PRIVATE_CLS(MTLVisibleFunctionTableDescriptor), _MTL_PRIVATE_SEL(visibleFunctionTableDescriptor));
 }
 
 _MTL_INLINE MTL::ResourceID MTL::VisibleFunctionTable::gpuResourceID() const

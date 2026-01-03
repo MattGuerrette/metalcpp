@@ -45,80 +45,88 @@ namespace CA
         /// which wraps the call in an NS::AutoReleasePool. Any Objective-C runtime allocated
         /// objects during this call will be automatically released and should not explicitly
         /// call release() or use NS::SharedPtr.
-        virtual void metalDisplayLinkNeedsUpdate(class MetalDisplayLink* displayLink, class MetalDisplayLinkUpdate* update) = 0;
+        virtual void metalDisplayLinkNeedsUpdate(class MetalDisplayLink*       displayLink,
+                                                 class MetalDisplayLinkUpdate* update) = 0;
     };
-    
+
     class MetalDisplayLinkUpdate : public NS::Referencing<MetalDisplayLinkUpdate>
     {
     public:
         [[nodiscard]] class MetalDrawable* drawable() const;
-        [[nodiscard]] CFTimeInterval targetPresentationTimestamp() const;
-        [[nodiscard]] CFTimeInterval targetTimestamp() const;
+        [[nodiscard]] CFTimeInterval       targetPresentationTimestamp() const;
+        [[nodiscard]] CFTimeInterval       targetTimestamp() const;
     };
-    
+
     class MetalDisplayLink : public NS::Referencing<MetalDisplayLink>
     {
     public:
-        static MetalDisplayLink*    alloc();
-        
+        static MetalDisplayLink* alloc();
+
         MetalDisplayLink* init(class MetalLayer* layer);
-        
-        void                        setDelegate( const CA::MetalDisplayLinkDelegate* pDelegate );
-        MetalDisplayLinkDelegate*   delegate() const;
+
+        void                      setDelegate(const CA::MetalDisplayLinkDelegate* pDelegate);
+        MetalDisplayLinkDelegate* delegate() const;
 
         void setPreferredFrameLatency(float latency);
         void setPreferredFrameRateRange(CA::FrameRateRange range);
         void addToRunLoop(class NS::RunLoop* runLoop, NS::RunLoopMode mode);
         void removeFromRunLoop(class NS::RunLoop* runLoop, NS::RunLoopMode mode);
     };
-}
+} // namespace CA
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 _CA_INLINE CA::MetalDisplayLink* CA::MetalDisplayLink::alloc()
 {
-    return Object::alloc< MetalDisplayLink >( _CA_PRIVATE_CLS( CAMetalDisplayLink ) );
+    return Object::alloc<MetalDisplayLink>(_CA_PRIVATE_CLS(CAMetalDisplayLink));
 }
 
 _CA_INLINE CA::MetalDisplayLink* CA::MetalDisplayLink::init(CA::MetalLayer* layer)
 {
-    return Object::sendMessage< MetalDisplayLink* >( this, _CA_PRIVATE_SEL( initWithMetalLayer ), layer);
+    return Object::sendMessage<MetalDisplayLink*>(this, _CA_PRIVATE_SEL(initWithMetalLayer), layer);
 }
 
-_CA_INLINE void CA::MetalDisplayLink::setDelegate(const CA::MetalDisplayLinkDelegate *pDelegate)
+_CA_INLINE void CA::MetalDisplayLink::setDelegate(const CA::MetalDisplayLinkDelegate* pDelegate)
 {
     // TODO: Same problem as NS::Application::setDelegate.
     // Requires a similar soution
-    NS::Value* pWrapper = NS::Value::value( pDelegate );
+    NS::Value* pWrapper = NS::Value::value(pDelegate);
 
     // metalDisplayLinkNeedsUpdate:
 
-    void (*metalDisplayLinkNeedsUpdateDispatch)( NS::Value*, SEL, id, id) = []( NS::Value* pSelf, [[maybe_unused]] SEL _cmd, id pDisplayLink, id pUpdate ) {
-        const auto pDel = static_cast< MetalDisplayLinkDelegate* >( pSelf->pointerValue() );
-        
+    void (*metalDisplayLinkNeedsUpdateDispatch)(NS::Value*, SEL, id, id) =
+        [](NS::Value* pSelf, [[maybe_unused]] SEL _cmd, id pDisplayLink, id pUpdate)
+    {
+        const auto pDel = static_cast<MetalDisplayLinkDelegate*>(pSelf->pointerValue());
+
 #ifdef __OBJC__
-        pDel->metalDisplayLinkNeedsUpdate((__bridge CA::MetalDisplayLink*)pDisplayLink, (__bridge CA::MetalDisplayLinkUpdate*)pUpdate);
+        pDel->metalDisplayLinkNeedsUpdate((__bridge CA::MetalDisplayLink*)pDisplayLink,
+                                          (__bridge CA::MetalDisplayLinkUpdate*)pUpdate);
 #else
-        pDel->metalDisplayLinkNeedsUpdate(reinterpret_cast<MetalDisplayLink*>(pDisplayLink), reinterpret_cast<MetalDisplayLinkUpdate*>(pUpdate));
+        pDel->metalDisplayLinkNeedsUpdate(reinterpret_cast<MetalDisplayLink*>(pDisplayLink),
+                                          reinterpret_cast<MetalDisplayLinkUpdate*>(pUpdate));
 #endif
     };
 
-    class_addMethod( objc_lookUpClass("NSValue"), sel_registerName( "metalDisplayLink:needsUpdate:" ), reinterpret_cast<IMP>(metalDisplayLinkNeedsUpdateDispatch), "v@:@v@:@" );
+    class_addMethod(objc_lookUpClass("NSValue"),
+                    sel_registerName("metalDisplayLink:needsUpdate:"),
+                    reinterpret_cast<IMP>(metalDisplayLinkNeedsUpdateDispatch),
+                    "v@:@v@:@");
 
-    sendMessage< void >( this, sel_registerName( "setDelegate:" ), pWrapper );
+    sendMessage<void>(this, sel_registerName("setDelegate:"), pWrapper);
 }
 
 _CA_INLINE CA::MetalDisplayLinkDelegate* CA::MetalDisplayLink::delegate() const
 {
-    NS::Value* pWrapper = NS::Object::sendMessage< NS::Value* >( this, _CA_PRIVATE_SEL( delegate ) );
-    if ( pWrapper )
+    NS::Value* pWrapper = NS::Object::sendMessage<NS::Value*>(this, _CA_PRIVATE_SEL(delegate));
+    if (pWrapper)
     {
-        return reinterpret_cast< MetalDisplayLinkDelegate* >( pWrapper->pointerValue() );
+        return reinterpret_cast<MetalDisplayLinkDelegate*>(pWrapper->pointerValue());
     }
     return nullptr;
 }
 
-_CA_INLINE void CA::MetalDisplayLink::addToRunLoop(class NS::RunLoop *runLoop, NS::RunLoopMode mode)
+_CA_INLINE void CA::MetalDisplayLink::addToRunLoop(class NS::RunLoop* runLoop, NS::RunLoopMode mode)
 {
     NS::Object::sendMessage<void>(this, _CA_PRIVATE_SEL(addToRunLoop_), runLoop, mode);
 }
@@ -143,7 +151,7 @@ _CA_INLINE void CA::MetalDisplayLink::setPreferredFrameRateRange(CA::FrameRateRa
 
 _CA_INLINE CA::MetalDrawable* CA::MetalDisplayLinkUpdate::drawable() const
 {
-    return Object::sendMessage<class MetalDrawable*>( this, _CA_PRIVATE_SEL(drawable));
+    return Object::sendMessage<class MetalDrawable*>(this, _CA_PRIVATE_SEL(drawable));
 }
 
 _CA_INLINE CFTimeInterval CA::MetalDisplayLinkUpdate::targetPresentationTimestamp() const

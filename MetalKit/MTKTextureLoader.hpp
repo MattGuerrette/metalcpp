@@ -37,47 +37,44 @@
 
 namespace MTK
 {
-	using TextureLoaderOption = class String*;
+    using TextureLoaderOption = class String*;
 
-	//_NS_CONST(TextureLoaderOption, TextureLoaderOptionAllocatedMipmaps);
-	_NS_CONST(TextureLoaderOption, TextureLoaderOptionGenerateMipmaps);
-	_NS_CONST(TextureLoaderOption, TextureLoaderOptionTextureCPUCacheMode);
-	_NS_CONST(TextureLoaderOption, TextureLoaderOptionTextureStorageMode);
-	_NS_CONST(TextureLoaderOption, TextureLoaderOptionTextureUsage);
-	_NS_CONST(TextureLoaderOption, TextureLoaderOptionOrigin);
-	_NS_CONST(TextureLoaderOption, TextureLoaderOptionSRGB);
-	_NS_CONST(TextureLoaderOption, TextureLoaderOptionLoadAsArray);
-	_NS_CONST(TextureLoaderOption, TextureLoaderOptionCubeLayout);
+    //_NS_CONST(TextureLoaderOption, TextureLoaderOptionAllocatedMipmaps);
+    _NS_CONST(TextureLoaderOption, TextureLoaderOptionGenerateMipmaps);
+    _NS_CONST(TextureLoaderOption, TextureLoaderOptionTextureCPUCacheMode);
+    _NS_CONST(TextureLoaderOption, TextureLoaderOptionTextureStorageMode);
+    _NS_CONST(TextureLoaderOption, TextureLoaderOptionTextureUsage);
+    _NS_CONST(TextureLoaderOption, TextureLoaderOptionOrigin);
+    _NS_CONST(TextureLoaderOption, TextureLoaderOptionSRGB);
+    _NS_CONST(TextureLoaderOption, TextureLoaderOptionLoadAsArray);
+    _NS_CONST(TextureLoaderOption, TextureLoaderOptionCubeLayout);
 
-	class TextureLoader : public NS::Referencing<MTK::TextureLoader> {
-	public:
-		static TextureLoader* alloc();
+    class TextureLoader : public NS::Referencing<MTK::TextureLoader>
+    {
+    public:
+        static TextureLoader* alloc();
 
-		TextureLoader* init(MTL::Device* device);
+        TextureLoader* init(MTL::Device* device);
 
-		MTL::Texture* newTexture(NS::Data* data, NS::Dictionary* options, NS::Error** error);
+        MTL::Texture* newTexture(NS::Data* data, NS::Dictionary* options, NS::Error** error);
+    };
 
-	};
+    _NS_INLINE TextureLoader* MTK::TextureLoader::alloc()
+    {
+        return NS::Object::alloc<TextureLoader>(_MTK_PRIVATE_CLS(MTKTextureLoader));
+    }
 
-	_NS_INLINE TextureLoader* MTK::TextureLoader::alloc()
-	{
-		return NS::Object::alloc<TextureLoader>(_MTK_PRIVATE_CLS(MTKTextureLoader));
-	}
+    _NS_INLINE TextureLoader* MTK::TextureLoader::init(MTL::Device* device)
+    {
+        return NS::Object::sendMessage<TextureLoader*>(this, _MTK_PRIVATE_SEL(initWithDevice_), device);
+    }
 
-	_NS_INLINE TextureLoader* MTK::TextureLoader::init(MTL::Device* device)
-	{
-		return NS::Object::sendMessage<TextureLoader*>(this, _MTK_PRIVATE_SEL(initWithDevice_), device);
-	}
-
-	_NS_INLINE MTL::Texture* MTK::TextureLoader::newTexture(NS::Data* data, NS::Dictionary* options, NS::Error** error)
-	{
-		return NS::Object::sendMessage<MTL::Texture*>(this,
-			_MTK_PRIVATE_SEL(newTextureWithData_options_error_),
-			data,
-			options,
-			error);
-	}
-}
+    _NS_INLINE MTL::Texture* MTK::TextureLoader::newTexture(NS::Data* data, NS::Dictionary* options, NS::Error** error)
+    {
+        return NS::Object::sendMessage<MTL::Texture*>(
+            this, _MTK_PRIVATE_SEL(newTextureWithData_options_error_), data, options, error);
+    }
+} // namespace MTK
 
 //_MTK_PRIVATE_DEF_CONST(MTK::TextureLoaderOption, TextureLoaderOptionAllocatedMipmaps);
 _MTK_PRIVATE_DEF_CONST(MTK::TextureLoaderOption, TextureLoaderOptionGenerateMipmaps);

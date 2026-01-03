@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include "../Foundation/Foundation.hpp"
@@ -27,67 +28,93 @@
 
 namespace MTL
 {
-class ComputePipelineState;
-class RenderPipelineState;
-}
+    class ComputePipelineState;
+    class RenderPipelineState;
+} // namespace MTL
 
 namespace MTL4
 {
-class BinaryFunction;
-class BinaryFunctionDescriptor;
-class ComputePipelineDescriptor;
-class PipelineDescriptor;
-class PipelineStageDynamicLinkingDescriptor;
-class RenderPipelineDynamicLinkingDescriptor;
+    class BinaryFunction;
+    class BinaryFunctionDescriptor;
+    class ComputePipelineDescriptor;
+    class PipelineDescriptor;
+    class PipelineStageDynamicLinkingDescriptor;
+    class RenderPipelineDynamicLinkingDescriptor;
 
-class Archive : public NS::Referencing<Archive>
+    class Archive : public NS::Referencing<Archive>
+    {
+    public:
+        [[nodiscard]] NS::String* label() const;
+
+        BinaryFunction* newBinaryFunction(const BinaryFunctionDescriptor* descriptor, NS::Error** error) const;
+
+        MTL::ComputePipelineState* newComputePipelineState(const ComputePipelineDescriptor* descriptor,
+                                                           NS::Error**                      error) const;
+        MTL::ComputePipelineState* newComputePipelineState(
+            const ComputePipelineDescriptor*             descriptor,
+            const PipelineStageDynamicLinkingDescriptor* dynamicLinkingDescriptor,
+            NS::Error**                                  error) const;
+
+        MTL::RenderPipelineState* newRenderPipelineState(const PipelineDescriptor* descriptor, NS::Error** error) const;
+        MTL::RenderPipelineState* newRenderPipelineState(
+            const PipelineDescriptor*                     descriptor,
+            const RenderPipelineDynamicLinkingDescriptor* dynamicLinkingDescriptor,
+            NS::Error**                                   error) const;
+
+        void setLabel(const NS::String* label) const;
+    };
+
+} // namespace MTL4
+_MTL_INLINE NS::String* MTL4::Archive::label() const { return sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label)); }
+
+_MTL_INLINE MTL4::BinaryFunction* MTL4::Archive::newBinaryFunction(const BinaryFunctionDescriptor* descriptor,
+                                                                   NS::Error**                     error) const
 {
-public:
-    NS::String*                label() const;
-
-    BinaryFunction*            newBinaryFunction(const MTL4::BinaryFunctionDescriptor* descriptor, NS::Error** error);
-
-    MTL::ComputePipelineState* newComputePipelineState(const MTL4::ComputePipelineDescriptor* descriptor, NS::Error** error);
-    MTL::ComputePipelineState* newComputePipelineState(const MTL4::ComputePipelineDescriptor* descriptor, const MTL4::PipelineStageDynamicLinkingDescriptor* dynamicLinkingDescriptor, NS::Error** error);
-
-    MTL::RenderPipelineState*  newRenderPipelineState(const MTL4::PipelineDescriptor* descriptor, NS::Error** error);
-    MTL::RenderPipelineState*  newRenderPipelineState(const MTL4::PipelineDescriptor* descriptor, const MTL4::RenderPipelineDynamicLinkingDescriptor* dynamicLinkingDescriptor, NS::Error** error);
-
-    void                       setLabel(const NS::String* label);
-};
-
-}
-_MTL_INLINE NS::String* MTL4::Archive::label() const
-{
-    return Object::sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
-}
-
-_MTL_INLINE MTL4::BinaryFunction* MTL4::Archive::newBinaryFunction(const MTL4::BinaryFunctionDescriptor* descriptor, NS::Error** error)
-{
-    return Object::sendMessage<MTL4::BinaryFunction*>(this, _MTL_PRIVATE_SEL(newBinaryFunctionWithDescriptor_error_), descriptor, error);
-}
-
-_MTL_INLINE MTL::ComputePipelineState* MTL4::Archive::newComputePipelineState(const MTL4::ComputePipelineDescriptor* descriptor, NS::Error** error)
-{
-    return Object::sendMessage<MTL::ComputePipelineState*>(this, _MTL_PRIVATE_SEL(newComputePipelineStateWithDescriptor_error_), descriptor, error);
-}
-
-_MTL_INLINE MTL::ComputePipelineState* MTL4::Archive::newComputePipelineState(const MTL4::ComputePipelineDescriptor* descriptor, const MTL4::PipelineStageDynamicLinkingDescriptor* dynamicLinkingDescriptor, NS::Error** error)
-{
-    return Object::sendMessage<MTL::ComputePipelineState*>(this, _MTL_PRIVATE_SEL(newComputePipelineStateWithDescriptor_dynamicLinkingDescriptor_error_), descriptor, dynamicLinkingDescriptor, error);
+    return sendMessage<BinaryFunction*>(
+        this, _MTL_PRIVATE_SEL(newBinaryFunctionWithDescriptor_error_), descriptor, error);
 }
 
-_MTL_INLINE MTL::RenderPipelineState* MTL4::Archive::newRenderPipelineState(const MTL4::PipelineDescriptor* descriptor, NS::Error** error)
+_MTL_INLINE MTL::ComputePipelineState* MTL4::Archive::newComputePipelineState(
+    const ComputePipelineDescriptor* descriptor, NS::Error** error) const
 {
-    return Object::sendMessage<MTL::RenderPipelineState*>(this, _MTL_PRIVATE_SEL(newRenderPipelineStateWithDescriptor_error_), descriptor, error);
+    return sendMessage<MTL::ComputePipelineState*>(
+        this, _MTL_PRIVATE_SEL(newComputePipelineStateWithDescriptor_error_), descriptor, error);
 }
 
-_MTL_INLINE MTL::RenderPipelineState* MTL4::Archive::newRenderPipelineState(const MTL4::PipelineDescriptor* descriptor, const MTL4::RenderPipelineDynamicLinkingDescriptor* dynamicLinkingDescriptor, NS::Error** error)
+_MTL_INLINE MTL::ComputePipelineState* MTL4::Archive::newComputePipelineState(
+    const ComputePipelineDescriptor*             descriptor,
+    const PipelineStageDynamicLinkingDescriptor* dynamicLinkingDescriptor,
+    NS::Error**                                  error) const
 {
-    return Object::sendMessage<MTL::RenderPipelineState*>(this, _MTL_PRIVATE_SEL(newRenderPipelineStateWithDescriptor_dynamicLinkingDescriptor_error_), descriptor, dynamicLinkingDescriptor, error);
+    return sendMessage<MTL::ComputePipelineState*>(
+        this,
+        _MTL_PRIVATE_SEL(newComputePipelineStateWithDescriptor_dynamicLinkingDescriptor_error_),
+        descriptor,
+        dynamicLinkingDescriptor,
+        error);
 }
 
-_MTL_INLINE void MTL4::Archive::setLabel(const NS::String* label)
+_MTL_INLINE MTL::RenderPipelineState* MTL4::Archive::newRenderPipelineState(const PipelineDescriptor* descriptor,
+                                                                            NS::Error**               error) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setLabel_), label);
+    return sendMessage<MTL::RenderPipelineState*>(
+        this, _MTL_PRIVATE_SEL(newRenderPipelineStateWithDescriptor_error_), descriptor, error);
+}
+
+_MTL_INLINE MTL::RenderPipelineState* MTL4::Archive::newRenderPipelineState(
+    const PipelineDescriptor*                     descriptor,
+    const RenderPipelineDynamicLinkingDescriptor* dynamicLinkingDescriptor,
+    NS::Error**                                   error) const
+{
+    return sendMessage<MTL::RenderPipelineState*>(
+        this,
+        _MTL_PRIVATE_SEL(newRenderPipelineStateWithDescriptor_dynamicLinkingDescriptor_error_),
+        descriptor,
+        dynamicLinkingDescriptor,
+        error);
+}
+
+_MTL_INLINE void MTL4::Archive::setLabel(const NS::String* label) const
+{
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setLabel_), label);
 }

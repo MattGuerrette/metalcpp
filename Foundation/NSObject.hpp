@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -35,72 +36,73 @@
 
 namespace NS
 {
-template <class _Class, class _Base = class Object>
-class _NS_EXPORT Referencing : public _Base
-{
-public:
-    _Class*  retain();
-    void     release();
+    template<class _Class, class _Base = class Object> // NOLINT(*-reserved-identifier)
+    class _NS_EXPORT Referencing : public _Base
+    {
+    public:
+        _Class* retain();
+        void    release();
 
-    _Class*  autorelease();
+        _Class* autorelease();
 
-    UInteger retainCount() const;
-};
+        [[nodiscard]] UInteger retainCount() const;
+    };
 
-template <class _Class, class _Base = class Object>
-class Copying : public Referencing<_Class, _Base>
-{
-public:
-    _Class* copy() const;
-};
+    template<class _Class, class _Base = Object> // NOLINT(*-reserved-identifier)
+    class Copying : public Referencing<_Class, _Base>
+    {
+    public:
+        _Class* copy() const;
+    };
 
-template <class _Class, class _Base = class Object>
-class SecureCoding : public Referencing<_Class, _Base>
-{
-};
+    template<class _Class, class _Base = Object> // NOLINT(*-reserved-identifier)
+    class SecureCoding : public Referencing<_Class, _Base>
+    {
+    };
 
-class Object : public Referencing<Object, objc_object>
-{
-public:
-    UInteger      hash() const;
-    bool          isEqual(const Object* pObject) const;
+    class Object : public Referencing<Object, objc_object>
+    {
+    public:
+        [[nodiscard]] UInteger hash() const;
+        bool                   isEqual(const Object* pObject) const;
 
-    class String* description() const;
-    class String* debugDescription() const;
+        [[nodiscard]] class String* description() const;
+        [[nodiscard]] String*       debugDescription() const;
 
-protected:
-    friend class Referencing<Object, objc_object>;
+    protected:
+        friend class Referencing;
 
-    template <class _Class>
-    static _Class* alloc(const char* pClassName);
-    template <class _Class>
-    static _Class* alloc(const void* pClass);
-    template <class _Class>
-    _Class* init();
+        template<class _Class> // NOLINT(*-reserved-identifier)
+        static _Class* alloc(const char* pClassName);
+        template<class _Class> // NOLINT(*-reserved-identifier)
+        static _Class* alloc(const void* pClass);
+        template<class _Class> // NOLINT(*-reserved-identifier)
+        _Class* init();
 
-    template <class _Dst>
-    static _Dst                   bridgingCast(const void* pObj);
-    static class MethodSignature* methodSignatureForSelector(const void* pObj, SEL selector);
-    static bool                   respondsToSelector(const void* pObj, SEL selector);
-    template <typename _Type>
-    static constexpr bool doesRequireMsgSendStret();
-    template <typename _Ret, typename... _Args>
-    static _Ret sendMessage(const void* pObj, SEL selector, _Args... args);
-    template <typename _Ret, typename... _Args>
-    static _Ret sendMessageSafe(const void* pObj, SEL selector, _Args... args);
+        template<class _Dst> // NOLINT(*-reserved-identifier)
+        static _Dst                   bridgingCast(const void* pObj);
+        static class MethodSignature* methodSignatureForSelector(const void* pObj, SEL selector);
+        static bool                   respondsToSelector(const void* pObj, SEL selector);
+        template<typename _Type> // NOLINT(*-reserved-identifier)
+        static constexpr bool doesRequireMsgSendStret();
+        template<typename _Ret, typename... _Args> // NOLINT(*-reserved-identifier)
+        static _Ret sendMessage(const void* pObj, SEL selector, _Args... args);
+        template<typename _Ret, typename... _Args> // NOLINT(*-reserved-identifier)
+        static _Ret sendMessageSafe(const void* pObj, SEL selector, _Args... args);
 
-private:
-    Object() = delete;
-    Object(const Object&) = delete;
-    ~Object() = delete;
+    public:
+        Object()              = delete;
+        Object(const Object&) = delete;
+        ~Object()             = delete;
 
-    Object& operator=(const Object&) = delete;
-};
-}
+        Object& operator=(const Object&) = delete;
+    };
+} // namespace NS
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-template <class _Class, class _Base /* = Object */>
+// NOLINTNEXTLINE(*-reserved-identifier)
+template<class _Class, class _Base /* = Object */>
 _NS_INLINE _Class* NS::Referencing<_Class, _Base>::retain()
 {
     return Object::sendMessage<_Class*>(this, _NS_PRIVATE_SEL(retain));
@@ -108,7 +110,8 @@ _NS_INLINE _Class* NS::Referencing<_Class, _Base>::retain()
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-template <class _Class, class _Base /* = Object */>
+// NOLINTNEXTLINE(*-reserved-identifier)
+template<class _Class, class _Base /* = Object */>
 _NS_INLINE void NS::Referencing<_Class, _Base>::release()
 {
     Object::sendMessage<void>(this, _NS_PRIVATE_SEL(release));
@@ -116,7 +119,8 @@ _NS_INLINE void NS::Referencing<_Class, _Base>::release()
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-template <class _Class, class _Base /* = Object */>
+// NOLINTNEXTLINE(*-reserved-identifier)
+template<class _Class, class _Base /* = Object */>
 _NS_INLINE _Class* NS::Referencing<_Class, _Base>::autorelease()
 {
     return Object::sendMessage<_Class*>(this, _NS_PRIVATE_SEL(autorelease));
@@ -124,7 +128,8 @@ _NS_INLINE _Class* NS::Referencing<_Class, _Base>::autorelease()
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-template <class _Class, class _Base /* = Object */>
+// NOLINTNEXTLINE(*-reserved-identifier)
+template<class _Class, class _Base /* = Object */>
 _NS_INLINE NS::UInteger NS::Referencing<_Class, _Base>::retainCount() const
 {
     return Object::sendMessage<UInteger>(this, _NS_PRIVATE_SEL(retainCount));
@@ -132,7 +137,8 @@ _NS_INLINE NS::UInteger NS::Referencing<_Class, _Base>::retainCount() const
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-template <class _Class, class _Base /* = Object */>
+// NOLINTNEXTLINE(*-reserved-identifier)
+template<class _Class, class _Base /* = Object */>
 _NS_INLINE _Class* NS::Copying<_Class, _Base>::copy() const
 {
     return Object::sendMessage<_Class*>(this, _NS_PRIVATE_SEL(copy));
@@ -140,19 +146,19 @@ _NS_INLINE _Class* NS::Copying<_Class, _Base>::copy() const
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-template <class _Dst>
+template<class _Dst> // NOLINT(*-reserved-identifier)
 _NS_INLINE _Dst NS::Object::bridgingCast(const void* pObj)
 {
 #ifdef __OBJC__
     return (__bridge _Dst)pObj;
 #else
-    return (_Dst)pObj;
+    return static_cast<_Dst>(pObj);
 #endif // __OBJC__
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-template <typename _Type>
+template<typename _Type> // NOLINT(*-reserved-identifier)
 _NS_INLINE constexpr bool NS::Object::doesRequireMsgSendStret()
 {
 #if (defined(__i386__) || defined(__x86_64__))
@@ -172,7 +178,7 @@ _NS_INLINE constexpr bool NS::Object::doesRequireMsgSendStret()
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-template <>
+template<>
 _NS_INLINE constexpr bool NS::Object::doesRequireMsgSendStret<void>()
 {
     return false;
@@ -180,7 +186,7 @@ _NS_INLINE constexpr bool NS::Object::doesRequireMsgSendStret<void>()
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-template <typename _Ret, typename... _Args>
+template<typename _Ret, typename... _Args> // NOLINT(*-reserved-identifier)
 _NS_INLINE _Ret NS::Object::sendMessage(const void* pObj, SEL selector, _Args... args)
 {
 #if (defined(__i386__) || defined(__x86_64__))
@@ -211,7 +217,7 @@ _NS_INLINE _Ret NS::Object::sendMessage(const void* pObj, SEL selector, _Args...
     {
         using SendMessageProc = _Ret (*)(const void*, SEL, _Args...);
 
-        const SendMessageProc pProc = reinterpret_cast<SendMessageProc>(&objc_msgSend);
+        const auto pProc = reinterpret_cast<SendMessageProc>(&objc_msgSend);
 
         return (*pProc)(pObj, selector, args...);
     }
@@ -219,6 +225,7 @@ _NS_INLINE _Ret NS::Object::sendMessage(const void* pObj, SEL selector, _Args...
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable once CppParameterMayBeConst
 _NS_INLINE NS::MethodSignature* NS::Object::methodSignatureForSelector(const void* pObj, SEL selector)
 {
     return sendMessage<MethodSignature*>(pObj, _NS_PRIVATE_SEL(methodSignatureForSelector_), selector);
@@ -226,6 +233,7 @@ _NS_INLINE NS::MethodSignature* NS::Object::methodSignatureForSelector(const voi
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable once CppParameterMayBeConst
 _NS_INLINE bool NS::Object::respondsToSelector(const void* pObj, SEL selector)
 {
     return sendMessage<bool>(pObj, _NS_PRIVATE_SEL(respondsToSelector_), selector);
@@ -233,15 +241,16 @@ _NS_INLINE bool NS::Object::respondsToSelector(const void* pObj, SEL selector)
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-template <typename _Ret, typename... _Args>
+template<typename _Ret, typename... _Args> // NOLINT(*-reserved-identifier)
+                                           // ReSharper disable once CppNotAllPathsReturnValue
 _NS_INLINE _Ret NS::Object::sendMessageSafe(const void* pObj, SEL selector, _Args... args)
 {
-    if ((respondsToSelector(pObj, selector)) || (nullptr != methodSignatureForSelector(pObj, selector)))
+    if (respondsToSelector(pObj, selector) || nullptr != methodSignatureForSelector(pObj, selector))
     {
         return sendMessage<_Ret>(pObj, selector, args...);
     }
 
-    if constexpr (!std::is_void<_Ret>::value)
+    if constexpr (!std::is_void_v<_Ret>)
     {
         return _Ret(0);
     }
@@ -249,7 +258,7 @@ _NS_INLINE _Ret NS::Object::sendMessageSafe(const void* pObj, SEL selector, _Arg
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-template <class _Class>
+template<class _Class> // NOLINT(*-reserved-identifier)
 _NS_INLINE _Class* NS::Object::alloc(const char* pClassName)
 {
     return sendMessage<_Class*>(objc_lookUpClass(pClassName), _NS_PRIVATE_SEL(alloc));
@@ -257,7 +266,7 @@ _NS_INLINE _Class* NS::Object::alloc(const char* pClassName)
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-template <class _Class>
+template<class _Class> // NOLINT(*-reserved-identifier)
 _NS_INLINE _Class* NS::Object::alloc(const void* pClass)
 {
     return sendMessage<_Class*>(pClass, _NS_PRIVATE_SEL(alloc));
@@ -265,7 +274,7 @@ _NS_INLINE _Class* NS::Object::alloc(const void* pClass)
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-template <class _Class>
+template<class _Class> // NOLINT(*-reserved-identifier)
 _NS_INLINE _Class* NS::Object::init()
 {
     return sendMessage<_Class*>(this, _NS_PRIVATE_SEL(init));
@@ -273,10 +282,7 @@ _NS_INLINE _Class* NS::Object::init()
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::UInteger NS::Object::hash() const
-{
-    return sendMessage<UInteger>(this, _NS_PRIVATE_SEL(hash));
-}
+_NS_INLINE NS::UInteger NS::Object::hash() const { return sendMessage<UInteger>(this, _NS_PRIVATE_SEL(hash)); }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 

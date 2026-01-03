@@ -18,34 +18,34 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 #include "NSObject.hpp"
-#include "NSTypes.hpp"
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 namespace NS
 {
-    using RunLoopMode = class String*;
-    
+    using RunLoopMode = const String*;
+
     _NS_CONST(RunLoopMode, RunLoopCommonModes);
     _NS_CONST(RunLoopMode, DefaultRunLoopMode);
     //_NS_CONST(RunLoopMode, EventTrackingRunLoopMode);
     //_NS_CONST(RunLoopMode, ModalPanelRunLoopMode);
-    
-    
-    class RunLoop : public NS::Referencing<RunLoop>
+
+
+    class RunLoop : public Referencing<RunLoop>
     {
     public:
         static RunLoop* currentRunLoop();
         static RunLoop* mainRunLoop();
 
-        bool run(NS::RunLoopMode mode, NS::Date* date);
+        bool run(RunLoopMode mode, Date* date) const;
     };
-}
+} // namespace NS
 
 _NS_PRIVATE_DEF_CONST(NS::RunLoopMode, RunLoopCommonModes);
 _NS_PRIVATE_DEF_CONST(NS::RunLoopMode, DefaultRunLoopMode);
@@ -56,17 +56,17 @@ _NS_PRIVATE_DEF_CONST(NS::RunLoopMode, DefaultRunLoopMode);
 
 _NS_INLINE NS::RunLoop* NS::RunLoop::currentRunLoop()
 {
-    return Object::sendMessage<RunLoop*>(_NS_PRIVATE_CLS(NSRunLoop), _NS_PRIVATE_SEL(currentRunLoop));
+    return sendMessage<RunLoop*>(_NS_PRIVATE_CLS(NSRunLoop), _NS_PRIVATE_SEL(currentRunLoop));
 }
 
 _NS_INLINE NS::RunLoop* NS::RunLoop::mainRunLoop()
 {
-    return Object::sendMessage<RunLoop*>(_NS_PRIVATE_CLS(NSRunLoop), _NS_PRIVATE_SEL(mainRunLoop));
+    return sendMessage<RunLoop*>(_NS_PRIVATE_CLS(NSRunLoop), _NS_PRIVATE_SEL(mainRunLoop));
 }
 
-_NS_INLINE bool NS::RunLoop::run(NS::RunLoopMode mode, NS::Date* date)
+_NS_INLINE bool NS::RunLoop::run(const RunLoopMode mode, Date* date) const
 {
-    return Object::sendMessage<bool>(this, _NS_PRIVATE_SEL(runMode_beforeDate_), mode, date);
+    return sendMessage<bool>(this, _NS_PRIVATE_SEL(runMode_beforeDate_), mode, date);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------

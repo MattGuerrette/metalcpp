@@ -28,37 +28,37 @@
 
 namespace MTL4
 {
-class FunctionDescriptor;
-class SpecializedFunctionDescriptor;
-}
+    class FunctionDescriptor;
+    class SpecializedFunctionDescriptor;
+} // namespace MTL4
 
 namespace MTL
 {
-class FunctionConstantValues;
+    class FunctionConstantValues;
 }
 
 namespace MTL4
 {
-class SpecializedFunctionDescriptor : public NS::Copying<SpecializedFunctionDescriptor, FunctionDescriptor>
-{
-public:
-    static SpecializedFunctionDescriptor* alloc();
+    class SpecializedFunctionDescriptor : public NS::Copying<SpecializedFunctionDescriptor, FunctionDescriptor>
+    {
+    public:
+        static SpecializedFunctionDescriptor* alloc();
 
-    MTL::FunctionConstantValues*          constantValues() const;
+        MTL::FunctionConstantValues* constantValues() const;
 
-    FunctionDescriptor*                   functionDescriptor() const;
+        FunctionDescriptor* functionDescriptor() const;
 
-    SpecializedFunctionDescriptor*        init();
+        SpecializedFunctionDescriptor* init();
 
-    void                                  setConstantValues(const MTL::FunctionConstantValues* constantValues);
+        void setConstantValues(const MTL::FunctionConstantValues* constantValues);
 
-    void                                  setFunctionDescriptor(const MTL4::FunctionDescriptor* functionDescriptor);
+        void setFunctionDescriptor(const MTL4::FunctionDescriptor* functionDescriptor);
 
-    void                                  setSpecializedName(const NS::String* specializedName);
-    NS::String*                           specializedName() const;
-};
+        void        setSpecializedName(const NS::String* specializedName);
+        NS::String* specializedName() const;
+    };
 
-}
+} // namespace MTL4
 _MTL_INLINE MTL4::SpecializedFunctionDescriptor* MTL4::SpecializedFunctionDescriptor::alloc()
 {
     return NS::Object::alloc<MTL4::SpecializedFunctionDescriptor>(_MTL_PRIVATE_CLS(MTL4SpecializedFunctionDescriptor));
@@ -79,12 +79,14 @@ _MTL_INLINE MTL4::SpecializedFunctionDescriptor* MTL4::SpecializedFunctionDescri
     return NS::Object::init<MTL4::SpecializedFunctionDescriptor>();
 }
 
-_MTL_INLINE void MTL4::SpecializedFunctionDescriptor::setConstantValues(const MTL::FunctionConstantValues* constantValues)
+_MTL_INLINE void MTL4::SpecializedFunctionDescriptor::setConstantValues(
+    const MTL::FunctionConstantValues* constantValues)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setConstantValues_), constantValues);
 }
 
-_MTL_INLINE void MTL4::SpecializedFunctionDescriptor::setFunctionDescriptor(const MTL4::FunctionDescriptor* functionDescriptor)
+_MTL_INLINE void MTL4::SpecializedFunctionDescriptor::setFunctionDescriptor(
+    const MTL4::FunctionDescriptor* functionDescriptor)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setFunctionDescriptor_), functionDescriptor);
 }

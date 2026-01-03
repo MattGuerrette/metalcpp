@@ -27,39 +27,39 @@
 
 namespace MTL
 {
-class Function;
-class FunctionLogDebugLocation;
-_MTL_ENUM(NS::UInteger, FunctionLogType) {
-    FunctionLogTypeValidation = 0,
-};
+    class Function;
+    class FunctionLogDebugLocation;
+    _MTL_ENUM(NS::UInteger, FunctionLogType){
+        FunctionLogTypeValidation = 0,
+    };
 
-class LogContainer : public NS::Referencing<LogContainer, NS::FastEnumeration>
-{
-};
-class FunctionLogDebugLocation : public NS::Referencing<FunctionLogDebugLocation>
-{
-public:
-    NS::URL*     URL() const;
+    class LogContainer : public NS::Referencing<LogContainer, NS::FastEnumeration>
+    {
+    };
+    class FunctionLogDebugLocation : public NS::Referencing<FunctionLogDebugLocation>
+    {
+    public:
+        NS::URL* URL() const;
 
-    NS::UInteger column() const;
+        NS::UInteger column() const;
 
-    NS::String*  functionName() const;
+        NS::String* functionName() const;
 
-    NS::UInteger line() const;
-};
-class FunctionLog : public NS::Referencing<FunctionLog>
-{
-public:
-    FunctionLogDebugLocation* debugLocation() const;
+        NS::UInteger line() const;
+    };
+    class FunctionLog : public NS::Referencing<FunctionLog>
+    {
+    public:
+        FunctionLogDebugLocation* debugLocation() const;
 
-    NS::String*               encoderLabel() const;
+        NS::String* encoderLabel() const;
 
-    Function*                 function() const;
+        Function* function() const;
 
-    FunctionLogType           type() const;
-};
+        FunctionLogType type() const;
+    };
 
-}
+} // namespace MTL
 _MTL_INLINE NS::URL* MTL::FunctionLogDebugLocation::URL() const
 {
     return Object::sendMessage<NS::URL*>(this, _MTL_PRIVATE_SEL(URL));

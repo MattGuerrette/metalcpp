@@ -22,14 +22,14 @@
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-#include "MTLFXSpatialScaler.hpp"
-#include "MTLFXTemporalScaler.hpp"
-#include "MTLFXTemporalDenoisedScaler.hpp"
 #include "MTLFXFrameInterpolator.hpp"
+#include "MTLFXSpatialScaler.hpp"
+#include "MTLFXTemporalDenoisedScaler.hpp"
+#include "MTLFXTemporalScaler.hpp"
 
-#include "MTL4FXSpatialScaler.hpp"
-#include "MTL4FXTemporalScaler.hpp"
-#include "MTL4FXTemporalDenoisedScaler.hpp"
 #include "MTL4FXFrameInterpolator.hpp"
+#include "MTL4FXSpatialScaler.hpp"
+#include "MTL4FXTemporalDenoisedScaler.hpp"
+#include "MTL4FXTemporalScaler.hpp"
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------

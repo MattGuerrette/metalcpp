@@ -25,57 +25,62 @@
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+#include <Foundation/NSObject.hpp>
 #include "AppKitPrivate.hpp"
 #include "NSView.hpp"
-#include <Foundation/NSObject.hpp>
 
 #include <CoreGraphics/CGGeometry.h>
 
 
 namespace NS
 {
-	class Window : public Referencing< Window >
-	{
-		public:
-			static Window*		alloc();
-			Window*				init( CGRect contentRect, WindowStyleMask styleMask, BackingStoreType backing, bool defer );
+    class Window : public Referencing<Window>
+    {
+    public:
+        static Window* alloc();
+        Window*        init(CGRect contentRect, WindowStyleMask styleMask, BackingStoreType backing, bool defer);
 
-			void				setContentView( const View* pContentView );
-			void				makeKeyAndOrderFront( const Object* pSender );
-			void				setTitle( const String* pTitle );
+        void setContentView(const View* pContentView);
+        void makeKeyAndOrderFront(const Object* pSender);
+        void setTitle(const String* pTitle);
 
-			void				close();
-	};
+        void close();
+    };
 
-}
+} // namespace NS
 
 
 _NS_INLINE NS::Window* NS::Window::alloc()
 {
-	return Object::sendMessage< Window* >( _APPKIT_PRIVATE_CLS( NSWindow ), _NS_PRIVATE_SEL( alloc ) );
+    return Object::sendMessage<Window*>(_APPKIT_PRIVATE_CLS(NSWindow), _NS_PRIVATE_SEL(alloc));
 }
 
-_NS_INLINE NS::Window* NS::Window::init( CGRect contentRect, WindowStyleMask styleMask, BackingStoreType backing, bool defer )
+_NS_INLINE NS::Window* NS::Window::init(CGRect           contentRect,
+                                        WindowStyleMask  styleMask,
+                                        BackingStoreType backing,
+                                        bool             defer)
 {
-	return Object::sendMessage< Window* >( this, _APPKIT_PRIVATE_SEL( initWithContentRect_styleMask_backing_defer_ ), contentRect, styleMask, backing, defer );
+    return Object::sendMessage<Window*>(this,
+                                        _APPKIT_PRIVATE_SEL(initWithContentRect_styleMask_backing_defer_),
+                                        contentRect,
+                                        styleMask,
+                                        backing,
+                                        defer);
 }
 
-_NS_INLINE void NS::Window::setContentView( const NS::View* pContentView )
+_NS_INLINE void NS::Window::setContentView(const NS::View* pContentView)
 {
-	Object::sendMessage< void >( this, _APPKIT_PRIVATE_SEL( setContentView_ ), pContentView );
+    Object::sendMessage<void>(this, _APPKIT_PRIVATE_SEL(setContentView_), pContentView);
 }
 
-_NS_INLINE void NS::Window::makeKeyAndOrderFront( const Object* pSender )
+_NS_INLINE void NS::Window::makeKeyAndOrderFront(const Object* pSender)
 {
-	Object::sendMessage< void >( this, _APPKIT_PRIVATE_SEL( makeKeyAndOrderFront_ ), pSender );
+    Object::sendMessage<void>(this, _APPKIT_PRIVATE_SEL(makeKeyAndOrderFront_), pSender);
 }
 
-_NS_INLINE void NS::Window::setTitle( const String* pTitle )
+_NS_INLINE void NS::Window::setTitle(const String* pTitle)
 {
-	Object::sendMessage< void >( this, _APPKIT_PRIVATE_SEL( setTitle_), pTitle );
+    Object::sendMessage<void>(this, _APPKIT_PRIVATE_SEL(setTitle_), pTitle);
 }
 
-_NS_INLINE void NS::Window::close()
-{
-	Object::sendMessage< void >( this, _APPKIT_PRIVATE_SEL( close ) );
-}
+_NS_INLINE void NS::Window::close() { Object::sendMessage<void>(this, _APPKIT_PRIVATE_SEL(close)); }

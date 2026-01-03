@@ -28,76 +28,73 @@
 
 namespace MTL4
 {
-class PipelineDescriptor;
-class PipelineOptions;
-_MTL_ENUM(NS::Integer, AlphaToOneState) {
-    AlphaToOneStateDisabled = 0,
-    AlphaToOneStateEnabled = 1,
-};
+    class PipelineDescriptor;
+    class PipelineOptions;
+    _MTL_ENUM(NS::Integer, AlphaToOneState){
+        AlphaToOneStateDisabled = 0,
+        AlphaToOneStateEnabled  = 1,
+    };
 
-_MTL_ENUM(NS::Integer, AlphaToCoverageState) {
-    AlphaToCoverageStateDisabled = 0,
-    AlphaToCoverageStateEnabled = 1,
-};
+    _MTL_ENUM(NS::Integer, AlphaToCoverageState){
+        AlphaToCoverageStateDisabled = 0,
+        AlphaToCoverageStateEnabled  = 1,
+    };
 
-_MTL_ENUM(NS::Integer, BlendState) {
-    BlendStateDisabled = 0,
-    BlendStateEnabled = 1,
-    BlendStateUnspecialized = 2,
-};
+    _MTL_ENUM(NS::Integer, BlendState){
+        BlendStateDisabled      = 0,
+        BlendStateEnabled       = 1,
+        BlendStateUnspecialized = 2,
+    };
 
-_MTL_ENUM(NS::Integer, IndirectCommandBufferSupportState) {
-    IndirectCommandBufferSupportStateDisabled = 0,
-    IndirectCommandBufferSupportStateEnabled = 1,
-};
+    _MTL_ENUM(NS::Integer, IndirectCommandBufferSupportState){
+        IndirectCommandBufferSupportStateDisabled = 0,
+        IndirectCommandBufferSupportStateEnabled  = 1,
+    };
 
-_MTL_OPTIONS(NS::UInteger, ShaderReflection) {
-    ShaderReflectionNone = 0,
-    ShaderReflectionBindingInfo = 1,
-    ShaderReflectionBufferTypeInfo = 1 << 1,
-};
+    _MTL_OPTIONS(NS::UInteger, ShaderReflection){
+        ShaderReflectionNone           = 0,
+        ShaderReflectionBindingInfo    = 1,
+        ShaderReflectionBufferTypeInfo = 1 << 1,
+    };
 
-class PipelineOptions : public NS::Copying<PipelineOptions>
-{
-public:
-    static PipelineOptions* alloc();
+    class PipelineOptions : public NS::Copying<PipelineOptions>
+    {
+    public:
+        static PipelineOptions* alloc();
 
-    PipelineOptions*        init();
+        PipelineOptions* init();
 
-    void                    setShaderReflection(MTL4::ShaderReflection shaderReflection);
+        void setShaderReflection(MTL4::ShaderReflection shaderReflection);
 
-    void                    setShaderValidation(MTL::ShaderValidation shaderValidation);
+        void setShaderValidation(MTL::ShaderValidation shaderValidation);
 
-    ShaderReflection        shaderReflection() const;
+        ShaderReflection shaderReflection() const;
 
-    MTL::ShaderValidation   shaderValidation() const;
-};
-class PipelineDescriptor : public NS::Copying<PipelineDescriptor>
-{
-public:
-    static PipelineDescriptor* alloc();
+        MTL::ShaderValidation shaderValidation() const;
+    };
+    class PipelineDescriptor : public NS::Copying<PipelineDescriptor>
+    {
+    public:
+        static PipelineDescriptor* alloc();
 
-    PipelineDescriptor*        init();
+        PipelineDescriptor* init();
 
-    NS::String*                label() const;
+        NS::String* label() const;
 
-    PipelineOptions*           options() const;
+        PipelineOptions* options() const;
 
-    void                       setLabel(const NS::String* label);
+        void setLabel(const NS::String* label);
 
-    void                       setOptions(const MTL4::PipelineOptions* options);
-};
+        void setOptions(const MTL4::PipelineOptions* options);
+    };
 
-}
+} // namespace MTL4
 _MTL_INLINE MTL4::PipelineOptions* MTL4::PipelineOptions::alloc()
 {
     return NS::Object::alloc<MTL4::PipelineOptions>(_MTL_PRIVATE_CLS(MTL4PipelineOptions));
 }
 
-_MTL_INLINE MTL4::PipelineOptions* MTL4::PipelineOptions::init()
-{
-    return NS::Object::init<MTL4::PipelineOptions>();
-}
+_MTL_INLINE MTL4::PipelineOptions* MTL4::PipelineOptions::init() { return NS::Object::init<MTL4::PipelineOptions>(); }
 
 _MTL_INLINE void MTL4::PipelineOptions::setShaderReflection(MTL4::ShaderReflection shaderReflection)
 {

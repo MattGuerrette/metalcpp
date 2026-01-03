@@ -27,39 +27,41 @@
 
 namespace MTL4
 {
-class PipelineDataSetSerializerDescriptor;
+    class PipelineDataSetSerializerDescriptor;
 
-_MTL_OPTIONS(NS::UInteger, PipelineDataSetSerializerConfiguration) {
-    PipelineDataSetSerializerConfigurationCaptureDescriptors = 1,
-    PipelineDataSetSerializerConfigurationCaptureBinaries = 1 << 1,
-};
+    _MTL_OPTIONS(NS::UInteger, PipelineDataSetSerializerConfiguration){
+        PipelineDataSetSerializerConfigurationCaptureDescriptors = 1,
+        PipelineDataSetSerializerConfigurationCaptureBinaries    = 1 << 1,
+    };
 
-class PipelineDataSetSerializerDescriptor : public NS::Copying<PipelineDataSetSerializerDescriptor>
-{
-public:
-    static PipelineDataSetSerializerDescriptor* alloc();
+    class PipelineDataSetSerializerDescriptor : public NS::Copying<PipelineDataSetSerializerDescriptor>
+    {
+    public:
+        static PipelineDataSetSerializerDescriptor* alloc();
 
-    PipelineDataSetSerializerConfiguration      configuration() const;
+        PipelineDataSetSerializerConfiguration configuration() const;
 
-    PipelineDataSetSerializerDescriptor*        init();
+        PipelineDataSetSerializerDescriptor* init();
 
-    void                                        setConfiguration(MTL4::PipelineDataSetSerializerConfiguration configuration);
-};
-class PipelineDataSetSerializer : public NS::Referencing<PipelineDataSetSerializer>
-{
-public:
-    bool      serializeAsArchiveAndFlushToURL(const NS::URL* url, NS::Error** error);
+        void setConfiguration(MTL4::PipelineDataSetSerializerConfiguration configuration);
+    };
+    class PipelineDataSetSerializer : public NS::Referencing<PipelineDataSetSerializer>
+    {
+    public:
+        bool serializeAsArchiveAndFlushToURL(const NS::URL* url, NS::Error** error);
 
-    NS::Data* serializeAsPipelinesScript(NS::Error** error);
-};
+        NS::Data* serializeAsPipelinesScript(NS::Error** error);
+    };
 
-}
+} // namespace MTL4
 _MTL_INLINE MTL4::PipelineDataSetSerializerDescriptor* MTL4::PipelineDataSetSerializerDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL4::PipelineDataSetSerializerDescriptor>(_MTL_PRIVATE_CLS(MTL4PipelineDataSetSerializerDescriptor));
+    return NS::Object::alloc<MTL4::PipelineDataSetSerializerDescriptor>(
+        _MTL_PRIVATE_CLS(MTL4PipelineDataSetSerializerDescriptor));
 }
 
-_MTL_INLINE MTL4::PipelineDataSetSerializerConfiguration MTL4::PipelineDataSetSerializerDescriptor::configuration() const
+_MTL_INLINE MTL4::PipelineDataSetSerializerConfiguration MTL4::PipelineDataSetSerializerDescriptor::configuration()
+    const
 {
     return Object::sendMessage<MTL4::PipelineDataSetSerializerConfiguration>(this, _MTL_PRIVATE_SEL(configuration));
 }
@@ -69,7 +71,8 @@ _MTL_INLINE MTL4::PipelineDataSetSerializerDescriptor* MTL4::PipelineDataSetSeri
     return NS::Object::init<MTL4::PipelineDataSetSerializerDescriptor>();
 }
 
-_MTL_INLINE void MTL4::PipelineDataSetSerializerDescriptor::setConfiguration(MTL4::PipelineDataSetSerializerConfiguration configuration)
+_MTL_INLINE void MTL4::PipelineDataSetSerializerDescriptor::setConfiguration(
+    MTL4::PipelineDataSetSerializerConfiguration configuration)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setConfiguration_), configuration);
 }

@@ -20,69 +20,73 @@
 
 #pragma once
 
+#include <cstdint>
+#include <dispatch/dispatch.h>
 #include "../Foundation/Foundation.hpp"
 #include "MTLDefines.hpp"
 #include "MTLHeaderBridge.hpp"
 #include "MTLPrivate.hpp"
-#include <cstdint>
-#include <dispatch/dispatch.h>
 
 #include <cstdint>
 #include <functional>
 
 namespace MTL
 {
-class Device;
-class SharedEvent;
-class SharedEventHandle;
-class SharedEventListener;
+    class Device;
+    class SharedEvent;
+    class SharedEventHandle;
+    class SharedEventListener;
 
-using SharedEventNotificationBlock = void (^)(SharedEvent* pEvent, std::uint64_t value);
-using SharedEventNotificationFunction = std::function<void(SharedEvent* pEvent, std::uint64_t value)>;
+    using SharedEventNotificationBlock    = void (^)(SharedEvent* pEvent, std::uint64_t value);
+    using SharedEventNotificationFunction = std::function<void(SharedEvent* pEvent, std::uint64_t value)>;
 
-class Event : public NS::Referencing<Event>
-{
-public:
-    Device*     device() const;
+    class Event : public NS::Referencing<Event>
+    {
+    public:
+        Device* device() const;
 
-    NS::String* label() const;
-    void        setLabel(const NS::String* label);
-};
-class SharedEventListener : public NS::Referencing<SharedEventListener>
-{
-public:
-    static SharedEventListener* alloc();
+        NS::String* label() const;
+        void        setLabel(const NS::String* label);
+    };
+    class SharedEventListener : public NS::Referencing<SharedEventListener>
+    {
+    public:
+        static SharedEventListener* alloc();
 
-    dispatch_queue_t            dispatchQueue() const;
+        dispatch_queue_t dispatchQueue() const;
 
-    SharedEventListener*        init();
-    SharedEventListener*        init(const dispatch_queue_t dispatchQueue);
+        SharedEventListener* init();
+        SharedEventListener* init(const dispatch_queue_t dispatchQueue);
 
-    static SharedEventListener* sharedListener();
-};
-class SharedEvent : public NS::Referencing<SharedEvent, Event>
-{
-public:
-    SharedEventHandle* newSharedEventHandle();
+        static SharedEventListener* sharedListener();
+    };
+    class SharedEvent : public NS::Referencing<SharedEvent, Event>
+    {
+    public:
+        SharedEventHandle* newSharedEventHandle();
 
-    void               notifyListener(const MTL::SharedEventListener* listener, uint64_t value, const MTL::SharedEventNotificationBlock block);
-    void               notifyListener(const MTL::SharedEventListener* listener, uint64_t value, const MTL::SharedEventNotificationFunction& function);
+        void notifyListener(const MTL::SharedEventListener*         listener,
+                            uint64_t                                value,
+                            const MTL::SharedEventNotificationBlock block);
+        void notifyListener(const MTL::SharedEventListener*             listener,
+                            uint64_t                                    value,
+                            const MTL::SharedEventNotificationFunction& function);
 
-    void               setSignaledValue(uint64_t signaledValue);
-    uint64_t           signaledValue() const;
-    bool               waitUntilSignaledValue(uint64_t value, uint64_t milliseconds);
-};
-class SharedEventHandle : public NS::SecureCoding<SharedEventHandle>
-{
-public:
-    static SharedEventHandle* alloc();
+        void     setSignaledValue(uint64_t signaledValue);
+        uint64_t signaledValue() const;
+        bool     waitUntilSignaledValue(uint64_t value, uint64_t milliseconds);
+    };
+    class SharedEventHandle : public NS::SecureCoding<SharedEventHandle>
+    {
+    public:
+        static SharedEventHandle* alloc();
 
-    SharedEventHandle*        init();
+        SharedEventHandle* init();
 
-    NS::String*               label() const;
-};
+        NS::String* label() const;
+    };
 
-}
+} // namespace MTL
 _MTL_INLINE MTL::Device* MTL::Event::device() const
 {
     return Object::sendMessage<MTL::Device*>(this, _MTL_PRIVATE_SEL(device));
@@ -115,12 +119,14 @@ _MTL_INLINE MTL::SharedEventListener* MTL::SharedEventListener::init()
 
 _MTL_INLINE MTL::SharedEventListener* MTL::SharedEventListener::init(const dispatch_queue_t dispatchQueue)
 {
-    return Object::sendMessage<MTL::SharedEventListener*>(this, _MTL_PRIVATE_SEL(initWithDispatchQueue_), dispatchQueue);
+    return Object::sendMessage<MTL::SharedEventListener*>(
+        this, _MTL_PRIVATE_SEL(initWithDispatchQueue_), dispatchQueue);
 }
 
 _MTL_INLINE MTL::SharedEventListener* MTL::SharedEventListener::sharedListener()
 {
-    return Object::sendMessage<MTL::SharedEventListener*>(_MTL_PRIVATE_CLS(MTLSharedEventListener), _MTL_PRIVATE_SEL(sharedListener));
+    return Object::sendMessage<MTL::SharedEventListener*>(_MTL_PRIVATE_CLS(MTLSharedEventListener),
+                                                          _MTL_PRIVATE_SEL(sharedListener));
 }
 
 _MTL_INLINE MTL::SharedEventHandle* MTL::SharedEvent::newSharedEventHandle()
@@ -128,15 +134,21 @@ _MTL_INLINE MTL::SharedEventHandle* MTL::SharedEvent::newSharedEventHandle()
     return Object::sendMessage<MTL::SharedEventHandle*>(this, _MTL_PRIVATE_SEL(newSharedEventHandle));
 }
 
-_MTL_INLINE void MTL::SharedEvent::notifyListener(const MTL::SharedEventListener* listener, uint64_t value, const MTL::SharedEventNotificationBlock block)
+_MTL_INLINE void MTL::SharedEvent::notifyListener(const MTL::SharedEventListener*         listener,
+                                                  uint64_t                                value,
+                                                  const MTL::SharedEventNotificationBlock block)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(notifyListener_atValue_block_), listener, value, block);
 }
 
-_MTL_INLINE void MTL::SharedEvent::notifyListener(const MTL::SharedEventListener* listener, uint64_t value, const MTL::SharedEventNotificationFunction& function)
+_MTL_INLINE void MTL::SharedEvent::notifyListener(const MTL::SharedEventListener*             listener,
+                                                  uint64_t                                    value,
+                                                  const MTL::SharedEventNotificationFunction& function)
 {
     __block MTL::SharedEventNotificationFunction callback = function;
-    notifyListener(listener, value, ^void(SharedEvent* pEvent, std::uint64_t innerValue) { callback(pEvent, innerValue); });
+    notifyListener(listener, value, ^void(SharedEvent* pEvent, std::uint64_t innerValue) {
+      callback(pEvent, innerValue);
+    });
 }
 
 _MTL_INLINE void MTL::SharedEvent::setSignaledValue(uint64_t signaledValue)

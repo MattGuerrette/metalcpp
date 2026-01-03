@@ -20,62 +20,62 @@
 
 #pragma once
 
+#include <cstdint>
 #include "../Foundation/Foundation.hpp"
 #include "MTLDefines.hpp"
 #include "MTLHeaderBridge.hpp"
 #include "MTLPrivate.hpp"
-#include <cstdint>
 
 #include <cstdint>
 
 namespace MTL4
 {
-class CounterHeapDescriptor;
-_MTL_ENUM(NS::Integer, CounterHeapType) {
-    CounterHeapTypeInvalid,
-    CounterHeapTypeTimestamp,
-};
+    class CounterHeapDescriptor;
+    _MTL_ENUM(NS::Integer, CounterHeapType){
+        CounterHeapTypeInvalid,
+        CounterHeapTypeTimestamp,
+    };
 
-_MTL_ENUM(NS::Integer, TimestampGranularity) {
-    TimestampGranularityRelaxed = 0,
-    TimestampGranularityPrecise = 1,
-};
+    _MTL_ENUM(NS::Integer, TimestampGranularity){
+        TimestampGranularityRelaxed = 0,
+        TimestampGranularityPrecise = 1,
+    };
 
-struct TimestampHeapEntry
-{
-    uint64_t timestamp;
-} _MTL_PACKED;
+    struct TimestampHeapEntry
+    {
+        uint64_t timestamp;
+    } _MTL_PACKED;
 
-class CounterHeapDescriptor : public NS::Copying<CounterHeapDescriptor>
-{
-public:
-    static CounterHeapDescriptor* alloc();
+    class CounterHeapDescriptor : public NS::Copying<CounterHeapDescriptor>
+    {
+    public:
+        static CounterHeapDescriptor* alloc();
 
-    NS::UInteger                  count() const;
+        NS::UInteger count() const;
 
-    CounterHeapDescriptor*        init();
+        CounterHeapDescriptor* init();
 
-    void                          setCount(NS::UInteger count);
+        void setCount(NS::UInteger count);
 
-    void                          setType(MTL4::CounterHeapType type);
-    CounterHeapType               type() const;
-};
-class CounterHeap : public NS::Referencing<CounterHeap>
-{
-public:
-    NS::UInteger    count() const;
-    void            invalidateCounterRange(NS::Range range);
+        void            setType(MTL4::CounterHeapType type);
+        CounterHeapType type() const;
+    };
+    class CounterHeap : public NS::Referencing<CounterHeap>
+    {
+    public:
+        NS::UInteger count() const;
+        void         invalidateCounterRange(NS::Range range);
 
-    NS::String*     label() const;
+        NS::String* label() const;
 
-    NS::Data*       resolveCounterRange(NS::Range range);
+        NS::Data* resolveCounterRange(NS::Range range);
 
-    void            setLabel(const NS::String* label);
+        void setLabel(const NS::String* label);
 
-    CounterHeapType type() const;
-};
+        CounterHeapType type() const;
+    };
 
-}
+} // namespace MTL4
 
 _MTL_INLINE MTL4::CounterHeapDescriptor* MTL4::CounterHeapDescriptor::alloc()
 {

@@ -20,75 +20,87 @@
 
 #pragma once
 
+#include <cstdint>
 #include "../Foundation/Foundation.hpp"
 #include "MTLDefines.hpp"
 #include "MTLHeaderBridge.hpp"
 #include "MTLPrivate.hpp"
 #include "MTLTypes.hpp"
-#include <cstdint>
 
 namespace MTL
 {
-class Buffer;
-class IOCommandBuffer;
-class IOFileHandle;
-class SharedEvent;
-class Texture;
-_MTL_ENUM(NS::Integer, IOStatus) {
-    IOStatusPending = 0,
-    IOStatusCancelled = 1,
-    IOStatusError = 2,
-    IOStatusComplete = 3,
-};
+    class Buffer;
+    class IOCommandBuffer;
+    class IOFileHandle;
+    class SharedEvent;
+    class Texture;
+    _MTL_ENUM(NS::Integer, IOStatus){
+        IOStatusPending   = 0,
+        IOStatusCancelled = 1,
+        IOStatusError     = 2,
+        IOStatusComplete  = 3,
+    };
 
-using IOCommandBufferHandler = void (^)(MTL::IOCommandBuffer*);
-using IOCommandBufferHandlerFunction = std::function<void(MTL::IOCommandBuffer*)>;
+    using IOCommandBufferHandler         = void (^)(MTL::IOCommandBuffer*);
+    using IOCommandBufferHandlerFunction = std::function<void(MTL::IOCommandBuffer*)>;
 
-class IOCommandBuffer : public NS::Referencing<IOCommandBuffer>
-{
-public:
-    void        addBarrier();
+    class IOCommandBuffer : public NS::Referencing<IOCommandBuffer>
+    {
+    public:
+        void addBarrier();
 
-    void        addCompletedHandler(const MTL::IOCommandBufferHandler block);
-    void        addCompletedHandler(const MTL::IOCommandBufferHandlerFunction& function);
+        void addCompletedHandler(const MTL::IOCommandBufferHandler block);
+        void addCompletedHandler(const MTL::IOCommandBufferHandlerFunction& function);
 
-    void        commit();
+        void commit();
 
-    void        copyStatusToBuffer(const MTL::Buffer* buffer, NS::UInteger offset);
+        void copyStatusToBuffer(const MTL::Buffer* buffer, NS::UInteger offset);
 
-    void        enqueue();
+        void enqueue();
 
-    NS::Error*  error() const;
+        NS::Error* error() const;
 
-    NS::String* label() const;
+        NS::String* label() const;
 
-    void        loadBuffer(const MTL::Buffer* buffer, NS::UInteger offset, NS::UInteger size, const MTL::IOFileHandle* sourceHandle, NS::UInteger sourceHandleOffset);
+        void loadBuffer(const MTL::Buffer*       buffer,
+                        NS::UInteger             offset,
+                        NS::UInteger             size,
+                        const MTL::IOFileHandle* sourceHandle,
+                        NS::UInteger             sourceHandleOffset);
 
-    void        loadBytes(const void* pointer, NS::UInteger size, const MTL::IOFileHandle* sourceHandle, NS::UInteger sourceHandleOffset);
+        void loadBytes(const void*              pointer,
+                       NS::UInteger             size,
+                       const MTL::IOFileHandle* sourceHandle,
+                       NS::UInteger             sourceHandleOffset);
 
-    void        loadTexture(const MTL::Texture* texture, NS::UInteger slice, NS::UInteger level, MTL::Size size, NS::UInteger sourceBytesPerRow, NS::UInteger sourceBytesPerImage, MTL::Origin destinationOrigin, const MTL::IOFileHandle* sourceHandle, NS::UInteger sourceHandleOffset);
+        void loadTexture(const MTL::Texture*      texture,
+                         NS::UInteger             slice,
+                         NS::UInteger             level,
+                         MTL::Size                size,
+                         NS::UInteger             sourceBytesPerRow,
+                         NS::UInteger             sourceBytesPerImage,
+                         MTL::Origin              destinationOrigin,
+                         const MTL::IOFileHandle* sourceHandle,
+                         NS::UInteger             sourceHandleOffset);
 
-    void        popDebugGroup();
+        void popDebugGroup();
 
-    void        pushDebugGroup(const NS::String* string);
+        void pushDebugGroup(const NS::String* string);
 
-    void        setLabel(const NS::String* label);
+        void setLabel(const NS::String* label);
 
-    void        signalEvent(const MTL::SharedEvent* event, uint64_t value);
+        void signalEvent(const MTL::SharedEvent* event, uint64_t value);
 
-    IOStatus    status() const;
+        IOStatus status() const;
 
-    void        tryCancel();
+        void tryCancel();
 
-    void        wait(const MTL::SharedEvent* event, uint64_t value);
-    void        waitUntilCompleted();
-};
+        void wait(const MTL::SharedEvent* event, uint64_t value);
+        void waitUntilCompleted();
+    };
 
-}
-_MTL_INLINE void MTL::IOCommandBuffer::addBarrier()
-{
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(addBarrier));
-}
+} // namespace MTL
+_MTL_INLINE void MTL::IOCommandBuffer::addBarrier() { Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(addBarrier)); }
 
 _MTL_INLINE void MTL::IOCommandBuffer::addCompletedHandler(const MTL::IOCommandBufferHandler block)
 {
@@ -98,23 +110,19 @@ _MTL_INLINE void MTL::IOCommandBuffer::addCompletedHandler(const MTL::IOCommandB
 _MTL_INLINE void MTL::IOCommandBuffer::addCompletedHandler(const MTL::IOCommandBufferHandlerFunction& function)
 {
     __block MTL::IOCommandBufferHandlerFunction blockFunction = function;
-    addCompletedHandler(^(MTL::IOCommandBuffer* pCommandBuffer) { blockFunction(pCommandBuffer); });
+    addCompletedHandler(^(MTL::IOCommandBuffer* pCommandBuffer) {
+      blockFunction(pCommandBuffer);
+    });
 }
 
-_MTL_INLINE void MTL::IOCommandBuffer::commit()
-{
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(commit));
-}
+_MTL_INLINE void MTL::IOCommandBuffer::commit() { Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(commit)); }
 
 _MTL_INLINE void MTL::IOCommandBuffer::copyStatusToBuffer(const MTL::Buffer* buffer, NS::UInteger offset)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(copyStatusToBuffer_offset_), buffer, offset);
 }
 
-_MTL_INLINE void MTL::IOCommandBuffer::enqueue()
-{
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(enqueue));
-}
+_MTL_INLINE void MTL::IOCommandBuffer::enqueue() { Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(enqueue)); }
 
 _MTL_INLINE NS::Error* MTL::IOCommandBuffer::error() const
 {
@@ -126,19 +134,57 @@ _MTL_INLINE NS::String* MTL::IOCommandBuffer::label() const
     return Object::sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
 }
 
-_MTL_INLINE void MTL::IOCommandBuffer::loadBuffer(const MTL::Buffer* buffer, NS::UInteger offset, NS::UInteger size, const MTL::IOFileHandle* sourceHandle, NS::UInteger sourceHandleOffset)
+_MTL_INLINE void MTL::IOCommandBuffer::loadBuffer(const MTL::Buffer*       buffer,
+                                                  NS::UInteger             offset,
+                                                  NS::UInteger             size,
+                                                  const MTL::IOFileHandle* sourceHandle,
+                                                  NS::UInteger             sourceHandleOffset)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(loadBuffer_offset_size_sourceHandle_sourceHandleOffset_), buffer, offset, size, sourceHandle, sourceHandleOffset);
+    Object::sendMessage<void>(this,
+                              _MTL_PRIVATE_SEL(loadBuffer_offset_size_sourceHandle_sourceHandleOffset_),
+                              buffer,
+                              offset,
+                              size,
+                              sourceHandle,
+                              sourceHandleOffset);
 }
 
-_MTL_INLINE void MTL::IOCommandBuffer::loadBytes(const void* pointer, NS::UInteger size, const MTL::IOFileHandle* sourceHandle, NS::UInteger sourceHandleOffset)
+_MTL_INLINE void MTL::IOCommandBuffer::loadBytes(const void*              pointer,
+                                                 NS::UInteger             size,
+                                                 const MTL::IOFileHandle* sourceHandle,
+                                                 NS::UInteger             sourceHandleOffset)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(loadBytes_size_sourceHandle_sourceHandleOffset_), pointer, size, sourceHandle, sourceHandleOffset);
+    Object::sendMessage<void>(this,
+                              _MTL_PRIVATE_SEL(loadBytes_size_sourceHandle_sourceHandleOffset_),
+                              pointer,
+                              size,
+                              sourceHandle,
+                              sourceHandleOffset);
 }
 
-_MTL_INLINE void MTL::IOCommandBuffer::loadTexture(const MTL::Texture* texture, NS::UInteger slice, NS::UInteger level, MTL::Size size, NS::UInteger sourceBytesPerRow, NS::UInteger sourceBytesPerImage, MTL::Origin destinationOrigin, const MTL::IOFileHandle* sourceHandle, NS::UInteger sourceHandleOffset)
+_MTL_INLINE void MTL::IOCommandBuffer::loadTexture(const MTL::Texture*      texture,
+                                                   NS::UInteger             slice,
+                                                   NS::UInteger             level,
+                                                   MTL::Size                size,
+                                                   NS::UInteger             sourceBytesPerRow,
+                                                   NS::UInteger             sourceBytesPerImage,
+                                                   MTL::Origin              destinationOrigin,
+                                                   const MTL::IOFileHandle* sourceHandle,
+                                                   NS::UInteger             sourceHandleOffset)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(loadTexture_slice_level_size_sourceBytesPerRow_sourceBytesPerImage_destinationOrigin_sourceHandle_sourceHandleOffset_), texture, slice, level, size, sourceBytesPerRow, sourceBytesPerImage, destinationOrigin, sourceHandle, sourceHandleOffset);
+    Object::sendMessage<void>(
+        this,
+        _MTL_PRIVATE_SEL(
+            loadTexture_slice_level_size_sourceBytesPerRow_sourceBytesPerImage_destinationOrigin_sourceHandle_sourceHandleOffset_),
+        texture,
+        slice,
+        level,
+        size,
+        sourceBytesPerRow,
+        sourceBytesPerImage,
+        destinationOrigin,
+        sourceHandle,
+        sourceHandleOffset);
 }
 
 _MTL_INLINE void MTL::IOCommandBuffer::popDebugGroup()
@@ -166,10 +212,7 @@ _MTL_INLINE MTL::IOStatus MTL::IOCommandBuffer::status() const
     return Object::sendMessage<MTL::IOStatus>(this, _MTL_PRIVATE_SEL(status));
 }
 
-_MTL_INLINE void MTL::IOCommandBuffer::tryCancel()
-{
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(tryCancel));
-}
+_MTL_INLINE void MTL::IOCommandBuffer::tryCancel() { Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(tryCancel)); }
 
 _MTL_INLINE void MTL::IOCommandBuffer::wait(const MTL::SharedEvent* event, uint64_t value)
 {

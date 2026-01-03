@@ -29,126 +29,123 @@
 
 namespace MTL
 {
-class Device;
-class SamplerDescriptor;
-_MTL_ENUM(NS::UInteger, SamplerMinMagFilter) {
-    SamplerMinMagFilterNearest = 0,
-    SamplerMinMagFilterLinear = 1,
-};
+    class Device;
+    class SamplerDescriptor;
+    _MTL_ENUM(NS::UInteger, SamplerMinMagFilter){
+        SamplerMinMagFilterNearest = 0,
+        SamplerMinMagFilterLinear  = 1,
+    };
 
-_MTL_ENUM(NS::UInteger, SamplerMipFilter) {
-    SamplerMipFilterNotMipmapped = 0,
-    SamplerMipFilterNearest = 1,
-    SamplerMipFilterLinear = 2,
-};
+    _MTL_ENUM(NS::UInteger, SamplerMipFilter){
+        SamplerMipFilterNotMipmapped = 0,
+        SamplerMipFilterNearest      = 1,
+        SamplerMipFilterLinear       = 2,
+    };
 
-_MTL_ENUM(NS::UInteger, SamplerAddressMode) {
-    SamplerAddressModeClampToEdge = 0,
-    SamplerAddressModeMirrorClampToEdge = 1,
-    SamplerAddressModeRepeat = 2,
-    SamplerAddressModeMirrorRepeat = 3,
-    SamplerAddressModeClampToZero = 4,
-    SamplerAddressModeClampToBorderColor = 5,
-};
+    _MTL_ENUM(NS::UInteger, SamplerAddressMode){
+        SamplerAddressModeClampToEdge = 0, SamplerAddressModeMirrorClampToEdge = 1,
+        SamplerAddressModeRepeat = 2,      SamplerAddressModeMirrorRepeat = 3,
+        SamplerAddressModeClampToZero = 4, SamplerAddressModeClampToBorderColor = 5,
+    };
 
-_MTL_ENUM(NS::UInteger, SamplerBorderColor) {
-    SamplerBorderColorTransparentBlack = 0,
-    SamplerBorderColorOpaqueBlack = 1,
-    SamplerBorderColorOpaqueWhite = 2,
-};
+    _MTL_ENUM(NS::UInteger, SamplerBorderColor){
+        SamplerBorderColorTransparentBlack = 0,
+        SamplerBorderColorOpaqueBlack      = 1,
+        SamplerBorderColorOpaqueWhite      = 2,
+    };
 
-_MTL_ENUM(NS::UInteger, SamplerReductionMode) {
-    SamplerReductionModeWeightedAverage = 0,
-    SamplerReductionModeMinimum = 1,
-    SamplerReductionModeMaximum = 2,
-};
+    _MTL_ENUM(NS::UInteger, SamplerReductionMode){
+        SamplerReductionModeWeightedAverage = 0,
+        SamplerReductionModeMinimum         = 1,
+        SamplerReductionModeMaximum         = 2,
+    };
 
-class SamplerDescriptor : public NS::Copying<SamplerDescriptor>
-{
-public:
-    static SamplerDescriptor* alloc();
+    class SamplerDescriptor : public NS::Copying<SamplerDescriptor>
+    {
+    public:
+        static SamplerDescriptor* alloc();
 
-    SamplerBorderColor        borderColor() const;
+        SamplerBorderColor borderColor() const;
 
-    CompareFunction           compareFunction() const;
+        CompareFunction compareFunction() const;
 
-    SamplerDescriptor*        init();
+        SamplerDescriptor* init();
 
-    NS::String*               label() const;
+        NS::String* label() const;
 
-    bool                      lodAverage() const;
+        bool lodAverage() const;
 
-    float                     lodBias() const;
+        float lodBias() const;
 
-    float                     lodMaxClamp() const;
+        float lodMaxClamp() const;
 
-    float                     lodMinClamp() const;
+        float lodMinClamp() const;
 
-    SamplerMinMagFilter       magFilter() const;
+        SamplerMinMagFilter magFilter() const;
 
-    NS::UInteger              maxAnisotropy() const;
+        NS::UInteger maxAnisotropy() const;
 
-    SamplerMinMagFilter       minFilter() const;
+        SamplerMinMagFilter minFilter() const;
 
-    SamplerMipFilter          mipFilter() const;
+        SamplerMipFilter mipFilter() const;
 
-    bool                      normalizedCoordinates() const;
+        bool normalizedCoordinates() const;
 
-    SamplerAddressMode        rAddressMode() const;
+        SamplerAddressMode rAddressMode() const;
 
-    SamplerReductionMode      reductionMode() const;
+        SamplerReductionMode reductionMode() const;
 
-    SamplerAddressMode        sAddressMode() const;
+        SamplerAddressMode sAddressMode() const;
 
-    void                      setBorderColor(MTL::SamplerBorderColor borderColor);
+        void setBorderColor(MTL::SamplerBorderColor borderColor);
 
-    void                      setCompareFunction(MTL::CompareFunction compareFunction);
+        void setCompareFunction(MTL::CompareFunction compareFunction);
 
-    void                      setLabel(const NS::String* label);
+        void setLabel(const NS::String* label);
 
-    void                      setLodAverage(bool lodAverage);
+        void setLodAverage(bool lodAverage);
 
-    void                      setLodBias(float lodBias);
+        void setLodBias(float lodBias);
 
-    void                      setLodMaxClamp(float lodMaxClamp);
+        void setLodMaxClamp(float lodMaxClamp);
 
-    void                      setLodMinClamp(float lodMinClamp);
+        void setLodMinClamp(float lodMinClamp);
 
-    void                      setMagFilter(MTL::SamplerMinMagFilter magFilter);
+        void setMagFilter(MTL::SamplerMinMagFilter magFilter);
 
-    void                      setMaxAnisotropy(NS::UInteger maxAnisotropy);
+        void setMaxAnisotropy(NS::UInteger maxAnisotropy);
 
-    void                      setMinFilter(MTL::SamplerMinMagFilter minFilter);
+        void setMinFilter(MTL::SamplerMinMagFilter minFilter);
 
-    void                      setMipFilter(MTL::SamplerMipFilter mipFilter);
+        void setMipFilter(MTL::SamplerMipFilter mipFilter);
 
-    void                      setNormalizedCoordinates(bool normalizedCoordinates);
+        void setNormalizedCoordinates(bool normalizedCoordinates);
 
-    void                      setRAddressMode(MTL::SamplerAddressMode rAddressMode);
+        void setRAddressMode(MTL::SamplerAddressMode rAddressMode);
 
-    void                      setReductionMode(MTL::SamplerReductionMode reductionMode);
+        void setReductionMode(MTL::SamplerReductionMode reductionMode);
 
-    void                      setSAddressMode(MTL::SamplerAddressMode sAddressMode);
+        void setSAddressMode(MTL::SamplerAddressMode sAddressMode);
 
-    void                      setSupportArgumentBuffers(bool supportArgumentBuffers);
+        void setSupportArgumentBuffers(bool supportArgumentBuffers);
 
-    void                      setTAddressMode(MTL::SamplerAddressMode tAddressMode);
+        void setTAddressMode(MTL::SamplerAddressMode tAddressMode);
 
-    bool                      supportArgumentBuffers() const;
+        bool supportArgumentBuffers() const;
 
-    SamplerAddressMode        tAddressMode() const;
-};
-class SamplerState : public NS::Referencing<SamplerState>
-{
-public:
-    Device*     device() const;
+        SamplerAddressMode tAddressMode() const;
+    };
+    class SamplerState : public NS::Referencing<SamplerState>
+    {
+    public:
+        Device* device() const;
 
-    ResourceID  gpuResourceID() const;
+        ResourceID gpuResourceID() const;
 
-    NS::String* label() const;
-};
+        NS::String* label() const;
+    };
 
-}
+} // namespace MTL
 _MTL_INLINE MTL::SamplerDescriptor* MTL::SamplerDescriptor::alloc()
 {
     return NS::Object::alloc<MTL::SamplerDescriptor>(_MTL_PRIVATE_CLS(MTLSamplerDescriptor));

@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -25,37 +26,37 @@
 #include "NSDefines.hpp"
 #include "NSObject.hpp"
 #include "NSPrivate.hpp"
-#include "NSTypes.hpp"
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 namespace NS
 {
-class URL : public Copying<URL>
-{
-public:
-    static URL* fileURLWithPath(const class String* pPath);
+    class URL : public Copying<URL>
+    {
+    public:
+        [[nodiscard]] static URL* fileURLWithPath(const String* pPath);
 
-    static URL* alloc();
-    URL*        init();
-    URL*        init(const class String* pString);
-    URL*        initFileURLWithPath(const class String* pPath);
+        [[nodiscard]] static URL* alloc();
+        [[nodiscard]] URL*        init();
+        [[nodiscard]] URL*        init(const String* pString) const;
+        [[nodiscard]] URL*        initFileURLWithPath(const String* pPath) const;
 
-    const char* fileSystemRepresentation() const;
-};
-}
+        [[nodiscard]] const char* fileSystemRepresentation() const;
+    };
+} // namespace NS
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 _NS_INLINE NS::URL* NS::URL::fileURLWithPath(const String* pPath)
 {
-    return Object::sendMessage<URL*>(_NS_PRIVATE_CLS(NSURL), _NS_PRIVATE_SEL(fileURLWithPath_), pPath);
+    return sendMessage<URL*>(_NS_PRIVATE_CLS(NSURL), _NS_PRIVATE_SEL(fileURLWithPath_), pPath);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 _NS_INLINE NS::URL* NS::URL::alloc()
 {
+    // ReSharper disable once CppRedundantQualifier
     return Object::alloc<URL>(_NS_PRIVATE_CLS(NSURL));
 }
 
@@ -63,28 +64,29 @@ _NS_INLINE NS::URL* NS::URL::alloc()
 
 _NS_INLINE NS::URL* NS::URL::init()
 {
+    // ReSharper disable once CppRedundantQualifier
     return Object::init<URL>();
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::URL* NS::URL::init(const String* pString)
+_NS_INLINE NS::URL* NS::URL::init(const String* pString) const
 {
-    return Object::sendMessage<URL*>(this, _NS_PRIVATE_SEL(initWithString_), pString);
+    return sendMessage<URL*>(this, _NS_PRIVATE_SEL(initWithString_), pString);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::URL* NS::URL::initFileURLWithPath(const String* pPath)
+_NS_INLINE NS::URL* NS::URL::initFileURLWithPath(const String* pPath) const
 {
-    return Object::sendMessage<URL*>(this, _NS_PRIVATE_SEL(initFileURLWithPath_), pPath);
+    return sendMessage<URL*>(this, _NS_PRIVATE_SEL(initFileURLWithPath_), pPath);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 _NS_INLINE const char* NS::URL::fileSystemRepresentation() const
 {
-    return Object::sendMessage<const char*>(this, _NS_PRIVATE_SEL(fileSystemRepresentation));
+    return sendMessage<const char*>(this, _NS_PRIVATE_SEL(fileSystemRepresentation));
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------

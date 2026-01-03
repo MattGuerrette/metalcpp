@@ -27,36 +27,36 @@
 
 namespace MTL4
 {
-class LibraryDescriptor;
+    class LibraryDescriptor;
 }
 
 namespace MTL
 {
-class CompileOptions;
+    class CompileOptions;
 }
 
 namespace MTL4
 {
-class LibraryDescriptor : public NS::Copying<LibraryDescriptor>
-{
-public:
-    static LibraryDescriptor* alloc();
+    class LibraryDescriptor : public NS::Copying<LibraryDescriptor>
+    {
+    public:
+        static LibraryDescriptor* alloc();
 
-    LibraryDescriptor*        init();
+        LibraryDescriptor* init();
 
-    NS::String*               name() const;
+        NS::String* name() const;
 
-    MTL::CompileOptions*      options() const;
+        MTL::CompileOptions* options() const;
 
-    void                      setName(const NS::String* name);
+        void setName(const NS::String* name);
 
-    void                      setOptions(const MTL::CompileOptions* options);
+        void setOptions(const MTL::CompileOptions* options);
 
-    void                      setSource(const NS::String* source);
-    NS::String*               source() const;
-};
+        void        setSource(const NS::String* source);
+        NS::String* source() const;
+    };
 
-}
+} // namespace MTL4
 _MTL_INLINE MTL4::LibraryDescriptor* MTL4::LibraryDescriptor::alloc()
 {
     return NS::Object::alloc<MTL4::LibraryDescriptor>(_MTL_PRIVATE_CLS(MTL4LibraryDescriptor));

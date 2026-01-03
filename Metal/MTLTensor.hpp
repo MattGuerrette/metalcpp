@@ -29,110 +29,109 @@
 
 namespace MTL
 {
-class Buffer;
-class TensorDescriptor;
-class TensorExtents;
+    class Buffer;
+    class TensorDescriptor;
+    class TensorExtents;
 
-_MTL_CONST(NS::ErrorDomain, TensorDomain);
+    _MTL_CONST(NS::ErrorDomain, TensorDomain);
 
-_MTL_ENUM(NS::Integer, TensorDataType) {
-    TensorDataTypeNone = 0,
-    TensorDataTypeFloat32 = 3,
-    TensorDataTypeFloat16 = 16,
-    TensorDataTypeBFloat16 = 121,
-    TensorDataTypeInt8 = 45,
-    TensorDataTypeUInt8 = 49,
-    TensorDataTypeInt16 = 37,
-    TensorDataTypeUInt16 = 41,
-    TensorDataTypeInt32 = 29,
-    TensorDataTypeUInt32 = 33,
-};
+    _MTL_ENUM(NS::Integer, TensorDataType){
+        TensorDataTypeNone = 0,   TensorDataTypeFloat32 = 3, TensorDataTypeFloat16 = 16, TensorDataTypeBFloat16 = 121,
+        TensorDataTypeInt8 = 45,  TensorDataTypeUInt8 = 49,  TensorDataTypeInt16 = 37,   TensorDataTypeUInt16 = 41,
+        TensorDataTypeInt32 = 29, TensorDataTypeUInt32 = 33,
+    };
 
-_MTL_ENUM(NS::Integer, TensorError) {
-    TensorErrorNone = 0,
-    TensorErrorInternalError = 1,
-    TensorErrorInvalidDescriptor = 2,
-};
+    _MTL_ENUM(NS::Integer, TensorError){
+        TensorErrorNone              = 0,
+        TensorErrorInternalError     = 1,
+        TensorErrorInvalidDescriptor = 2,
+    };
 
-_MTL_OPTIONS(NS::UInteger, TensorUsage) {
-    TensorUsageCompute = 1,
-    TensorUsageRender = 1 << 1,
-    TensorUsageMachineLearning = 1 << 2,
-};
+    _MTL_OPTIONS(NS::UInteger, TensorUsage){
+        TensorUsageCompute         = 1,
+        TensorUsageRender          = 1 << 1,
+        TensorUsageMachineLearning = 1 << 2,
+    };
 
-class TensorExtents : public NS::Referencing<TensorExtents>
-{
-public:
-    static TensorExtents* alloc();
+    class TensorExtents : public NS::Referencing<TensorExtents>
+    {
+    public:
+        static TensorExtents* alloc();
 
-    NS::Integer           extentAtDimensionIndex(NS::UInteger dimensionIndex);
+        NS::Integer extentAtDimensionIndex(NS::UInteger dimensionIndex);
 
-    TensorExtents*        init();
-    TensorExtents*        init(NS::UInteger rank, const NS::Integer* values);
+        TensorExtents* init();
+        TensorExtents* init(NS::UInteger rank, const NS::Integer* values);
 
-    NS::UInteger          rank() const;
-};
-class TensorDescriptor : public NS::Copying<TensorDescriptor>
-{
-public:
-    static TensorDescriptor* alloc();
+        NS::UInteger rank() const;
+    };
+    class TensorDescriptor : public NS::Copying<TensorDescriptor>
+    {
+    public:
+        static TensorDescriptor* alloc();
 
-    CPUCacheMode             cpuCacheMode() const;
+        CPUCacheMode cpuCacheMode() const;
 
-    TensorDataType           dataType() const;
+        TensorDataType dataType() const;
 
-    TensorExtents*           dimensions() const;
+        TensorExtents* dimensions() const;
 
-    HazardTrackingMode       hazardTrackingMode() const;
+        HazardTrackingMode hazardTrackingMode() const;
 
-    TensorDescriptor*        init();
+        TensorDescriptor* init();
 
-    ResourceOptions          resourceOptions() const;
+        ResourceOptions resourceOptions() const;
 
-    void                     setCpuCacheMode(MTL::CPUCacheMode cpuCacheMode);
+        void setCpuCacheMode(MTL::CPUCacheMode cpuCacheMode);
 
-    void                     setDataType(MTL::TensorDataType dataType);
+        void setDataType(MTL::TensorDataType dataType);
 
-    void                     setDimensions(const MTL::TensorExtents* dimensions);
+        void setDimensions(const MTL::TensorExtents* dimensions);
 
-    void                     setHazardTrackingMode(MTL::HazardTrackingMode hazardTrackingMode);
+        void setHazardTrackingMode(MTL::HazardTrackingMode hazardTrackingMode);
 
-    void                     setResourceOptions(MTL::ResourceOptions resourceOptions);
+        void setResourceOptions(MTL::ResourceOptions resourceOptions);
 
-    void                     setStorageMode(MTL::StorageMode storageMode);
+        void setStorageMode(MTL::StorageMode storageMode);
 
-    void                     setStrides(const MTL::TensorExtents* strides);
+        void setStrides(const MTL::TensorExtents* strides);
 
-    void                     setUsage(MTL::TensorUsage usage);
+        void setUsage(MTL::TensorUsage usage);
 
-    StorageMode              storageMode() const;
+        StorageMode storageMode() const;
 
-    TensorExtents*           strides() const;
+        TensorExtents* strides() const;
 
-    TensorUsage              usage() const;
-};
-class Tensor : public NS::Referencing<Tensor, Resource>
-{
-public:
-    Buffer*        buffer() const;
-    NS::UInteger   bufferOffset() const;
+        TensorUsage usage() const;
+    };
+    class Tensor : public NS::Referencing<Tensor, Resource>
+    {
+    public:
+        Buffer*      buffer() const;
+        NS::UInteger bufferOffset() const;
 
-    TensorDataType dataType() const;
+        TensorDataType dataType() const;
 
-    TensorExtents* dimensions() const;
+        TensorExtents* dimensions() const;
 
-    void           getBytes(void* bytes, const MTL::TensorExtents* strides, const MTL::TensorExtents* sliceOrigin, const MTL::TensorExtents* sliceDimensions);
+        void getBytes(void*                     bytes,
+                      const MTL::TensorExtents* strides,
+                      const MTL::TensorExtents* sliceOrigin,
+                      const MTL::TensorExtents* sliceDimensions);
 
-    ResourceID     gpuResourceID() const;
+        ResourceID gpuResourceID() const;
 
-    void           replaceSliceOrigin(const MTL::TensorExtents* sliceOrigin, const MTL::TensorExtents* sliceDimensions, const void* bytes, const MTL::TensorExtents* strides);
+        void replaceSliceOrigin(const MTL::TensorExtents* sliceOrigin,
+                                const MTL::TensorExtents* sliceDimensions,
+                                const void*               bytes,
+                                const MTL::TensorExtents* strides);
 
-    TensorExtents* strides() const;
+        TensorExtents* strides() const;
 
-    TensorUsage    usage() const;
-};
+        TensorUsage usage() const;
+    };
 
-}
+} // namespace MTL
 
 _MTL_PRIVATE_DEF_CONST(NS::ErrorDomain, TensorDomain);
 
@@ -146,10 +145,7 @@ _MTL_INLINE NS::Integer MTL::TensorExtents::extentAtDimensionIndex(NS::UInteger 
     return Object::sendMessage<NS::Integer>(this, _MTL_PRIVATE_SEL(extentAtDimensionIndex_), dimensionIndex);
 }
 
-_MTL_INLINE MTL::TensorExtents* MTL::TensorExtents::init()
-{
-    return NS::Object::init<MTL::TensorExtents>();
-}
+_MTL_INLINE MTL::TensorExtents* MTL::TensorExtents::init() { return NS::Object::init<MTL::TensorExtents>(); }
 
 _MTL_INLINE MTL::TensorExtents* MTL::TensorExtents::init(NS::UInteger rank, const NS::Integer* values)
 {
@@ -186,10 +182,7 @@ _MTL_INLINE MTL::HazardTrackingMode MTL::TensorDescriptor::hazardTrackingMode() 
     return Object::sendMessage<MTL::HazardTrackingMode>(this, _MTL_PRIVATE_SEL(hazardTrackingMode));
 }
 
-_MTL_INLINE MTL::TensorDescriptor* MTL::TensorDescriptor::init()
-{
-    return NS::Object::init<MTL::TensorDescriptor>();
-}
+_MTL_INLINE MTL::TensorDescriptor* MTL::TensorDescriptor::init() { return NS::Object::init<MTL::TensorDescriptor>(); }
 
 _MTL_INLINE MTL::ResourceOptions MTL::TensorDescriptor::resourceOptions() const
 {
@@ -271,9 +264,17 @@ _MTL_INLINE MTL::TensorExtents* MTL::Tensor::dimensions() const
     return Object::sendMessage<MTL::TensorExtents*>(this, _MTL_PRIVATE_SEL(dimensions));
 }
 
-_MTL_INLINE void MTL::Tensor::getBytes(void* bytes, const MTL::TensorExtents* strides, const MTL::TensorExtents* sliceOrigin, const MTL::TensorExtents* sliceDimensions)
+_MTL_INLINE void MTL::Tensor::getBytes(void*                     bytes,
+                                       const MTL::TensorExtents* strides,
+                                       const MTL::TensorExtents* sliceOrigin,
+                                       const MTL::TensorExtents* sliceDimensions)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(getBytes_strides_fromSliceOrigin_sliceDimensions_), bytes, strides, sliceOrigin, sliceDimensions);
+    Object::sendMessage<void>(this,
+                              _MTL_PRIVATE_SEL(getBytes_strides_fromSliceOrigin_sliceDimensions_),
+                              bytes,
+                              strides,
+                              sliceOrigin,
+                              sliceDimensions);
 }
 
 _MTL_INLINE MTL::ResourceID MTL::Tensor::gpuResourceID() const
@@ -281,9 +282,17 @@ _MTL_INLINE MTL::ResourceID MTL::Tensor::gpuResourceID() const
     return Object::sendMessage<MTL::ResourceID>(this, _MTL_PRIVATE_SEL(gpuResourceID));
 }
 
-_MTL_INLINE void MTL::Tensor::replaceSliceOrigin(const MTL::TensorExtents* sliceOrigin, const MTL::TensorExtents* sliceDimensions, const void* bytes, const MTL::TensorExtents* strides)
+_MTL_INLINE void MTL::Tensor::replaceSliceOrigin(const MTL::TensorExtents* sliceOrigin,
+                                                 const MTL::TensorExtents* sliceDimensions,
+                                                 const void*               bytes,
+                                                 const MTL::TensorExtents* strides)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(replaceSliceOrigin_sliceDimensions_withBytes_strides_), sliceOrigin, sliceDimensions, bytes, strides);
+    Object::sendMessage<void>(this,
+                              _MTL_PRIVATE_SEL(replaceSliceOrigin_sliceDimensions_withBytes_strides_),
+                              sliceOrigin,
+                              sliceDimensions,
+                              bytes,
+                              strides);
 }
 
 _MTL_INLINE MTL::TensorExtents* MTL::Tensor::strides() const

@@ -38,7 +38,8 @@
 #define _CA_VALIDATE_SIZE(ns, name) _NS_VALIDATE_SIZE(ns, name)
 #define _CA_VALIDATE_ENUM(ns, name) _NS_VALIDATE_ENUM(ns, name)
 
-namespace CA {
+namespace CA
+{
 
     struct FrameRateRange
     {
@@ -47,6 +48,6 @@ namespace CA {
         float preferred;
     };
 
-}
+} // namespace CA
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -28,64 +28,88 @@
 
 namespace MTL4
 {
-class CommandBuffer;
+    class CommandBuffer;
 }
 
 namespace MTL
 {
-class Fence;
+    class Fence;
 }
 
 namespace MTL4
 {
-_MTL_OPTIONS(NS::UInteger, VisibilityOptions) {
-    VisibilityOptionNone = 0,
-    VisibilityOptionDevice = 1,
-    VisibilityOptionResourceAlias = 1 << 1,
-};
+    _MTL_OPTIONS(NS::UInteger, VisibilityOptions){
+        VisibilityOptionNone          = 0,
+        VisibilityOptionDevice        = 1,
+        VisibilityOptionResourceAlias = 1 << 1,
+    };
 
-class CommandEncoder : public NS::Referencing<CommandEncoder>
+    class CommandEncoder : public NS::Referencing<CommandEncoder>
+    {
+    public:
+        void barrierAfterEncoderStages(MTL::Stages             afterEncoderStages,
+                                       MTL::Stages             beforeEncoderStages,
+                                       MTL4::VisibilityOptions visibilityOptions);
+
+        void barrierAfterQueueStages(MTL::Stages             afterQueueStages,
+                                     MTL::Stages             beforeStages,
+                                     MTL4::VisibilityOptions visibilityOptions);
+
+        void barrierAfterStages(MTL::Stages             afterStages,
+                                MTL::Stages             beforeQueueStages,
+                                MTL4::VisibilityOptions visibilityOptions);
+
+        CommandBuffer* commandBuffer() const;
+
+        void endEncoding();
+
+        void insertDebugSignpost(const NS::String* string);
+
+        NS::String* label() const;
+
+        void popDebugGroup();
+
+        void pushDebugGroup(const NS::String* string);
+
+        void setLabel(const NS::String* label);
+
+        void updateFence(const MTL::Fence* fence, MTL::Stages afterEncoderStages);
+
+        void waitForFence(const MTL::Fence* fence, MTL::Stages beforeEncoderStages);
+    };
+
+} // namespace MTL4
+_MTL_INLINE void MTL4::CommandEncoder::barrierAfterEncoderStages(MTL::Stages             afterEncoderStages,
+                                                                 MTL::Stages             beforeEncoderStages,
+                                                                 MTL4::VisibilityOptions visibilityOptions)
 {
-public:
-    void           barrierAfterEncoderStages(MTL::Stages afterEncoderStages, MTL::Stages beforeEncoderStages, MTL4::VisibilityOptions visibilityOptions);
-
-    void           barrierAfterQueueStages(MTL::Stages afterQueueStages, MTL::Stages beforeStages, MTL4::VisibilityOptions visibilityOptions);
-
-    void           barrierAfterStages(MTL::Stages afterStages, MTL::Stages beforeQueueStages, MTL4::VisibilityOptions visibilityOptions);
-
-    CommandBuffer* commandBuffer() const;
-
-    void           endEncoding();
-
-    void           insertDebugSignpost(const NS::String* string);
-
-    NS::String*    label() const;
-
-    void           popDebugGroup();
-
-    void           pushDebugGroup(const NS::String* string);
-
-    void           setLabel(const NS::String* label);
-
-    void           updateFence(const MTL::Fence* fence, MTL::Stages afterEncoderStages);
-
-    void           waitForFence(const MTL::Fence* fence, MTL::Stages beforeEncoderStages);
-};
-
+    Object::sendMessage<void>(this,
+                              _MTL_PRIVATE_SEL(barrierAfterEncoderStages_beforeEncoderStages_visibilityOptions_),
+                              afterEncoderStages,
+                              beforeEncoderStages,
+                              visibilityOptions);
 }
-_MTL_INLINE void MTL4::CommandEncoder::barrierAfterEncoderStages(MTL::Stages afterEncoderStages, MTL::Stages beforeEncoderStages, MTL4::VisibilityOptions visibilityOptions)
+
+_MTL_INLINE void MTL4::CommandEncoder::barrierAfterQueueStages(MTL::Stages             afterQueueStages,
+                                                               MTL::Stages             beforeStages,
+                                                               MTL4::VisibilityOptions visibilityOptions)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(barrierAfterEncoderStages_beforeEncoderStages_visibilityOptions_), afterEncoderStages, beforeEncoderStages, visibilityOptions);
+    Object::sendMessage<void>(this,
+                              _MTL_PRIVATE_SEL(barrierAfterQueueStages_beforeStages_visibilityOptions_),
+                              afterQueueStages,
+                              beforeStages,
+                              visibilityOptions);
 }
 
-_MTL_INLINE void MTL4::CommandEncoder::barrierAfterQueueStages(MTL::Stages afterQueueStages, MTL::Stages beforeStages, MTL4::VisibilityOptions visibilityOptions)
+_MTL_INLINE void MTL4::CommandEncoder::barrierAfterStages(MTL::Stages             afterStages,
+                                                          MTL::Stages             beforeQueueStages,
+                                                          MTL4::VisibilityOptions visibilityOptions)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(barrierAfterQueueStages_beforeStages_visibilityOptions_), afterQueueStages, beforeStages, visibilityOptions);
-}
-
-_MTL_INLINE void MTL4::CommandEncoder::barrierAfterStages(MTL::Stages afterStages, MTL::Stages beforeQueueStages, MTL4::VisibilityOptions visibilityOptions)
-{
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(barrierAfterStages_beforeQueueStages_visibilityOptions_), afterStages, beforeQueueStages, visibilityOptions);
+    Object::sendMessage<void>(this,
+                              _MTL_PRIVATE_SEL(barrierAfterStages_beforeQueueStages_visibilityOptions_),
+                              afterStages,
+                              beforeQueueStages,
+                              visibilityOptions);
 }
 
 _MTL_INLINE MTL4::CommandBuffer* MTL4::CommandEncoder::commandBuffer() const
@@ -93,10 +117,7 @@ _MTL_INLINE MTL4::CommandBuffer* MTL4::CommandEncoder::commandBuffer() const
     return Object::sendMessage<MTL4::CommandBuffer*>(this, _MTL_PRIVATE_SEL(commandBuffer));
 }
 
-_MTL_INLINE void MTL4::CommandEncoder::endEncoding()
-{
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(endEncoding));
-}
+_MTL_INLINE void MTL4::CommandEncoder::endEncoding() { Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(endEncoding)); }
 
 _MTL_INLINE void MTL4::CommandEncoder::insertDebugSignpost(const NS::String* string)
 {

@@ -32,637 +32,644 @@
 
 namespace MTL
 {
-class Device;
-class Function;
-class FunctionHandle;
-class IntersectionFunctionTable;
-class IntersectionFunctionTableDescriptor;
-class LinkedFunctions;
-class LogicalToPhysicalColorAttachmentMap;
-class MeshRenderPipelineDescriptor;
-class PipelineBufferDescriptorArray;
-class RenderPipelineColorAttachmentDescriptor;
-class RenderPipelineColorAttachmentDescriptorArray;
-class RenderPipelineDescriptor;
-class RenderPipelineFunctionsDescriptor;
-class RenderPipelineReflection;
-class RenderPipelineState;
-class TileRenderPipelineColorAttachmentDescriptor;
-class TileRenderPipelineColorAttachmentDescriptorArray;
-class TileRenderPipelineDescriptor;
-class VertexDescriptor;
-class VisibleFunctionTable;
-class VisibleFunctionTableDescriptor;
+    class Device;
+    class Function;
+    class FunctionHandle;
+    class IntersectionFunctionTable;
+    class IntersectionFunctionTableDescriptor;
+    class LinkedFunctions;
+    class LogicalToPhysicalColorAttachmentMap;
+    class MeshRenderPipelineDescriptor;
+    class PipelineBufferDescriptorArray;
+    class RenderPipelineColorAttachmentDescriptor;
+    class RenderPipelineColorAttachmentDescriptorArray;
+    class RenderPipelineDescriptor;
+    class RenderPipelineFunctionsDescriptor;
+    class RenderPipelineReflection;
+    class RenderPipelineState;
+    class TileRenderPipelineColorAttachmentDescriptor;
+    class TileRenderPipelineColorAttachmentDescriptorArray;
+    class TileRenderPipelineDescriptor;
+    class VertexDescriptor;
+    class VisibleFunctionTable;
+    class VisibleFunctionTableDescriptor;
 
-}
+} // namespace MTL
 namespace MTL4
 {
-class BinaryFunction;
-class PipelineDescriptor;
-class RenderPipelineBinaryFunctionsDescriptor;
+    class BinaryFunction;
+    class PipelineDescriptor;
+    class RenderPipelineBinaryFunctionsDescriptor;
 
-}
+} // namespace MTL4
 namespace MTL
 {
-_MTL_ENUM(NS::UInteger, BlendFactor) {
-    BlendFactorZero = 0,
-    BlendFactorOne = 1,
-    BlendFactorSourceColor = 2,
-    BlendFactorOneMinusSourceColor = 3,
-    BlendFactorSourceAlpha = 4,
-    BlendFactorOneMinusSourceAlpha = 5,
-    BlendFactorDestinationColor = 6,
-    BlendFactorOneMinusDestinationColor = 7,
-    BlendFactorDestinationAlpha = 8,
-    BlendFactorOneMinusDestinationAlpha = 9,
-    BlendFactorSourceAlphaSaturated = 10,
-    BlendFactorBlendColor = 11,
-    BlendFactorOneMinusBlendColor = 12,
-    BlendFactorBlendAlpha = 13,
-    BlendFactorOneMinusBlendAlpha = 14,
-    BlendFactorSource1Color = 15,
-    BlendFactorOneMinusSource1Color = 16,
-    BlendFactorSource1Alpha = 17,
-    BlendFactorOneMinusSource1Alpha = 18,
-    BlendFactorUnspecialized = 19,
-};
-
-_MTL_ENUM(NS::UInteger, BlendOperation) {
-    BlendOperationAdd = 0,
-    BlendOperationSubtract = 1,
-    BlendOperationReverseSubtract = 2,
-    BlendOperationMin = 3,
-    BlendOperationMax = 4,
-    BlendOperationUnspecialized = 5,
-};
-
-_MTL_ENUM(NS::UInteger, PrimitiveTopologyClass) {
-    PrimitiveTopologyClassUnspecified = 0,
-    PrimitiveTopologyClassPoint = 1,
-    PrimitiveTopologyClassLine = 2,
-    PrimitiveTopologyClassTriangle = 3,
-};
-
-_MTL_ENUM(NS::UInteger, TessellationPartitionMode) {
-    TessellationPartitionModePow2 = 0,
-    TessellationPartitionModeInteger = 1,
-    TessellationPartitionModeFractionalOdd = 2,
-    TessellationPartitionModeFractionalEven = 3,
-};
+    _MTL_ENUM(NS::UInteger, BlendFactor){
+        BlendFactorZero                     = 0,
+        BlendFactorOne                      = 1,
+        BlendFactorSourceColor              = 2,
+        BlendFactorOneMinusSourceColor      = 3,
+        BlendFactorSourceAlpha              = 4,
+        BlendFactorOneMinusSourceAlpha      = 5,
+        BlendFactorDestinationColor         = 6,
+        BlendFactorOneMinusDestinationColor = 7,
+        BlendFactorDestinationAlpha         = 8,
+        BlendFactorOneMinusDestinationAlpha = 9,
+        BlendFactorSourceAlphaSaturated     = 10,
+        BlendFactorBlendColor               = 11,
+        BlendFactorOneMinusBlendColor       = 12,
+        BlendFactorBlendAlpha               = 13,
+        BlendFactorOneMinusBlendAlpha       = 14,
+        BlendFactorSource1Color             = 15,
+        BlendFactorOneMinusSource1Color     = 16,
+        BlendFactorSource1Alpha             = 17,
+        BlendFactorOneMinusSource1Alpha     = 18,
+        BlendFactorUnspecialized            = 19,
+    };
+
+    _MTL_ENUM(NS::UInteger, BlendOperation){
+        BlendOperationAdd = 0, BlendOperationSubtract = 1, BlendOperationReverseSubtract = 2,
+        BlendOperationMin = 3, BlendOperationMax = 4,      BlendOperationUnspecialized = 5,
+    };
 
-_MTL_ENUM(NS::UInteger, TessellationFactorStepFunction) {
-    TessellationFactorStepFunctionConstant = 0,
-    TessellationFactorStepFunctionPerPatch = 1,
-    TessellationFactorStepFunctionPerInstance = 2,
-    TessellationFactorStepFunctionPerPatchAndPerInstance = 3,
-};
+    _MTL_ENUM(NS::UInteger, PrimitiveTopologyClass){
+        PrimitiveTopologyClassUnspecified = 0,
+        PrimitiveTopologyClassPoint       = 1,
+        PrimitiveTopologyClassLine        = 2,
+        PrimitiveTopologyClassTriangle    = 3,
+    };
+
+    _MTL_ENUM(NS::UInteger, TessellationPartitionMode){
+        TessellationPartitionModePow2           = 0,
+        TessellationPartitionModeInteger        = 1,
+        TessellationPartitionModeFractionalOdd  = 2,
+        TessellationPartitionModeFractionalEven = 3,
+    };
 
-_MTL_ENUM(NS::UInteger, TessellationFactorFormat) {
-    TessellationFactorFormatHalf = 0,
-};
+    _MTL_ENUM(NS::UInteger, TessellationFactorStepFunction){
+        TessellationFactorStepFunctionConstant               = 0,
+        TessellationFactorStepFunctionPerPatch               = 1,
+        TessellationFactorStepFunctionPerInstance            = 2,
+        TessellationFactorStepFunctionPerPatchAndPerInstance = 3,
+    };
 
-_MTL_ENUM(NS::UInteger, TessellationControlPointIndexType) {
-    TessellationControlPointIndexTypeNone = 0,
-    TessellationControlPointIndexTypeUInt16 = 1,
-    TessellationControlPointIndexTypeUInt32 = 2,
-};
+    _MTL_ENUM(NS::UInteger, TessellationFactorFormat){
+        TessellationFactorFormatHalf = 0,
+    };
 
-_MTL_OPTIONS(NS::UInteger, ColorWriteMask) {
-    ColorWriteMaskNone = 0,
-    ColorWriteMaskRed = 1 << 3,
-    ColorWriteMaskGreen = 1 << 2,
-    ColorWriteMaskBlue = 1 << 1,
-    ColorWriteMaskAlpha = 1,
-    ColorWriteMaskAll = 15,
-    ColorWriteMaskUnspecialized = 1 << 4,
-};
+    _MTL_ENUM(NS::UInteger, TessellationControlPointIndexType){
+        TessellationControlPointIndexTypeNone   = 0,
+        TessellationControlPointIndexTypeUInt16 = 1,
+        TessellationControlPointIndexTypeUInt32 = 2,
+    };
 
-class RenderPipelineColorAttachmentDescriptor : public NS::Copying<RenderPipelineColorAttachmentDescriptor>
-{
-public:
-    static RenderPipelineColorAttachmentDescriptor* alloc();
+    _MTL_OPTIONS(NS::UInteger, ColorWriteMask){
+        ColorWriteMaskNone          = 0,
+        ColorWriteMaskRed           = 1 << 3,
+        ColorWriteMaskGreen         = 1 << 2,
+        ColorWriteMaskBlue          = 1 << 1,
+        ColorWriteMaskAlpha         = 1,
+        ColorWriteMaskAll           = 15,
+        ColorWriteMaskUnspecialized = 1 << 4,
+    };
 
-    BlendOperation                                  alphaBlendOperation() const;
+    class RenderPipelineColorAttachmentDescriptor : public NS::Copying<RenderPipelineColorAttachmentDescriptor>
+    {
+    public:
+        static RenderPipelineColorAttachmentDescriptor* alloc();
 
-    [[deprecated("please use isBlendingEnabled instead")]]
-    bool                                     blendingEnabled() const;
+        BlendOperation alphaBlendOperation() const;
 
-    BlendFactor                              destinationAlphaBlendFactor() const;
+        [[deprecated("please use isBlendingEnabled instead")]]
+        bool blendingEnabled() const;
 
-    BlendFactor                              destinationRGBBlendFactor() const;
+        BlendFactor destinationAlphaBlendFactor() const;
 
-    RenderPipelineColorAttachmentDescriptor* init();
+        BlendFactor destinationRGBBlendFactor() const;
 
-    bool                                     isBlendingEnabled() const;
+        RenderPipelineColorAttachmentDescriptor* init();
 
-    PixelFormat                              pixelFormat() const;
+        bool isBlendingEnabled() const;
 
-    BlendOperation                           rgbBlendOperation() const;
+        PixelFormat pixelFormat() const;
 
-    void                                     setAlphaBlendOperation(MTL::BlendOperation alphaBlendOperation);
+        BlendOperation rgbBlendOperation() const;
 
-    void                                     setBlendingEnabled(bool blendingEnabled);
+        void setAlphaBlendOperation(MTL::BlendOperation alphaBlendOperation);
 
-    void                                     setDestinationAlphaBlendFactor(MTL::BlendFactor destinationAlphaBlendFactor);
+        void setBlendingEnabled(bool blendingEnabled);
 
-    void                                     setDestinationRGBBlendFactor(MTL::BlendFactor destinationRGBBlendFactor);
+        void setDestinationAlphaBlendFactor(MTL::BlendFactor destinationAlphaBlendFactor);
 
-    void                                     setPixelFormat(MTL::PixelFormat pixelFormat);
+        void setDestinationRGBBlendFactor(MTL::BlendFactor destinationRGBBlendFactor);
 
-    void                                     setRgbBlendOperation(MTL::BlendOperation rgbBlendOperation);
+        void setPixelFormat(MTL::PixelFormat pixelFormat);
 
-    void                                     setSourceAlphaBlendFactor(MTL::BlendFactor sourceAlphaBlendFactor);
+        void setRgbBlendOperation(MTL::BlendOperation rgbBlendOperation);
 
-    void                                     setSourceRGBBlendFactor(MTL::BlendFactor sourceRGBBlendFactor);
+        void setSourceAlphaBlendFactor(MTL::BlendFactor sourceAlphaBlendFactor);
 
-    void                                     setWriteMask(MTL::ColorWriteMask writeMask);
+        void setSourceRGBBlendFactor(MTL::BlendFactor sourceRGBBlendFactor);
 
-    BlendFactor                              sourceAlphaBlendFactor() const;
+        void setWriteMask(MTL::ColorWriteMask writeMask);
 
-    BlendFactor                              sourceRGBBlendFactor() const;
+        BlendFactor sourceAlphaBlendFactor() const;
 
-    ColorWriteMask                           writeMask() const;
-};
-class LogicalToPhysicalColorAttachmentMap : public NS::Copying<LogicalToPhysicalColorAttachmentMap>
-{
-public:
-    static LogicalToPhysicalColorAttachmentMap* alloc();
+        BlendFactor sourceRGBBlendFactor() const;
 
-    NS::UInteger                                getPhysicalIndex(NS::UInteger logicalIndex);
+        ColorWriteMask writeMask() const;
+    };
+    class LogicalToPhysicalColorAttachmentMap : public NS::Copying<LogicalToPhysicalColorAttachmentMap>
+    {
+    public:
+        static LogicalToPhysicalColorAttachmentMap* alloc();
 
-    LogicalToPhysicalColorAttachmentMap*        init();
+        NS::UInteger getPhysicalIndex(NS::UInteger logicalIndex);
 
-    void                                        reset();
+        LogicalToPhysicalColorAttachmentMap* init();
 
-    void                                        setPhysicalIndex(NS::UInteger physicalIndex, NS::UInteger logicalIndex);
-};
-class RenderPipelineReflection : public NS::Referencing<RenderPipelineReflection>
-{
-public:
-    static RenderPipelineReflection* alloc();
+        void reset();
 
-    NS::Array*                       fragmentArguments() const;
+        void setPhysicalIndex(NS::UInteger physicalIndex, NS::UInteger logicalIndex);
+    };
+    class RenderPipelineReflection : public NS::Referencing<RenderPipelineReflection>
+    {
+    public:
+        static RenderPipelineReflection* alloc();
 
-    NS::Array*                       fragmentBindings() const;
+        NS::Array* fragmentArguments() const;
 
-    RenderPipelineReflection*        init();
+        NS::Array* fragmentBindings() const;
 
-    NS::Array*                       meshBindings() const;
+        RenderPipelineReflection* init();
 
-    NS::Array*                       objectBindings() const;
+        NS::Array* meshBindings() const;
 
-    NS::Array*                       tileArguments() const;
+        NS::Array* objectBindings() const;
 
-    NS::Array*                       tileBindings() const;
+        NS::Array* tileArguments() const;
 
-    NS::Array*                       vertexArguments() const;
+        NS::Array* tileBindings() const;
 
-    NS::Array*                       vertexBindings() const;
-};
-class RenderPipelineDescriptor : public NS::Copying<RenderPipelineDescriptor>
-{
-public:
-    static RenderPipelineDescriptor* alloc();
+        NS::Array* vertexArguments() const;
 
-    [[deprecated("please use isAlphaToCoverageEnabled instead")]]
-    bool alphaToCoverageEnabled() const;
+        NS::Array* vertexBindings() const;
+    };
+    class RenderPipelineDescriptor : public NS::Copying<RenderPipelineDescriptor>
+    {
+    public:
+        static RenderPipelineDescriptor* alloc();
 
-    [[deprecated("please use isAlphaToOneEnabled instead")]]
-    bool                                          alphaToOneEnabled() const;
+        [[deprecated("please use isAlphaToCoverageEnabled instead")]]
+        bool alphaToCoverageEnabled() const;
 
-    NS::Array*                                    binaryArchives() const;
+        [[deprecated("please use isAlphaToOneEnabled instead")]]
+        bool alphaToOneEnabled() const;
 
-    RenderPipelineColorAttachmentDescriptorArray* colorAttachments() const;
+        NS::Array* binaryArchives() const;
 
-    PixelFormat                                   depthAttachmentPixelFormat() const;
+        RenderPipelineColorAttachmentDescriptorArray* colorAttachments() const;
 
-    PipelineBufferDescriptorArray*                fragmentBuffers() const;
+        PixelFormat depthAttachmentPixelFormat() const;
 
-    Function*                                     fragmentFunction() const;
+        PipelineBufferDescriptorArray* fragmentBuffers() const;
 
-    LinkedFunctions*                              fragmentLinkedFunctions() const;
+        Function* fragmentFunction() const;
 
-    NS::Array*                                    fragmentPreloadedLibraries() const;
+        LinkedFunctions* fragmentLinkedFunctions() const;
 
-    RenderPipelineDescriptor*                     init();
+        NS::Array* fragmentPreloadedLibraries() const;
 
-    PrimitiveTopologyClass                        inputPrimitiveTopology() const;
+        RenderPipelineDescriptor* init();
 
-    bool                                          isAlphaToCoverageEnabled() const;
+        PrimitiveTopologyClass inputPrimitiveTopology() const;
 
-    bool                                          isAlphaToOneEnabled() const;
+        bool isAlphaToCoverageEnabled() const;
 
-    bool                                          isRasterizationEnabled() const;
+        bool isAlphaToOneEnabled() const;
 
-    bool                                          isTessellationFactorScaleEnabled() const;
+        bool isRasterizationEnabled() const;
 
-    NS::String*                                   label() const;
+        bool isTessellationFactorScaleEnabled() const;
 
-    NS::UInteger                                  maxFragmentCallStackDepth() const;
+        NS::String* label() const;
 
-    NS::UInteger                                  maxTessellationFactor() const;
+        NS::UInteger maxFragmentCallStackDepth() const;
 
-    NS::UInteger                                  maxVertexAmplificationCount() const;
+        NS::UInteger maxTessellationFactor() const;
 
-    NS::UInteger                                  maxVertexCallStackDepth() const;
+        NS::UInteger maxVertexAmplificationCount() const;
 
-    NS::UInteger                                  rasterSampleCount() const;
+        NS::UInteger maxVertexCallStackDepth() const;
 
-    [[deprecated("please use isRasterizationEnabled instead")]]
-    bool                              rasterizationEnabled() const;
+        NS::UInteger rasterSampleCount() const;
 
-    void                              reset();
+        [[deprecated("please use isRasterizationEnabled instead")]]
+        bool rasterizationEnabled() const;
 
-    NS::UInteger                      sampleCount() const;
+        void reset();
 
-    void                              setAlphaToCoverageEnabled(bool alphaToCoverageEnabled);
+        NS::UInteger sampleCount() const;
 
-    void                              setAlphaToOneEnabled(bool alphaToOneEnabled);
+        void setAlphaToCoverageEnabled(bool alphaToCoverageEnabled);
 
-    void                              setBinaryArchives(const NS::Array* binaryArchives);
+        void setAlphaToOneEnabled(bool alphaToOneEnabled);
 
-    void                              setDepthAttachmentPixelFormat(MTL::PixelFormat depthAttachmentPixelFormat);
+        void setBinaryArchives(const NS::Array* binaryArchives);
 
-    void                              setFragmentFunction(const MTL::Function* fragmentFunction);
+        void setDepthAttachmentPixelFormat(MTL::PixelFormat depthAttachmentPixelFormat);
 
-    void                              setFragmentLinkedFunctions(const MTL::LinkedFunctions* fragmentLinkedFunctions);
+        void setFragmentFunction(const MTL::Function* fragmentFunction);
 
-    void                              setFragmentPreloadedLibraries(const NS::Array* fragmentPreloadedLibraries);
+        void setFragmentLinkedFunctions(const MTL::LinkedFunctions* fragmentLinkedFunctions);
 
-    void                              setInputPrimitiveTopology(MTL::PrimitiveTopologyClass inputPrimitiveTopology);
+        void setFragmentPreloadedLibraries(const NS::Array* fragmentPreloadedLibraries);
 
-    void                              setLabel(const NS::String* label);
+        void setInputPrimitiveTopology(MTL::PrimitiveTopologyClass inputPrimitiveTopology);
 
-    void                              setMaxFragmentCallStackDepth(NS::UInteger maxFragmentCallStackDepth);
+        void setLabel(const NS::String* label);
 
-    void                              setMaxTessellationFactor(NS::UInteger maxTessellationFactor);
+        void setMaxFragmentCallStackDepth(NS::UInteger maxFragmentCallStackDepth);
 
-    void                              setMaxVertexAmplificationCount(NS::UInteger maxVertexAmplificationCount);
+        void setMaxTessellationFactor(NS::UInteger maxTessellationFactor);
 
-    void                              setMaxVertexCallStackDepth(NS::UInteger maxVertexCallStackDepth);
+        void setMaxVertexAmplificationCount(NS::UInteger maxVertexAmplificationCount);
 
-    void                              setRasterSampleCount(NS::UInteger rasterSampleCount);
+        void setMaxVertexCallStackDepth(NS::UInteger maxVertexCallStackDepth);
 
-    void                              setRasterizationEnabled(bool rasterizationEnabled);
+        void setRasterSampleCount(NS::UInteger rasterSampleCount);
 
-    void                              setSampleCount(NS::UInteger sampleCount);
+        void setRasterizationEnabled(bool rasterizationEnabled);
 
-    void                              setShaderValidation(MTL::ShaderValidation shaderValidation);
+        void setSampleCount(NS::UInteger sampleCount);
 
-    void                              setStencilAttachmentPixelFormat(MTL::PixelFormat stencilAttachmentPixelFormat);
+        void setShaderValidation(MTL::ShaderValidation shaderValidation);
 
-    void                              setSupportAddingFragmentBinaryFunctions(bool supportAddingFragmentBinaryFunctions);
+        void setStencilAttachmentPixelFormat(MTL::PixelFormat stencilAttachmentPixelFormat);
 
-    void                              setSupportAddingVertexBinaryFunctions(bool supportAddingVertexBinaryFunctions);
+        void setSupportAddingFragmentBinaryFunctions(bool supportAddingFragmentBinaryFunctions);
 
-    void                              setSupportIndirectCommandBuffers(bool supportIndirectCommandBuffers);
+        void setSupportAddingVertexBinaryFunctions(bool supportAddingVertexBinaryFunctions);
 
-    void                              setTessellationControlPointIndexType(MTL::TessellationControlPointIndexType tessellationControlPointIndexType);
+        void setSupportIndirectCommandBuffers(bool supportIndirectCommandBuffers);
 
-    void                              setTessellationFactorFormat(MTL::TessellationFactorFormat tessellationFactorFormat);
+        void setTessellationControlPointIndexType(
+            MTL::TessellationControlPointIndexType tessellationControlPointIndexType);
 
-    void                              setTessellationFactorScaleEnabled(bool tessellationFactorScaleEnabled);
+        void setTessellationFactorFormat(MTL::TessellationFactorFormat tessellationFactorFormat);
 
-    void                              setTessellationFactorStepFunction(MTL::TessellationFactorStepFunction tessellationFactorStepFunction);
+        void setTessellationFactorScaleEnabled(bool tessellationFactorScaleEnabled);
 
-    void                              setTessellationOutputWindingOrder(MTL::Winding tessellationOutputWindingOrder);
+        void setTessellationFactorStepFunction(MTL::TessellationFactorStepFunction tessellationFactorStepFunction);
 
-    void                              setTessellationPartitionMode(MTL::TessellationPartitionMode tessellationPartitionMode);
+        void setTessellationOutputWindingOrder(MTL::Winding tessellationOutputWindingOrder);
 
-    void                              setVertexDescriptor(const MTL::VertexDescriptor* vertexDescriptor);
+        void setTessellationPartitionMode(MTL::TessellationPartitionMode tessellationPartitionMode);
 
-    void                              setVertexFunction(const MTL::Function* vertexFunction);
+        void setVertexDescriptor(const MTL::VertexDescriptor* vertexDescriptor);
 
-    void                              setVertexLinkedFunctions(const MTL::LinkedFunctions* vertexLinkedFunctions);
+        void setVertexFunction(const MTL::Function* vertexFunction);
 
-    void                              setVertexPreloadedLibraries(const NS::Array* vertexPreloadedLibraries);
+        void setVertexLinkedFunctions(const MTL::LinkedFunctions* vertexLinkedFunctions);
 
-    ShaderValidation                  shaderValidation() const;
+        void setVertexPreloadedLibraries(const NS::Array* vertexPreloadedLibraries);
 
-    PixelFormat                       stencilAttachmentPixelFormat() const;
+        ShaderValidation shaderValidation() const;
 
-    bool                              supportAddingFragmentBinaryFunctions() const;
+        PixelFormat stencilAttachmentPixelFormat() const;
 
-    bool                              supportAddingVertexBinaryFunctions() const;
+        bool supportAddingFragmentBinaryFunctions() const;
 
-    bool                              supportIndirectCommandBuffers() const;
+        bool supportAddingVertexBinaryFunctions() const;
 
-    TessellationControlPointIndexType tessellationControlPointIndexType() const;
+        bool supportIndirectCommandBuffers() const;
 
-    TessellationFactorFormat          tessellationFactorFormat() const;
+        TessellationControlPointIndexType tessellationControlPointIndexType() const;
 
-    [[deprecated("please use isTessellationFactorScaleEnabled instead")]]
-    bool                           tessellationFactorScaleEnabled() const;
+        TessellationFactorFormat tessellationFactorFormat() const;
 
-    TessellationFactorStepFunction tessellationFactorStepFunction() const;
+        [[deprecated("please use isTessellationFactorScaleEnabled instead")]]
+        bool tessellationFactorScaleEnabled() const;
 
-    Winding                        tessellationOutputWindingOrder() const;
+        TessellationFactorStepFunction tessellationFactorStepFunction() const;
 
-    TessellationPartitionMode      tessellationPartitionMode() const;
+        Winding tessellationOutputWindingOrder() const;
 
-    PipelineBufferDescriptorArray* vertexBuffers() const;
+        TessellationPartitionMode tessellationPartitionMode() const;
 
-    VertexDescriptor*              vertexDescriptor() const;
+        PipelineBufferDescriptorArray* vertexBuffers() const;
 
-    Function*                      vertexFunction() const;
+        VertexDescriptor* vertexDescriptor() const;
 
-    LinkedFunctions*               vertexLinkedFunctions() const;
+        Function* vertexFunction() const;
 
-    NS::Array*                     vertexPreloadedLibraries() const;
-};
-class RenderPipelineFunctionsDescriptor : public NS::Copying<RenderPipelineFunctionsDescriptor>
-{
-public:
-    static RenderPipelineFunctionsDescriptor* alloc();
+        LinkedFunctions* vertexLinkedFunctions() const;
 
-    NS::Array*                                fragmentAdditionalBinaryFunctions() const;
+        NS::Array* vertexPreloadedLibraries() const;
+    };
+    class RenderPipelineFunctionsDescriptor : public NS::Copying<RenderPipelineFunctionsDescriptor>
+    {
+    public:
+        static RenderPipelineFunctionsDescriptor* alloc();
 
-    RenderPipelineFunctionsDescriptor*        init();
+        NS::Array* fragmentAdditionalBinaryFunctions() const;
 
-    void                                      setFragmentAdditionalBinaryFunctions(const NS::Array* fragmentAdditionalBinaryFunctions);
+        RenderPipelineFunctionsDescriptor* init();
 
-    void                                      setTileAdditionalBinaryFunctions(const NS::Array* tileAdditionalBinaryFunctions);
+        void setFragmentAdditionalBinaryFunctions(const NS::Array* fragmentAdditionalBinaryFunctions);
 
-    void                                      setVertexAdditionalBinaryFunctions(const NS::Array* vertexAdditionalBinaryFunctions);
+        void setTileAdditionalBinaryFunctions(const NS::Array* tileAdditionalBinaryFunctions);
 
-    NS::Array*                                tileAdditionalBinaryFunctions() const;
+        void setVertexAdditionalBinaryFunctions(const NS::Array* vertexAdditionalBinaryFunctions);
 
-    NS::Array*                                vertexAdditionalBinaryFunctions() const;
-};
-class RenderPipelineState : public NS::Referencing<RenderPipelineState, Allocation>
-{
-public:
-    Device*                    device() const;
+        NS::Array* tileAdditionalBinaryFunctions() const;
 
-    FunctionHandle*            functionHandle(const NS::String* name, MTL::RenderStages stage);
-    FunctionHandle*            functionHandle(const MTL4::BinaryFunction* function, MTL::RenderStages stage);
-    FunctionHandle*            functionHandle(const MTL::Function* function, MTL::RenderStages stage);
+        NS::Array* vertexAdditionalBinaryFunctions() const;
+    };
+    class RenderPipelineState : public NS::Referencing<RenderPipelineState, Allocation>
+    {
+    public:
+        Device* device() const;
 
-    ResourceID                 gpuResourceID() const;
+        FunctionHandle* functionHandle(const NS::String* name, MTL::RenderStages stage);
+        FunctionHandle* functionHandle(const MTL4::BinaryFunction* function, MTL::RenderStages stage);
+        FunctionHandle* functionHandle(const MTL::Function* function, MTL::RenderStages stage);
 
-    NS::UInteger               imageblockMemoryLength(MTL::Size imageblockDimensions);
+        ResourceID gpuResourceID() const;
 
-    NS::UInteger               imageblockSampleLength() const;
+        NS::UInteger imageblockMemoryLength(MTL::Size imageblockDimensions);
 
-    NS::String*                label() const;
+        NS::UInteger imageblockSampleLength() const;
 
-    NS::UInteger               maxTotalThreadgroupsPerMeshGrid() const;
+        NS::String* label() const;
 
-    NS::UInteger               maxTotalThreadsPerMeshThreadgroup() const;
+        NS::UInteger maxTotalThreadgroupsPerMeshGrid() const;
 
-    NS::UInteger               maxTotalThreadsPerObjectThreadgroup() const;
+        NS::UInteger maxTotalThreadsPerMeshThreadgroup() const;
 
-    NS::UInteger               maxTotalThreadsPerThreadgroup() const;
+        NS::UInteger maxTotalThreadsPerObjectThreadgroup() const;
 
-    NS::UInteger               meshThreadExecutionWidth() const;
+        NS::UInteger maxTotalThreadsPerThreadgroup() const;
 
-    IntersectionFunctionTable* newIntersectionFunctionTable(const MTL::IntersectionFunctionTableDescriptor* descriptor, MTL::RenderStages stage);
+        NS::UInteger meshThreadExecutionWidth() const;
 
-    MTL4::PipelineDescriptor*  newRenderPipelineDescriptor();
+        IntersectionFunctionTable* newIntersectionFunctionTable(
+            const MTL::IntersectionFunctionTableDescriptor* descriptor, MTL::RenderStages stage);
 
-    RenderPipelineState*       newRenderPipelineState(const MTL4::RenderPipelineBinaryFunctionsDescriptor* binaryFunctionsDescriptor, NS::Error** error);
-    RenderPipelineState*       newRenderPipelineState(const MTL::RenderPipelineFunctionsDescriptor* additionalBinaryFunctions, NS::Error** error);
+        MTL4::PipelineDescriptor* newRenderPipelineDescriptor();
 
-    VisibleFunctionTable*      newVisibleFunctionTable(const MTL::VisibleFunctionTableDescriptor* descriptor, MTL::RenderStages stage);
+        RenderPipelineState* newRenderPipelineState(
+            const MTL4::RenderPipelineBinaryFunctionsDescriptor* binaryFunctionsDescriptor, NS::Error** error);
+        RenderPipelineState* newRenderPipelineState(
+            const MTL::RenderPipelineFunctionsDescriptor* additionalBinaryFunctions, NS::Error** error);
 
-    NS::UInteger               objectThreadExecutionWidth() const;
+        VisibleFunctionTable* newVisibleFunctionTable(const MTL::VisibleFunctionTableDescriptor* descriptor,
+                                                      MTL::RenderStages                          stage);
 
-    RenderPipelineReflection*  reflection() const;
+        NS::UInteger objectThreadExecutionWidth() const;
 
-    Size                       requiredThreadsPerMeshThreadgroup() const;
+        RenderPipelineReflection* reflection() const;
 
-    Size                       requiredThreadsPerObjectThreadgroup() const;
+        Size requiredThreadsPerMeshThreadgroup() const;
 
-    Size                       requiredThreadsPerTileThreadgroup() const;
+        Size requiredThreadsPerObjectThreadgroup() const;
 
-    ShaderValidation           shaderValidation() const;
+        Size requiredThreadsPerTileThreadgroup() const;
 
-    bool                       supportIndirectCommandBuffers() const;
+        ShaderValidation shaderValidation() const;
 
-    bool                       threadgroupSizeMatchesTileSize() const;
-};
-class RenderPipelineColorAttachmentDescriptorArray : public NS::Referencing<RenderPipelineColorAttachmentDescriptorArray>
-{
-public:
-    static RenderPipelineColorAttachmentDescriptorArray* alloc();
+        bool supportIndirectCommandBuffers() const;
 
-    RenderPipelineColorAttachmentDescriptorArray*        init();
+        bool threadgroupSizeMatchesTileSize() const;
+    };
+    class RenderPipelineColorAttachmentDescriptorArray
+        : public NS::Referencing<RenderPipelineColorAttachmentDescriptorArray>
+    {
+    public:
+        static RenderPipelineColorAttachmentDescriptorArray* alloc();
 
-    RenderPipelineColorAttachmentDescriptor*             object(NS::UInteger attachmentIndex);
-    void                                                 setObject(const MTL::RenderPipelineColorAttachmentDescriptor* attachment, NS::UInteger attachmentIndex);
-};
-class TileRenderPipelineColorAttachmentDescriptor : public NS::Copying<TileRenderPipelineColorAttachmentDescriptor>
-{
-public:
-    static TileRenderPipelineColorAttachmentDescriptor* alloc();
+        RenderPipelineColorAttachmentDescriptorArray* init();
 
-    TileRenderPipelineColorAttachmentDescriptor*        init();
+        RenderPipelineColorAttachmentDescriptor* object(NS::UInteger attachmentIndex);
+        void setObject(const MTL::RenderPipelineColorAttachmentDescriptor* attachment, NS::UInteger attachmentIndex);
+    };
+    class TileRenderPipelineColorAttachmentDescriptor : public NS::Copying<TileRenderPipelineColorAttachmentDescriptor>
+    {
+    public:
+        static TileRenderPipelineColorAttachmentDescriptor* alloc();
 
-    PixelFormat                                         pixelFormat() const;
-    void                                                setPixelFormat(MTL::PixelFormat pixelFormat);
-};
-class TileRenderPipelineColorAttachmentDescriptorArray : public NS::Referencing<TileRenderPipelineColorAttachmentDescriptorArray>
-{
-public:
-    static TileRenderPipelineColorAttachmentDescriptorArray* alloc();
+        TileRenderPipelineColorAttachmentDescriptor* init();
 
-    TileRenderPipelineColorAttachmentDescriptorArray*        init();
+        PixelFormat pixelFormat() const;
+        void        setPixelFormat(MTL::PixelFormat pixelFormat);
+    };
+    class TileRenderPipelineColorAttachmentDescriptorArray
+        : public NS::Referencing<TileRenderPipelineColorAttachmentDescriptorArray>
+    {
+    public:
+        static TileRenderPipelineColorAttachmentDescriptorArray* alloc();
 
-    TileRenderPipelineColorAttachmentDescriptor*             object(NS::UInteger attachmentIndex);
-    void                                                     setObject(const MTL::TileRenderPipelineColorAttachmentDescriptor* attachment, NS::UInteger attachmentIndex);
-};
-class TileRenderPipelineDescriptor : public NS::Copying<TileRenderPipelineDescriptor>
-{
-public:
-    static TileRenderPipelineDescriptor*              alloc();
+        TileRenderPipelineColorAttachmentDescriptorArray* init();
 
-    NS::Array*                                        binaryArchives() const;
+        TileRenderPipelineColorAttachmentDescriptor* object(NS::UInteger attachmentIndex);
+        void setObject(const MTL::TileRenderPipelineColorAttachmentDescriptor* attachment,
+                       NS::UInteger                                            attachmentIndex);
+    };
+    class TileRenderPipelineDescriptor : public NS::Copying<TileRenderPipelineDescriptor>
+    {
+    public:
+        static TileRenderPipelineDescriptor* alloc();
 
-    TileRenderPipelineColorAttachmentDescriptorArray* colorAttachments() const;
+        NS::Array* binaryArchives() const;
 
-    TileRenderPipelineDescriptor*                     init();
+        TileRenderPipelineColorAttachmentDescriptorArray* colorAttachments() const;
 
-    NS::String*                                       label() const;
+        TileRenderPipelineDescriptor* init();
 
-    LinkedFunctions*                                  linkedFunctions() const;
+        NS::String* label() const;
 
-    NS::UInteger                                      maxCallStackDepth() const;
+        LinkedFunctions* linkedFunctions() const;
 
-    NS::UInteger                                      maxTotalThreadsPerThreadgroup() const;
+        NS::UInteger maxCallStackDepth() const;
 
-    NS::Array*                                        preloadedLibraries() const;
+        NS::UInteger maxTotalThreadsPerThreadgroup() const;
 
-    NS::UInteger                                      rasterSampleCount() const;
+        NS::Array* preloadedLibraries() const;
 
-    Size                                              requiredThreadsPerThreadgroup() const;
+        NS::UInteger rasterSampleCount() const;
 
-    void                                              reset();
+        Size requiredThreadsPerThreadgroup() const;
 
-    void                                              setBinaryArchives(const NS::Array* binaryArchives);
+        void reset();
 
-    void                                              setLabel(const NS::String* label);
+        void setBinaryArchives(const NS::Array* binaryArchives);
 
-    void                                              setLinkedFunctions(const MTL::LinkedFunctions* linkedFunctions);
+        void setLabel(const NS::String* label);
 
-    void                                              setMaxCallStackDepth(NS::UInteger maxCallStackDepth);
+        void setLinkedFunctions(const MTL::LinkedFunctions* linkedFunctions);
 
-    void                                              setMaxTotalThreadsPerThreadgroup(NS::UInteger maxTotalThreadsPerThreadgroup);
+        void setMaxCallStackDepth(NS::UInteger maxCallStackDepth);
 
-    void                                              setPreloadedLibraries(const NS::Array* preloadedLibraries);
+        void setMaxTotalThreadsPerThreadgroup(NS::UInteger maxTotalThreadsPerThreadgroup);
 
-    void                                              setRasterSampleCount(NS::UInteger rasterSampleCount);
+        void setPreloadedLibraries(const NS::Array* preloadedLibraries);
 
-    void                                              setRequiredThreadsPerThreadgroup(MTL::Size requiredThreadsPerThreadgroup);
+        void setRasterSampleCount(NS::UInteger rasterSampleCount);
 
-    void                                              setShaderValidation(MTL::ShaderValidation shaderValidation);
+        void setRequiredThreadsPerThreadgroup(MTL::Size requiredThreadsPerThreadgroup);
 
-    void                                              setSupportAddingBinaryFunctions(bool supportAddingBinaryFunctions);
+        void setShaderValidation(MTL::ShaderValidation shaderValidation);
 
-    void                                              setThreadgroupSizeMatchesTileSize(bool threadgroupSizeMatchesTileSize);
+        void setSupportAddingBinaryFunctions(bool supportAddingBinaryFunctions);
 
-    void                                              setTileFunction(const MTL::Function* tileFunction);
+        void setThreadgroupSizeMatchesTileSize(bool threadgroupSizeMatchesTileSize);
 
-    ShaderValidation                                  shaderValidation() const;
+        void setTileFunction(const MTL::Function* tileFunction);
 
-    bool                                              supportAddingBinaryFunctions() const;
+        ShaderValidation shaderValidation() const;
 
-    bool                                              threadgroupSizeMatchesTileSize() const;
+        bool supportAddingBinaryFunctions() const;
 
-    PipelineBufferDescriptorArray*                    tileBuffers() const;
+        bool threadgroupSizeMatchesTileSize() const;
 
-    Function*                                         tileFunction() const;
-};
-class MeshRenderPipelineDescriptor : public NS::Copying<MeshRenderPipelineDescriptor>
-{
-public:
-    static MeshRenderPipelineDescriptor* alloc();
+        PipelineBufferDescriptorArray* tileBuffers() const;
 
-    [[deprecated("please use isAlphaToCoverageEnabled instead")]]
-    bool alphaToCoverageEnabled() const;
+        Function* tileFunction() const;
+    };
+    class MeshRenderPipelineDescriptor : public NS::Copying<MeshRenderPipelineDescriptor>
+    {
+    public:
+        static MeshRenderPipelineDescriptor* alloc();
 
-    [[deprecated("please use isAlphaToOneEnabled instead")]]
-    bool                                          alphaToOneEnabled() const;
+        [[deprecated("please use isAlphaToCoverageEnabled instead")]]
+        bool alphaToCoverageEnabled() const;
 
-    NS::Array*                                    binaryArchives() const;
+        [[deprecated("please use isAlphaToOneEnabled instead")]]
+        bool alphaToOneEnabled() const;
 
-    RenderPipelineColorAttachmentDescriptorArray* colorAttachments() const;
+        NS::Array* binaryArchives() const;
 
-    PixelFormat                                   depthAttachmentPixelFormat() const;
+        RenderPipelineColorAttachmentDescriptorArray* colorAttachments() const;
 
-    PipelineBufferDescriptorArray*                fragmentBuffers() const;
+        PixelFormat depthAttachmentPixelFormat() const;
 
-    Function*                                     fragmentFunction() const;
+        PipelineBufferDescriptorArray* fragmentBuffers() const;
 
-    LinkedFunctions*                              fragmentLinkedFunctions() const;
+        Function* fragmentFunction() const;
 
-    MeshRenderPipelineDescriptor*                 init();
+        LinkedFunctions* fragmentLinkedFunctions() const;
 
-    bool                                          isAlphaToCoverageEnabled() const;
+        MeshRenderPipelineDescriptor* init();
 
-    bool                                          isAlphaToOneEnabled() const;
+        bool isAlphaToCoverageEnabled() const;
 
-    bool                                          isRasterizationEnabled() const;
+        bool isAlphaToOneEnabled() const;
 
-    NS::String*                                   label() const;
+        bool isRasterizationEnabled() const;
 
-    NS::UInteger                                  maxTotalThreadgroupsPerMeshGrid() const;
+        NS::String* label() const;
 
-    NS::UInteger                                  maxTotalThreadsPerMeshThreadgroup() const;
+        NS::UInteger maxTotalThreadgroupsPerMeshGrid() const;
 
-    NS::UInteger                                  maxTotalThreadsPerObjectThreadgroup() const;
+        NS::UInteger maxTotalThreadsPerMeshThreadgroup() const;
 
-    NS::UInteger                                  maxVertexAmplificationCount() const;
+        NS::UInteger maxTotalThreadsPerObjectThreadgroup() const;
 
-    PipelineBufferDescriptorArray*                meshBuffers() const;
+        NS::UInteger maxVertexAmplificationCount() const;
 
-    Function*                                     meshFunction() const;
+        PipelineBufferDescriptorArray* meshBuffers() const;
 
-    LinkedFunctions*                              meshLinkedFunctions() const;
+        Function* meshFunction() const;
 
-    bool                                          meshThreadgroupSizeIsMultipleOfThreadExecutionWidth() const;
+        LinkedFunctions* meshLinkedFunctions() const;
 
-    PipelineBufferDescriptorArray*                objectBuffers() const;
+        bool meshThreadgroupSizeIsMultipleOfThreadExecutionWidth() const;
 
-    Function*                                     objectFunction() const;
+        PipelineBufferDescriptorArray* objectBuffers() const;
 
-    LinkedFunctions*                              objectLinkedFunctions() const;
+        Function* objectFunction() const;
 
-    bool                                          objectThreadgroupSizeIsMultipleOfThreadExecutionWidth() const;
+        LinkedFunctions* objectLinkedFunctions() const;
 
-    NS::UInteger                                  payloadMemoryLength() const;
+        bool objectThreadgroupSizeIsMultipleOfThreadExecutionWidth() const;
 
-    NS::UInteger                                  rasterSampleCount() const;
+        NS::UInteger payloadMemoryLength() const;
 
-    [[deprecated("please use isRasterizationEnabled instead")]]
-    bool             rasterizationEnabled() const;
+        NS::UInteger rasterSampleCount() const;
 
-    Size             requiredThreadsPerMeshThreadgroup() const;
+        [[deprecated("please use isRasterizationEnabled instead")]]
+        bool rasterizationEnabled() const;
 
-    Size             requiredThreadsPerObjectThreadgroup() const;
+        Size requiredThreadsPerMeshThreadgroup() const;
 
-    void             reset();
+        Size requiredThreadsPerObjectThreadgroup() const;
 
-    void             setAlphaToCoverageEnabled(bool alphaToCoverageEnabled);
+        void reset();
 
-    void             setAlphaToOneEnabled(bool alphaToOneEnabled);
+        void setAlphaToCoverageEnabled(bool alphaToCoverageEnabled);
 
-    void             setBinaryArchives(const NS::Array* binaryArchives);
+        void setAlphaToOneEnabled(bool alphaToOneEnabled);
 
-    void             setDepthAttachmentPixelFormat(MTL::PixelFormat depthAttachmentPixelFormat);
+        void setBinaryArchives(const NS::Array* binaryArchives);
 
-    void             setFragmentFunction(const MTL::Function* fragmentFunction);
+        void setDepthAttachmentPixelFormat(MTL::PixelFormat depthAttachmentPixelFormat);
 
-    void             setFragmentLinkedFunctions(const MTL::LinkedFunctions* fragmentLinkedFunctions);
+        void setFragmentFunction(const MTL::Function* fragmentFunction);
 
-    void             setLabel(const NS::String* label);
+        void setFragmentLinkedFunctions(const MTL::LinkedFunctions* fragmentLinkedFunctions);
 
-    void             setMaxTotalThreadgroupsPerMeshGrid(NS::UInteger maxTotalThreadgroupsPerMeshGrid);
+        void setLabel(const NS::String* label);
 
-    void             setMaxTotalThreadsPerMeshThreadgroup(NS::UInteger maxTotalThreadsPerMeshThreadgroup);
+        void setMaxTotalThreadgroupsPerMeshGrid(NS::UInteger maxTotalThreadgroupsPerMeshGrid);
 
-    void             setMaxTotalThreadsPerObjectThreadgroup(NS::UInteger maxTotalThreadsPerObjectThreadgroup);
+        void setMaxTotalThreadsPerMeshThreadgroup(NS::UInteger maxTotalThreadsPerMeshThreadgroup);
 
-    void             setMaxVertexAmplificationCount(NS::UInteger maxVertexAmplificationCount);
+        void setMaxTotalThreadsPerObjectThreadgroup(NS::UInteger maxTotalThreadsPerObjectThreadgroup);
 
-    void             setMeshFunction(const MTL::Function* meshFunction);
+        void setMaxVertexAmplificationCount(NS::UInteger maxVertexAmplificationCount);
 
-    void             setMeshLinkedFunctions(const MTL::LinkedFunctions* meshLinkedFunctions);
+        void setMeshFunction(const MTL::Function* meshFunction);
 
-    void             setMeshThreadgroupSizeIsMultipleOfThreadExecutionWidth(bool meshThreadgroupSizeIsMultipleOfThreadExecutionWidth);
+        void setMeshLinkedFunctions(const MTL::LinkedFunctions* meshLinkedFunctions);
 
-    void             setObjectFunction(const MTL::Function* objectFunction);
+        void setMeshThreadgroupSizeIsMultipleOfThreadExecutionWidth(
+            bool meshThreadgroupSizeIsMultipleOfThreadExecutionWidth);
 
-    void             setObjectLinkedFunctions(const MTL::LinkedFunctions* objectLinkedFunctions);
+        void setObjectFunction(const MTL::Function* objectFunction);
 
-    void             setObjectThreadgroupSizeIsMultipleOfThreadExecutionWidth(bool objectThreadgroupSizeIsMultipleOfThreadExecutionWidth);
+        void setObjectLinkedFunctions(const MTL::LinkedFunctions* objectLinkedFunctions);
 
-    void             setPayloadMemoryLength(NS::UInteger payloadMemoryLength);
+        void setObjectThreadgroupSizeIsMultipleOfThreadExecutionWidth(
+            bool objectThreadgroupSizeIsMultipleOfThreadExecutionWidth);
 
-    void             setRasterSampleCount(NS::UInteger rasterSampleCount);
+        void setPayloadMemoryLength(NS::UInteger payloadMemoryLength);
 
-    void             setRasterizationEnabled(bool rasterizationEnabled);
+        void setRasterSampleCount(NS::UInteger rasterSampleCount);
 
-    void             setRequiredThreadsPerMeshThreadgroup(MTL::Size requiredThreadsPerMeshThreadgroup);
+        void setRasterizationEnabled(bool rasterizationEnabled);
 
-    void             setRequiredThreadsPerObjectThreadgroup(MTL::Size requiredThreadsPerObjectThreadgroup);
+        void setRequiredThreadsPerMeshThreadgroup(MTL::Size requiredThreadsPerMeshThreadgroup);
 
-    void             setShaderValidation(MTL::ShaderValidation shaderValidation);
+        void setRequiredThreadsPerObjectThreadgroup(MTL::Size requiredThreadsPerObjectThreadgroup);
 
-    void             setStencilAttachmentPixelFormat(MTL::PixelFormat stencilAttachmentPixelFormat);
+        void setShaderValidation(MTL::ShaderValidation shaderValidation);
 
-    void             setSupportIndirectCommandBuffers(bool supportIndirectCommandBuffers);
+        void setStencilAttachmentPixelFormat(MTL::PixelFormat stencilAttachmentPixelFormat);
 
-    ShaderValidation shaderValidation() const;
+        void setSupportIndirectCommandBuffers(bool supportIndirectCommandBuffers);
 
-    PixelFormat      stencilAttachmentPixelFormat() const;
+        ShaderValidation shaderValidation() const;
 
-    bool             supportIndirectCommandBuffers() const;
-};
+        PixelFormat stencilAttachmentPixelFormat() const;
 
-}
+        bool supportIndirectCommandBuffers() const;
+    };
+
+} // namespace MTL
 _MTL_INLINE MTL::RenderPipelineColorAttachmentDescriptor* MTL::RenderPipelineColorAttachmentDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL::RenderPipelineColorAttachmentDescriptor>(_MTL_PRIVATE_CLS(MTLRenderPipelineColorAttachmentDescriptor));
+    return NS::Object::alloc<MTL::RenderPipelineColorAttachmentDescriptor>(
+        _MTL_PRIVATE_CLS(MTLRenderPipelineColorAttachmentDescriptor));
 }
 
 _MTL_INLINE MTL::BlendOperation MTL::RenderPipelineColorAttachmentDescriptor::alphaBlendOperation() const
@@ -705,7 +712,8 @@ _MTL_INLINE MTL::BlendOperation MTL::RenderPipelineColorAttachmentDescriptor::rg
     return Object::sendMessage<MTL::BlendOperation>(this, _MTL_PRIVATE_SEL(rgbBlendOperation));
 }
 
-_MTL_INLINE void MTL::RenderPipelineColorAttachmentDescriptor::setAlphaBlendOperation(MTL::BlendOperation alphaBlendOperation)
+_MTL_INLINE void MTL::RenderPipelineColorAttachmentDescriptor::setAlphaBlendOperation(
+    MTL::BlendOperation alphaBlendOperation)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setAlphaBlendOperation_), alphaBlendOperation);
 }
@@ -715,12 +723,14 @@ _MTL_INLINE void MTL::RenderPipelineColorAttachmentDescriptor::setBlendingEnable
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setBlendingEnabled_), blendingEnabled);
 }
 
-_MTL_INLINE void MTL::RenderPipelineColorAttachmentDescriptor::setDestinationAlphaBlendFactor(MTL::BlendFactor destinationAlphaBlendFactor)
+_MTL_INLINE void MTL::RenderPipelineColorAttachmentDescriptor::setDestinationAlphaBlendFactor(
+    MTL::BlendFactor destinationAlphaBlendFactor)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setDestinationAlphaBlendFactor_), destinationAlphaBlendFactor);
 }
 
-_MTL_INLINE void MTL::RenderPipelineColorAttachmentDescriptor::setDestinationRGBBlendFactor(MTL::BlendFactor destinationRGBBlendFactor)
+_MTL_INLINE void MTL::RenderPipelineColorAttachmentDescriptor::setDestinationRGBBlendFactor(
+    MTL::BlendFactor destinationRGBBlendFactor)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setDestinationRGBBlendFactor_), destinationRGBBlendFactor);
 }
@@ -730,17 +740,20 @@ _MTL_INLINE void MTL::RenderPipelineColorAttachmentDescriptor::setPixelFormat(MT
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setPixelFormat_), pixelFormat);
 }
 
-_MTL_INLINE void MTL::RenderPipelineColorAttachmentDescriptor::setRgbBlendOperation(MTL::BlendOperation rgbBlendOperation)
+_MTL_INLINE void MTL::RenderPipelineColorAttachmentDescriptor::setRgbBlendOperation(
+    MTL::BlendOperation rgbBlendOperation)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setRgbBlendOperation_), rgbBlendOperation);
 }
 
-_MTL_INLINE void MTL::RenderPipelineColorAttachmentDescriptor::setSourceAlphaBlendFactor(MTL::BlendFactor sourceAlphaBlendFactor)
+_MTL_INLINE void MTL::RenderPipelineColorAttachmentDescriptor::setSourceAlphaBlendFactor(
+    MTL::BlendFactor sourceAlphaBlendFactor)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setSourceAlphaBlendFactor_), sourceAlphaBlendFactor);
 }
 
-_MTL_INLINE void MTL::RenderPipelineColorAttachmentDescriptor::setSourceRGBBlendFactor(MTL::BlendFactor sourceRGBBlendFactor)
+_MTL_INLINE void MTL::RenderPipelineColorAttachmentDescriptor::setSourceRGBBlendFactor(
+    MTL::BlendFactor sourceRGBBlendFactor)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setSourceRGBBlendFactor_), sourceRGBBlendFactor);
 }
@@ -767,7 +780,8 @@ _MTL_INLINE MTL::ColorWriteMask MTL::RenderPipelineColorAttachmentDescriptor::wr
 
 _MTL_INLINE MTL::LogicalToPhysicalColorAttachmentMap* MTL::LogicalToPhysicalColorAttachmentMap::alloc()
 {
-    return NS::Object::alloc<MTL::LogicalToPhysicalColorAttachmentMap>(_MTL_PRIVATE_CLS(MTLLogicalToPhysicalColorAttachmentMap));
+    return NS::Object::alloc<MTL::LogicalToPhysicalColorAttachmentMap>(
+        _MTL_PRIVATE_CLS(MTLLogicalToPhysicalColorAttachmentMap));
 }
 
 _MTL_INLINE NS::UInteger MTL::LogicalToPhysicalColorAttachmentMap::getPhysicalIndex(NS::UInteger logicalIndex)
@@ -785,7 +799,8 @@ _MTL_INLINE void MTL::LogicalToPhysicalColorAttachmentMap::reset()
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(reset));
 }
 
-_MTL_INLINE void MTL::LogicalToPhysicalColorAttachmentMap::setPhysicalIndex(NS::UInteger physicalIndex, NS::UInteger logicalIndex)
+_MTL_INLINE void MTL::LogicalToPhysicalColorAttachmentMap::setPhysicalIndex(NS::UInteger physicalIndex,
+                                                                            NS::UInteger logicalIndex)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setPhysicalIndex_forLogicalIndex_), physicalIndex, logicalIndex);
 }
@@ -862,7 +877,8 @@ _MTL_INLINE NS::Array* MTL::RenderPipelineDescriptor::binaryArchives() const
 
 _MTL_INLINE MTL::RenderPipelineColorAttachmentDescriptorArray* MTL::RenderPipelineDescriptor::colorAttachments() const
 {
-    return Object::sendMessage<MTL::RenderPipelineColorAttachmentDescriptorArray*>(this, _MTL_PRIVATE_SEL(colorAttachments));
+    return Object::sendMessage<MTL::RenderPipelineColorAttachmentDescriptorArray*>(this,
+                                                                                   _MTL_PRIVATE_SEL(colorAttachments));
 }
 
 _MTL_INLINE MTL::PixelFormat MTL::RenderPipelineDescriptor::depthAttachmentPixelFormat() const
@@ -955,10 +971,7 @@ _MTL_INLINE bool MTL::RenderPipelineDescriptor::rasterizationEnabled() const
     return Object::sendMessage<bool>(this, _MTL_PRIVATE_SEL(isRasterizationEnabled));
 }
 
-_MTL_INLINE void MTL::RenderPipelineDescriptor::reset()
-{
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(reset));
-}
+_MTL_INLINE void MTL::RenderPipelineDescriptor::reset() { Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(reset)); }
 
 _MTL_INLINE NS::UInteger MTL::RenderPipelineDescriptor::sampleCount() const
 {
@@ -980,7 +993,8 @@ _MTL_INLINE void MTL::RenderPipelineDescriptor::setBinaryArchives(const NS::Arra
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setBinaryArchives_), binaryArchives);
 }
 
-_MTL_INLINE void MTL::RenderPipelineDescriptor::setDepthAttachmentPixelFormat(MTL::PixelFormat depthAttachmentPixelFormat)
+_MTL_INLINE void MTL::RenderPipelineDescriptor::setDepthAttachmentPixelFormat(
+    MTL::PixelFormat depthAttachmentPixelFormat)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setDepthAttachmentPixelFormat_), depthAttachmentPixelFormat);
 }
@@ -990,17 +1004,20 @@ _MTL_INLINE void MTL::RenderPipelineDescriptor::setFragmentFunction(const MTL::F
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setFragmentFunction_), fragmentFunction);
 }
 
-_MTL_INLINE void MTL::RenderPipelineDescriptor::setFragmentLinkedFunctions(const MTL::LinkedFunctions* fragmentLinkedFunctions)
+_MTL_INLINE void MTL::RenderPipelineDescriptor::setFragmentLinkedFunctions(
+    const MTL::LinkedFunctions* fragmentLinkedFunctions)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setFragmentLinkedFunctions_), fragmentLinkedFunctions);
 }
 
-_MTL_INLINE void MTL::RenderPipelineDescriptor::setFragmentPreloadedLibraries(const NS::Array* fragmentPreloadedLibraries)
+_MTL_INLINE void MTL::RenderPipelineDescriptor::setFragmentPreloadedLibraries(
+    const NS::Array* fragmentPreloadedLibraries)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setFragmentPreloadedLibraries_), fragmentPreloadedLibraries);
 }
 
-_MTL_INLINE void MTL::RenderPipelineDescriptor::setInputPrimitiveTopology(MTL::PrimitiveTopologyClass inputPrimitiveTopology)
+_MTL_INLINE void MTL::RenderPipelineDescriptor::setInputPrimitiveTopology(
+    MTL::PrimitiveTopologyClass inputPrimitiveTopology)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setInputPrimitiveTopology_), inputPrimitiveTopology);
 }
@@ -1050,19 +1067,24 @@ _MTL_INLINE void MTL::RenderPipelineDescriptor::setShaderValidation(MTL::ShaderV
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setShaderValidation_), shaderValidation);
 }
 
-_MTL_INLINE void MTL::RenderPipelineDescriptor::setStencilAttachmentPixelFormat(MTL::PixelFormat stencilAttachmentPixelFormat)
+_MTL_INLINE void MTL::RenderPipelineDescriptor::setStencilAttachmentPixelFormat(
+    MTL::PixelFormat stencilAttachmentPixelFormat)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setStencilAttachmentPixelFormat_), stencilAttachmentPixelFormat);
 }
 
-_MTL_INLINE void MTL::RenderPipelineDescriptor::setSupportAddingFragmentBinaryFunctions(bool supportAddingFragmentBinaryFunctions)
+_MTL_INLINE void MTL::RenderPipelineDescriptor::setSupportAddingFragmentBinaryFunctions(
+    bool supportAddingFragmentBinaryFunctions)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setSupportAddingFragmentBinaryFunctions_), supportAddingFragmentBinaryFunctions);
+    Object::sendMessage<void>(
+        this, _MTL_PRIVATE_SEL(setSupportAddingFragmentBinaryFunctions_), supportAddingFragmentBinaryFunctions);
 }
 
-_MTL_INLINE void MTL::RenderPipelineDescriptor::setSupportAddingVertexBinaryFunctions(bool supportAddingVertexBinaryFunctions)
+_MTL_INLINE void MTL::RenderPipelineDescriptor::setSupportAddingVertexBinaryFunctions(
+    bool supportAddingVertexBinaryFunctions)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setSupportAddingVertexBinaryFunctions_), supportAddingVertexBinaryFunctions);
+    Object::sendMessage<void>(
+        this, _MTL_PRIVATE_SEL(setSupportAddingVertexBinaryFunctions_), supportAddingVertexBinaryFunctions);
 }
 
 _MTL_INLINE void MTL::RenderPipelineDescriptor::setSupportIndirectCommandBuffers(bool supportIndirectCommandBuffers)
@@ -1070,32 +1092,41 @@ _MTL_INLINE void MTL::RenderPipelineDescriptor::setSupportIndirectCommandBuffers
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setSupportIndirectCommandBuffers_), supportIndirectCommandBuffers);
 }
 
-_MTL_INLINE void MTL::RenderPipelineDescriptor::setTessellationControlPointIndexType(MTL::TessellationControlPointIndexType tessellationControlPointIndexType)
+_MTL_INLINE void MTL::RenderPipelineDescriptor::setTessellationControlPointIndexType(
+    MTL::TessellationControlPointIndexType tessellationControlPointIndexType)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setTessellationControlPointIndexType_), tessellationControlPointIndexType);
+    Object::sendMessage<void>(
+        this, _MTL_PRIVATE_SEL(setTessellationControlPointIndexType_), tessellationControlPointIndexType);
 }
 
-_MTL_INLINE void MTL::RenderPipelineDescriptor::setTessellationFactorFormat(MTL::TessellationFactorFormat tessellationFactorFormat)
+_MTL_INLINE void MTL::RenderPipelineDescriptor::setTessellationFactorFormat(
+    MTL::TessellationFactorFormat tessellationFactorFormat)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setTessellationFactorFormat_), tessellationFactorFormat);
 }
 
 _MTL_INLINE void MTL::RenderPipelineDescriptor::setTessellationFactorScaleEnabled(bool tessellationFactorScaleEnabled)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setTessellationFactorScaleEnabled_), tessellationFactorScaleEnabled);
+    Object::sendMessage<void>(
+        this, _MTL_PRIVATE_SEL(setTessellationFactorScaleEnabled_), tessellationFactorScaleEnabled);
 }
 
-_MTL_INLINE void MTL::RenderPipelineDescriptor::setTessellationFactorStepFunction(MTL::TessellationFactorStepFunction tessellationFactorStepFunction)
+_MTL_INLINE void MTL::RenderPipelineDescriptor::setTessellationFactorStepFunction(
+    MTL::TessellationFactorStepFunction tessellationFactorStepFunction)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setTessellationFactorStepFunction_), tessellationFactorStepFunction);
+    Object::sendMessage<void>(
+        this, _MTL_PRIVATE_SEL(setTessellationFactorStepFunction_), tessellationFactorStepFunction);
 }
 
-_MTL_INLINE void MTL::RenderPipelineDescriptor::setTessellationOutputWindingOrder(MTL::Winding tessellationOutputWindingOrder)
+_MTL_INLINE void MTL::RenderPipelineDescriptor::setTessellationOutputWindingOrder(
+    MTL::Winding tessellationOutputWindingOrder)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setTessellationOutputWindingOrder_), tessellationOutputWindingOrder);
+    Object::sendMessage<void>(
+        this, _MTL_PRIVATE_SEL(setTessellationOutputWindingOrder_), tessellationOutputWindingOrder);
 }
 
-_MTL_INLINE void MTL::RenderPipelineDescriptor::setTessellationPartitionMode(MTL::TessellationPartitionMode tessellationPartitionMode)
+_MTL_INLINE void MTL::RenderPipelineDescriptor::setTessellationPartitionMode(
+    MTL::TessellationPartitionMode tessellationPartitionMode)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setTessellationPartitionMode_), tessellationPartitionMode);
 }
@@ -1110,7 +1141,8 @@ _MTL_INLINE void MTL::RenderPipelineDescriptor::setVertexFunction(const MTL::Fun
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setVertexFunction_), vertexFunction);
 }
 
-_MTL_INLINE void MTL::RenderPipelineDescriptor::setVertexLinkedFunctions(const MTL::LinkedFunctions* vertexLinkedFunctions)
+_MTL_INLINE void MTL::RenderPipelineDescriptor::setVertexLinkedFunctions(
+    const MTL::LinkedFunctions* vertexLinkedFunctions)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setVertexLinkedFunctions_), vertexLinkedFunctions);
 }
@@ -1145,9 +1177,11 @@ _MTL_INLINE bool MTL::RenderPipelineDescriptor::supportIndirectCommandBuffers() 
     return Object::sendMessageSafe<bool>(this, _MTL_PRIVATE_SEL(supportIndirectCommandBuffers));
 }
 
-_MTL_INLINE MTL::TessellationControlPointIndexType MTL::RenderPipelineDescriptor::tessellationControlPointIndexType() const
+_MTL_INLINE MTL::TessellationControlPointIndexType MTL::RenderPipelineDescriptor::tessellationControlPointIndexType()
+    const
 {
-    return Object::sendMessage<MTL::TessellationControlPointIndexType>(this, _MTL_PRIVATE_SEL(tessellationControlPointIndexType));
+    return Object::sendMessage<MTL::TessellationControlPointIndexType>(
+        this, _MTL_PRIVATE_SEL(tessellationControlPointIndexType));
 }
 
 _MTL_INLINE MTL::TessellationFactorFormat MTL::RenderPipelineDescriptor::tessellationFactorFormat() const
@@ -1162,7 +1196,8 @@ _MTL_INLINE bool MTL::RenderPipelineDescriptor::tessellationFactorScaleEnabled()
 
 _MTL_INLINE MTL::TessellationFactorStepFunction MTL::RenderPipelineDescriptor::tessellationFactorStepFunction() const
 {
-    return Object::sendMessage<MTL::TessellationFactorStepFunction>(this, _MTL_PRIVATE_SEL(tessellationFactorStepFunction));
+    return Object::sendMessage<MTL::TessellationFactorStepFunction>(this,
+                                                                    _MTL_PRIVATE_SEL(tessellationFactorStepFunction));
 }
 
 _MTL_INLINE MTL::Winding MTL::RenderPipelineDescriptor::tessellationOutputWindingOrder() const
@@ -1202,7 +1237,8 @@ _MTL_INLINE NS::Array* MTL::RenderPipelineDescriptor::vertexPreloadedLibraries()
 
 _MTL_INLINE MTL::RenderPipelineFunctionsDescriptor* MTL::RenderPipelineFunctionsDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL::RenderPipelineFunctionsDescriptor>(_MTL_PRIVATE_CLS(MTLRenderPipelineFunctionsDescriptor));
+    return NS::Object::alloc<MTL::RenderPipelineFunctionsDescriptor>(
+        _MTL_PRIVATE_CLS(MTLRenderPipelineFunctionsDescriptor));
 }
 
 _MTL_INLINE NS::Array* MTL::RenderPipelineFunctionsDescriptor::fragmentAdditionalBinaryFunctions() const
@@ -1215,19 +1251,24 @@ _MTL_INLINE MTL::RenderPipelineFunctionsDescriptor* MTL::RenderPipelineFunctions
     return NS::Object::init<MTL::RenderPipelineFunctionsDescriptor>();
 }
 
-_MTL_INLINE void MTL::RenderPipelineFunctionsDescriptor::setFragmentAdditionalBinaryFunctions(const NS::Array* fragmentAdditionalBinaryFunctions)
+_MTL_INLINE void MTL::RenderPipelineFunctionsDescriptor::setFragmentAdditionalBinaryFunctions(
+    const NS::Array* fragmentAdditionalBinaryFunctions)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setFragmentAdditionalBinaryFunctions_), fragmentAdditionalBinaryFunctions);
+    Object::sendMessage<void>(
+        this, _MTL_PRIVATE_SEL(setFragmentAdditionalBinaryFunctions_), fragmentAdditionalBinaryFunctions);
 }
 
-_MTL_INLINE void MTL::RenderPipelineFunctionsDescriptor::setTileAdditionalBinaryFunctions(const NS::Array* tileAdditionalBinaryFunctions)
+_MTL_INLINE void MTL::RenderPipelineFunctionsDescriptor::setTileAdditionalBinaryFunctions(
+    const NS::Array* tileAdditionalBinaryFunctions)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setTileAdditionalBinaryFunctions_), tileAdditionalBinaryFunctions);
 }
 
-_MTL_INLINE void MTL::RenderPipelineFunctionsDescriptor::setVertexAdditionalBinaryFunctions(const NS::Array* vertexAdditionalBinaryFunctions)
+_MTL_INLINE void MTL::RenderPipelineFunctionsDescriptor::setVertexAdditionalBinaryFunctions(
+    const NS::Array* vertexAdditionalBinaryFunctions)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setVertexAdditionalBinaryFunctions_), vertexAdditionalBinaryFunctions);
+    Object::sendMessage<void>(
+        this, _MTL_PRIVATE_SEL(setVertexAdditionalBinaryFunctions_), vertexAdditionalBinaryFunctions);
 }
 
 _MTL_INLINE NS::Array* MTL::RenderPipelineFunctionsDescriptor::tileAdditionalBinaryFunctions() const
@@ -1245,19 +1286,25 @@ _MTL_INLINE MTL::Device* MTL::RenderPipelineState::device() const
     return Object::sendMessage<MTL::Device*>(this, _MTL_PRIVATE_SEL(device));
 }
 
-_MTL_INLINE MTL::FunctionHandle* MTL::RenderPipelineState::functionHandle(const NS::String* name, MTL::RenderStages stage)
+_MTL_INLINE MTL::FunctionHandle* MTL::RenderPipelineState::functionHandle(const NS::String* name,
+                                                                          MTL::RenderStages stage)
 {
-    return Object::sendMessage<MTL::FunctionHandle*>(this, _MTL_PRIVATE_SEL(functionHandleWithName_stage_), name, stage);
+    return Object::sendMessage<MTL::FunctionHandle*>(
+        this, _MTL_PRIVATE_SEL(functionHandleWithName_stage_), name, stage);
 }
 
-_MTL_INLINE MTL::FunctionHandle* MTL::RenderPipelineState::functionHandle(const MTL4::BinaryFunction* function, MTL::RenderStages stage)
+_MTL_INLINE MTL::FunctionHandle* MTL::RenderPipelineState::functionHandle(const MTL4::BinaryFunction* function,
+                                                                          MTL::RenderStages           stage)
 {
-    return Object::sendMessage<MTL::FunctionHandle*>(this, _MTL_PRIVATE_SEL(functionHandleWithBinaryFunction_stage_), function, stage);
+    return Object::sendMessage<MTL::FunctionHandle*>(
+        this, _MTL_PRIVATE_SEL(functionHandleWithBinaryFunction_stage_), function, stage);
 }
 
-_MTL_INLINE MTL::FunctionHandle* MTL::RenderPipelineState::functionHandle(const MTL::Function* function, MTL::RenderStages stage)
+_MTL_INLINE MTL::FunctionHandle* MTL::RenderPipelineState::functionHandle(const MTL::Function* function,
+                                                                          MTL::RenderStages    stage)
 {
-    return Object::sendMessage<MTL::FunctionHandle*>(this, _MTL_PRIVATE_SEL(functionHandleWithFunction_stage_), function, stage);
+    return Object::sendMessage<MTL::FunctionHandle*>(
+        this, _MTL_PRIVATE_SEL(functionHandleWithFunction_stage_), function, stage);
 }
 
 _MTL_INLINE MTL::ResourceID MTL::RenderPipelineState::gpuResourceID() const
@@ -1267,7 +1314,8 @@ _MTL_INLINE MTL::ResourceID MTL::RenderPipelineState::gpuResourceID() const
 
 _MTL_INLINE NS::UInteger MTL::RenderPipelineState::imageblockMemoryLength(MTL::Size imageblockDimensions)
 {
-    return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(imageblockMemoryLengthForDimensions_), imageblockDimensions);
+    return Object::sendMessage<NS::UInteger>(
+        this, _MTL_PRIVATE_SEL(imageblockMemoryLengthForDimensions_), imageblockDimensions);
 }
 
 _MTL_INLINE NS::UInteger MTL::RenderPipelineState::imageblockSampleLength() const
@@ -1305,29 +1353,41 @@ _MTL_INLINE NS::UInteger MTL::RenderPipelineState::meshThreadExecutionWidth() co
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(meshThreadExecutionWidth));
 }
 
-_MTL_INLINE MTL::IntersectionFunctionTable* MTL::RenderPipelineState::newIntersectionFunctionTable(const MTL::IntersectionFunctionTableDescriptor* descriptor, MTL::RenderStages stage)
+_MTL_INLINE MTL::IntersectionFunctionTable* MTL::RenderPipelineState::newIntersectionFunctionTable(
+    const MTL::IntersectionFunctionTableDescriptor* descriptor, MTL::RenderStages stage)
 {
-    return Object::sendMessage<MTL::IntersectionFunctionTable*>(this, _MTL_PRIVATE_SEL(newIntersectionFunctionTableWithDescriptor_stage_), descriptor, stage);
+    return Object::sendMessage<MTL::IntersectionFunctionTable*>(
+        this, _MTL_PRIVATE_SEL(newIntersectionFunctionTableWithDescriptor_stage_), descriptor, stage);
 }
 
 _MTL_INLINE MTL4::PipelineDescriptor* MTL::RenderPipelineState::newRenderPipelineDescriptor()
 {
-    return Object::sendMessage<MTL4::PipelineDescriptor*>(this, _MTL_PRIVATE_SEL(newRenderPipelineDescriptorForSpecialization));
+    return Object::sendMessage<MTL4::PipelineDescriptor*>(
+        this, _MTL_PRIVATE_SEL(newRenderPipelineDescriptorForSpecialization));
 }
 
-_MTL_INLINE MTL::RenderPipelineState* MTL::RenderPipelineState::newRenderPipelineState(const MTL4::RenderPipelineBinaryFunctionsDescriptor* binaryFunctionsDescriptor, NS::Error** error)
+_MTL_INLINE MTL::RenderPipelineState* MTL::RenderPipelineState::newRenderPipelineState(
+    const MTL4::RenderPipelineBinaryFunctionsDescriptor* binaryFunctionsDescriptor, NS::Error** error)
 {
-    return Object::sendMessage<MTL::RenderPipelineState*>(this, _MTL_PRIVATE_SEL(newRenderPipelineStateWithBinaryFunctions_error_), binaryFunctionsDescriptor, error);
+    return Object::sendMessage<MTL::RenderPipelineState*>(
+        this, _MTL_PRIVATE_SEL(newRenderPipelineStateWithBinaryFunctions_error_), binaryFunctionsDescriptor, error);
 }
 
-_MTL_INLINE MTL::RenderPipelineState* MTL::RenderPipelineState::newRenderPipelineState(const MTL::RenderPipelineFunctionsDescriptor* additionalBinaryFunctions, NS::Error** error)
+_MTL_INLINE MTL::RenderPipelineState* MTL::RenderPipelineState::newRenderPipelineState(
+    const MTL::RenderPipelineFunctionsDescriptor* additionalBinaryFunctions, NS::Error** error)
 {
-    return Object::sendMessage<MTL::RenderPipelineState*>(this, _MTL_PRIVATE_SEL(newRenderPipelineStateWithAdditionalBinaryFunctions_error_), additionalBinaryFunctions, error);
+    return Object::sendMessage<MTL::RenderPipelineState*>(
+        this,
+        _MTL_PRIVATE_SEL(newRenderPipelineStateWithAdditionalBinaryFunctions_error_),
+        additionalBinaryFunctions,
+        error);
 }
 
-_MTL_INLINE MTL::VisibleFunctionTable* MTL::RenderPipelineState::newVisibleFunctionTable(const MTL::VisibleFunctionTableDescriptor* descriptor, MTL::RenderStages stage)
+_MTL_INLINE MTL::VisibleFunctionTable* MTL::RenderPipelineState::newVisibleFunctionTable(
+    const MTL::VisibleFunctionTableDescriptor* descriptor, MTL::RenderStages stage)
 {
-    return Object::sendMessage<MTL::VisibleFunctionTable*>(this, _MTL_PRIVATE_SEL(newVisibleFunctionTableWithDescriptor_stage_), descriptor, stage);
+    return Object::sendMessage<MTL::VisibleFunctionTable*>(
+        this, _MTL_PRIVATE_SEL(newVisibleFunctionTableWithDescriptor_stage_), descriptor, stage);
 }
 
 _MTL_INLINE NS::UInteger MTL::RenderPipelineState::objectThreadExecutionWidth() const
@@ -1370,9 +1430,11 @@ _MTL_INLINE bool MTL::RenderPipelineState::threadgroupSizeMatchesTileSize() cons
     return Object::sendMessage<bool>(this, _MTL_PRIVATE_SEL(threadgroupSizeMatchesTileSize));
 }
 
-_MTL_INLINE MTL::RenderPipelineColorAttachmentDescriptorArray* MTL::RenderPipelineColorAttachmentDescriptorArray::alloc()
+_MTL_INLINE MTL::RenderPipelineColorAttachmentDescriptorArray*
+            MTL::RenderPipelineColorAttachmentDescriptorArray::alloc()
 {
-    return NS::Object::alloc<MTL::RenderPipelineColorAttachmentDescriptorArray>(_MTL_PRIVATE_CLS(MTLRenderPipelineColorAttachmentDescriptorArray));
+    return NS::Object::alloc<MTL::RenderPipelineColorAttachmentDescriptorArray>(
+        _MTL_PRIVATE_CLS(MTLRenderPipelineColorAttachmentDescriptorArray));
 }
 
 _MTL_INLINE MTL::RenderPipelineColorAttachmentDescriptorArray* MTL::RenderPipelineColorAttachmentDescriptorArray::init()
@@ -1380,19 +1442,23 @@ _MTL_INLINE MTL::RenderPipelineColorAttachmentDescriptorArray* MTL::RenderPipeli
     return NS::Object::init<MTL::RenderPipelineColorAttachmentDescriptorArray>();
 }
 
-_MTL_INLINE MTL::RenderPipelineColorAttachmentDescriptor* MTL::RenderPipelineColorAttachmentDescriptorArray::object(NS::UInteger attachmentIndex)
+_MTL_INLINE MTL::RenderPipelineColorAttachmentDescriptor* MTL::RenderPipelineColorAttachmentDescriptorArray::object(
+    NS::UInteger attachmentIndex)
 {
-    return Object::sendMessage<MTL::RenderPipelineColorAttachmentDescriptor*>(this, _MTL_PRIVATE_SEL(objectAtIndexedSubscript_), attachmentIndex);
+    return Object::sendMessage<MTL::RenderPipelineColorAttachmentDescriptor*>(
+        this, _MTL_PRIVATE_SEL(objectAtIndexedSubscript_), attachmentIndex);
 }
 
-_MTL_INLINE void MTL::RenderPipelineColorAttachmentDescriptorArray::setObject(const MTL::RenderPipelineColorAttachmentDescriptor* attachment, NS::UInteger attachmentIndex)
+_MTL_INLINE void MTL::RenderPipelineColorAttachmentDescriptorArray::setObject(
+    const MTL::RenderPipelineColorAttachmentDescriptor* attachment, NS::UInteger attachmentIndex)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setObject_atIndexedSubscript_), attachment, attachmentIndex);
 }
 
 _MTL_INLINE MTL::TileRenderPipelineColorAttachmentDescriptor* MTL::TileRenderPipelineColorAttachmentDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL::TileRenderPipelineColorAttachmentDescriptor>(_MTL_PRIVATE_CLS(MTLTileRenderPipelineColorAttachmentDescriptor));
+    return NS::Object::alloc<MTL::TileRenderPipelineColorAttachmentDescriptor>(
+        _MTL_PRIVATE_CLS(MTLTileRenderPipelineColorAttachmentDescriptor));
 }
 
 _MTL_INLINE MTL::TileRenderPipelineColorAttachmentDescriptor* MTL::TileRenderPipelineColorAttachmentDescriptor::init()
@@ -1410,22 +1476,28 @@ _MTL_INLINE void MTL::TileRenderPipelineColorAttachmentDescriptor::setPixelForma
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setPixelFormat_), pixelFormat);
 }
 
-_MTL_INLINE MTL::TileRenderPipelineColorAttachmentDescriptorArray* MTL::TileRenderPipelineColorAttachmentDescriptorArray::alloc()
+_MTL_INLINE MTL::TileRenderPipelineColorAttachmentDescriptorArray*
+            MTL::TileRenderPipelineColorAttachmentDescriptorArray::alloc()
 {
-    return NS::Object::alloc<MTL::TileRenderPipelineColorAttachmentDescriptorArray>(_MTL_PRIVATE_CLS(MTLTileRenderPipelineColorAttachmentDescriptorArray));
+    return NS::Object::alloc<MTL::TileRenderPipelineColorAttachmentDescriptorArray>(
+        _MTL_PRIVATE_CLS(MTLTileRenderPipelineColorAttachmentDescriptorArray));
 }
 
-_MTL_INLINE MTL::TileRenderPipelineColorAttachmentDescriptorArray* MTL::TileRenderPipelineColorAttachmentDescriptorArray::init()
+_MTL_INLINE MTL::TileRenderPipelineColorAttachmentDescriptorArray*
+            MTL::TileRenderPipelineColorAttachmentDescriptorArray::init()
 {
     return NS::Object::init<MTL::TileRenderPipelineColorAttachmentDescriptorArray>();
 }
 
-_MTL_INLINE MTL::TileRenderPipelineColorAttachmentDescriptor* MTL::TileRenderPipelineColorAttachmentDescriptorArray::object(NS::UInteger attachmentIndex)
+_MTL_INLINE MTL::TileRenderPipelineColorAttachmentDescriptor*
+            MTL::TileRenderPipelineColorAttachmentDescriptorArray::object(NS::UInteger attachmentIndex)
 {
-    return Object::sendMessage<MTL::TileRenderPipelineColorAttachmentDescriptor*>(this, _MTL_PRIVATE_SEL(objectAtIndexedSubscript_), attachmentIndex);
+    return Object::sendMessage<MTL::TileRenderPipelineColorAttachmentDescriptor*>(
+        this, _MTL_PRIVATE_SEL(objectAtIndexedSubscript_), attachmentIndex);
 }
 
-_MTL_INLINE void MTL::TileRenderPipelineColorAttachmentDescriptorArray::setObject(const MTL::TileRenderPipelineColorAttachmentDescriptor* attachment, NS::UInteger attachmentIndex)
+_MTL_INLINE void MTL::TileRenderPipelineColorAttachmentDescriptorArray::setObject(
+    const MTL::TileRenderPipelineColorAttachmentDescriptor* attachment, NS::UInteger attachmentIndex)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setObject_atIndexedSubscript_), attachment, attachmentIndex);
 }
@@ -1440,9 +1512,11 @@ _MTL_INLINE NS::Array* MTL::TileRenderPipelineDescriptor::binaryArchives() const
     return Object::sendMessage<NS::Array*>(this, _MTL_PRIVATE_SEL(binaryArchives));
 }
 
-_MTL_INLINE MTL::TileRenderPipelineColorAttachmentDescriptorArray* MTL::TileRenderPipelineDescriptor::colorAttachments() const
+_MTL_INLINE MTL::TileRenderPipelineColorAttachmentDescriptorArray* MTL::TileRenderPipelineDescriptor::colorAttachments()
+    const
 {
-    return Object::sendMessage<MTL::TileRenderPipelineColorAttachmentDescriptorArray*>(this, _MTL_PRIVATE_SEL(colorAttachments));
+    return Object::sendMessage<MTL::TileRenderPipelineColorAttachmentDescriptorArray*>(
+        this, _MTL_PRIVATE_SEL(colorAttachments));
 }
 
 _MTL_INLINE MTL::TileRenderPipelineDescriptor* MTL::TileRenderPipelineDescriptor::init()
@@ -1510,7 +1584,8 @@ _MTL_INLINE void MTL::TileRenderPipelineDescriptor::setMaxCallStackDepth(NS::UIn
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMaxCallStackDepth_), maxCallStackDepth);
 }
 
-_MTL_INLINE void MTL::TileRenderPipelineDescriptor::setMaxTotalThreadsPerThreadgroup(NS::UInteger maxTotalThreadsPerThreadgroup)
+_MTL_INLINE void MTL::TileRenderPipelineDescriptor::setMaxTotalThreadsPerThreadgroup(
+    NS::UInteger maxTotalThreadsPerThreadgroup)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMaxTotalThreadsPerThreadgroup_), maxTotalThreadsPerThreadgroup);
 }
@@ -1525,7 +1600,8 @@ _MTL_INLINE void MTL::TileRenderPipelineDescriptor::setRasterSampleCount(NS::UIn
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setRasterSampleCount_), rasterSampleCount);
 }
 
-_MTL_INLINE void MTL::TileRenderPipelineDescriptor::setRequiredThreadsPerThreadgroup(MTL::Size requiredThreadsPerThreadgroup)
+_MTL_INLINE void MTL::TileRenderPipelineDescriptor::setRequiredThreadsPerThreadgroup(
+    MTL::Size requiredThreadsPerThreadgroup)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setRequiredThreadsPerThreadgroup_), requiredThreadsPerThreadgroup);
 }
@@ -1540,9 +1616,11 @@ _MTL_INLINE void MTL::TileRenderPipelineDescriptor::setSupportAddingBinaryFuncti
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setSupportAddingBinaryFunctions_), supportAddingBinaryFunctions);
 }
 
-_MTL_INLINE void MTL::TileRenderPipelineDescriptor::setThreadgroupSizeMatchesTileSize(bool threadgroupSizeMatchesTileSize)
+_MTL_INLINE void MTL::TileRenderPipelineDescriptor::setThreadgroupSizeMatchesTileSize(
+    bool threadgroupSizeMatchesTileSize)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setThreadgroupSizeMatchesTileSize_), threadgroupSizeMatchesTileSize);
+    Object::sendMessage<void>(
+        this, _MTL_PRIVATE_SEL(setThreadgroupSizeMatchesTileSize_), threadgroupSizeMatchesTileSize);
 }
 
 _MTL_INLINE void MTL::TileRenderPipelineDescriptor::setTileFunction(const MTL::Function* tileFunction)
@@ -1595,9 +1673,11 @@ _MTL_INLINE NS::Array* MTL::MeshRenderPipelineDescriptor::binaryArchives() const
     return Object::sendMessage<NS::Array*>(this, _MTL_PRIVATE_SEL(binaryArchives));
 }
 
-_MTL_INLINE MTL::RenderPipelineColorAttachmentDescriptorArray* MTL::MeshRenderPipelineDescriptor::colorAttachments() const
+_MTL_INLINE MTL::RenderPipelineColorAttachmentDescriptorArray* MTL::MeshRenderPipelineDescriptor::colorAttachments()
+    const
 {
-    return Object::sendMessage<MTL::RenderPipelineColorAttachmentDescriptorArray*>(this, _MTL_PRIVATE_SEL(colorAttachments));
+    return Object::sendMessage<MTL::RenderPipelineColorAttachmentDescriptorArray*>(this,
+                                                                                   _MTL_PRIVATE_SEL(colorAttachments));
 }
 
 _MTL_INLINE MTL::PixelFormat MTL::MeshRenderPipelineDescriptor::depthAttachmentPixelFormat() const
@@ -1750,7 +1830,8 @@ _MTL_INLINE void MTL::MeshRenderPipelineDescriptor::setBinaryArchives(const NS::
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setBinaryArchives_), binaryArchives);
 }
 
-_MTL_INLINE void MTL::MeshRenderPipelineDescriptor::setDepthAttachmentPixelFormat(MTL::PixelFormat depthAttachmentPixelFormat)
+_MTL_INLINE void MTL::MeshRenderPipelineDescriptor::setDepthAttachmentPixelFormat(
+    MTL::PixelFormat depthAttachmentPixelFormat)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setDepthAttachmentPixelFormat_), depthAttachmentPixelFormat);
 }
@@ -1760,7 +1841,8 @@ _MTL_INLINE void MTL::MeshRenderPipelineDescriptor::setFragmentFunction(const MT
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setFragmentFunction_), fragmentFunction);
 }
 
-_MTL_INLINE void MTL::MeshRenderPipelineDescriptor::setFragmentLinkedFunctions(const MTL::LinkedFunctions* fragmentLinkedFunctions)
+_MTL_INLINE void MTL::MeshRenderPipelineDescriptor::setFragmentLinkedFunctions(
+    const MTL::LinkedFunctions* fragmentLinkedFunctions)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setFragmentLinkedFunctions_), fragmentLinkedFunctions);
 }
@@ -1770,22 +1852,29 @@ _MTL_INLINE void MTL::MeshRenderPipelineDescriptor::setLabel(const NS::String* l
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setLabel_), label);
 }
 
-_MTL_INLINE void MTL::MeshRenderPipelineDescriptor::setMaxTotalThreadgroupsPerMeshGrid(NS::UInteger maxTotalThreadgroupsPerMeshGrid)
+_MTL_INLINE void MTL::MeshRenderPipelineDescriptor::setMaxTotalThreadgroupsPerMeshGrid(
+    NS::UInteger maxTotalThreadgroupsPerMeshGrid)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMaxTotalThreadgroupsPerMeshGrid_), maxTotalThreadgroupsPerMeshGrid);
+    Object::sendMessage<void>(
+        this, _MTL_PRIVATE_SEL(setMaxTotalThreadgroupsPerMeshGrid_), maxTotalThreadgroupsPerMeshGrid);
 }
 
-_MTL_INLINE void MTL::MeshRenderPipelineDescriptor::setMaxTotalThreadsPerMeshThreadgroup(NS::UInteger maxTotalThreadsPerMeshThreadgroup)
+_MTL_INLINE void MTL::MeshRenderPipelineDescriptor::setMaxTotalThreadsPerMeshThreadgroup(
+    NS::UInteger maxTotalThreadsPerMeshThreadgroup)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMaxTotalThreadsPerMeshThreadgroup_), maxTotalThreadsPerMeshThreadgroup);
+    Object::sendMessage<void>(
+        this, _MTL_PRIVATE_SEL(setMaxTotalThreadsPerMeshThreadgroup_), maxTotalThreadsPerMeshThreadgroup);
 }
 
-_MTL_INLINE void MTL::MeshRenderPipelineDescriptor::setMaxTotalThreadsPerObjectThreadgroup(NS::UInteger maxTotalThreadsPerObjectThreadgroup)
+_MTL_INLINE void MTL::MeshRenderPipelineDescriptor::setMaxTotalThreadsPerObjectThreadgroup(
+    NS::UInteger maxTotalThreadsPerObjectThreadgroup)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMaxTotalThreadsPerObjectThreadgroup_), maxTotalThreadsPerObjectThreadgroup);
+    Object::sendMessage<void>(
+        this, _MTL_PRIVATE_SEL(setMaxTotalThreadsPerObjectThreadgroup_), maxTotalThreadsPerObjectThreadgroup);
 }
 
-_MTL_INLINE void MTL::MeshRenderPipelineDescriptor::setMaxVertexAmplificationCount(NS::UInteger maxVertexAmplificationCount)
+_MTL_INLINE void MTL::MeshRenderPipelineDescriptor::setMaxVertexAmplificationCount(
+    NS::UInteger maxVertexAmplificationCount)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMaxVertexAmplificationCount_), maxVertexAmplificationCount);
 }
@@ -1795,14 +1884,18 @@ _MTL_INLINE void MTL::MeshRenderPipelineDescriptor::setMeshFunction(const MTL::F
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMeshFunction_), meshFunction);
 }
 
-_MTL_INLINE void MTL::MeshRenderPipelineDescriptor::setMeshLinkedFunctions(const MTL::LinkedFunctions* meshLinkedFunctions)
+_MTL_INLINE void MTL::MeshRenderPipelineDescriptor::setMeshLinkedFunctions(
+    const MTL::LinkedFunctions* meshLinkedFunctions)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMeshLinkedFunctions_), meshLinkedFunctions);
 }
 
-_MTL_INLINE void MTL::MeshRenderPipelineDescriptor::setMeshThreadgroupSizeIsMultipleOfThreadExecutionWidth(bool meshThreadgroupSizeIsMultipleOfThreadExecutionWidth)
+_MTL_INLINE void MTL::MeshRenderPipelineDescriptor::setMeshThreadgroupSizeIsMultipleOfThreadExecutionWidth(
+    bool meshThreadgroupSizeIsMultipleOfThreadExecutionWidth)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMeshThreadgroupSizeIsMultipleOfThreadExecutionWidth_), meshThreadgroupSizeIsMultipleOfThreadExecutionWidth);
+    Object::sendMessage<void>(this,
+                              _MTL_PRIVATE_SEL(setMeshThreadgroupSizeIsMultipleOfThreadExecutionWidth_),
+                              meshThreadgroupSizeIsMultipleOfThreadExecutionWidth);
 }
 
 _MTL_INLINE void MTL::MeshRenderPipelineDescriptor::setObjectFunction(const MTL::Function* objectFunction)
@@ -1810,14 +1903,18 @@ _MTL_INLINE void MTL::MeshRenderPipelineDescriptor::setObjectFunction(const MTL:
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setObjectFunction_), objectFunction);
 }
 
-_MTL_INLINE void MTL::MeshRenderPipelineDescriptor::setObjectLinkedFunctions(const MTL::LinkedFunctions* objectLinkedFunctions)
+_MTL_INLINE void MTL::MeshRenderPipelineDescriptor::setObjectLinkedFunctions(
+    const MTL::LinkedFunctions* objectLinkedFunctions)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setObjectLinkedFunctions_), objectLinkedFunctions);
 }
 
-_MTL_INLINE void MTL::MeshRenderPipelineDescriptor::setObjectThreadgroupSizeIsMultipleOfThreadExecutionWidth(bool objectThreadgroupSizeIsMultipleOfThreadExecutionWidth)
+_MTL_INLINE void MTL::MeshRenderPipelineDescriptor::setObjectThreadgroupSizeIsMultipleOfThreadExecutionWidth(
+    bool objectThreadgroupSizeIsMultipleOfThreadExecutionWidth)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setObjectThreadgroupSizeIsMultipleOfThreadExecutionWidth_), objectThreadgroupSizeIsMultipleOfThreadExecutionWidth);
+    Object::sendMessage<void>(this,
+                              _MTL_PRIVATE_SEL(setObjectThreadgroupSizeIsMultipleOfThreadExecutionWidth_),
+                              objectThreadgroupSizeIsMultipleOfThreadExecutionWidth);
 }
 
 _MTL_INLINE void MTL::MeshRenderPipelineDescriptor::setPayloadMemoryLength(NS::UInteger payloadMemoryLength)
@@ -1835,14 +1932,18 @@ _MTL_INLINE void MTL::MeshRenderPipelineDescriptor::setRasterizationEnabled(bool
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setRasterizationEnabled_), rasterizationEnabled);
 }
 
-_MTL_INLINE void MTL::MeshRenderPipelineDescriptor::setRequiredThreadsPerMeshThreadgroup(MTL::Size requiredThreadsPerMeshThreadgroup)
+_MTL_INLINE void MTL::MeshRenderPipelineDescriptor::setRequiredThreadsPerMeshThreadgroup(
+    MTL::Size requiredThreadsPerMeshThreadgroup)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setRequiredThreadsPerMeshThreadgroup_), requiredThreadsPerMeshThreadgroup);
+    Object::sendMessage<void>(
+        this, _MTL_PRIVATE_SEL(setRequiredThreadsPerMeshThreadgroup_), requiredThreadsPerMeshThreadgroup);
 }
 
-_MTL_INLINE void MTL::MeshRenderPipelineDescriptor::setRequiredThreadsPerObjectThreadgroup(MTL::Size requiredThreadsPerObjectThreadgroup)
+_MTL_INLINE void MTL::MeshRenderPipelineDescriptor::setRequiredThreadsPerObjectThreadgroup(
+    MTL::Size requiredThreadsPerObjectThreadgroup)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setRequiredThreadsPerObjectThreadgroup_), requiredThreadsPerObjectThreadgroup);
+    Object::sendMessage<void>(
+        this, _MTL_PRIVATE_SEL(setRequiredThreadsPerObjectThreadgroup_), requiredThreadsPerObjectThreadgroup);
 }
 
 _MTL_INLINE void MTL::MeshRenderPipelineDescriptor::setShaderValidation(MTL::ShaderValidation shaderValidation)
@@ -1850,7 +1951,8 @@ _MTL_INLINE void MTL::MeshRenderPipelineDescriptor::setShaderValidation(MTL::Sha
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setShaderValidation_), shaderValidation);
 }
 
-_MTL_INLINE void MTL::MeshRenderPipelineDescriptor::setStencilAttachmentPixelFormat(MTL::PixelFormat stencilAttachmentPixelFormat)
+_MTL_INLINE void MTL::MeshRenderPipelineDescriptor::setStencilAttachmentPixelFormat(
+    MTL::PixelFormat stencilAttachmentPixelFormat)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setStencilAttachmentPixelFormat_), stencilAttachmentPixelFormat);
 }

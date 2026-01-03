@@ -28,10 +28,10 @@
 #include <Foundation/Foundation.hpp>
 #include "AppKitPrivate.hpp"
 #include "NSApplication.hpp"
-#include "NSRunningApplication.hpp"
-#include "NSWindow.hpp"
 #include "NSMenu.hpp"
 #include "NSMenuItem.hpp"
 #include "NSOpenPanel.hpp"
+#include "NSRunningApplication.hpp"
+#include "NSWindow.hpp"
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------

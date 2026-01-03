@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -30,472 +31,446 @@
 
 namespace NS
 {
-class Value : public Copying<Value>
-{
-public:
-    static Value* value(const void* pValue, const char* pType);
-    static Value* value(const void* pPointer);
+    class Value : public Copying<Value>
+    {
+    public:
+        static Value* value(const void* pValue, const char* pType);
+        static Value* value(const void* pPointer);
 
-    static Value* alloc();
+        static Value* alloc();
 
-    Value*        init(const void* pValue, const char* pType);
-    Value*        init(const class Coder* pCoder);
+        Value* init(const void* pValue, const char* pType) const;
+        Value* init(const Coder* pCoder) const;
 
-    void          getValue(void* pValue, UInteger size) const;
-    const char*   objCType() const;
+        void                      getValue(void* pValue, UInteger size) const;
+        [[nodiscard]] const char* objCType() const;
 
-    bool          isEqualToValue(Value* pValue) const;
-    void*         pointerValue() const;
-};
+        bool                isEqualToValue(Value* pValue) const;
+        [[nodiscard]] void* pointerValue() const;
+    };
 
-class Number : public Copying<Number, Value>
-{
-public:
-    static Number*     number(char value);
-    static Number*     number(unsigned char value);
-    static Number*     number(short value);
-    static Number*     number(unsigned short value);
-    static Number*     number(int value);
-    static Number*     number(unsigned int value);
-    static Number*     number(long value);
-    static Number*     number(unsigned long value);
-    static Number*     number(long long value);
-    static Number*     number(unsigned long long value);
-    static Number*     number(float value);
-    static Number*     number(double value);
-    static Number*     number(bool value);
+    class Number : public Copying<Number, Value>
+    {
+    public:
+        [[nodiscard]] static Number* number(char value);
+        [[nodiscard]] static Number* number(unsigned char value);
+        [[nodiscard]] static Number* number(short value);
+        [[nodiscard]] static Number* number(unsigned short value);
+        [[nodiscard]] static Number* number(int value);
+        [[nodiscard]] static Number* number(unsigned int value);
+        [[nodiscard]] static Number* number(long value);
+        [[nodiscard]] static Number* number(unsigned long value);
+        [[nodiscard]] static Number* number(long long value);
+        [[nodiscard]] static Number* number(unsigned long long value);
+        [[nodiscard]] static Number* number(float value);
+        [[nodiscard]] static Number* number(double value);
+        [[nodiscard]] static Number* number(bool value);
 
-    static Number*     alloc();
+        [[nodiscard]] static Number* alloc();
 
-    Number*            init(const class Coder* pCoder);
-    Number*            init(char value);
-    Number*            init(unsigned char value);
-    Number*            init(short value);
-    Number*            init(unsigned short value);
-    Number*            init(int value);
-    Number*            init(unsigned int value);
-    Number*            init(long value);
-    Number*            init(unsigned long value);
-    Number*            init(long long value);
-    Number*            init(unsigned long long value);
-    Number*            init(float value);
-    Number*            init(double value);
-    Number*            init(bool value);
+        [[nodiscard]] Number* init(const Coder* pCoder) const;
+        [[nodiscard]] Number* init(char value) const;
+        [[nodiscard]] Number* init(unsigned char value) const;
+        [[nodiscard]] Number* init(short value) const;
+        [[nodiscard]] Number* init(unsigned short value) const;
+        [[nodiscard]] Number* init(int value) const;
+        [[nodiscard]] Number* init(unsigned int value) const;
+        [[nodiscard]] Number* init(long value) const;
+        [[nodiscard]] Number* init(unsigned long value) const;
+        [[nodiscard]] Number* init(long long value) const;
+        [[nodiscard]] Number* init(unsigned long long value) const;
+        [[nodiscard]] Number* init(float value) const;
+        [[nodiscard]] Number* init(double value) const;
+        [[nodiscard]] Number* init(bool value) const;
 
-    char               charValue() const;
-    unsigned char      unsignedCharValue() const;
-    short              shortValue() const;
-    unsigned short     unsignedShortValue() const;
-    int                intValue() const;
-    unsigned int       unsignedIntValue() const;
-    long               longValue() const;
-    unsigned long      unsignedLongValue() const;
-    long long          longLongValue() const;
-    unsigned long long unsignedLongLongValue() const;
-    float              floatValue() const;
-    double             doubleValue() const;
-    bool               boolValue() const;
-    Integer            integerValue() const;
-    UInteger           unsignedIntegerValue() const;
-    class String*      stringValue() const;
+        [[nodiscard]] char               charValue() const;
+        [[nodiscard]] unsigned char      unsignedCharValue() const;
+        [[nodiscard]] short              shortValue() const;
+        [[nodiscard]] unsigned short     unsignedShortValue() const;
+        [[nodiscard]] int                intValue() const;
+        [[nodiscard]] unsigned int       unsignedIntValue() const;
+        [[nodiscard]] long               longValue() const;
+        [[nodiscard]] unsigned long      unsignedLongValue() const;
+        [[nodiscard]] long long          longLongValue() const;
+        [[nodiscard]] unsigned long long unsignedLongLongValue() const;
+        [[nodiscard]] float              floatValue() const;
+        [[nodiscard]] double             doubleValue() const;
+        [[nodiscard]] bool               boolValue() const;
+        [[nodiscard]] Integer            integerValue() const;
+        [[nodiscard]] UInteger           unsignedIntegerValue() const;
+        [[nodiscard]] String*            stringValue() const;
 
-    ComparisonResult   compare(const Number* pOtherNumber) const;
-    bool               isEqualToNumber(const Number* pNumber) const;
-
-    class String*      descriptionWithLocale(const Object* pLocale) const;
-};
-}
+        [[nodiscard]] ComparisonResult compare(const Number* pOtherNumber) const;
+        [[nodiscard]] bool             isEqualToNumber(const Number* pNumber) const;
+        [[nodiscard]] String*          descriptionWithLocale(const Object* pLocale) const;
+    };
+} // namespace NS
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 _NS_INLINE NS::Value* NS::Value::value(const void* pValue, const char* pType)
 {
-    return Object::sendMessage<Value*>(_NS_PRIVATE_CLS(NSValue), _NS_PRIVATE_SEL(valueWithBytes_objCType_), pValue, pType);
+    return sendMessage<Value*>(_NS_PRIVATE_CLS(NSValue), _NS_PRIVATE_SEL(valueWithBytes_objCType_), pValue, pType);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 _NS_INLINE NS::Value* NS::Value::value(const void* pPointer)
 {
-    return Object::sendMessage<Value*>(_NS_PRIVATE_CLS(NSValue), _NS_PRIVATE_SEL(valueWithPointer_), pPointer);
+    return sendMessage<Value*>(_NS_PRIVATE_CLS(NSValue), _NS_PRIVATE_SEL(valueWithPointer_), pPointer);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 _NS_INLINE NS::Value* NS::Value::alloc()
 {
+    // ReSharper disable once CppRedundantQualifier
     return NS::Object::alloc<Value>(_NS_PRIVATE_CLS(NSValue));
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::Value* NS::Value::init(const void* pValue, const char* pType)
+_NS_INLINE NS::Value* NS::Value::init(const void* pValue, const char* pType) const
 {
-    return Object::sendMessage<Value*>(this, _NS_PRIVATE_SEL(initWithBytes_objCType_), pValue, pType);
+    return sendMessage<Value*>(this, _NS_PRIVATE_SEL(initWithBytes_objCType_), pValue, pType);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::Value* NS::Value::init(const class Coder* pCoder)
+_NS_INLINE NS::Value* NS::Value::init(const Coder* pCoder) const
 {
-    return Object::sendMessage<Value*>(this, _NS_PRIVATE_SEL(initWithCoder_), pCoder);
+    return sendMessage<Value*>(this, _NS_PRIVATE_SEL(initWithCoder_), pCoder);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE void NS::Value::getValue(void* pValue, UInteger size) const
+_NS_INLINE void NS::Value::getValue(void* pValue, const UInteger size) const
 {
-    Object::sendMessage<void>(this, _NS_PRIVATE_SEL(getValue_size_), pValue, size);
+    sendMessage<void>(this, _NS_PRIVATE_SEL(getValue_size_), pValue, size);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE const char* NS::Value::objCType() const
-{
-    return Object::sendMessage<const char*>(this, _NS_PRIVATE_SEL(objCType));
-}
+_NS_INLINE const char* NS::Value::objCType() const { return sendMessage<const char*>(this, _NS_PRIVATE_SEL(objCType)); }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 _NS_INLINE bool NS::Value::isEqualToValue(Value* pValue) const
 {
-    return Object::sendMessage<bool>(this, _NS_PRIVATE_SEL(isEqualToValue_), pValue);
+    return sendMessage<bool>(this, _NS_PRIVATE_SEL(isEqualToValue_), pValue);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE void* NS::Value::pointerValue() const
+_NS_INLINE void* NS::Value::pointerValue() const { return sendMessage<void*>(this, _NS_PRIVATE_SEL(pointerValue)); }
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+_NS_INLINE NS::Number* NS::Number::number(const char value)
 {
-    return Object::sendMessage<void*>(this, _NS_PRIVATE_SEL(pointerValue));
+    return sendMessage<Number*>(_NS_PRIVATE_CLS(NSNumber), _NS_PRIVATE_SEL(numberWithChar_), value);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::Number* NS::Number::number(char value)
+_NS_INLINE NS::Number* NS::Number::number(const unsigned char value)
 {
-    return Object::sendMessage<Number*>(_NS_PRIVATE_CLS(NSNumber), _NS_PRIVATE_SEL(numberWithChar_), value);
+    return sendMessage<Number*>(_NS_PRIVATE_CLS(NSNumber), _NS_PRIVATE_SEL(numberWithUnsignedChar_), value);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::Number* NS::Number::number(unsigned char value)
+_NS_INLINE NS::Number* NS::Number::number(const short value)
 {
-    return Object::sendMessage<Number*>(_NS_PRIVATE_CLS(NSNumber), _NS_PRIVATE_SEL(numberWithUnsignedChar_), value);
+    return sendMessage<Number*>(_NS_PRIVATE_CLS(NSNumber), _NS_PRIVATE_SEL(numberWithShort_), value);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::Number* NS::Number::number(short value)
+_NS_INLINE NS::Number* NS::Number::number(const unsigned short value)
 {
-    return Object::sendMessage<Number*>(_NS_PRIVATE_CLS(NSNumber), _NS_PRIVATE_SEL(numberWithShort_), value);
+    return sendMessage<Number*>(_NS_PRIVATE_CLS(NSNumber), _NS_PRIVATE_SEL(numberWithUnsignedShort_), value);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::Number* NS::Number::number(unsigned short value)
+_NS_INLINE NS::Number* NS::Number::number(const int value)
 {
-    return Object::sendMessage<Number*>(_NS_PRIVATE_CLS(NSNumber), _NS_PRIVATE_SEL(numberWithUnsignedShort_), value);
+    return sendMessage<Number*>(_NS_PRIVATE_CLS(NSNumber), _NS_PRIVATE_SEL(numberWithInt_), value);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::Number* NS::Number::number(int value)
+_NS_INLINE NS::Number* NS::Number::number(const unsigned int value)
 {
-    return Object::sendMessage<Number*>(_NS_PRIVATE_CLS(NSNumber), _NS_PRIVATE_SEL(numberWithInt_), value);
+    return sendMessage<Number*>(_NS_PRIVATE_CLS(NSNumber), _NS_PRIVATE_SEL(numberWithUnsignedInt_), value);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::Number* NS::Number::number(unsigned int value)
+_NS_INLINE NS::Number* NS::Number::number(const long value)
 {
-    return Object::sendMessage<Number*>(_NS_PRIVATE_CLS(NSNumber), _NS_PRIVATE_SEL(numberWithUnsignedInt_), value);
+    return sendMessage<Number*>(_NS_PRIVATE_CLS(NSNumber), _NS_PRIVATE_SEL(numberWithLong_), value);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::Number* NS::Number::number(long value)
+_NS_INLINE NS::Number* NS::Number::number(const unsigned long value)
 {
-    return Object::sendMessage<Number*>(_NS_PRIVATE_CLS(NSNumber), _NS_PRIVATE_SEL(numberWithLong_), value);
+    return sendMessage<Number*>(_NS_PRIVATE_CLS(NSNumber), _NS_PRIVATE_SEL(numberWithUnsignedLong_), value);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::Number* NS::Number::number(unsigned long value)
+_NS_INLINE NS::Number* NS::Number::number(const long long value)
 {
-    return Object::sendMessage<Number*>(_NS_PRIVATE_CLS(NSNumber), _NS_PRIVATE_SEL(numberWithUnsignedLong_), value);
+    return sendMessage<Number*>(_NS_PRIVATE_CLS(NSNumber), _NS_PRIVATE_SEL(numberWithLongLong_), value);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::Number* NS::Number::number(long long value)
+_NS_INLINE NS::Number* NS::Number::number(const unsigned long long value)
 {
-    return Object::sendMessage<Number*>(_NS_PRIVATE_CLS(NSNumber), _NS_PRIVATE_SEL(numberWithLongLong_), value);
+    return sendMessage<Number*>(_NS_PRIVATE_CLS(NSNumber), _NS_PRIVATE_SEL(numberWithUnsignedLongLong_), value);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::Number* NS::Number::number(unsigned long long value)
+_NS_INLINE NS::Number* NS::Number::number(const float value)
 {
-    return Object::sendMessage<Number*>(_NS_PRIVATE_CLS(NSNumber), _NS_PRIVATE_SEL(numberWithUnsignedLongLong_), value);
+    return sendMessage<Number*>(_NS_PRIVATE_CLS(NSNumber), _NS_PRIVATE_SEL(numberWithFloat_), value);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::Number* NS::Number::number(float value)
+_NS_INLINE NS::Number* NS::Number::number(const double value)
 {
-    return Object::sendMessage<Number*>(_NS_PRIVATE_CLS(NSNumber), _NS_PRIVATE_SEL(numberWithFloat_), value);
+    return sendMessage<Number*>(_NS_PRIVATE_CLS(NSNumber), _NS_PRIVATE_SEL(numberWithDouble_), value);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::Number* NS::Number::number(double value)
+_NS_INLINE NS::Number* NS::Number::number(const bool value)
 {
-    return Object::sendMessage<Number*>(_NS_PRIVATE_CLS(NSNumber), _NS_PRIVATE_SEL(numberWithDouble_), value);
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-_NS_INLINE NS::Number* NS::Number::number(bool value)
-{
-    return Object::sendMessage<Number*>(_NS_PRIVATE_CLS(NSNumber), _NS_PRIVATE_SEL(numberWithBool_), value);
+    return sendMessage<Number*>(_NS_PRIVATE_CLS(NSNumber), _NS_PRIVATE_SEL(numberWithBool_), value);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 _NS_INLINE NS::Number* NS::Number::alloc()
 {
+    // ReSharper disable once CppRedundantQualifier
     return NS::Object::alloc<Number>(_NS_PRIVATE_CLS(NSNumber));
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::Number* NS::Number::init(const Coder* pCoder)
+_NS_INLINE NS::Number* NS::Number::init(const Coder* pCoder) const
 {
-    return Object::sendMessage<Number*>(this, _NS_PRIVATE_SEL(initWithCoder_), pCoder);
+    return sendMessage<Number*>(this, _NS_PRIVATE_SEL(initWithCoder_), pCoder);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::Number* NS::Number::init(char value)
+_NS_INLINE NS::Number* NS::Number::init(const char value) const
 {
-    return Object::sendMessage<Number*>(this, _NS_PRIVATE_SEL(initWithChar_), value);
+    return sendMessage<Number*>(this, _NS_PRIVATE_SEL(initWithChar_), value);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::Number* NS::Number::init(unsigned char value)
+_NS_INLINE NS::Number* NS::Number::init(const unsigned char value) const
 {
-    return Object::sendMessage<Number*>(this, _NS_PRIVATE_SEL(initWithUnsignedChar_), value);
+    return sendMessage<Number*>(this, _NS_PRIVATE_SEL(initWithUnsignedChar_), value);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::Number* NS::Number::init(short value)
+_NS_INLINE NS::Number* NS::Number::init(const short value) const
 {
-    return Object::sendMessage<Number*>(this, _NS_PRIVATE_SEL(initWithShort_), value);
+    return sendMessage<Number*>(this, _NS_PRIVATE_SEL(initWithShort_), value);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::Number* NS::Number::init(unsigned short value)
+_NS_INLINE NS::Number* NS::Number::init(const unsigned short value) const
 {
-    return Object::sendMessage<Number*>(this, _NS_PRIVATE_SEL(initWithUnsignedShort_), value);
+    return sendMessage<Number*>(this, _NS_PRIVATE_SEL(initWithUnsignedShort_), value);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::Number* NS::Number::init(int value)
+_NS_INLINE NS::Number* NS::Number::init(const int value) const
 {
-    return Object::sendMessage<Number*>(this, _NS_PRIVATE_SEL(initWithInt_), value);
+    return sendMessage<Number*>(this, _NS_PRIVATE_SEL(initWithInt_), value);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::Number* NS::Number::init(unsigned int value)
+_NS_INLINE NS::Number* NS::Number::init(const unsigned int value) const
 {
-    return Object::sendMessage<Number*>(this, _NS_PRIVATE_SEL(initWithUnsignedInt_), value);
+    return sendMessage<Number*>(this, _NS_PRIVATE_SEL(initWithUnsignedInt_), value);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::Number* NS::Number::init(long value)
+_NS_INLINE NS::Number* NS::Number::init(const long value) const
 {
-    return Object::sendMessage<Number*>(this, _NS_PRIVATE_SEL(initWithLong_), value);
+    return sendMessage<Number*>(this, _NS_PRIVATE_SEL(initWithLong_), value);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::Number* NS::Number::init(unsigned long value)
+_NS_INLINE NS::Number* NS::Number::init(const unsigned long value) const
 {
-    return Object::sendMessage<Number*>(this, _NS_PRIVATE_SEL(initWithUnsignedLong_), value);
+    return sendMessage<Number*>(this, _NS_PRIVATE_SEL(initWithUnsignedLong_), value);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::Number* NS::Number::init(long long value)
+_NS_INLINE NS::Number* NS::Number::init(const long long value) const
 {
-    return Object::sendMessage<Number*>(this, _NS_PRIVATE_SEL(initWithLongLong_), value);
+    return sendMessage<Number*>(this, _NS_PRIVATE_SEL(initWithLongLong_), value);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::Number* NS::Number::init(unsigned long long value)
+_NS_INLINE NS::Number* NS::Number::init(const unsigned long long value) const
 {
-    return Object::sendMessage<Number*>(this, _NS_PRIVATE_SEL(initWithUnsignedLongLong_), value);
+    return sendMessage<Number*>(this, _NS_PRIVATE_SEL(initWithUnsignedLongLong_), value);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::Number* NS::Number::init(float value)
+_NS_INLINE NS::Number* NS::Number::init(const float value) const
 {
-    return Object::sendMessage<Number*>(this, _NS_PRIVATE_SEL(initWithFloat_), value);
+    return sendMessage<Number*>(this, _NS_PRIVATE_SEL(initWithFloat_), value);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::Number* NS::Number::init(double value)
+_NS_INLINE NS::Number* NS::Number::init(const double value) const
 {
-    return Object::sendMessage<Number*>(this, _NS_PRIVATE_SEL(initWithDouble_), value);
+    return sendMessage<Number*>(this, _NS_PRIVATE_SEL(initWithDouble_), value);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::Number* NS::Number::init(bool value)
+_NS_INLINE NS::Number* NS::Number::init(const bool value) const
 {
-    return Object::sendMessage<Number*>(this, _NS_PRIVATE_SEL(initWithBool_), value);
+    return sendMessage<Number*>(this, _NS_PRIVATE_SEL(initWithBool_), value);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE char NS::Number::charValue() const
-{
-    return Object::sendMessage<char>(this, _NS_PRIVATE_SEL(charValue));
-}
+_NS_INLINE char NS::Number::charValue() const { return sendMessage<char>(this, _NS_PRIVATE_SEL(charValue)); }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 _NS_INLINE unsigned char NS::Number::unsignedCharValue() const
 {
-    return Object::sendMessage<unsigned char>(this, _NS_PRIVATE_SEL(unsignedCharValue));
+    return sendMessage<unsigned char>(this, _NS_PRIVATE_SEL(unsignedCharValue));
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE short NS::Number::shortValue() const
-{
-    return Object::sendMessage<short>(this, _NS_PRIVATE_SEL(shortValue));
-}
+_NS_INLINE short NS::Number::shortValue() const { return sendMessage<short>(this, _NS_PRIVATE_SEL(shortValue)); }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 _NS_INLINE unsigned short NS::Number::unsignedShortValue() const
 {
-    return Object::sendMessage<unsigned short>(this, _NS_PRIVATE_SEL(unsignedShortValue));
+    return sendMessage<unsigned short>(this, _NS_PRIVATE_SEL(unsignedShortValue));
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE int NS::Number::intValue() const
-{
-    return Object::sendMessage<int>(this, _NS_PRIVATE_SEL(intValue));
-}
+_NS_INLINE int NS::Number::intValue() const { return sendMessage<int>(this, _NS_PRIVATE_SEL(intValue)); }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 _NS_INLINE unsigned int NS::Number::unsignedIntValue() const
 {
-    return Object::sendMessage<unsigned int>(this, _NS_PRIVATE_SEL(unsignedIntValue));
+    return sendMessage<unsigned int>(this, _NS_PRIVATE_SEL(unsignedIntValue));
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE long NS::Number::longValue() const
-{
-    return Object::sendMessage<long>(this, _NS_PRIVATE_SEL(longValue));
-}
+_NS_INLINE long NS::Number::longValue() const { return sendMessage<long>(this, _NS_PRIVATE_SEL(longValue)); }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 _NS_INLINE unsigned long NS::Number::unsignedLongValue() const
 {
-    return Object::sendMessage<unsigned long>(this, _NS_PRIVATE_SEL(unsignedLongValue));
+    return sendMessage<unsigned long>(this, _NS_PRIVATE_SEL(unsignedLongValue));
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 _NS_INLINE long long NS::Number::longLongValue() const
 {
-    return Object::sendMessage<long long>(this, _NS_PRIVATE_SEL(longLongValue));
+    return sendMessage<long long>(this, _NS_PRIVATE_SEL(longLongValue));
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 _NS_INLINE unsigned long long NS::Number::unsignedLongLongValue() const
 {
-    return Object::sendMessage<unsigned long long>(this, _NS_PRIVATE_SEL(unsignedLongLongValue));
+    return sendMessage<unsigned long long>(this, _NS_PRIVATE_SEL(unsignedLongLongValue));
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE float NS::Number::floatValue() const
-{
-    return Object::sendMessage<float>(this, _NS_PRIVATE_SEL(floatValue));
-}
+_NS_INLINE float NS::Number::floatValue() const { return sendMessage<float>(this, _NS_PRIVATE_SEL(floatValue)); }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE double NS::Number::doubleValue() const
-{
-    return Object::sendMessage<double>(this, _NS_PRIVATE_SEL(doubleValue));
-}
+_NS_INLINE double NS::Number::doubleValue() const { return sendMessage<double>(this, _NS_PRIVATE_SEL(doubleValue)); }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE bool NS::Number::boolValue() const
-{
-    return Object::sendMessage<bool>(this, _NS_PRIVATE_SEL(boolValue));
-}
+_NS_INLINE bool NS::Number::boolValue() const { return sendMessage<bool>(this, _NS_PRIVATE_SEL(boolValue)); }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 _NS_INLINE NS::Integer NS::Number::integerValue() const
 {
-    return Object::sendMessage<Integer>(this, _NS_PRIVATE_SEL(integerValue));
+    return sendMessage<Integer>(this, _NS_PRIVATE_SEL(integerValue));
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 _NS_INLINE NS::UInteger NS::Number::unsignedIntegerValue() const
 {
-    return Object::sendMessage<UInteger>(this, _NS_PRIVATE_SEL(unsignedIntegerValue));
+    return sendMessage<UInteger>(this, _NS_PRIVATE_SEL(unsignedIntegerValue));
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 _NS_INLINE NS::String* NS::Number::stringValue() const
 {
-    return Object::sendMessage<String*>(this, _NS_PRIVATE_SEL(stringValue));
+    return sendMessage<String*>(this, _NS_PRIVATE_SEL(stringValue));
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 _NS_INLINE NS::ComparisonResult NS::Number::compare(const Number* pOtherNumber) const
 {
-    return Object::sendMessage<ComparisonResult>(this, _NS_PRIVATE_SEL(compare_), pOtherNumber);
+    return sendMessage<ComparisonResult>(this, _NS_PRIVATE_SEL(compare_), pOtherNumber);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 _NS_INLINE bool NS::Number::isEqualToNumber(const Number* pNumber) const
 {
-    return Object::sendMessage<bool>(this, _NS_PRIVATE_SEL(isEqualToNumber_), pNumber);
+    return sendMessage<bool>(this, _NS_PRIVATE_SEL(isEqualToNumber_), pNumber);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 _NS_INLINE NS::String* NS::Number::descriptionWithLocale(const Object* pLocale) const
 {
-    return Object::sendMessage<String*>(this, _NS_PRIVATE_SEL(descriptionWithLocale_), pLocale);
+    return sendMessage<String*>(this, _NS_PRIVATE_SEL(descriptionWithLocale_), pLocale);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------

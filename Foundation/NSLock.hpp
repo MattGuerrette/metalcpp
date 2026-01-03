@@ -19,100 +19,95 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+#include "NSDate.hpp"
 #include "NSDefines.hpp"
 #include "NSObject.hpp"
 #include "NSPrivate.hpp"
-#include "NSTypes.hpp"
-#include "NSDate.hpp"
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 namespace NS
 {
 
-template <class _Class, class _Base = class Object>
-class Locking : public _Base
-{
-public:
-    void lock();
-    void unlock();
-};
+    template<typename, class _Base = Object> // NOLINT(*-reserved-identifier)
+    class Locking : public _Base
+    {
+    public:
+        void lock();
+        void unlock();
+    };
 
-class Condition : public Locking<Condition>
-{
-public:
-    static Condition* alloc();
+    class Condition : public Locking<Condition>
+    {
+    public:
+        static Condition* alloc();
 
-    Condition*        init();
+        Condition* init();
 
-    void              wait();
-    bool              waitUntilDate(Date* pLimit);
-    void              signal();
-    void              broadcast();
-};
+        void wait() const;
+        bool waitUntilDate(Date* pLimit) const;
+        void signal() const;
+        void broadcast() const;
+    };
 
-} // NS
+} // namespace NS
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-template<class _Class, class _Base /* = NS::Object */>
+// NOLINTNEXTLINE(*-reserved-identifier)
+template<typename _Class, class _Base /* = NS::Object */>
 _NS_INLINE void NS::Locking<_Class, _Base>::lock()
 {
-    NS::Object::sendMessage<void>(this, _NS_PRIVATE_SEL(lock));
+    Object::sendMessage<void>(this, _NS_PRIVATE_SEL(lock));
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-template<class _Class, class _Base /* = NS::Object */>
+// NOLINTNEXTLINE(*-reserved-identifier)
+template<typename _Class, class _Base /* = NS::Object */>
 _NS_INLINE void NS::Locking<_Class, _Base>::unlock()
 {
-    NS::Object::sendMessage<void>(this, _NS_PRIVATE_SEL(unlock));
+    Object::sendMessage<void>(this, _NS_PRIVATE_SEL(unlock));
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 _NS_INLINE NS::Condition* NS::Condition::alloc()
 {
-    return NS::Object::alloc<NS::Condition>(_NS_PRIVATE_CLS(NSCondition));
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<Condition>(_NS_PRIVATE_CLS(NSCondition));
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 _NS_INLINE NS::Condition* NS::Condition::init()
 {
-    return NS::Object::init<NS::Condition>();
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<Condition>();
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE void NS::Condition::wait()
+_NS_INLINE void NS::Condition::wait() const { sendMessage<void>(this, _NS_PRIVATE_SEL(wait)); }
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+_NS_INLINE bool NS::Condition::waitUntilDate(Date* pLimit) const
 {
-    NS::Object::sendMessage<void>(this, _NS_PRIVATE_SEL(wait));
+    return sendMessage<bool>(this, _NS_PRIVATE_SEL(waitUntilDate_), pLimit);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE bool NS::Condition::waitUntilDate(NS::Date* pLimit)
-{
-    return NS::Object::sendMessage<bool>(this, _NS_PRIVATE_SEL(waitUntilDate_), pLimit);
-}
+_NS_INLINE void NS::Condition::signal() const { sendMessage<void>(this, _NS_PRIVATE_SEL(signal)); }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE void NS::Condition::signal()
-{
-    NS::Object::sendMessage<void>(this, _NS_PRIVATE_SEL(signal));
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-_NS_INLINE void NS::Condition::broadcast()
-{
-    NS::Object::sendMessage<void>(this, _NS_PRIVATE_SEL(broadcast));
-}
+_NS_INLINE void NS::Condition::broadcast() const { sendMessage<void>(this, _NS_PRIVATE_SEL(broadcast)); }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------

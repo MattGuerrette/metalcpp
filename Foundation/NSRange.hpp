@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -29,55 +30,45 @@
 
 namespace NS
 {
-struct Range
-{
-    static Range Make(UInteger loc, UInteger len);
+    struct Range
+    {
+        static Range Make(UInteger loc, UInteger len);
 
-    Range(UInteger loc, UInteger len);
+        Range(UInteger loc, UInteger len);
 
-    bool     Equal(const Range& range) const;
-    bool     LocationInRange(UInteger loc) const;
-    UInteger Max() const;
+        [[nodiscard]] bool     Equal(const Range& range) const;
+        [[nodiscard]] bool     LocationInRange(UInteger loc) const;
+        [[nodiscard]] UInteger Max() const;
 
-    UInteger location;
-    UInteger length;
-} _NS_PACKED;
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-_NS_INLINE NS::Range::Range(UInteger loc, UInteger len)
-    : location(loc)
-    , length(len)
-{
-}
+        UInteger location;
+        UInteger length;
+    } _NS_PACKED;
+} // namespace NS
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::Range NS::Range::Make(UInteger loc, UInteger len)
-{
-    return Range(loc, len);
-}
+_NS_INLINE NS::Range::Range(const UInteger loc, const UInteger len) : location(loc), length(len) {}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+_NS_INLINE NS::Range NS::Range::Make(UInteger loc, UInteger len) { return { loc, len }; }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 _NS_INLINE bool NS::Range::Equal(const Range& range) const
 {
-    return (location == range.location) && (length == range.length);
+    return location == range.location && length == range.length;
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE bool NS::Range::LocationInRange(UInteger loc) const
+_NS_INLINE bool NS::Range::LocationInRange(const UInteger loc) const
 {
-    return (!(loc < location)) && ((loc - location) < length);
+    return loc >= location && loc - location < length;
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::UInteger NS::Range::Max() const
-{
-    return location + length;
-}
+_NS_INLINE NS::UInteger NS::Range::Max() const { return location + length; }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------

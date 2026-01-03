@@ -7,25 +7,26 @@
 
 #pragma once
 
-#include "AppKitPrivate.hpp"
+#include <AppKit/NSWindow.hpp>
 #include <Foundation/NSObject.hpp>
+#include "AppKitPrivate.hpp"
 
 namespace NS
 {
-_NS_ENUM(NS::UInteger, ModalResponseType) {
-    ModalResponseOk = 0,
-};
+    _NS_ENUM(NS::UInteger, ModalResponseType){
+        ModalResponseOk = 0,
+    };
 
-using BeginSheetModelCompletionHandler = void (^)(NS::ModalResponseType response);
-class OpenPanel : public NS::Referencing<OpenPanel>
-{
-public:
-    static NS::OpenPanel* openPanel();
+    using BeginSheetModelCompletionHandler = void (^)(NS::ModalResponseType response);
+    class OpenPanel : public NS::Referencing<OpenPanel>
+    {
+    public:
+        static NS::OpenPanel* openPanel();
 
-    NS::Array*            urls() const;
-    void                  beginSheetModal(NS::Window* window, BeginSheetModelCompletionHandler handler);
-};
-}
+        NS::Array* urls() const;
+        void       beginSheetModal(NS::Window* window, BeginSheetModelCompletionHandler handler);
+    };
+} // namespace NS
 
 _NS_INLINE NS::OpenPanel* NS::OpenPanel::openPanel()
 {

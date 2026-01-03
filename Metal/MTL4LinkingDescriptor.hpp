@@ -27,67 +27,67 @@
 
 namespace MTL4
 {
-class PipelineStageDynamicLinkingDescriptor;
-class RenderPipelineDynamicLinkingDescriptor;
-class StaticLinkingDescriptor;
+    class PipelineStageDynamicLinkingDescriptor;
+    class RenderPipelineDynamicLinkingDescriptor;
+    class StaticLinkingDescriptor;
 
-class StaticLinkingDescriptor : public NS::Copying<StaticLinkingDescriptor>
-{
-public:
-    static StaticLinkingDescriptor* alloc();
+    class StaticLinkingDescriptor : public NS::Copying<StaticLinkingDescriptor>
+    {
+    public:
+        static StaticLinkingDescriptor* alloc();
 
-    NS::Array*                      functionDescriptors() const;
+        NS::Array* functionDescriptors() const;
 
-    NS::Dictionary*                 groups() const;
+        NS::Dictionary* groups() const;
 
-    StaticLinkingDescriptor*        init();
+        StaticLinkingDescriptor* init();
 
-    NS::Array*                      privateFunctionDescriptors() const;
+        NS::Array* privateFunctionDescriptors() const;
 
-    void                            setFunctionDescriptors(const NS::Array* functionDescriptors);
+        void setFunctionDescriptors(const NS::Array* functionDescriptors);
 
-    void                            setGroups(const NS::Dictionary* groups);
+        void setGroups(const NS::Dictionary* groups);
 
-    void                            setPrivateFunctionDescriptors(const NS::Array* privateFunctionDescriptors);
-};
-class PipelineStageDynamicLinkingDescriptor : public NS::Copying<PipelineStageDynamicLinkingDescriptor>
-{
-public:
-    static PipelineStageDynamicLinkingDescriptor* alloc();
+        void setPrivateFunctionDescriptors(const NS::Array* privateFunctionDescriptors);
+    };
+    class PipelineStageDynamicLinkingDescriptor : public NS::Copying<PipelineStageDynamicLinkingDescriptor>
+    {
+    public:
+        static PipelineStageDynamicLinkingDescriptor* alloc();
 
-    NS::Array*                                    binaryLinkedFunctions() const;
+        NS::Array* binaryLinkedFunctions() const;
 
-    PipelineStageDynamicLinkingDescriptor*        init();
+        PipelineStageDynamicLinkingDescriptor* init();
 
-    NS::UInteger                                  maxCallStackDepth() const;
+        NS::UInteger maxCallStackDepth() const;
 
-    NS::Array*                                    preloadedLibraries() const;
+        NS::Array* preloadedLibraries() const;
 
-    void                                          setBinaryLinkedFunctions(const NS::Array* binaryLinkedFunctions);
+        void setBinaryLinkedFunctions(const NS::Array* binaryLinkedFunctions);
 
-    void                                          setMaxCallStackDepth(NS::UInteger maxCallStackDepth);
+        void setMaxCallStackDepth(NS::UInteger maxCallStackDepth);
 
-    void                                          setPreloadedLibraries(const NS::Array* preloadedLibraries);
-};
-class RenderPipelineDynamicLinkingDescriptor : public NS::Copying<RenderPipelineDynamicLinkingDescriptor>
-{
-public:
-    static RenderPipelineDynamicLinkingDescriptor* alloc();
+        void setPreloadedLibraries(const NS::Array* preloadedLibraries);
+    };
+    class RenderPipelineDynamicLinkingDescriptor : public NS::Copying<RenderPipelineDynamicLinkingDescriptor>
+    {
+    public:
+        static RenderPipelineDynamicLinkingDescriptor* alloc();
 
-    PipelineStageDynamicLinkingDescriptor*         fragmentLinkingDescriptor() const;
+        PipelineStageDynamicLinkingDescriptor* fragmentLinkingDescriptor() const;
 
-    RenderPipelineDynamicLinkingDescriptor*        init();
+        RenderPipelineDynamicLinkingDescriptor* init();
 
-    PipelineStageDynamicLinkingDescriptor*         meshLinkingDescriptor() const;
+        PipelineStageDynamicLinkingDescriptor* meshLinkingDescriptor() const;
 
-    PipelineStageDynamicLinkingDescriptor*         objectLinkingDescriptor() const;
+        PipelineStageDynamicLinkingDescriptor* objectLinkingDescriptor() const;
 
-    PipelineStageDynamicLinkingDescriptor*         tileLinkingDescriptor() const;
+        PipelineStageDynamicLinkingDescriptor* tileLinkingDescriptor() const;
 
-    PipelineStageDynamicLinkingDescriptor*         vertexLinkingDescriptor() const;
-};
+        PipelineStageDynamicLinkingDescriptor* vertexLinkingDescriptor() const;
+    };
 
-}
+} // namespace MTL4
 _MTL_INLINE MTL4::StaticLinkingDescriptor* MTL4::StaticLinkingDescriptor::alloc()
 {
     return NS::Object::alloc<MTL4::StaticLinkingDescriptor>(_MTL_PRIVATE_CLS(MTL4StaticLinkingDescriptor));
@@ -123,14 +123,16 @@ _MTL_INLINE void MTL4::StaticLinkingDescriptor::setGroups(const NS::Dictionary* 
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setGroups_), groups);
 }
 
-_MTL_INLINE void MTL4::StaticLinkingDescriptor::setPrivateFunctionDescriptors(const NS::Array* privateFunctionDescriptors)
+_MTL_INLINE void MTL4::StaticLinkingDescriptor::setPrivateFunctionDescriptors(
+    const NS::Array* privateFunctionDescriptors)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setPrivateFunctionDescriptors_), privateFunctionDescriptors);
 }
 
 _MTL_INLINE MTL4::PipelineStageDynamicLinkingDescriptor* MTL4::PipelineStageDynamicLinkingDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL4::PipelineStageDynamicLinkingDescriptor>(_MTL_PRIVATE_CLS(MTL4PipelineStageDynamicLinkingDescriptor));
+    return NS::Object::alloc<MTL4::PipelineStageDynamicLinkingDescriptor>(
+        _MTL_PRIVATE_CLS(MTL4PipelineStageDynamicLinkingDescriptor));
 }
 
 _MTL_INLINE NS::Array* MTL4::PipelineStageDynamicLinkingDescriptor::binaryLinkedFunctions() const
@@ -153,7 +155,8 @@ _MTL_INLINE NS::Array* MTL4::PipelineStageDynamicLinkingDescriptor::preloadedLib
     return Object::sendMessage<NS::Array*>(this, _MTL_PRIVATE_SEL(preloadedLibraries));
 }
 
-_MTL_INLINE void MTL4::PipelineStageDynamicLinkingDescriptor::setBinaryLinkedFunctions(const NS::Array* binaryLinkedFunctions)
+_MTL_INLINE void MTL4::PipelineStageDynamicLinkingDescriptor::setBinaryLinkedFunctions(
+    const NS::Array* binaryLinkedFunctions)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setBinaryLinkedFunctions_), binaryLinkedFunctions);
 }
@@ -170,12 +173,15 @@ _MTL_INLINE void MTL4::PipelineStageDynamicLinkingDescriptor::setPreloadedLibrar
 
 _MTL_INLINE MTL4::RenderPipelineDynamicLinkingDescriptor* MTL4::RenderPipelineDynamicLinkingDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL4::RenderPipelineDynamicLinkingDescriptor>(_MTL_PRIVATE_CLS(MTL4RenderPipelineDynamicLinkingDescriptor));
+    return NS::Object::alloc<MTL4::RenderPipelineDynamicLinkingDescriptor>(
+        _MTL_PRIVATE_CLS(MTL4RenderPipelineDynamicLinkingDescriptor));
 }
 
-_MTL_INLINE MTL4::PipelineStageDynamicLinkingDescriptor* MTL4::RenderPipelineDynamicLinkingDescriptor::fragmentLinkingDescriptor() const
+_MTL_INLINE MTL4::PipelineStageDynamicLinkingDescriptor*
+            MTL4::RenderPipelineDynamicLinkingDescriptor::fragmentLinkingDescriptor() const
 {
-    return Object::sendMessage<MTL4::PipelineStageDynamicLinkingDescriptor*>(this, _MTL_PRIVATE_SEL(fragmentLinkingDescriptor));
+    return Object::sendMessage<MTL4::PipelineStageDynamicLinkingDescriptor*>(
+        this, _MTL_PRIVATE_SEL(fragmentLinkingDescriptor));
 }
 
 _MTL_INLINE MTL4::RenderPipelineDynamicLinkingDescriptor* MTL4::RenderPipelineDynamicLinkingDescriptor::init()
@@ -183,22 +189,30 @@ _MTL_INLINE MTL4::RenderPipelineDynamicLinkingDescriptor* MTL4::RenderPipelineDy
     return NS::Object::init<MTL4::RenderPipelineDynamicLinkingDescriptor>();
 }
 
-_MTL_INLINE MTL4::PipelineStageDynamicLinkingDescriptor* MTL4::RenderPipelineDynamicLinkingDescriptor::meshLinkingDescriptor() const
+_MTL_INLINE MTL4::PipelineStageDynamicLinkingDescriptor*
+            MTL4::RenderPipelineDynamicLinkingDescriptor::meshLinkingDescriptor() const
 {
-    return Object::sendMessage<MTL4::PipelineStageDynamicLinkingDescriptor*>(this, _MTL_PRIVATE_SEL(meshLinkingDescriptor));
+    return Object::sendMessage<MTL4::PipelineStageDynamicLinkingDescriptor*>(this,
+                                                                             _MTL_PRIVATE_SEL(meshLinkingDescriptor));
 }
 
-_MTL_INLINE MTL4::PipelineStageDynamicLinkingDescriptor* MTL4::RenderPipelineDynamicLinkingDescriptor::objectLinkingDescriptor() const
+_MTL_INLINE MTL4::PipelineStageDynamicLinkingDescriptor*
+            MTL4::RenderPipelineDynamicLinkingDescriptor::objectLinkingDescriptor() const
 {
-    return Object::sendMessage<MTL4::PipelineStageDynamicLinkingDescriptor*>(this, _MTL_PRIVATE_SEL(objectLinkingDescriptor));
+    return Object::sendMessage<MTL4::PipelineStageDynamicLinkingDescriptor*>(this,
+                                                                             _MTL_PRIVATE_SEL(objectLinkingDescriptor));
 }
 
-_MTL_INLINE MTL4::PipelineStageDynamicLinkingDescriptor* MTL4::RenderPipelineDynamicLinkingDescriptor::tileLinkingDescriptor() const
+_MTL_INLINE MTL4::PipelineStageDynamicLinkingDescriptor*
+            MTL4::RenderPipelineDynamicLinkingDescriptor::tileLinkingDescriptor() const
 {
-    return Object::sendMessage<MTL4::PipelineStageDynamicLinkingDescriptor*>(this, _MTL_PRIVATE_SEL(tileLinkingDescriptor));
+    return Object::sendMessage<MTL4::PipelineStageDynamicLinkingDescriptor*>(this,
+                                                                             _MTL_PRIVATE_SEL(tileLinkingDescriptor));
 }
 
-_MTL_INLINE MTL4::PipelineStageDynamicLinkingDescriptor* MTL4::RenderPipelineDynamicLinkingDescriptor::vertexLinkingDescriptor() const
+_MTL_INLINE MTL4::PipelineStageDynamicLinkingDescriptor*
+            MTL4::RenderPipelineDynamicLinkingDescriptor::vertexLinkingDescriptor() const
 {
-    return Object::sendMessage<MTL4::PipelineStageDynamicLinkingDescriptor*>(this, _MTL_PRIVATE_SEL(vertexLinkingDescriptor));
+    return Object::sendMessage<MTL4::PipelineStageDynamicLinkingDescriptor*>(this,
+                                                                             _MTL_PRIVATE_SEL(vertexLinkingDescriptor));
 }

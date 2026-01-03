@@ -29,21 +29,21 @@
 
 namespace MTL
 {
-class Device;
+    class Device;
 
-class FunctionHandle : public NS::Referencing<FunctionHandle>
-{
-public:
-    Device*      device() const;
+    class FunctionHandle : public NS::Referencing<FunctionHandle>
+    {
+    public:
+        Device* device() const;
 
-    FunctionType functionType() const;
+        FunctionType functionType() const;
 
-    ResourceID   gpuResourceID() const;
+        ResourceID gpuResourceID() const;
 
-    NS::String*  name() const;
-};
+        NS::String* name() const;
+    };
 
-}
+} // namespace MTL
 _MTL_INLINE MTL::Device* MTL::FunctionHandle::device() const
 {
     return Object::sendMessage<MTL::Device*>(this, _MTL_PRIVATE_SEL(device));

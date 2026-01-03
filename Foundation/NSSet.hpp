@@ -18,50 +18,48 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-#include "NSObject.hpp"
 #include "NSEnumerator.hpp"
+#include "NSObject.hpp"
 
 /*****Immutable Set*******/
 
 namespace NS
 {
-    class Set : public NS::Copying <Set>
+    class Set : public Copying<Set>
     {
-        public:
-            UInteger count() const;
-            Enumerator<Object>* objectEnumerator() const;
+    public:
+        [[nodiscard]] UInteger            count() const;
+        [[nodiscard]] Enumerator<Object>* objectEnumerator() const;
 
-            static Set* alloc();
+        static Set* alloc();
 
-            Set* init();
-            Set* init(const Object* const* pObjects, UInteger count);
-            Set* init(const class Coder* pCoder);
-
+        Set* init();
+        Set* init(const Object* const* pObjects, UInteger count) const;
+        Set* init(const Coder* pCoder) const;
     };
-}
+} // namespace NS
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::UInteger NS::Set::count() const
-{
-    return NS::Object::sendMessage<NS::UInteger>(this, _NS_PRIVATE_SEL(count));
-}
+_NS_INLINE NS::UInteger NS::Set::count() const { return sendMessage<UInteger>(this, _NS_PRIVATE_SEL(count)); }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 _NS_INLINE NS::Enumerator<NS::Object>* NS::Set::objectEnumerator() const
 {
-    return NS::Object::sendMessage<Enumerator<NS::Object>*>(this, _NS_PRIVATE_SEL(objectEnumerator));
+    return sendMessage<Enumerator<Object>*>(this, _NS_PRIVATE_SEL(objectEnumerator));
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 _NS_INLINE NS::Set* NS::Set::alloc()
 {
+    // ReSharper disable once CppRedundantQualifier
     return NS::Object::alloc<Set>(_NS_PRIVATE_CLS(NSSet));
 }
 
@@ -69,19 +67,20 @@ _NS_INLINE NS::Set* NS::Set::alloc()
 
 _NS_INLINE NS::Set* NS::Set::init()
 {
+    // ReSharper disable once CppRedundantQualifier
     return NS::Object::init<Set>();
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::Set* NS::Set::init(const Object* const* pObjects, NS::UInteger count)
+_NS_INLINE NS::Set* NS::Set::init(const Object* const* pObjects, const UInteger count) const
 {
-    return NS::Object::sendMessage<Set*>(this, _NS_PRIVATE_SEL(initWithObjects_count_), pObjects, count);
+    return sendMessage<Set*>(this, _NS_PRIVATE_SEL(initWithObjects_count_), pObjects, count);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::Set* NS::Set::init(const class Coder* pCoder)
+_NS_INLINE NS::Set* NS::Set::init(const Coder* pCoder) const
 {
-    return Object::sendMessage<Set*>(this, _NS_PRIVATE_SEL(initWithCoder_), pCoder);
+    return sendMessage<Set*>(this, _NS_PRIVATE_SEL(initWithCoder_), pCoder);
 }

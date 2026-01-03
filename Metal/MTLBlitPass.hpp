@@ -27,55 +27,57 @@
 
 namespace MTL
 {
-class BlitPassDescriptor;
-class BlitPassSampleBufferAttachmentDescriptor;
-class BlitPassSampleBufferAttachmentDescriptorArray;
-class CounterSampleBuffer;
+    class BlitPassDescriptor;
+    class BlitPassSampleBufferAttachmentDescriptor;
+    class BlitPassSampleBufferAttachmentDescriptorArray;
+    class CounterSampleBuffer;
 
-class BlitPassSampleBufferAttachmentDescriptor : public NS::Copying<BlitPassSampleBufferAttachmentDescriptor>
-{
-public:
-    static BlitPassSampleBufferAttachmentDescriptor* alloc();
+    class BlitPassSampleBufferAttachmentDescriptor : public NS::Copying<BlitPassSampleBufferAttachmentDescriptor>
+    {
+    public:
+        static BlitPassSampleBufferAttachmentDescriptor* alloc();
 
-    NS::UInteger                                     endOfEncoderSampleIndex() const;
+        NS::UInteger endOfEncoderSampleIndex() const;
 
-    BlitPassSampleBufferAttachmentDescriptor*        init();
+        BlitPassSampleBufferAttachmentDescriptor* init();
 
-    CounterSampleBuffer*                             sampleBuffer() const;
+        CounterSampleBuffer* sampleBuffer() const;
 
-    void                                             setEndOfEncoderSampleIndex(NS::UInteger endOfEncoderSampleIndex);
+        void setEndOfEncoderSampleIndex(NS::UInteger endOfEncoderSampleIndex);
 
-    void                                             setSampleBuffer(const MTL::CounterSampleBuffer* sampleBuffer);
+        void setSampleBuffer(const MTL::CounterSampleBuffer* sampleBuffer);
 
-    void                                             setStartOfEncoderSampleIndex(NS::UInteger startOfEncoderSampleIndex);
-    NS::UInteger                                     startOfEncoderSampleIndex() const;
-};
-class BlitPassSampleBufferAttachmentDescriptorArray : public NS::Referencing<BlitPassSampleBufferAttachmentDescriptorArray>
-{
-public:
-    static BlitPassSampleBufferAttachmentDescriptorArray* alloc();
+        void         setStartOfEncoderSampleIndex(NS::UInteger startOfEncoderSampleIndex);
+        NS::UInteger startOfEncoderSampleIndex() const;
+    };
+    class BlitPassSampleBufferAttachmentDescriptorArray
+        : public NS::Referencing<BlitPassSampleBufferAttachmentDescriptorArray>
+    {
+    public:
+        static BlitPassSampleBufferAttachmentDescriptorArray* alloc();
 
-    BlitPassSampleBufferAttachmentDescriptorArray*        init();
+        BlitPassSampleBufferAttachmentDescriptorArray* init();
 
-    BlitPassSampleBufferAttachmentDescriptor*             object(NS::UInteger attachmentIndex);
-    void                                                  setObject(const MTL::BlitPassSampleBufferAttachmentDescriptor* attachment, NS::UInteger attachmentIndex);
-};
-class BlitPassDescriptor : public NS::Copying<BlitPassDescriptor>
-{
-public:
-    static BlitPassDescriptor*                     alloc();
+        BlitPassSampleBufferAttachmentDescriptor* object(NS::UInteger attachmentIndex);
+        void setObject(const MTL::BlitPassSampleBufferAttachmentDescriptor* attachment, NS::UInteger attachmentIndex);
+    };
+    class BlitPassDescriptor : public NS::Copying<BlitPassDescriptor>
+    {
+    public:
+        static BlitPassDescriptor* alloc();
 
-    static BlitPassDescriptor*                     blitPassDescriptor();
+        static BlitPassDescriptor* blitPassDescriptor();
 
-    BlitPassDescriptor*                            init();
+        BlitPassDescriptor* init();
 
-    BlitPassSampleBufferAttachmentDescriptorArray* sampleBufferAttachments() const;
-};
+        BlitPassSampleBufferAttachmentDescriptorArray* sampleBufferAttachments() const;
+    };
 
-}
+} // namespace MTL
 _MTL_INLINE MTL::BlitPassSampleBufferAttachmentDescriptor* MTL::BlitPassSampleBufferAttachmentDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL::BlitPassSampleBufferAttachmentDescriptor>(_MTL_PRIVATE_CLS(MTLBlitPassSampleBufferAttachmentDescriptor));
+    return NS::Object::alloc<MTL::BlitPassSampleBufferAttachmentDescriptor>(
+        _MTL_PRIVATE_CLS(MTLBlitPassSampleBufferAttachmentDescriptor));
 }
 
 _MTL_INLINE NS::UInteger MTL::BlitPassSampleBufferAttachmentDescriptor::endOfEncoderSampleIndex() const
@@ -93,17 +95,20 @@ _MTL_INLINE MTL::CounterSampleBuffer* MTL::BlitPassSampleBufferAttachmentDescrip
     return Object::sendMessage<MTL::CounterSampleBuffer*>(this, _MTL_PRIVATE_SEL(sampleBuffer));
 }
 
-_MTL_INLINE void MTL::BlitPassSampleBufferAttachmentDescriptor::setEndOfEncoderSampleIndex(NS::UInteger endOfEncoderSampleIndex)
+_MTL_INLINE void MTL::BlitPassSampleBufferAttachmentDescriptor::setEndOfEncoderSampleIndex(
+    NS::UInteger endOfEncoderSampleIndex)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setEndOfEncoderSampleIndex_), endOfEncoderSampleIndex);
 }
 
-_MTL_INLINE void MTL::BlitPassSampleBufferAttachmentDescriptor::setSampleBuffer(const MTL::CounterSampleBuffer* sampleBuffer)
+_MTL_INLINE void MTL::BlitPassSampleBufferAttachmentDescriptor::setSampleBuffer(
+    const MTL::CounterSampleBuffer* sampleBuffer)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setSampleBuffer_), sampleBuffer);
 }
 
-_MTL_INLINE void MTL::BlitPassSampleBufferAttachmentDescriptor::setStartOfEncoderSampleIndex(NS::UInteger startOfEncoderSampleIndex)
+_MTL_INLINE void MTL::BlitPassSampleBufferAttachmentDescriptor::setStartOfEncoderSampleIndex(
+    NS::UInteger startOfEncoderSampleIndex)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setStartOfEncoderSampleIndex_), startOfEncoderSampleIndex);
 }
@@ -113,22 +118,28 @@ _MTL_INLINE NS::UInteger MTL::BlitPassSampleBufferAttachmentDescriptor::startOfE
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(startOfEncoderSampleIndex));
 }
 
-_MTL_INLINE MTL::BlitPassSampleBufferAttachmentDescriptorArray* MTL::BlitPassSampleBufferAttachmentDescriptorArray::alloc()
+_MTL_INLINE MTL::BlitPassSampleBufferAttachmentDescriptorArray*
+            MTL::BlitPassSampleBufferAttachmentDescriptorArray::alloc()
 {
-    return NS::Object::alloc<MTL::BlitPassSampleBufferAttachmentDescriptorArray>(_MTL_PRIVATE_CLS(MTLBlitPassSampleBufferAttachmentDescriptorArray));
+    return NS::Object::alloc<MTL::BlitPassSampleBufferAttachmentDescriptorArray>(
+        _MTL_PRIVATE_CLS(MTLBlitPassSampleBufferAttachmentDescriptorArray));
 }
 
-_MTL_INLINE MTL::BlitPassSampleBufferAttachmentDescriptorArray* MTL::BlitPassSampleBufferAttachmentDescriptorArray::init()
+_MTL_INLINE MTL::BlitPassSampleBufferAttachmentDescriptorArray*
+            MTL::BlitPassSampleBufferAttachmentDescriptorArray::init()
 {
     return NS::Object::init<MTL::BlitPassSampleBufferAttachmentDescriptorArray>();
 }
 
-_MTL_INLINE MTL::BlitPassSampleBufferAttachmentDescriptor* MTL::BlitPassSampleBufferAttachmentDescriptorArray::object(NS::UInteger attachmentIndex)
+_MTL_INLINE MTL::BlitPassSampleBufferAttachmentDescriptor* MTL::BlitPassSampleBufferAttachmentDescriptorArray::object(
+    NS::UInteger attachmentIndex)
 {
-    return Object::sendMessage<MTL::BlitPassSampleBufferAttachmentDescriptor*>(this, _MTL_PRIVATE_SEL(objectAtIndexedSubscript_), attachmentIndex);
+    return Object::sendMessage<MTL::BlitPassSampleBufferAttachmentDescriptor*>(
+        this, _MTL_PRIVATE_SEL(objectAtIndexedSubscript_), attachmentIndex);
 }
 
-_MTL_INLINE void MTL::BlitPassSampleBufferAttachmentDescriptorArray::setObject(const MTL::BlitPassSampleBufferAttachmentDescriptor* attachment, NS::UInteger attachmentIndex)
+_MTL_INLINE void MTL::BlitPassSampleBufferAttachmentDescriptorArray::setObject(
+    const MTL::BlitPassSampleBufferAttachmentDescriptor* attachment, NS::UInteger attachmentIndex)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setObject_atIndexedSubscript_), attachment, attachmentIndex);
 }
@@ -140,7 +151,8 @@ _MTL_INLINE MTL::BlitPassDescriptor* MTL::BlitPassDescriptor::alloc()
 
 _MTL_INLINE MTL::BlitPassDescriptor* MTL::BlitPassDescriptor::blitPassDescriptor()
 {
-    return Object::sendMessage<MTL::BlitPassDescriptor*>(_MTL_PRIVATE_CLS(MTLBlitPassDescriptor), _MTL_PRIVATE_SEL(blitPassDescriptor));
+    return Object::sendMessage<MTL::BlitPassDescriptor*>(_MTL_PRIVATE_CLS(MTLBlitPassDescriptor),
+                                                         _MTL_PRIVATE_SEL(blitPassDescriptor));
 }
 
 _MTL_INLINE MTL::BlitPassDescriptor* MTL::BlitPassDescriptor::init()
@@ -150,5 +162,6 @@ _MTL_INLINE MTL::BlitPassDescriptor* MTL::BlitPassDescriptor::init()
 
 _MTL_INLINE MTL::BlitPassSampleBufferAttachmentDescriptorArray* MTL::BlitPassDescriptor::sampleBufferAttachments() const
 {
-    return Object::sendMessage<MTL::BlitPassSampleBufferAttachmentDescriptorArray*>(this, _MTL_PRIVATE_SEL(sampleBufferAttachments));
+    return Object::sendMessage<MTL::BlitPassSampleBufferAttachmentDescriptorArray*>(
+        this, _MTL_PRIVATE_SEL(sampleBufferAttachments));
 }

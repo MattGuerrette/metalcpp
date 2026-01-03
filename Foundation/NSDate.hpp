@@ -19,6 +19,7 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -33,27 +34,27 @@
 namespace NS
 {
 
-using TimeInterval = double;
+    using TimeInterval = double;
 
-class Date : public Copying<Date>
-{
-public:
-    static Date* dateWithTimeIntervalSinceNow(TimeInterval secs);
-    static Date* distantFuture();
-};
+    class Date : public Copying<Date>
+    {
+    public:
+        static Date* dateWithTimeIntervalSinceNow(TimeInterval secs);
+        static Date* distantFuture();
+    };
 
-} // NS
+} // namespace NS
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::Date* NS::Date::dateWithTimeIntervalSinceNow(NS::TimeInterval secs)
+_NS_INLINE NS::Date* NS::Date::dateWithTimeIntervalSinceNow(const TimeInterval secs)
 {
-    return NS::Object::sendMessage<NS::Date*>(_NS_PRIVATE_CLS(NSDate), _NS_PRIVATE_SEL(dateWithTimeIntervalSinceNow_), secs);
+    return sendMessage<Date*>(_NS_PRIVATE_CLS(NSDate), _NS_PRIVATE_SEL(dateWithTimeIntervalSinceNow_), secs);
 }
 
 _NS_INLINE NS::Date* NS::Date::distantFuture()
 {
-    return NS::Object::sendMessage<NS::Date*>(_NS_PRIVATE_CLS(NSDate), _NS_PRIVATE_SEL(distantFuture));
+    return sendMessage<Date*>(_NS_PRIVATE_CLS(NSDate), _NS_PRIVATE_SEL(distantFuture));
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------

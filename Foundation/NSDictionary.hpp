@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -30,54 +31,58 @@
 
 namespace NS
 {
-class Dictionary : public NS::Copying<Dictionary>
-{
-public:
-    static Dictionary* dictionary();
-    static Dictionary* dictionary(const Object* pObject, const Object* pKey);
-    static Dictionary* dictionary(const Object* const* pObjects, const Object* const* pKeys, UInteger count);
+    class Dictionary : public Copying<Dictionary>
+    {
+    public:
+        static Dictionary* dictionary();
+        static Dictionary* dictionary(const Object* pObject, const Object* pKey);
+        static Dictionary* dictionary(const Object* const* pObjects, const Object* const* pKeys, UInteger count);
 
-    static Dictionary* alloc();
+        static Dictionary* alloc();
 
-    Dictionary*        init();
-    Dictionary*        init(const Object* const* pObjects, const Object* const* pKeys, UInteger count);
-    Dictionary*        init(const class Coder* pCoder);
+        Dictionary* init();
+        Dictionary* init(const Object* const* pObjects, const Object* const* pKeys, UInteger count) const;
+        Dictionary* init(const Coder* pCoder) const;
 
-    template <class _KeyType = Object>
-    Enumerator<_KeyType>* keyEnumerator() const;
+        template<class _KeyType = Object> // NOLINT(*-reserved-identifier)
+        Enumerator<_KeyType>* keyEnumerator() const;
 
-    template <class _Object = Object>
-    _Object* object(const Object* pKey) const;
-    UInteger count() const;
-};
-}
+        template<class _Object = Object> // NOLINT(*-reserved-identifier)
+        _Object*               object(const Object* pKey) const;
+        [[nodiscard]] UInteger count() const;
+    };
+} // namespace NS
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 _NS_INLINE NS::Dictionary* NS::Dictionary::dictionary()
 {
-    return Object::sendMessage<Dictionary*>(_NS_PRIVATE_CLS(NSDictionary), _NS_PRIVATE_SEL(dictionary));
+    return sendMessage<Dictionary*>(_NS_PRIVATE_CLS(NSDictionary), _NS_PRIVATE_SEL(dictionary));
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 _NS_INLINE NS::Dictionary* NS::Dictionary::dictionary(const Object* pObject, const Object* pKey)
 {
-    return Object::sendMessage<Dictionary*>(_NS_PRIVATE_CLS(NSDictionary), _NS_PRIVATE_SEL(dictionaryWithObject_forKey_), pObject, pKey);
+    return sendMessage<Dictionary*>(
+        _NS_PRIVATE_CLS(NSDictionary), _NS_PRIVATE_SEL(dictionaryWithObject_forKey_), pObject, pKey);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::Dictionary* NS::Dictionary::dictionary(const Object* const* pObjects, const Object* const* pKeys, UInteger count)
+_NS_INLINE NS::Dictionary* NS::Dictionary::dictionary(const Object* const* pObjects,
+                                                      const Object* const* pKeys,
+                                                      const UInteger       count)
 {
-    return Object::sendMessage<Dictionary*>(_NS_PRIVATE_CLS(NSDictionary), _NS_PRIVATE_SEL(dictionaryWithObjects_forKeys_count_),
-        pObjects, pKeys, count);
+    return sendMessage<Dictionary*>(
+        _NS_PRIVATE_CLS(NSDictionary), _NS_PRIVATE_SEL(dictionaryWithObjects_forKeys_count_), pObjects, pKeys, count);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 _NS_INLINE NS::Dictionary* NS::Dictionary::alloc()
 {
+    // ReSharper disable once CppRedundantQualifier
     return NS::Object::alloc<Dictionary>(_NS_PRIVATE_CLS(NSDictionary));
 }
 
@@ -85,26 +90,29 @@ _NS_INLINE NS::Dictionary* NS::Dictionary::alloc()
 
 _NS_INLINE NS::Dictionary* NS::Dictionary::init()
 {
+    // ReSharper disable once CppRedundantQualifier
     return NS::Object::init<Dictionary>();
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::Dictionary* NS::Dictionary::init(const Object* const* pObjects, const Object* const* pKeys, UInteger count)
+_NS_INLINE NS::Dictionary* NS::Dictionary::init(const Object* const* pObjects,
+                                                const Object* const* pKeys,
+                                                const UInteger       count) const
 {
-    return Object::sendMessage<Dictionary*>(this, _NS_PRIVATE_SEL(initWithObjects_forKeys_count_), pObjects, pKeys, count);
+    return sendMessage<Dictionary*>(this, _NS_PRIVATE_SEL(initWithObjects_forKeys_count_), pObjects, pKeys, count);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::Dictionary* NS::Dictionary::init(const class Coder* pCoder)
+_NS_INLINE NS::Dictionary* NS::Dictionary::init(const Coder* pCoder) const
 {
-    return Object::sendMessage<Dictionary*>(this, _NS_PRIVATE_SEL(initWithCoder_), pCoder);
+    return sendMessage<Dictionary*>(this, _NS_PRIVATE_SEL(initWithCoder_), pCoder);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-template <class _KeyType>
+template<class _KeyType> // NOLINT(*-reserved-identifier)
 _NS_INLINE NS::Enumerator<_KeyType>* NS::Dictionary::keyEnumerator() const
 {
     return Object::sendMessage<Enumerator<_KeyType>*>(this, _NS_PRIVATE_SEL(keyEnumerator));
@@ -112,7 +120,7 @@ _NS_INLINE NS::Enumerator<_KeyType>* NS::Dictionary::keyEnumerator() const
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-template <class _Object>
+template<class _Object> // NOLINT(*-reserved-identifier)
 _NS_INLINE _Object* NS::Dictionary::object(const Object* pKey) const
 {
     return Object::sendMessage<_Object*>(this, _NS_PRIVATE_SEL(objectForKey_), pKey);
@@ -120,9 +128,6 @@ _NS_INLINE _Object* NS::Dictionary::object(const Object* pKey) const
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::UInteger NS::Dictionary::count() const
-{
-    return Object::sendMessage<UInteger>(this, _NS_PRIVATE_SEL(count));
-}
+_NS_INLINE NS::UInteger NS::Dictionary::count() const { return sendMessage<UInteger>(this, _NS_PRIVATE_SEL(count)); }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------

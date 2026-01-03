@@ -18,9 +18,12 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// NOLINTBEGIN(*-reserved-identifier)
 
 #define _NS_WEAK_IMPORT __attribute__((weak_import))
 #ifdef METALCPP_SYMBOL_VISIBILITY_HIDDEN
@@ -40,6 +43,9 @@
 
 #define _NS_CAST_TO_UINT(value) static_cast<NS::UInteger>(value)
 #define _NS_VALIDATE_SIZE(ns, name) static_assert(sizeof(ns::name) == sizeof(ns##name), "size mismatch " #ns "::" #name)
-#define _NS_VALIDATE_ENUM(ns, name) static_assert(_NS_CAST_TO_UINT(ns::name) == _NS_CAST_TO_UINT(ns##name), "value mismatch " #ns "::" #name)
+#define _NS_VALIDATE_ENUM(ns, name) \
+    static_assert(_NS_CAST_TO_UINT(ns::name) == _NS_CAST_TO_UINT(ns##name), "value mismatch " #ns "::" #name)
+
+// NOLINTEND(*-reserved-identifier)
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------

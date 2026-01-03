@@ -29,58 +29,58 @@
 
 namespace MTL
 {
-class Device;
+    class Device;
 }
 
 namespace MTL4
 {
-class ArgumentTableDescriptor : public NS::Copying<ArgumentTableDescriptor>
-{
-public:
-    static ArgumentTableDescriptor* alloc();
+    class ArgumentTableDescriptor : public NS::Copying<ArgumentTableDescriptor>
+    {
+    public:
+        static ArgumentTableDescriptor* alloc();
 
-    ArgumentTableDescriptor*        init();
-    bool                            initializeBindings() const;
+        ArgumentTableDescriptor* init();
+        bool                     initializeBindings() const;
 
-    NS::String*                     label() const;
+        NS::String* label() const;
 
-    NS::UInteger                    maxBufferBindCount() const;
+        NS::UInteger maxBufferBindCount() const;
 
-    NS::UInteger                    maxSamplerStateBindCount() const;
+        NS::UInteger maxSamplerStateBindCount() const;
 
-    NS::UInteger                    maxTextureBindCount() const;
+        NS::UInteger maxTextureBindCount() const;
 
-    void                            setInitializeBindings(bool initializeBindings);
+        void setInitializeBindings(bool initializeBindings);
 
-    void                            setLabel(const NS::String* label);
+        void setLabel(const NS::String* label);
 
-    void                            setMaxBufferBindCount(NS::UInteger maxBufferBindCount);
+        void setMaxBufferBindCount(NS::UInteger maxBufferBindCount);
 
-    void                            setMaxSamplerStateBindCount(NS::UInteger maxSamplerStateBindCount);
+        void setMaxSamplerStateBindCount(NS::UInteger maxSamplerStateBindCount);
 
-    void                            setMaxTextureBindCount(NS::UInteger maxTextureBindCount);
+        void setMaxTextureBindCount(NS::UInteger maxTextureBindCount);
 
-    void                            setSupportAttributeStrides(bool supportAttributeStrides);
-    bool                            supportAttributeStrides() const;
-};
-class ArgumentTable : public NS::Referencing<ArgumentTable>
-{
-public:
-    MTL::Device* device() const;
+        void setSupportAttributeStrides(bool supportAttributeStrides);
+        bool supportAttributeStrides() const;
+    };
+    class ArgumentTable : public NS::Referencing<ArgumentTable>
+    {
+    public:
+        MTL::Device* device() const;
 
-    NS::String*  label() const;
+        NS::String* label() const;
 
-    void         setAddress(MTL::GPUAddress gpuAddress, NS::UInteger bindingIndex);
-    void         setAddress(MTL::GPUAddress gpuAddress, NS::UInteger stride, NS::UInteger bindingIndex);
+        void setAddress(MTL::GPUAddress gpuAddress, NS::UInteger bindingIndex);
+        void setAddress(MTL::GPUAddress gpuAddress, NS::UInteger stride, NS::UInteger bindingIndex);
 
-    void         setResource(MTL::ResourceID resourceID, NS::UInteger bindingIndex);
+        void setResource(MTL::ResourceID resourceID, NS::UInteger bindingIndex);
 
-    void         setSamplerState(MTL::ResourceID resourceID, NS::UInteger bindingIndex);
+        void setSamplerState(MTL::ResourceID resourceID, NS::UInteger bindingIndex);
 
-    void         setTexture(MTL::ResourceID resourceID, NS::UInteger bindingIndex);
-};
+        void setTexture(MTL::ResourceID resourceID, NS::UInteger bindingIndex);
+    };
 
-}
+} // namespace MTL4
 _MTL_INLINE MTL4::ArgumentTableDescriptor* MTL4::ArgumentTableDescriptor::alloc()
 {
     return NS::Object::alloc<MTL4::ArgumentTableDescriptor>(_MTL_PRIVATE_CLS(MTL4ArgumentTableDescriptor));
@@ -166,9 +166,12 @@ _MTL_INLINE void MTL4::ArgumentTable::setAddress(MTL::GPUAddress gpuAddress, NS:
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setAddress_atIndex_), gpuAddress, bindingIndex);
 }
 
-_MTL_INLINE void MTL4::ArgumentTable::setAddress(MTL::GPUAddress gpuAddress, NS::UInteger stride, NS::UInteger bindingIndex)
+_MTL_INLINE void MTL4::ArgumentTable::setAddress(MTL::GPUAddress gpuAddress,
+                                                 NS::UInteger    stride,
+                                                 NS::UInteger    bindingIndex)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setAddress_attributeStride_atIndex_), gpuAddress, stride, bindingIndex);
+    Object::sendMessage<void>(
+        this, _MTL_PRIVATE_SEL(setAddress_attributeStride_atIndex_), gpuAddress, stride, bindingIndex);
 }
 
 _MTL_INLINE void MTL4::ArgumentTable::setResource(MTL::ResourceID resourceID, NS::UInteger bindingIndex)

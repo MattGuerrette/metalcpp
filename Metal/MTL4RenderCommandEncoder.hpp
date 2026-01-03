@@ -20,6 +20,7 @@
 
 #pragma once
 
+#include <cstdint>
 #include "../Foundation/Foundation.hpp"
 #include "MTL4CommandEncoder.hpp"
 #include "MTL4Counters.hpp"
@@ -31,180 +32,316 @@
 #include "MTLRenderCommandEncoder.hpp"
 #include "MTLRenderPass.hpp"
 #include "MTLTypes.hpp"
-#include <cstdint>
 
 namespace MTL4
 {
-class ArgumentTable;
-class CounterHeap;
-}
+    class ArgumentTable;
+    class CounterHeap;
+} // namespace MTL4
 
 namespace MTL
 {
-class DepthStencilState;
-class IndirectCommandBuffer;
-class LogicalToPhysicalColorAttachmentMap;
-class RenderPipelineState;
-struct ScissorRect;
-struct VertexAmplificationViewMapping;
-struct Viewport;
+    class DepthStencilState;
+    class IndirectCommandBuffer;
+    class LogicalToPhysicalColorAttachmentMap;
+    class RenderPipelineState;
+    struct ScissorRect;
+    struct VertexAmplificationViewMapping;
+    struct Viewport;
 
-}
+} // namespace MTL
 namespace MTL4
 {
-_MTL_OPTIONS(NS::UInteger, RenderEncoderOptions) {
-    RenderEncoderOptionNone = 0,
-    RenderEncoderOptionSuspending = 1,
-    RenderEncoderOptionResuming = 1 << 1,
-};
+    _MTL_OPTIONS(NS::UInteger, RenderEncoderOptions){
+        RenderEncoderOptionNone       = 0,
+        RenderEncoderOptionSuspending = 1,
+        RenderEncoderOptionResuming   = 1 << 1,
+    };
 
-class RenderCommandEncoder : public NS::Referencing<RenderCommandEncoder, CommandEncoder>
-{
-public:
-    void         dispatchThreadsPerTile(MTL::Size threadsPerTile);
+    class RenderCommandEncoder : public NS::Referencing<RenderCommandEncoder, CommandEncoder>
+    {
+    public:
+        void dispatchThreadsPerTile(MTL::Size threadsPerTile);
 
-    void         drawIndexedPrimitives(MTL::PrimitiveType primitiveType, NS::UInteger indexCount, MTL::IndexType indexType, MTL::GPUAddress indexBuffer, NS::UInteger indexBufferLength);
-    void         drawIndexedPrimitives(MTL::PrimitiveType primitiveType, NS::UInteger indexCount, MTL::IndexType indexType, MTL::GPUAddress indexBuffer, NS::UInteger indexBufferLength, NS::UInteger instanceCount);
-    void         drawIndexedPrimitives(MTL::PrimitiveType primitiveType, NS::UInteger indexCount, MTL::IndexType indexType, MTL::GPUAddress indexBuffer, NS::UInteger indexBufferLength, NS::UInteger instanceCount, NS::Integer baseVertex, NS::UInteger baseInstance);
-    void         drawIndexedPrimitives(MTL::PrimitiveType primitiveType, MTL::IndexType indexType, MTL::GPUAddress indexBuffer, NS::UInteger indexBufferLength, MTL::GPUAddress indirectBuffer);
+        void drawIndexedPrimitives(MTL::PrimitiveType primitiveType,
+                                   NS::UInteger       indexCount,
+                                   MTL::IndexType     indexType,
+                                   MTL::GPUAddress    indexBuffer,
+                                   NS::UInteger       indexBufferLength);
+        void drawIndexedPrimitives(MTL::PrimitiveType primitiveType,
+                                   NS::UInteger       indexCount,
+                                   MTL::IndexType     indexType,
+                                   MTL::GPUAddress    indexBuffer,
+                                   NS::UInteger       indexBufferLength,
+                                   NS::UInteger       instanceCount);
+        void drawIndexedPrimitives(MTL::PrimitiveType primitiveType,
+                                   NS::UInteger       indexCount,
+                                   MTL::IndexType     indexType,
+                                   MTL::GPUAddress    indexBuffer,
+                                   NS::UInteger       indexBufferLength,
+                                   NS::UInteger       instanceCount,
+                                   NS::Integer        baseVertex,
+                                   NS::UInteger       baseInstance);
+        void drawIndexedPrimitives(MTL::PrimitiveType primitiveType,
+                                   MTL::IndexType     indexType,
+                                   MTL::GPUAddress    indexBuffer,
+                                   NS::UInteger       indexBufferLength,
+                                   MTL::GPUAddress    indirectBuffer);
 
-    void         drawMeshThreadgroups(MTL::Size threadgroupsPerGrid, MTL::Size threadsPerObjectThreadgroup, MTL::Size threadsPerMeshThreadgroup);
-    void         drawMeshThreadgroups(MTL::GPUAddress indirectBuffer, MTL::Size threadsPerObjectThreadgroup, MTL::Size threadsPerMeshThreadgroup);
+        void drawMeshThreadgroups(MTL::Size threadgroupsPerGrid,
+                                  MTL::Size threadsPerObjectThreadgroup,
+                                  MTL::Size threadsPerMeshThreadgroup);
+        void drawMeshThreadgroups(MTL::GPUAddress indirectBuffer,
+                                  MTL::Size       threadsPerObjectThreadgroup,
+                                  MTL::Size       threadsPerMeshThreadgroup);
 
-    void         drawMeshThreads(MTL::Size threadsPerGrid, MTL::Size threadsPerObjectThreadgroup, MTL::Size threadsPerMeshThreadgroup);
+        void drawMeshThreads(MTL::Size threadsPerGrid,
+                             MTL::Size threadsPerObjectThreadgroup,
+                             MTL::Size threadsPerMeshThreadgroup);
 
-    void         drawPrimitives(MTL::PrimitiveType primitiveType, NS::UInteger vertexStart, NS::UInteger vertexCount);
-    void         drawPrimitives(MTL::PrimitiveType primitiveType, NS::UInteger vertexStart, NS::UInteger vertexCount, NS::UInteger instanceCount);
-    void         drawPrimitives(MTL::PrimitiveType primitiveType, NS::UInteger vertexStart, NS::UInteger vertexCount, NS::UInteger instanceCount, NS::UInteger baseInstance);
-    void         drawPrimitives(MTL::PrimitiveType primitiveType, MTL::GPUAddress indirectBuffer);
+        void drawPrimitives(MTL::PrimitiveType primitiveType, NS::UInteger vertexStart, NS::UInteger vertexCount);
+        void drawPrimitives(MTL::PrimitiveType primitiveType,
+                            NS::UInteger       vertexStart,
+                            NS::UInteger       vertexCount,
+                            NS::UInteger       instanceCount);
+        void drawPrimitives(MTL::PrimitiveType primitiveType,
+                            NS::UInteger       vertexStart,
+                            NS::UInteger       vertexCount,
+                            NS::UInteger       instanceCount,
+                            NS::UInteger       baseInstance);
+        void drawPrimitives(MTL::PrimitiveType primitiveType, MTL::GPUAddress indirectBuffer);
 
-    void         executeCommandsInBuffer(const MTL::IndirectCommandBuffer* indirectCommandBuffer, NS::Range executionRange);
-    void         executeCommandsInBuffer(const MTL::IndirectCommandBuffer* indirectCommandBuffer, MTL::GPUAddress indirectRangeBuffer);
+        void executeCommandsInBuffer(const MTL::IndirectCommandBuffer* indirectCommandBuffer, NS::Range executionRange);
+        void executeCommandsInBuffer(const MTL::IndirectCommandBuffer* indirectCommandBuffer,
+                                     MTL::GPUAddress                   indirectRangeBuffer);
 
-    void         setArgumentTable(const MTL4::ArgumentTable* argumentTable, MTL::RenderStages stages);
+        void setArgumentTable(const MTL4::ArgumentTable* argumentTable, MTL::RenderStages stages);
 
-    void         setBlendColor(float red, float green, float blue, float alpha);
+        void setBlendColor(float red, float green, float blue, float alpha);
 
-    void         setColorAttachmentMap(const MTL::LogicalToPhysicalColorAttachmentMap* mapping);
+        void setColorAttachmentMap(const MTL::LogicalToPhysicalColorAttachmentMap* mapping);
 
-    void         setColorStoreAction(MTL::StoreAction storeAction, NS::UInteger colorAttachmentIndex);
+        void setColorStoreAction(MTL::StoreAction storeAction, NS::UInteger colorAttachmentIndex);
 
-    void         setCullMode(MTL::CullMode cullMode);
+        void setCullMode(MTL::CullMode cullMode);
 
-    void         setDepthBias(float depthBias, float slopeScale, float clamp);
+        void setDepthBias(float depthBias, float slopeScale, float clamp);
 
-    void         setDepthClipMode(MTL::DepthClipMode depthClipMode);
+        void setDepthClipMode(MTL::DepthClipMode depthClipMode);
 
-    void         setDepthStencilState(const MTL::DepthStencilState* depthStencilState);
+        void setDepthStencilState(const MTL::DepthStencilState* depthStencilState);
 
-    void         setDepthStoreAction(MTL::StoreAction storeAction);
+        void setDepthStoreAction(MTL::StoreAction storeAction);
 
-    void         setDepthTestBounds(float minBound, float maxBound);
+        void setDepthTestBounds(float minBound, float maxBound);
 
-    void         setFrontFacingWinding(MTL::Winding frontFacingWinding);
+        void setFrontFacingWinding(MTL::Winding frontFacingWinding);
 
-    void         setObjectThreadgroupMemoryLength(NS::UInteger length, NS::UInteger index);
+        void setObjectThreadgroupMemoryLength(NS::UInteger length, NS::UInteger index);
 
-    void         setRenderPipelineState(const MTL::RenderPipelineState* pipelineState);
+        void setRenderPipelineState(const MTL::RenderPipelineState* pipelineState);
 
-    void         setScissorRect(MTL::ScissorRect rect);
-    void         setScissorRects(const MTL::ScissorRect* scissorRects, NS::UInteger count);
+        void setScissorRect(MTL::ScissorRect rect);
+        void setScissorRects(const MTL::ScissorRect* scissorRects, NS::UInteger count);
 
-    void         setStencilReferenceValue(uint32_t referenceValue);
-    void         setStencilReferenceValues(uint32_t frontReferenceValue, uint32_t backReferenceValue);
+        void setStencilReferenceValue(uint32_t referenceValue);
+        void setStencilReferenceValues(uint32_t frontReferenceValue, uint32_t backReferenceValue);
 
-    void         setStencilStoreAction(MTL::StoreAction storeAction);
+        void setStencilStoreAction(MTL::StoreAction storeAction);
 
-    void         setThreadgroupMemoryLength(NS::UInteger length, NS::UInteger offset, NS::UInteger index);
+        void setThreadgroupMemoryLength(NS::UInteger length, NS::UInteger offset, NS::UInteger index);
 
-    void         setTriangleFillMode(MTL::TriangleFillMode fillMode);
+        void setTriangleFillMode(MTL::TriangleFillMode fillMode);
 
-    void         setVertexAmplificationCount(NS::UInteger count, const MTL::VertexAmplificationViewMapping* viewMappings);
+        void setVertexAmplificationCount(NS::UInteger count, const MTL::VertexAmplificationViewMapping* viewMappings);
 
-    void         setViewport(MTL::Viewport viewport);
-    void         setViewports(const MTL::Viewport* viewports, NS::UInteger count);
+        void setViewport(MTL::Viewport viewport);
+        void setViewports(const MTL::Viewport* viewports, NS::UInteger count);
 
-    void         setVisibilityResultMode(MTL::VisibilityResultMode mode, NS::UInteger offset);
+        void setVisibilityResultMode(MTL::VisibilityResultMode mode, NS::UInteger offset);
 
-    NS::UInteger tileHeight() const;
+        NS::UInteger tileHeight() const;
 
-    NS::UInteger tileWidth() const;
+        NS::UInteger tileWidth() const;
 
-    void         writeTimestamp(MTL4::TimestampGranularity granularity, MTL::RenderStages stage, const MTL4::CounterHeap* counterHeap, NS::UInteger index);
-};
+        void writeTimestamp(MTL4::TimestampGranularity granularity,
+                            MTL::RenderStages          stage,
+                            const MTL4::CounterHeap*   counterHeap,
+                            NS::UInteger               index);
+    };
 
-}
+} // namespace MTL4
 _MTL_INLINE void MTL4::RenderCommandEncoder::dispatchThreadsPerTile(MTL::Size threadsPerTile)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(dispatchThreadsPerTile_), threadsPerTile);
 }
 
-_MTL_INLINE void MTL4::RenderCommandEncoder::drawIndexedPrimitives(MTL::PrimitiveType primitiveType, NS::UInteger indexCount, MTL::IndexType indexType, MTL::GPUAddress indexBuffer, NS::UInteger indexBufferLength)
+_MTL_INLINE void MTL4::RenderCommandEncoder::drawIndexedPrimitives(MTL::PrimitiveType primitiveType,
+                                                                   NS::UInteger       indexCount,
+                                                                   MTL::IndexType     indexType,
+                                                                   MTL::GPUAddress    indexBuffer,
+                                                                   NS::UInteger       indexBufferLength)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferLength_), primitiveType, indexCount, indexType, indexBuffer, indexBufferLength);
+    Object::sendMessage<void>(
+        this,
+        _MTL_PRIVATE_SEL(drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferLength_),
+        primitiveType,
+        indexCount,
+        indexType,
+        indexBuffer,
+        indexBufferLength);
 }
 
-_MTL_INLINE void MTL4::RenderCommandEncoder::drawIndexedPrimitives(MTL::PrimitiveType primitiveType, NS::UInteger indexCount, MTL::IndexType indexType, MTL::GPUAddress indexBuffer, NS::UInteger indexBufferLength, NS::UInteger instanceCount)
+_MTL_INLINE void MTL4::RenderCommandEncoder::drawIndexedPrimitives(MTL::PrimitiveType primitiveType,
+                                                                   NS::UInteger       indexCount,
+                                                                   MTL::IndexType     indexType,
+                                                                   MTL::GPUAddress    indexBuffer,
+                                                                   NS::UInteger       indexBufferLength,
+                                                                   NS::UInteger       instanceCount)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferLength_instanceCount_), primitiveType, indexCount, indexType, indexBuffer, indexBufferLength, instanceCount);
+    Object::sendMessage<void>(
+        this,
+        _MTL_PRIVATE_SEL(drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferLength_instanceCount_),
+        primitiveType,
+        indexCount,
+        indexType,
+        indexBuffer,
+        indexBufferLength,
+        instanceCount);
 }
 
-_MTL_INLINE void MTL4::RenderCommandEncoder::drawIndexedPrimitives(MTL::PrimitiveType primitiveType, NS::UInteger indexCount, MTL::IndexType indexType, MTL::GPUAddress indexBuffer, NS::UInteger indexBufferLength, NS::UInteger instanceCount, NS::Integer baseVertex, NS::UInteger baseInstance)
+_MTL_INLINE void MTL4::RenderCommandEncoder::drawIndexedPrimitives(MTL::PrimitiveType primitiveType,
+                                                                   NS::UInteger       indexCount,
+                                                                   MTL::IndexType     indexType,
+                                                                   MTL::GPUAddress    indexBuffer,
+                                                                   NS::UInteger       indexBufferLength,
+                                                                   NS::UInteger       instanceCount,
+                                                                   NS::Integer        baseVertex,
+                                                                   NS::UInteger       baseInstance)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferLength_instanceCount_baseVertex_baseInstance_), primitiveType, indexCount, indexType, indexBuffer, indexBufferLength, instanceCount, baseVertex, baseInstance);
+    Object::sendMessage<void>(
+        this,
+        _MTL_PRIVATE_SEL(
+            drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferLength_instanceCount_baseVertex_baseInstance_),
+        primitiveType,
+        indexCount,
+        indexType,
+        indexBuffer,
+        indexBufferLength,
+        instanceCount,
+        baseVertex,
+        baseInstance);
 }
 
-_MTL_INLINE void MTL4::RenderCommandEncoder::drawIndexedPrimitives(MTL::PrimitiveType primitiveType, MTL::IndexType indexType, MTL::GPUAddress indexBuffer, NS::UInteger indexBufferLength, MTL::GPUAddress indirectBuffer)
+_MTL_INLINE void MTL4::RenderCommandEncoder::drawIndexedPrimitives(MTL::PrimitiveType primitiveType,
+                                                                   MTL::IndexType     indexType,
+                                                                   MTL::GPUAddress    indexBuffer,
+                                                                   NS::UInteger       indexBufferLength,
+                                                                   MTL::GPUAddress    indirectBuffer)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(drawIndexedPrimitives_indexType_indexBuffer_indexBufferLength_indirectBuffer_), primitiveType, indexType, indexBuffer, indexBufferLength, indirectBuffer);
+    Object::sendMessage<void>(
+        this,
+        _MTL_PRIVATE_SEL(drawIndexedPrimitives_indexType_indexBuffer_indexBufferLength_indirectBuffer_),
+        primitiveType,
+        indexType,
+        indexBuffer,
+        indexBufferLength,
+        indirectBuffer);
 }
 
-_MTL_INLINE void MTL4::RenderCommandEncoder::drawMeshThreadgroups(MTL::Size threadgroupsPerGrid, MTL::Size threadsPerObjectThreadgroup, MTL::Size threadsPerMeshThreadgroup)
+_MTL_INLINE void MTL4::RenderCommandEncoder::drawMeshThreadgroups(MTL::Size threadgroupsPerGrid,
+                                                                  MTL::Size threadsPerObjectThreadgroup,
+                                                                  MTL::Size threadsPerMeshThreadgroup)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(drawMeshThreadgroups_threadsPerObjectThreadgroup_threadsPerMeshThreadgroup_), threadgroupsPerGrid, threadsPerObjectThreadgroup, threadsPerMeshThreadgroup);
+    Object::sendMessage<void>(
+        this,
+        _MTL_PRIVATE_SEL(drawMeshThreadgroups_threadsPerObjectThreadgroup_threadsPerMeshThreadgroup_),
+        threadgroupsPerGrid,
+        threadsPerObjectThreadgroup,
+        threadsPerMeshThreadgroup);
 }
 
-_MTL_INLINE void MTL4::RenderCommandEncoder::drawMeshThreadgroups(MTL::GPUAddress indirectBuffer, MTL::Size threadsPerObjectThreadgroup, MTL::Size threadsPerMeshThreadgroup)
+_MTL_INLINE void MTL4::RenderCommandEncoder::drawMeshThreadgroups(MTL::GPUAddress indirectBuffer,
+                                                                  MTL::Size       threadsPerObjectThreadgroup,
+                                                                  MTL::Size       threadsPerMeshThreadgroup)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(drawMeshThreadgroupsWithIndirectBuffer_threadsPerObjectThreadgroup_threadsPerMeshThreadgroup_), indirectBuffer, threadsPerObjectThreadgroup, threadsPerMeshThreadgroup);
+    Object::sendMessage<void>(
+        this,
+        _MTL_PRIVATE_SEL(drawMeshThreadgroupsWithIndirectBuffer_threadsPerObjectThreadgroup_threadsPerMeshThreadgroup_),
+        indirectBuffer,
+        threadsPerObjectThreadgroup,
+        threadsPerMeshThreadgroup);
 }
 
-_MTL_INLINE void MTL4::RenderCommandEncoder::drawMeshThreads(MTL::Size threadsPerGrid, MTL::Size threadsPerObjectThreadgroup, MTL::Size threadsPerMeshThreadgroup)
+_MTL_INLINE void MTL4::RenderCommandEncoder::drawMeshThreads(MTL::Size threadsPerGrid,
+                                                             MTL::Size threadsPerObjectThreadgroup,
+                                                             MTL::Size threadsPerMeshThreadgroup)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(drawMeshThreads_threadsPerObjectThreadgroup_threadsPerMeshThreadgroup_), threadsPerGrid, threadsPerObjectThreadgroup, threadsPerMeshThreadgroup);
+    Object::sendMessage<void>(this,
+                              _MTL_PRIVATE_SEL(drawMeshThreads_threadsPerObjectThreadgroup_threadsPerMeshThreadgroup_),
+                              threadsPerGrid,
+                              threadsPerObjectThreadgroup,
+                              threadsPerMeshThreadgroup);
 }
 
-_MTL_INLINE void MTL4::RenderCommandEncoder::drawPrimitives(MTL::PrimitiveType primitiveType, NS::UInteger vertexStart, NS::UInteger vertexCount)
+_MTL_INLINE void MTL4::RenderCommandEncoder::drawPrimitives(MTL::PrimitiveType primitiveType,
+                                                            NS::UInteger       vertexStart,
+                                                            NS::UInteger       vertexCount)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(drawPrimitives_vertexStart_vertexCount_), primitiveType, vertexStart, vertexCount);
+    Object::sendMessage<void>(
+        this, _MTL_PRIVATE_SEL(drawPrimitives_vertexStart_vertexCount_), primitiveType, vertexStart, vertexCount);
 }
 
-_MTL_INLINE void MTL4::RenderCommandEncoder::drawPrimitives(MTL::PrimitiveType primitiveType, NS::UInteger vertexStart, NS::UInteger vertexCount, NS::UInteger instanceCount)
+_MTL_INLINE void MTL4::RenderCommandEncoder::drawPrimitives(MTL::PrimitiveType primitiveType,
+                                                            NS::UInteger       vertexStart,
+                                                            NS::UInteger       vertexCount,
+                                                            NS::UInteger       instanceCount)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(drawPrimitives_vertexStart_vertexCount_instanceCount_), primitiveType, vertexStart, vertexCount, instanceCount);
+    Object::sendMessage<void>(this,
+                              _MTL_PRIVATE_SEL(drawPrimitives_vertexStart_vertexCount_instanceCount_),
+                              primitiveType,
+                              vertexStart,
+                              vertexCount,
+                              instanceCount);
 }
 
-_MTL_INLINE void MTL4::RenderCommandEncoder::drawPrimitives(MTL::PrimitiveType primitiveType, NS::UInteger vertexStart, NS::UInteger vertexCount, NS::UInteger instanceCount, NS::UInteger baseInstance)
+_MTL_INLINE void MTL4::RenderCommandEncoder::drawPrimitives(MTL::PrimitiveType primitiveType,
+                                                            NS::UInteger       vertexStart,
+                                                            NS::UInteger       vertexCount,
+                                                            NS::UInteger       instanceCount,
+                                                            NS::UInteger       baseInstance)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(drawPrimitives_vertexStart_vertexCount_instanceCount_baseInstance_), primitiveType, vertexStart, vertexCount, instanceCount, baseInstance);
+    Object::sendMessage<void>(this,
+                              _MTL_PRIVATE_SEL(drawPrimitives_vertexStart_vertexCount_instanceCount_baseInstance_),
+                              primitiveType,
+                              vertexStart,
+                              vertexCount,
+                              instanceCount,
+                              baseInstance);
 }
 
-_MTL_INLINE void MTL4::RenderCommandEncoder::drawPrimitives(MTL::PrimitiveType primitiveType, MTL::GPUAddress indirectBuffer)
+_MTL_INLINE void MTL4::RenderCommandEncoder::drawPrimitives(MTL::PrimitiveType primitiveType,
+                                                            MTL::GPUAddress    indirectBuffer)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(drawPrimitives_indirectBuffer_), primitiveType, indirectBuffer);
 }
 
-_MTL_INLINE void MTL4::RenderCommandEncoder::executeCommandsInBuffer(const MTL::IndirectCommandBuffer* indirectCommandBuffer, NS::Range executionRange)
+_MTL_INLINE void MTL4::RenderCommandEncoder::executeCommandsInBuffer(
+    const MTL::IndirectCommandBuffer* indirectCommandBuffer, NS::Range executionRange)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(executeCommandsInBuffer_withRange_), indirectCommandBuffer, executionRange);
+    Object::sendMessage<void>(
+        this, _MTL_PRIVATE_SEL(executeCommandsInBuffer_withRange_), indirectCommandBuffer, executionRange);
 }
 
-_MTL_INLINE void MTL4::RenderCommandEncoder::executeCommandsInBuffer(const MTL::IndirectCommandBuffer* indirectCommandBuffer, MTL::GPUAddress indirectRangeBuffer)
+_MTL_INLINE void MTL4::RenderCommandEncoder::executeCommandsInBuffer(
+    const MTL::IndirectCommandBuffer* indirectCommandBuffer, MTL::GPUAddress indirectRangeBuffer)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(executeCommandsInBuffer_indirectBuffer_), indirectCommandBuffer, indirectRangeBuffer);
+    Object::sendMessage<void>(
+        this, _MTL_PRIVATE_SEL(executeCommandsInBuffer_indirectBuffer_), indirectCommandBuffer, indirectRangeBuffer);
 }
 
-_MTL_INLINE void MTL4::RenderCommandEncoder::setArgumentTable(const MTL4::ArgumentTable* argumentTable, MTL::RenderStages stages)
+_MTL_INLINE void MTL4::RenderCommandEncoder::setArgumentTable(const MTL4::ArgumentTable* argumentTable,
+                                                              MTL::RenderStages          stages)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setArgumentTable_atStages_), argumentTable, stages);
 }
@@ -214,12 +351,14 @@ _MTL_INLINE void MTL4::RenderCommandEncoder::setBlendColor(float red, float gree
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setBlendColorRed_green_blue_alpha_), red, green, blue, alpha);
 }
 
-_MTL_INLINE void MTL4::RenderCommandEncoder::setColorAttachmentMap(const MTL::LogicalToPhysicalColorAttachmentMap* mapping)
+_MTL_INLINE void MTL4::RenderCommandEncoder::setColorAttachmentMap(
+    const MTL::LogicalToPhysicalColorAttachmentMap* mapping)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setColorAttachmentMap_), mapping);
 }
 
-_MTL_INLINE void MTL4::RenderCommandEncoder::setColorStoreAction(MTL::StoreAction storeAction, NS::UInteger colorAttachmentIndex)
+_MTL_INLINE void MTL4::RenderCommandEncoder::setColorStoreAction(MTL::StoreAction storeAction,
+                                                                 NS::UInteger     colorAttachmentIndex)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setColorStoreAction_atIndex_), storeAction, colorAttachmentIndex);
 }
@@ -284,9 +423,13 @@ _MTL_INLINE void MTL4::RenderCommandEncoder::setStencilReferenceValue(uint32_t r
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setStencilReferenceValue_), referenceValue);
 }
 
-_MTL_INLINE void MTL4::RenderCommandEncoder::setStencilReferenceValues(uint32_t frontReferenceValue, uint32_t backReferenceValue)
+_MTL_INLINE void MTL4::RenderCommandEncoder::setStencilReferenceValues(uint32_t frontReferenceValue,
+                                                                       uint32_t backReferenceValue)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setStencilFrontReferenceValue_backReferenceValue_), frontReferenceValue, backReferenceValue);
+    Object::sendMessage<void>(this,
+                              _MTL_PRIVATE_SEL(setStencilFrontReferenceValue_backReferenceValue_),
+                              frontReferenceValue,
+                              backReferenceValue);
 }
 
 _MTL_INLINE void MTL4::RenderCommandEncoder::setStencilStoreAction(MTL::StoreAction storeAction)
@@ -294,9 +437,12 @@ _MTL_INLINE void MTL4::RenderCommandEncoder::setStencilStoreAction(MTL::StoreAct
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setStencilStoreAction_), storeAction);
 }
 
-_MTL_INLINE void MTL4::RenderCommandEncoder::setThreadgroupMemoryLength(NS::UInteger length, NS::UInteger offset, NS::UInteger index)
+_MTL_INLINE void MTL4::RenderCommandEncoder::setThreadgroupMemoryLength(NS::UInteger length,
+                                                                        NS::UInteger offset,
+                                                                        NS::UInteger index)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setThreadgroupMemoryLength_offset_atIndex_), length, offset, index);
+    Object::sendMessage<void>(
+        this, _MTL_PRIVATE_SEL(setThreadgroupMemoryLength_offset_atIndex_), length, offset, index);
 }
 
 _MTL_INLINE void MTL4::RenderCommandEncoder::setTriangleFillMode(MTL::TriangleFillMode fillMode)
@@ -304,7 +450,8 @@ _MTL_INLINE void MTL4::RenderCommandEncoder::setTriangleFillMode(MTL::TriangleFi
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setTriangleFillMode_), fillMode);
 }
 
-_MTL_INLINE void MTL4::RenderCommandEncoder::setVertexAmplificationCount(NS::UInteger count, const MTL::VertexAmplificationViewMapping* viewMappings)
+_MTL_INLINE void MTL4::RenderCommandEncoder::setVertexAmplificationCount(
+    NS::UInteger count, const MTL::VertexAmplificationViewMapping* viewMappings)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setVertexAmplificationCount_viewMappings_), count, viewMappings);
 }
@@ -319,7 +466,8 @@ _MTL_INLINE void MTL4::RenderCommandEncoder::setViewports(const MTL::Viewport* v
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setViewports_count_), viewports, count);
 }
 
-_MTL_INLINE void MTL4::RenderCommandEncoder::setVisibilityResultMode(MTL::VisibilityResultMode mode, NS::UInteger offset)
+_MTL_INLINE void MTL4::RenderCommandEncoder::setVisibilityResultMode(MTL::VisibilityResultMode mode,
+                                                                     NS::UInteger              offset)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setVisibilityResultMode_offset_), mode, offset);
 }
@@ -334,7 +482,15 @@ _MTL_INLINE NS::UInteger MTL4::RenderCommandEncoder::tileWidth() const
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(tileWidth));
 }
 
-_MTL_INLINE void MTL4::RenderCommandEncoder::writeTimestamp(MTL4::TimestampGranularity granularity, MTL::RenderStages stage, const MTL4::CounterHeap* counterHeap, NS::UInteger index)
+_MTL_INLINE void MTL4::RenderCommandEncoder::writeTimestamp(MTL4::TimestampGranularity granularity,
+                                                            MTL::RenderStages          stage,
+                                                            const MTL4::CounterHeap*   counterHeap,
+                                                            NS::UInteger               index)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(writeTimestampWithGranularity_afterStage_intoHeap_atIndex_), granularity, stage, counterHeap, index);
+    Object::sendMessage<void>(this,
+                              _MTL_PRIVATE_SEL(writeTimestampWithGranularity_afterStage_intoHeap_atIndex_),
+                              granularity,
+                              stage,
+                              counterHeap,
+                              index);
 }

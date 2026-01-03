@@ -56,20 +56,20 @@
 #define _MTL_PRIVATE_DEF_SEL(accessor, symbol) SEL s_k##accessor _MTL_PRIVATE_VISIBILITY = sel_registerName(symbol)
 
 #include <dlfcn.h>
-#define MTL_DEF_FUNC( name, signature ) \
-    using Fn##name = signature; \
-    Fn##name name = reinterpret_cast< Fn##name >( dlsym( RTLD_DEFAULT, #name ) )
+#define MTL_DEF_FUNC(name, signature) \
+    using Fn##name = signature;       \
+    Fn##name name  = reinterpret_cast<Fn##name>(dlsym(RTLD_DEFAULT, #name))
 
 namespace MTL::Private
 {
-    template <typename _Type>
+    template<typename _Type>
     inline _Type const LoadSymbol(const char* pSymbol)
     {
         const _Type* pAddress = static_cast<_Type*>(dlsym(RTLD_DEFAULT, pSymbol));
 
         return pAddress ? *pAddress : nullptr;
     }
-} // MTL::Private
+} // namespace MTL::Private
 
 #if defined(__MAC_26_0) || defined(__IPHONE_26_0) || defined(__TVOS_26_0)
 
@@ -77,12 +77,12 @@ namespace MTL::Private
     _MTL_EXTERN type const MTL##symbol _MTL_PRIVATE_IMPORT; \
     type const                         MTL::symbol = (nullptr != &MTL##symbol) ? MTL##symbol : nullptr
 
-#define _MTL_PRIVATE_DEF_CONST(type, symbol)              \
+#define _MTL_PRIVATE_DEF_CONST(type, symbol)                \
     _MTL_EXTERN type const MTL##symbol _MTL_PRIVATE_IMPORT; \
     type const                         MTL::symbol = (nullptr != &MTL##symbol) ? MTL##symbol : nullptr
 
 #define _MTL_PRIVATE_DEF_WEAK_CONST(type, symbol) \
-    _MTL_EXTERN type const MTL##symbol;    \
+    _MTL_EXTERN type const MTL##symbol;           \
     type const             MTL::symbol = MTL::Private::LoadSymbol<type>("MTL" #symbol)
 
 #else
@@ -92,7 +92,7 @@ namespace MTL::Private
     type const             MTL::symbol = MTL::Private::LoadSymbol<type>("MTL" #symbol)
 
 #define _MTL_PRIVATE_DEF_CONST(type, symbol) \
-    _MTL_EXTERN type const MTL##symbol;    \
+    _MTL_EXTERN type const MTL##symbol;      \
     type const             MTL::symbol = MTL::Private::LoadSymbol<type>("MTL" #symbol)
 
 #define _MTL_PRIVATE_DEF_WEAK_CONST(type, symbol) _MTL_PRIVATE_DEF_CONST(type, symbol)
@@ -114,43 +114,41 @@ namespace MTL::Private
 
 namespace MTL
 {
-namespace Private
-{
-    namespace Class
+    namespace Private
     {
+        namespace Class
+        {
 
-    } // Class
-} // Private
-} // MTL
+        } // namespace Class
+    } // namespace Private
+} // namespace MTL
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 namespace MTL
 {
-namespace Private
-{
-    namespace Protocol
+    namespace Private
     {
+        namespace Protocol
+        {
 
-    } // Protocol
-} // Private
-} // MTL
+        } // namespace Protocol
+    } // namespace Private
+} // namespace MTL
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 namespace MTL
 {
-namespace Private
-{
-    namespace Selector
+    namespace Private
     {
+        namespace Selector
+        {
 
-        _MTL_PRIVATE_DEF_SEL(beginScope,
-            "beginScope");
-        _MTL_PRIVATE_DEF_SEL(endScope,
-            "endScope");
-    } // Class
-} // Private
-} // MTL
+            _MTL_PRIVATE_DEF_SEL(beginScope, "beginScope");
+            _MTL_PRIVATE_DEF_SEL(endScope, "endScope");
+        } // namespace Selector
+    } // namespace Private
+} // namespace MTL
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------

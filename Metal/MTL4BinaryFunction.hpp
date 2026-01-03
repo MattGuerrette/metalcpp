@@ -29,15 +29,15 @@
 namespace MTL4
 {
 
-class BinaryFunction : public NS::Referencing<BinaryFunction>
-{
-public:
-    MTL::FunctionType functionType() const;
+    class BinaryFunction : public NS::Referencing<BinaryFunction>
+    {
+    public:
+        MTL::FunctionType functionType() const;
 
-    NS::String*       name() const;
-};
+        NS::String* name() const;
+    };
 
-}
+} // namespace MTL4
 
 _MTL_INLINE MTL::FunctionType MTL4::BinaryFunction::functionType() const
 {

@@ -27,31 +27,31 @@
 
 namespace MTL
 {
-class Device;
-_MTL_ENUM(NS::UInteger, DynamicLibraryError) {
-    DynamicLibraryErrorNone = 0,
-    DynamicLibraryErrorInvalidFile = 1,
-    DynamicLibraryErrorCompilationFailure = 2,
-    DynamicLibraryErrorUnresolvedInstallName = 3,
-    DynamicLibraryErrorDependencyLoadFailure = 4,
-    DynamicLibraryErrorUnsupported = 5,
-};
+    class Device;
+    _MTL_ENUM(NS::UInteger, DynamicLibraryError){
+        DynamicLibraryErrorNone                  = 0,
+        DynamicLibraryErrorInvalidFile           = 1,
+        DynamicLibraryErrorCompilationFailure    = 2,
+        DynamicLibraryErrorUnresolvedInstallName = 3,
+        DynamicLibraryErrorDependencyLoadFailure = 4,
+        DynamicLibraryErrorUnsupported           = 5,
+    };
 
-class DynamicLibrary : public NS::Referencing<DynamicLibrary>
-{
-public:
-    Device*     device() const;
+    class DynamicLibrary : public NS::Referencing<DynamicLibrary>
+    {
+    public:
+        Device* device() const;
 
-    NS::String* installName() const;
+        NS::String* installName() const;
 
-    NS::String* label() const;
+        NS::String* label() const;
 
-    bool        serializeToURL(const NS::URL* url, NS::Error** error);
+        bool serializeToURL(const NS::URL* url, NS::Error** error);
 
-    void        setLabel(const NS::String* label);
-};
+        void setLabel(const NS::String* label);
+    };
 
-}
+} // namespace MTL
 _MTL_INLINE MTL::Device* MTL::DynamicLibrary::device() const
 {
     return Object::sendMessage<MTL::Device*>(this, _MTL_PRIVATE_SEL(device));

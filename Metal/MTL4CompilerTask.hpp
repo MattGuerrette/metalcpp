@@ -27,25 +27,25 @@
 
 namespace MTL4
 {
-class Compiler;
-_MTL_ENUM(NS::Integer, CompilerTaskStatus) {
-    CompilerTaskStatusNone = 0,
-    CompilerTaskStatusScheduled = 1,
-    CompilerTaskStatusCompiling = 2,
-    CompilerTaskStatusFinished = 3,
-};
+    class Compiler;
+    _MTL_ENUM(NS::Integer, CompilerTaskStatus){
+        CompilerTaskStatusNone      = 0,
+        CompilerTaskStatusScheduled = 1,
+        CompilerTaskStatusCompiling = 2,
+        CompilerTaskStatusFinished  = 3,
+    };
 
-class CompilerTask : public NS::Referencing<CompilerTask>
-{
-public:
-    Compiler*          compiler() const;
+    class CompilerTask : public NS::Referencing<CompilerTask>
+    {
+    public:
+        Compiler* compiler() const;
 
-    CompilerTaskStatus status() const;
+        CompilerTaskStatus status() const;
 
-    void               waitUntilCompleted();
-};
+        void waitUntilCompleted();
+    };
 
-}
+} // namespace MTL4
 
 _MTL_INLINE MTL4::Compiler* MTL4::CompilerTask::compiler() const
 {

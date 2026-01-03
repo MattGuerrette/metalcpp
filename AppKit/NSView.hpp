@@ -25,9 +25,9 @@
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-#include "AppKitPrivate.hpp"
-#include <Foundation/NSObject.hpp>
 #include <CoreGraphics/CGGeometry.h>
+#include <Foundation/NSObject.hpp>
+#include "AppKitPrivate.hpp"
 
 namespace CA
 {
@@ -36,22 +36,21 @@ namespace CA
 
 namespace NS
 {
-	class View : public NS::Referencing< View >
-	{
-		public:
-			View*		init( CGRect frame );
+    class View : public NS::Referencing<View>
+    {
+    public:
+        View* init(CGRect frame);
 
-            NS::Object* layer();
-            void setLayer(const NS::Object* pObject);
-	};
-}
+        NS::Object* layer();
+        void        setLayer(const NS::Object* pObject);
+    };
+} // namespace NS
 
 
-_NS_INLINE NS::View* NS::View::init( CGRect frame )
+_NS_INLINE NS::View* NS::View::init(CGRect frame)
 {
-	return Object::sendMessage< View* >( _APPKIT_PRIVATE_CLS( NSView ), _APPKIT_PRIVATE_SEL( initWithFrame_ ), frame );
+    return Object::sendMessage<View*>(_APPKIT_PRIVATE_CLS(NSView), _APPKIT_PRIVATE_SEL(initWithFrame_), frame);
 }
-
 
 
 _NS_INLINE void NS::View::setLayer(const NS::Object* pObject)
@@ -59,7 +58,4 @@ _NS_INLINE void NS::View::setLayer(const NS::Object* pObject)
     return Object::sendMessage<void>(this, _APPKIT_PRIVATE_SEL(setLayer_), pObject);
 }
 
-_NS_INLINE NS::Object* NS::View::layer()
-{
-    return Object::sendMessage<NS::Object*>(this, _APPKIT_PRIVATE_SEL(layer_));
-}
+_NS_INLINE NS::Object* NS::View::layer() { return Object::sendMessage<NS::Object*>(this, _APPKIT_PRIVATE_SEL(layer_)); }

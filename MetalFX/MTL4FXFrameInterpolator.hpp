@@ -25,8 +25,8 @@
 #include "MTLFXDefines.hpp"
 #include "MTLFXPrivate.hpp"
 
-#include "MTLFXFrameInterpolator.hpp"
 #include "../Metal/Metal.hpp"
+#include "MTLFXFrameInterpolator.hpp"
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -37,11 +37,11 @@ namespace MTL4FX
     public:
         void encodeToCommandBuffer(MTL4::CommandBuffer* commandBuffer);
     };
-}
+} // namespace MTL4FX
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 _MTLFX_INLINE void MTL4FX::FrameInterpolator::encodeToCommandBuffer(MTL4::CommandBuffer* commandBuffer)
 {
-    return NS::Object::sendMessage< void >( this, _MTLFX_PRIVATE_SEL( encodeToCommandBuffer_ ), commandBuffer );
+    return NS::Object::sendMessage<void>(this, _MTLFX_PRIVATE_SEL(encodeToCommandBuffer_), commandBuffer);
 }

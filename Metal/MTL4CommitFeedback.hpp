@@ -20,32 +20,32 @@
 
 #pragma once
 
+#include <CoreFoundation/CoreFoundation.h>
 #include "../Foundation/Foundation.hpp"
 #include "MTLDefines.hpp"
 #include "MTLHeaderBridge.hpp"
 #include "MTLPrivate.hpp"
-#include <CoreFoundation/CoreFoundation.h>
 
 #include <functional>
 
 namespace MTL4
 {
-class CommitFeedback;
+    class CommitFeedback;
 
-using CommitFeedbackHandler = void (^)(MTL4::CommitFeedback*);
-using CommitFeedbackHandlerFunction = std::function<void(MTL4::CommitFeedback*)>;
+    using CommitFeedbackHandler         = void (^)(MTL4::CommitFeedback*);
+    using CommitFeedbackHandlerFunction = std::function<void(MTL4::CommitFeedback*)>;
 
-class CommitFeedback : public NS::Referencing<CommitFeedback>
-{
-public:
-    CFTimeInterval GPUEndTime() const;
+    class CommitFeedback : public NS::Referencing<CommitFeedback>
+    {
+    public:
+        CFTimeInterval GPUEndTime() const;
 
-    CFTimeInterval GPUStartTime() const;
+        CFTimeInterval GPUStartTime() const;
 
-    NS::Error*     error() const;
-};
+        NS::Error* error() const;
+    };
 
-}
+} // namespace MTL4
 _MTL_INLINE CFTimeInterval MTL4::CommitFeedback::GPUEndTime() const
 {
     return Object::sendMessage<CFTimeInterval>(this, _MTL_PRIVATE_SEL(GPUEndTime));

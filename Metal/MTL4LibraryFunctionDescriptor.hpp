@@ -28,33 +28,33 @@
 
 namespace MTL4
 {
-class LibraryFunctionDescriptor;
+    class LibraryFunctionDescriptor;
 }
 
 namespace MTL
 {
-class Library;
+    class Library;
 }
 
 namespace MTL4
 {
-class LibraryFunctionDescriptor : public NS::Copying<LibraryFunctionDescriptor, FunctionDescriptor>
-{
-public:
-    static LibraryFunctionDescriptor* alloc();
+    class LibraryFunctionDescriptor : public NS::Copying<LibraryFunctionDescriptor, FunctionDescriptor>
+    {
+    public:
+        static LibraryFunctionDescriptor* alloc();
 
-    LibraryFunctionDescriptor*        init();
+        LibraryFunctionDescriptor* init();
 
-    MTL::Library*                     library() const;
+        MTL::Library* library() const;
 
-    NS::String*                       name() const;
+        NS::String* name() const;
 
-    void                              setLibrary(const MTL::Library* library);
+        void setLibrary(const MTL::Library* library);
 
-    void                              setName(const NS::String* name);
-};
+        void setName(const NS::String* name);
+    };
 
-}
+} // namespace MTL4
 _MTL_INLINE MTL4::LibraryFunctionDescriptor* MTL4::LibraryFunctionDescriptor::alloc()
 {
     return NS::Object::alloc<MTL4::LibraryFunctionDescriptor>(_MTL_PRIVATE_CLS(MTL4LibraryFunctionDescriptor));

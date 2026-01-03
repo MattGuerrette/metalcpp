@@ -27,83 +27,83 @@
 
 namespace MTL
 {
-class Buffer;
-class IOCommandBuffer;
-class IOCommandQueueDescriptor;
-class IOScratchBuffer;
-class IOScratchBufferAllocator;
-_MTL_ENUM(NS::Integer, IOPriority) {
-    IOPriorityHigh = 0,
-    IOPriorityNormal = 1,
-    IOPriorityLow = 2,
-};
+    class Buffer;
+    class IOCommandBuffer;
+    class IOCommandQueueDescriptor;
+    class IOScratchBuffer;
+    class IOScratchBufferAllocator;
+    _MTL_ENUM(NS::Integer, IOPriority){
+        IOPriorityHigh   = 0,
+        IOPriorityNormal = 1,
+        IOPriorityLow    = 2,
+    };
 
-_MTL_ENUM(NS::Integer, IOCommandQueueType) {
-    IOCommandQueueTypeConcurrent = 0,
-    IOCommandQueueTypeSerial = 1,
-};
+    _MTL_ENUM(NS::Integer, IOCommandQueueType){
+        IOCommandQueueTypeConcurrent = 0,
+        IOCommandQueueTypeSerial     = 1,
+    };
 
-_MTL_ENUM(NS::Integer, IOError) {
-    IOErrorURLInvalid = 1,
-    IOErrorInternal = 2,
-};
+    _MTL_ENUM(NS::Integer, IOError){
+        IOErrorURLInvalid = 1,
+        IOErrorInternal   = 2,
+    };
 
-_MTL_CONST(NS::ErrorDomain, IOErrorDomain);
-class IOCommandQueue : public NS::Referencing<IOCommandQueue>
-{
-public:
-    IOCommandBuffer* commandBuffer();
-    IOCommandBuffer* commandBufferWithUnretainedReferences();
+    _MTL_CONST(NS::ErrorDomain, IOErrorDomain);
+    class IOCommandQueue : public NS::Referencing<IOCommandQueue>
+    {
+    public:
+        IOCommandBuffer* commandBuffer();
+        IOCommandBuffer* commandBufferWithUnretainedReferences();
 
-    void             enqueueBarrier();
+        void enqueueBarrier();
 
-    NS::String*      label() const;
-    void             setLabel(const NS::String* label);
-};
-class IOScratchBuffer : public NS::Referencing<IOScratchBuffer>
-{
-public:
-    Buffer* buffer() const;
-};
-class IOScratchBufferAllocator : public NS::Referencing<IOScratchBufferAllocator>
-{
-public:
-    IOScratchBuffer* newScratchBuffer(NS::UInteger minimumSize);
-};
-class IOCommandQueueDescriptor : public NS::Copying<IOCommandQueueDescriptor>
-{
-public:
-    static IOCommandQueueDescriptor* alloc();
+        NS::String* label() const;
+        void        setLabel(const NS::String* label);
+    };
+    class IOScratchBuffer : public NS::Referencing<IOScratchBuffer>
+    {
+    public:
+        Buffer* buffer() const;
+    };
+    class IOScratchBufferAllocator : public NS::Referencing<IOScratchBufferAllocator>
+    {
+    public:
+        IOScratchBuffer* newScratchBuffer(NS::UInteger minimumSize);
+    };
+    class IOCommandQueueDescriptor : public NS::Copying<IOCommandQueueDescriptor>
+    {
+    public:
+        static IOCommandQueueDescriptor* alloc();
 
-    IOCommandQueueDescriptor*        init();
+        IOCommandQueueDescriptor* init();
 
-    NS::UInteger                     maxCommandBufferCount() const;
+        NS::UInteger maxCommandBufferCount() const;
 
-    NS::UInteger                     maxCommandsInFlight() const;
+        NS::UInteger maxCommandsInFlight() const;
 
-    IOPriority                       priority() const;
+        IOPriority priority() const;
 
-    IOScratchBufferAllocator*        scratchBufferAllocator() const;
+        IOScratchBufferAllocator* scratchBufferAllocator() const;
 
-    void                             setMaxCommandBufferCount(NS::UInteger maxCommandBufferCount);
+        void setMaxCommandBufferCount(NS::UInteger maxCommandBufferCount);
 
-    void                             setMaxCommandsInFlight(NS::UInteger maxCommandsInFlight);
+        void setMaxCommandsInFlight(NS::UInteger maxCommandsInFlight);
 
-    void                             setPriority(MTL::IOPriority priority);
+        void setPriority(MTL::IOPriority priority);
 
-    void                             setScratchBufferAllocator(const MTL::IOScratchBufferAllocator* scratchBufferAllocator);
+        void setScratchBufferAllocator(const MTL::IOScratchBufferAllocator* scratchBufferAllocator);
 
-    void                             setType(MTL::IOCommandQueueType type);
-    IOCommandQueueType               type() const;
-};
-class IOFileHandle : public NS::Referencing<IOFileHandle>
-{
-public:
-    NS::String* label() const;
-    void        setLabel(const NS::String* label);
-};
+        void               setType(MTL::IOCommandQueueType type);
+        IOCommandQueueType type() const;
+    };
+    class IOFileHandle : public NS::Referencing<IOFileHandle>
+    {
+    public:
+        NS::String* label() const;
+        void        setLabel(const NS::String* label);
+    };
 
-}
+} // namespace MTL
 _MTL_PRIVATE_DEF_CONST(NS::ErrorDomain, IOErrorDomain);
 _MTL_INLINE MTL::IOCommandBuffer* MTL::IOCommandQueue::commandBuffer()
 {
@@ -137,7 +137,8 @@ _MTL_INLINE MTL::Buffer* MTL::IOScratchBuffer::buffer() const
 
 _MTL_INLINE MTL::IOScratchBuffer* MTL::IOScratchBufferAllocator::newScratchBuffer(NS::UInteger minimumSize)
 {
-    return Object::sendMessage<MTL::IOScratchBuffer*>(this, _MTL_PRIVATE_SEL(newScratchBufferWithMinimumSize_), minimumSize);
+    return Object::sendMessage<MTL::IOScratchBuffer*>(
+        this, _MTL_PRIVATE_SEL(newScratchBufferWithMinimumSize_), minimumSize);
 }
 
 _MTL_INLINE MTL::IOCommandQueueDescriptor* MTL::IOCommandQueueDescriptor::alloc()
@@ -185,7 +186,8 @@ _MTL_INLINE void MTL::IOCommandQueueDescriptor::setPriority(MTL::IOPriority prio
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setPriority_), priority);
 }
 
-_MTL_INLINE void MTL::IOCommandQueueDescriptor::setScratchBufferAllocator(const MTL::IOScratchBufferAllocator* scratchBufferAllocator)
+_MTL_INLINE void MTL::IOCommandQueueDescriptor::setScratchBufferAllocator(
+    const MTL::IOScratchBufferAllocator* scratchBufferAllocator)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setScratchBufferAllocator_), scratchBufferAllocator);
 }

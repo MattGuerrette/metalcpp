@@ -31,20 +31,20 @@
 
 namespace MTL
 {
-class CaptureScope : public NS::Referencing<CaptureScope>
-{
-public:
-    class Device*       device() const;
+    class CaptureScope : public NS::Referencing<CaptureScope>
+    {
+    public:
+        class Device* device() const;
 
-    NS::String*         label() const;
-    void                setLabel(const NS::String* pLabel);
+        NS::String* label() const;
+        void        setLabel(const NS::String* pLabel);
 
-    class CommandQueue* commandQueue() const;
+        class CommandQueue* commandQueue() const;
 
-    void                beginScope();
-    void                endScope();
-};
-}
+        void beginScope();
+        void endScope();
+    };
+} // namespace MTL
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -83,9 +83,6 @@ _MTL_INLINE void MTL::CaptureScope::beginScope()
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_MTL_INLINE void MTL::CaptureScope::endScope()
-{
-    return Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(endScope));
-}
+_MTL_INLINE void MTL::CaptureScope::endScope() { return Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(endScope)); }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------

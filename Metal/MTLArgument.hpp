@@ -30,306 +30,296 @@
 
 namespace MTL
 {
-class Argument;
-class ArrayType;
-class PointerType;
-class StructMember;
-class StructType;
-class TensorExtents;
-class TensorReferenceType;
-class TextureReferenceType;
-class Type;
-_MTL_ENUM(NS::UInteger, IndexType) {
-    IndexTypeUInt16 = 0,
-    IndexTypeUInt32 = 1,
-};
-
-_MTL_ENUM(NS::Integer, BindingType) {
-    BindingTypeBuffer = 0,
-    BindingTypeThreadgroupMemory = 1,
-    BindingTypeTexture = 2,
-    BindingTypeSampler = 3,
-    BindingTypeImageblockData = 16,
-    BindingTypeImageblock = 17,
-    BindingTypeVisibleFunctionTable = 24,
-    BindingTypePrimitiveAccelerationStructure = 25,
-    BindingTypeInstanceAccelerationStructure = 26,
-    BindingTypeIntersectionFunctionTable = 27,
-    BindingTypeObjectPayload = 34,
-    BindingTypeTensor = 37,
-};
-
-_MTL_ENUM(NS::UInteger, ArgumentType) {
-    ArgumentTypeBuffer = 0,
-    ArgumentTypeThreadgroupMemory = 1,
-    ArgumentTypeTexture = 2,
-    ArgumentTypeSampler = 3,
-    ArgumentTypeImageblockData = 16,
-    ArgumentTypeImageblock = 17,
-    ArgumentTypeVisibleFunctionTable = 24,
-    ArgumentTypePrimitiveAccelerationStructure = 25,
-    ArgumentTypeInstanceAccelerationStructure = 26,
-    ArgumentTypeIntersectionFunctionTable = 27,
-};
+    class Argument;
+    class ArrayType;
+    class PointerType;
+    class StructMember;
+    class StructType;
+    class TensorExtents;
+    class TensorReferenceType;
+    class TextureReferenceType;
+    class Type;
+    _MTL_ENUM(NS::UInteger, IndexType){
+        IndexTypeUInt16 = 0,
+        IndexTypeUInt32 = 1,
+    };
+
+    _MTL_ENUM(NS::Integer, BindingType){
+        BindingTypeBuffer                         = 0,
+        BindingTypeThreadgroupMemory              = 1,
+        BindingTypeTexture                        = 2,
+        BindingTypeSampler                        = 3,
+        BindingTypeImageblockData                 = 16,
+        BindingTypeImageblock                     = 17,
+        BindingTypeVisibleFunctionTable           = 24,
+        BindingTypePrimitiveAccelerationStructure = 25,
+        BindingTypeInstanceAccelerationStructure  = 26,
+        BindingTypeIntersectionFunctionTable      = 27,
+        BindingTypeObjectPayload                  = 34,
+        BindingTypeTensor                         = 37,
+    };
 
-_MTL_ENUM(NS::UInteger, BindingAccess) {
-    BindingAccessReadOnly = 0,
-    BindingAccessReadWrite = 1,
-    BindingAccessWriteOnly = 2,
-    ArgumentAccessReadOnly = 0,
-    ArgumentAccessReadWrite = 1,
-    ArgumentAccessWriteOnly = 2,
-};
+    _MTL_ENUM(NS::UInteger, ArgumentType){
+        ArgumentTypeBuffer                         = 0,
+        ArgumentTypeThreadgroupMemory              = 1,
+        ArgumentTypeTexture                        = 2,
+        ArgumentTypeSampler                        = 3,
+        ArgumentTypeImageblockData                 = 16,
+        ArgumentTypeImageblock                     = 17,
+        ArgumentTypeVisibleFunctionTable           = 24,
+        ArgumentTypePrimitiveAccelerationStructure = 25,
+        ArgumentTypeInstanceAccelerationStructure  = 26,
+        ArgumentTypeIntersectionFunctionTable      = 27,
+    };
 
-class Type : public NS::Referencing<Type>
-{
-public:
-    static Type* alloc();
+    _MTL_ENUM(NS::UInteger, BindingAccess){
+        BindingAccessReadOnly = 0,  BindingAccessReadWrite = 1,  BindingAccessWriteOnly = 2,
+        ArgumentAccessReadOnly = 0, ArgumentAccessReadWrite = 1, ArgumentAccessWriteOnly = 2,
+    };
 
-    DataType     dataType() const;
+    class Type : public NS::Referencing<Type>
+    {
+    public:
+        static Type* alloc();
 
-    Type*        init();
-};
-class StructMember : public NS::Referencing<StructMember>
-{
-public:
-    static StructMember*  alloc();
+        DataType dataType() const;
 
-    NS::UInteger          argumentIndex() const;
+        Type* init();
+    };
+    class StructMember : public NS::Referencing<StructMember>
+    {
+    public:
+        static StructMember* alloc();
 
-    ArrayType*            arrayType();
+        NS::UInteger argumentIndex() const;
 
-    DataType              dataType() const;
+        ArrayType* arrayType();
 
-    StructMember*         init();
+        DataType dataType() const;
 
-    NS::String*           name() const;
+        StructMember* init();
 
-    NS::UInteger          offset() const;
+        NS::String* name() const;
 
-    PointerType*          pointerType();
+        NS::UInteger offset() const;
 
-    StructType*           structType();
+        PointerType* pointerType();
 
-    TensorReferenceType*  tensorReferenceType();
+        StructType* structType();
 
-    TextureReferenceType* textureReferenceType();
-};
-class StructType : public NS::Referencing<StructType, Type>
-{
-public:
-    static StructType* alloc();
+        TensorReferenceType* tensorReferenceType();
 
-    StructType*        init();
+        TextureReferenceType* textureReferenceType();
+    };
+    class StructType : public NS::Referencing<StructType, Type>
+    {
+    public:
+        static StructType* alloc();
 
-    StructMember*      memberByName(const NS::String* name);
+        StructType* init();
 
-    NS::Array*         members() const;
-};
-class ArrayType : public NS::Referencing<ArrayType, Type>
-{
-public:
-    static ArrayType*     alloc();
+        StructMember* memberByName(const NS::String* name);
 
-    NS::UInteger          argumentIndexStride() const;
+        NS::Array* members() const;
+    };
+    class ArrayType : public NS::Referencing<ArrayType, Type>
+    {
+    public:
+        static ArrayType* alloc();
 
-    NS::UInteger          arrayLength() const;
+        NS::UInteger argumentIndexStride() const;
 
-    ArrayType*            elementArrayType();
+        NS::UInteger arrayLength() const;
 
-    PointerType*          elementPointerType();
+        ArrayType* elementArrayType();
 
-    StructType*           elementStructType();
+        PointerType* elementPointerType();
 
-    TensorReferenceType*  elementTensorReferenceType();
+        StructType* elementStructType();
 
-    TextureReferenceType* elementTextureReferenceType();
+        TensorReferenceType* elementTensorReferenceType();
 
-    DataType              elementType() const;
+        TextureReferenceType* elementTextureReferenceType();
 
-    ArrayType*            init();
+        DataType elementType() const;
 
-    NS::UInteger          stride() const;
-};
-class PointerType : public NS::Referencing<PointerType, Type>
-{
-public:
-    BindingAccess       access() const;
+        ArrayType* init();
 
-    NS::UInteger        alignment() const;
+        NS::UInteger stride() const;
+    };
+    class PointerType : public NS::Referencing<PointerType, Type>
+    {
+    public:
+        BindingAccess access() const;
 
-    static PointerType* alloc();
+        NS::UInteger alignment() const;
 
-    NS::UInteger        dataSize() const;
+        static PointerType* alloc();
 
-    ArrayType*          elementArrayType();
+        NS::UInteger dataSize() const;
 
-    bool                elementIsArgumentBuffer() const;
+        ArrayType* elementArrayType();
 
-    StructType*         elementStructType();
+        bool elementIsArgumentBuffer() const;
 
-    DataType            elementType() const;
+        StructType* elementStructType();
 
-    PointerType*        init();
-};
-class TextureReferenceType : public NS::Referencing<TextureReferenceType, Type>
-{
-public:
-    BindingAccess                access() const;
+        DataType elementType() const;
 
-    static TextureReferenceType* alloc();
+        PointerType* init();
+    };
+    class TextureReferenceType : public NS::Referencing<TextureReferenceType, Type>
+    {
+    public:
+        BindingAccess access() const;
 
-    TextureReferenceType*        init();
+        static TextureReferenceType* alloc();
 
-    bool                         isDepthTexture() const;
+        TextureReferenceType* init();
 
-    DataType                     textureDataType() const;
+        bool isDepthTexture() const;
 
-    TextureType                  textureType() const;
-};
-class TensorReferenceType : public NS::Referencing<TensorReferenceType, Type>
-{
-public:
-    BindingAccess               access() const;
+        DataType textureDataType() const;
 
-    static TensorReferenceType* alloc();
+        TextureType textureType() const;
+    };
+    class TensorReferenceType : public NS::Referencing<TensorReferenceType, Type>
+    {
+    public:
+        BindingAccess access() const;
 
-    TensorExtents*              dimensions() const;
+        static TensorReferenceType* alloc();
 
-    DataType                    indexType() const;
+        TensorExtents* dimensions() const;
 
-    TensorReferenceType*        init();
+        DataType indexType() const;
 
-    TensorDataType              tensorDataType() const;
-};
-class Argument : public NS::Referencing<Argument>
-{
-public:
-    BindingAccess access() const;
+        TensorReferenceType* init();
 
-    [[deprecated("please use isActive instead")]]
-    bool             active() const;
+        TensorDataType tensorDataType() const;
+    };
+    class Argument : public NS::Referencing<Argument>
+    {
+    public:
+        BindingAccess access() const;
 
-    static Argument* alloc();
+        [[deprecated("please use isActive instead")]]
+        bool active() const;
 
-    NS::UInteger     arrayLength() const;
+        static Argument* alloc();
 
-    NS::UInteger     bufferAlignment() const;
+        NS::UInteger arrayLength() const;
 
-    NS::UInteger     bufferDataSize() const;
+        NS::UInteger bufferAlignment() const;
 
-    DataType         bufferDataType() const;
+        NS::UInteger bufferDataSize() const;
 
-    PointerType*     bufferPointerType() const;
+        DataType bufferDataType() const;
 
-    StructType*      bufferStructType() const;
+        PointerType* bufferPointerType() const;
 
-    NS::UInteger     index() const;
+        StructType* bufferStructType() const;
 
-    Argument*        init();
+        NS::UInteger index() const;
 
-    bool             isActive() const;
+        Argument* init();
 
-    bool             isDepthTexture() const;
+        bool isActive() const;
 
-    NS::String*      name() const;
+        bool isDepthTexture() const;
 
-    DataType         textureDataType() const;
+        NS::String* name() const;
 
-    TextureType      textureType() const;
+        DataType textureDataType() const;
 
-    NS::UInteger     threadgroupMemoryAlignment() const;
+        TextureType textureType() const;
 
-    NS::UInteger     threadgroupMemoryDataSize() const;
+        NS::UInteger threadgroupMemoryAlignment() const;
 
-    ArgumentType     type() const;
-};
-class Binding : public NS::Referencing<Binding>
-{
-public:
-    BindingAccess access() const;
+        NS::UInteger threadgroupMemoryDataSize() const;
 
-    [[deprecated("please use isArgument instead")]]
-    bool         argument() const;
+        ArgumentType type() const;
+    };
+    class Binding : public NS::Referencing<Binding>
+    {
+    public:
+        BindingAccess access() const;
 
-    NS::UInteger index() const;
+        [[deprecated("please use isArgument instead")]]
+        bool argument() const;
 
-    bool         isArgument() const;
+        NS::UInteger index() const;
 
-    bool         isUsed() const;
+        bool isArgument() const;
 
-    NS::String*  name() const;
+        bool isUsed() const;
 
-    BindingType  type() const;
+        NS::String* name() const;
 
-    [[deprecated("please use isUsed instead")]]
-    bool used() const;
-};
-class BufferBinding : public NS::Referencing<BufferBinding, Binding>
-{
-public:
-    NS::UInteger bufferAlignment() const;
+        BindingType type() const;
 
-    NS::UInteger bufferDataSize() const;
+        [[deprecated("please use isUsed instead")]]
+        bool used() const;
+    };
+    class BufferBinding : public NS::Referencing<BufferBinding, Binding>
+    {
+    public:
+        NS::UInteger bufferAlignment() const;
 
-    DataType     bufferDataType() const;
+        NS::UInteger bufferDataSize() const;
 
-    PointerType* bufferPointerType() const;
+        DataType bufferDataType() const;
 
-    StructType*  bufferStructType() const;
-};
-class ThreadgroupBinding : public NS::Referencing<ThreadgroupBinding, Binding>
-{
-public:
-    NS::UInteger threadgroupMemoryAlignment() const;
+        PointerType* bufferPointerType() const;
 
-    NS::UInteger threadgroupMemoryDataSize() const;
-};
-class TextureBinding : public NS::Referencing<TextureBinding, Binding>
-{
-public:
-    NS::UInteger arrayLength() const;
+        StructType* bufferStructType() const;
+    };
+    class ThreadgroupBinding : public NS::Referencing<ThreadgroupBinding, Binding>
+    {
+    public:
+        NS::UInteger threadgroupMemoryAlignment() const;
 
-    [[deprecated("please use isDepthTexture instead")]]
-    bool        depthTexture() const;
-    bool        isDepthTexture() const;
+        NS::UInteger threadgroupMemoryDataSize() const;
+    };
+    class TextureBinding : public NS::Referencing<TextureBinding, Binding>
+    {
+    public:
+        NS::UInteger arrayLength() const;
 
-    DataType    textureDataType() const;
+        [[deprecated("please use isDepthTexture instead")]]
+        bool depthTexture() const;
+        bool isDepthTexture() const;
 
-    TextureType textureType() const;
-};
-class ObjectPayloadBinding : public NS::Referencing<ObjectPayloadBinding, Binding>
-{
-public:
-    NS::UInteger objectPayloadAlignment() const;
+        DataType textureDataType() const;
 
-    NS::UInteger objectPayloadDataSize() const;
-};
-class TensorBinding : public NS::Referencing<TensorBinding, Binding>
-{
-public:
-    TensorExtents* dimensions() const;
+        TextureType textureType() const;
+    };
+    class ObjectPayloadBinding : public NS::Referencing<ObjectPayloadBinding, Binding>
+    {
+    public:
+        NS::UInteger objectPayloadAlignment() const;
 
-    DataType       indexType() const;
+        NS::UInteger objectPayloadDataSize() const;
+    };
+    class TensorBinding : public NS::Referencing<TensorBinding, Binding>
+    {
+    public:
+        TensorExtents* dimensions() const;
 
-    TensorDataType tensorDataType() const;
-};
+        DataType indexType() const;
 
-}
-_MTL_INLINE MTL::Type* MTL::Type::alloc()
-{
-    return NS::Object::alloc<MTL::Type>(_MTL_PRIVATE_CLS(MTLType));
-}
+        TensorDataType tensorDataType() const;
+    };
+
+} // namespace MTL
+_MTL_INLINE MTL::Type* MTL::Type::alloc() { return NS::Object::alloc<MTL::Type>(_MTL_PRIVATE_CLS(MTLType)); }
 
 _MTL_INLINE MTL::DataType MTL::Type::dataType() const
 {
     return Object::sendMessage<MTL::DataType>(this, _MTL_PRIVATE_SEL(dataType));
 }
 
-_MTL_INLINE MTL::Type* MTL::Type::init()
-{
-    return NS::Object::init<MTL::Type>();
-}
+_MTL_INLINE MTL::Type* MTL::Type::init() { return NS::Object::init<MTL::Type>(); }
 
 _MTL_INLINE MTL::StructMember* MTL::StructMember::alloc()
 {
@@ -351,10 +341,7 @@ _MTL_INLINE MTL::DataType MTL::StructMember::dataType() const
     return Object::sendMessage<MTL::DataType>(this, _MTL_PRIVATE_SEL(dataType));
 }
 
-_MTL_INLINE MTL::StructMember* MTL::StructMember::init()
-{
-    return NS::Object::init<MTL::StructMember>();
-}
+_MTL_INLINE MTL::StructMember* MTL::StructMember::init() { return NS::Object::init<MTL::StructMember>(); }
 
 _MTL_INLINE NS::String* MTL::StructMember::name() const
 {
@@ -391,10 +378,7 @@ _MTL_INLINE MTL::StructType* MTL::StructType::alloc()
     return NS::Object::alloc<MTL::StructType>(_MTL_PRIVATE_CLS(MTLStructType));
 }
 
-_MTL_INLINE MTL::StructType* MTL::StructType::init()
-{
-    return NS::Object::init<MTL::StructType>();
-}
+_MTL_INLINE MTL::StructType* MTL::StructType::init() { return NS::Object::init<MTL::StructType>(); }
 
 _MTL_INLINE MTL::StructMember* MTL::StructType::memberByName(const NS::String* name)
 {
@@ -451,10 +435,7 @@ _MTL_INLINE MTL::DataType MTL::ArrayType::elementType() const
     return Object::sendMessage<MTL::DataType>(this, _MTL_PRIVATE_SEL(elementType));
 }
 
-_MTL_INLINE MTL::ArrayType* MTL::ArrayType::init()
-{
-    return NS::Object::init<MTL::ArrayType>();
-}
+_MTL_INLINE MTL::ArrayType* MTL::ArrayType::init() { return NS::Object::init<MTL::ArrayType>(); }
 
 _MTL_INLINE NS::UInteger MTL::ArrayType::stride() const
 {
@@ -501,10 +482,7 @@ _MTL_INLINE MTL::DataType MTL::PointerType::elementType() const
     return Object::sendMessage<MTL::DataType>(this, _MTL_PRIVATE_SEL(elementType));
 }
 
-_MTL_INLINE MTL::PointerType* MTL::PointerType::init()
-{
-    return NS::Object::init<MTL::PointerType>();
-}
+_MTL_INLINE MTL::PointerType* MTL::PointerType::init() { return NS::Object::init<MTL::PointerType>(); }
 
 _MTL_INLINE MTL::BindingAccess MTL::TextureReferenceType::access() const
 {
@@ -571,10 +549,7 @@ _MTL_INLINE MTL::BindingAccess MTL::Argument::access() const
     return Object::sendMessage<MTL::BindingAccess>(this, _MTL_PRIVATE_SEL(access));
 }
 
-_MTL_INLINE bool MTL::Argument::active() const
-{
-    return Object::sendMessage<bool>(this, _MTL_PRIVATE_SEL(isActive));
-}
+_MTL_INLINE bool MTL::Argument::active() const { return Object::sendMessage<bool>(this, _MTL_PRIVATE_SEL(isActive)); }
 
 _MTL_INLINE MTL::Argument* MTL::Argument::alloc()
 {
@@ -616,15 +591,9 @@ _MTL_INLINE NS::UInteger MTL::Argument::index() const
     return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(index));
 }
 
-_MTL_INLINE MTL::Argument* MTL::Argument::init()
-{
-    return NS::Object::init<MTL::Argument>();
-}
+_MTL_INLINE MTL::Argument* MTL::Argument::init() { return NS::Object::init<MTL::Argument>(); }
 
-_MTL_INLINE bool MTL::Argument::isActive() const
-{
-    return Object::sendMessage<bool>(this, _MTL_PRIVATE_SEL(isActive));
-}
+_MTL_INLINE bool MTL::Argument::isActive() const { return Object::sendMessage<bool>(this, _MTL_PRIVATE_SEL(isActive)); }
 
 _MTL_INLINE bool MTL::Argument::isDepthTexture() const
 {
@@ -681,10 +650,7 @@ _MTL_INLINE bool MTL::Binding::isArgument() const
     return Object::sendMessage<bool>(this, _MTL_PRIVATE_SEL(isArgument));
 }
 
-_MTL_INLINE bool MTL::Binding::isUsed() const
-{
-    return Object::sendMessage<bool>(this, _MTL_PRIVATE_SEL(isUsed));
-}
+_MTL_INLINE bool MTL::Binding::isUsed() const { return Object::sendMessage<bool>(this, _MTL_PRIVATE_SEL(isUsed)); }
 
 _MTL_INLINE NS::String* MTL::Binding::name() const
 {
@@ -696,10 +662,7 @@ _MTL_INLINE MTL::BindingType MTL::Binding::type() const
     return Object::sendMessage<MTL::BindingType>(this, _MTL_PRIVATE_SEL(type));
 }
 
-_MTL_INLINE bool MTL::Binding::used() const
-{
-    return Object::sendMessage<bool>(this, _MTL_PRIVATE_SEL(isUsed));
-}
+_MTL_INLINE bool MTL::Binding::used() const { return Object::sendMessage<bool>(this, _MTL_PRIVATE_SEL(isUsed)); }
 
 _MTL_INLINE NS::UInteger MTL::BufferBinding::bufferAlignment() const
 {

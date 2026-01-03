@@ -28,33 +28,33 @@
 
 namespace MTL4
 {
-class StitchedFunctionDescriptor;
+    class StitchedFunctionDescriptor;
 }
 
 namespace MTL
 {
-class FunctionStitchingGraph;
+    class FunctionStitchingGraph;
 }
 
 namespace MTL4
 {
-class StitchedFunctionDescriptor : public NS::Copying<StitchedFunctionDescriptor, FunctionDescriptor>
-{
-public:
-    static StitchedFunctionDescriptor* alloc();
+    class StitchedFunctionDescriptor : public NS::Copying<StitchedFunctionDescriptor, FunctionDescriptor>
+    {
+    public:
+        static StitchedFunctionDescriptor* alloc();
 
-    NS::Array*                         functionDescriptors() const;
+        NS::Array* functionDescriptors() const;
 
-    MTL::FunctionStitchingGraph*       functionGraph() const;
+        MTL::FunctionStitchingGraph* functionGraph() const;
 
-    StitchedFunctionDescriptor*        init();
+        StitchedFunctionDescriptor* init();
 
-    void                               setFunctionDescriptors(const NS::Array* functionDescriptors);
+        void setFunctionDescriptors(const NS::Array* functionDescriptors);
 
-    void                               setFunctionGraph(const MTL::FunctionStitchingGraph* functionGraph);
-};
+        void setFunctionGraph(const MTL::FunctionStitchingGraph* functionGraph);
+    };
 
-}
+} // namespace MTL4
 _MTL_INLINE MTL4::StitchedFunctionDescriptor* MTL4::StitchedFunctionDescriptor::alloc()
 {
     return NS::Object::alloc<MTL4::StitchedFunctionDescriptor>(_MTL_PRIVATE_CLS(MTL4StitchedFunctionDescriptor));

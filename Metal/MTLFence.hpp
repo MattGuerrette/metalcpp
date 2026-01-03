@@ -27,18 +27,18 @@
 
 namespace MTL
 {
-class Device;
+    class Device;
 
-class Fence : public NS::Referencing<Fence>
-{
-public:
-    Device*     device() const;
+    class Fence : public NS::Referencing<Fence>
+    {
+    public:
+        Device* device() const;
 
-    NS::String* label() const;
-    void        setLabel(const NS::String* label);
-};
+        NS::String* label() const;
+        void        setLabel(const NS::String* label);
+    };
 
-}
+} // namespace MTL
 _MTL_INLINE MTL::Device* MTL::Fence::device() const
 {
     return Object::sendMessage<MTL::Device*>(this, _MTL_PRIVATE_SEL(device));

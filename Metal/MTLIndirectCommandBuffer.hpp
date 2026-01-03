@@ -20,139 +20,140 @@
 
 #pragma once
 
+#include <cstdint>
 #include "../Foundation/Foundation.hpp"
 #include "MTLDefines.hpp"
 #include "MTLHeaderBridge.hpp"
 #include "MTLPrivate.hpp"
 #include "MTLResource.hpp"
 #include "MTLTypes.hpp"
-#include <cstdint>
 
 namespace MTL
 {
-class IndirectCommandBufferDescriptor;
-class IndirectComputeCommand;
-class IndirectRenderCommand;
+    class IndirectCommandBufferDescriptor;
+    class IndirectComputeCommand;
+    class IndirectRenderCommand;
 
-_MTL_OPTIONS(NS::UInteger, IndirectCommandType) {
-    IndirectCommandTypeDraw = 1,
-    IndirectCommandTypeDrawIndexed = 1 << 1,
-    IndirectCommandTypeDrawPatches = 1 << 2,
-    IndirectCommandTypeDrawIndexedPatches = 1 << 3,
-    IndirectCommandTypeConcurrentDispatch = 1 << 5,
-    IndirectCommandTypeConcurrentDispatchThreads = 1 << 6,
-    IndirectCommandTypeDrawMeshThreadgroups = 1 << 7,
-    IndirectCommandTypeDrawMeshThreads = 1 << 8,
-};
+    _MTL_OPTIONS(NS::UInteger, IndirectCommandType){
+        IndirectCommandTypeDraw                      = 1,
+        IndirectCommandTypeDrawIndexed               = 1 << 1,
+        IndirectCommandTypeDrawPatches               = 1 << 2,
+        IndirectCommandTypeDrawIndexedPatches        = 1 << 3,
+        IndirectCommandTypeConcurrentDispatch        = 1 << 5,
+        IndirectCommandTypeConcurrentDispatchThreads = 1 << 6,
+        IndirectCommandTypeDrawMeshThreadgroups      = 1 << 7,
+        IndirectCommandTypeDrawMeshThreads           = 1 << 8,
+    };
 
-struct IndirectCommandBufferExecutionRange
-{
-    uint32_t location;
-    uint32_t length;
-} _MTL_PACKED;
+    struct IndirectCommandBufferExecutionRange
+    {
+        uint32_t location;
+        uint32_t length;
+    } _MTL_PACKED;
 
-class IndirectCommandBufferDescriptor : public NS::Copying<IndirectCommandBufferDescriptor>
-{
-public:
-    static IndirectCommandBufferDescriptor* alloc();
+    class IndirectCommandBufferDescriptor : public NS::Copying<IndirectCommandBufferDescriptor>
+    {
+    public:
+        static IndirectCommandBufferDescriptor* alloc();
 
-    IndirectCommandType                     commandTypes() const;
+        IndirectCommandType commandTypes() const;
 
-    bool                                    inheritBuffers() const;
+        bool inheritBuffers() const;
 
-    bool                                    inheritCullMode() const;
+        bool inheritCullMode() const;
 
-    bool                                    inheritDepthBias() const;
+        bool inheritDepthBias() const;
 
-    bool                                    inheritDepthClipMode() const;
+        bool inheritDepthClipMode() const;
 
-    bool                                    inheritDepthStencilState() const;
+        bool inheritDepthStencilState() const;
 
-    bool                                    inheritFrontFacingWinding() const;
+        bool inheritFrontFacingWinding() const;
 
-    bool                                    inheritPipelineState() const;
+        bool inheritPipelineState() const;
 
-    bool                                    inheritTriangleFillMode() const;
+        bool inheritTriangleFillMode() const;
 
-    IndirectCommandBufferDescriptor*        init();
+        IndirectCommandBufferDescriptor* init();
 
-    NS::UInteger                            maxFragmentBufferBindCount() const;
+        NS::UInteger maxFragmentBufferBindCount() const;
 
-    NS::UInteger                            maxKernelBufferBindCount() const;
+        NS::UInteger maxKernelBufferBindCount() const;
 
-    NS::UInteger                            maxKernelThreadgroupMemoryBindCount() const;
+        NS::UInteger maxKernelThreadgroupMemoryBindCount() const;
 
-    NS::UInteger                            maxMeshBufferBindCount() const;
+        NS::UInteger maxMeshBufferBindCount() const;
 
-    NS::UInteger                            maxObjectBufferBindCount() const;
+        NS::UInteger maxObjectBufferBindCount() const;
 
-    NS::UInteger                            maxObjectThreadgroupMemoryBindCount() const;
+        NS::UInteger maxObjectThreadgroupMemoryBindCount() const;
 
-    NS::UInteger                            maxVertexBufferBindCount() const;
+        NS::UInteger maxVertexBufferBindCount() const;
 
-    void                                    setCommandTypes(MTL::IndirectCommandType commandTypes);
+        void setCommandTypes(MTL::IndirectCommandType commandTypes);
 
-    void                                    setInheritBuffers(bool inheritBuffers);
+        void setInheritBuffers(bool inheritBuffers);
 
-    void                                    setInheritCullMode(bool inheritCullMode);
+        void setInheritCullMode(bool inheritCullMode);
 
-    void                                    setInheritDepthBias(bool inheritDepthBias);
+        void setInheritDepthBias(bool inheritDepthBias);
 
-    void                                    setInheritDepthClipMode(bool inheritDepthClipMode);
+        void setInheritDepthClipMode(bool inheritDepthClipMode);
 
-    void                                    setInheritDepthStencilState(bool inheritDepthStencilState);
+        void setInheritDepthStencilState(bool inheritDepthStencilState);
 
-    void                                    setInheritFrontFacingWinding(bool inheritFrontFacingWinding);
+        void setInheritFrontFacingWinding(bool inheritFrontFacingWinding);
 
-    void                                    setInheritPipelineState(bool inheritPipelineState);
+        void setInheritPipelineState(bool inheritPipelineState);
 
-    void                                    setInheritTriangleFillMode(bool inheritTriangleFillMode);
+        void setInheritTriangleFillMode(bool inheritTriangleFillMode);
 
-    void                                    setMaxFragmentBufferBindCount(NS::UInteger maxFragmentBufferBindCount);
+        void setMaxFragmentBufferBindCount(NS::UInteger maxFragmentBufferBindCount);
 
-    void                                    setMaxKernelBufferBindCount(NS::UInteger maxKernelBufferBindCount);
+        void setMaxKernelBufferBindCount(NS::UInteger maxKernelBufferBindCount);
 
-    void                                    setMaxKernelThreadgroupMemoryBindCount(NS::UInteger maxKernelThreadgroupMemoryBindCount);
+        void setMaxKernelThreadgroupMemoryBindCount(NS::UInteger maxKernelThreadgroupMemoryBindCount);
 
-    void                                    setMaxMeshBufferBindCount(NS::UInteger maxMeshBufferBindCount);
+        void setMaxMeshBufferBindCount(NS::UInteger maxMeshBufferBindCount);
 
-    void                                    setMaxObjectBufferBindCount(NS::UInteger maxObjectBufferBindCount);
+        void setMaxObjectBufferBindCount(NS::UInteger maxObjectBufferBindCount);
 
-    void                                    setMaxObjectThreadgroupMemoryBindCount(NS::UInteger maxObjectThreadgroupMemoryBindCount);
+        void setMaxObjectThreadgroupMemoryBindCount(NS::UInteger maxObjectThreadgroupMemoryBindCount);
 
-    void                                    setMaxVertexBufferBindCount(NS::UInteger maxVertexBufferBindCount);
+        void setMaxVertexBufferBindCount(NS::UInteger maxVertexBufferBindCount);
 
-    void                                    setSupportColorAttachmentMapping(bool supportColorAttachmentMapping);
+        void setSupportColorAttachmentMapping(bool supportColorAttachmentMapping);
 
-    void                                    setSupportDynamicAttributeStride(bool supportDynamicAttributeStride);
+        void setSupportDynamicAttributeStride(bool supportDynamicAttributeStride);
 
-    void                                    setSupportRayTracing(bool supportRayTracing);
+        void setSupportRayTracing(bool supportRayTracing);
 
-    bool                                    supportColorAttachmentMapping() const;
+        bool supportColorAttachmentMapping() const;
 
-    bool                                    supportDynamicAttributeStride() const;
+        bool supportDynamicAttributeStride() const;
 
-    bool                                    supportRayTracing() const;
-};
-class IndirectCommandBuffer : public NS::Referencing<IndirectCommandBuffer, Resource>
-{
-public:
-    ResourceID              gpuResourceID() const;
+        bool supportRayTracing() const;
+    };
+    class IndirectCommandBuffer : public NS::Referencing<IndirectCommandBuffer, Resource>
+    {
+    public:
+        ResourceID gpuResourceID() const;
 
-    IndirectComputeCommand* indirectComputeCommand(NS::UInteger commandIndex);
+        IndirectComputeCommand* indirectComputeCommand(NS::UInteger commandIndex);
 
-    IndirectRenderCommand*  indirectRenderCommand(NS::UInteger commandIndex);
+        IndirectRenderCommand* indirectRenderCommand(NS::UInteger commandIndex);
 
-    void                    reset(NS::Range range);
+        void reset(NS::Range range);
 
-    NS::UInteger            size() const;
-};
+        NS::UInteger size() const;
+    };
 
-}
+} // namespace MTL
 
 _MTL_INLINE MTL::IndirectCommandBufferDescriptor* MTL::IndirectCommandBufferDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL::IndirectCommandBufferDescriptor>(_MTL_PRIVATE_CLS(MTLIndirectCommandBufferDescriptor));
+    return NS::Object::alloc<MTL::IndirectCommandBufferDescriptor>(
+        _MTL_PRIVATE_CLS(MTLIndirectCommandBufferDescriptor));
 }
 
 _MTL_INLINE MTL::IndirectCommandType MTL::IndirectCommandBufferDescriptor::commandTypes() const
@@ -285,19 +286,23 @@ _MTL_INLINE void MTL::IndirectCommandBufferDescriptor::setInheritTriangleFillMod
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setInheritTriangleFillMode_), inheritTriangleFillMode);
 }
 
-_MTL_INLINE void MTL::IndirectCommandBufferDescriptor::setMaxFragmentBufferBindCount(NS::UInteger maxFragmentBufferBindCount)
+_MTL_INLINE void MTL::IndirectCommandBufferDescriptor::setMaxFragmentBufferBindCount(
+    NS::UInteger maxFragmentBufferBindCount)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMaxFragmentBufferBindCount_), maxFragmentBufferBindCount);
 }
 
-_MTL_INLINE void MTL::IndirectCommandBufferDescriptor::setMaxKernelBufferBindCount(NS::UInteger maxKernelBufferBindCount)
+_MTL_INLINE void MTL::IndirectCommandBufferDescriptor::setMaxKernelBufferBindCount(
+    NS::UInteger maxKernelBufferBindCount)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMaxKernelBufferBindCount_), maxKernelBufferBindCount);
 }
 
-_MTL_INLINE void MTL::IndirectCommandBufferDescriptor::setMaxKernelThreadgroupMemoryBindCount(NS::UInteger maxKernelThreadgroupMemoryBindCount)
+_MTL_INLINE void MTL::IndirectCommandBufferDescriptor::setMaxKernelThreadgroupMemoryBindCount(
+    NS::UInteger maxKernelThreadgroupMemoryBindCount)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMaxKernelThreadgroupMemoryBindCount_), maxKernelThreadgroupMemoryBindCount);
+    Object::sendMessage<void>(
+        this, _MTL_PRIVATE_SEL(setMaxKernelThreadgroupMemoryBindCount_), maxKernelThreadgroupMemoryBindCount);
 }
 
 _MTL_INLINE void MTL::IndirectCommandBufferDescriptor::setMaxMeshBufferBindCount(NS::UInteger maxMeshBufferBindCount)
@@ -305,27 +310,33 @@ _MTL_INLINE void MTL::IndirectCommandBufferDescriptor::setMaxMeshBufferBindCount
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMaxMeshBufferBindCount_), maxMeshBufferBindCount);
 }
 
-_MTL_INLINE void MTL::IndirectCommandBufferDescriptor::setMaxObjectBufferBindCount(NS::UInteger maxObjectBufferBindCount)
+_MTL_INLINE void MTL::IndirectCommandBufferDescriptor::setMaxObjectBufferBindCount(
+    NS::UInteger maxObjectBufferBindCount)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMaxObjectBufferBindCount_), maxObjectBufferBindCount);
 }
 
-_MTL_INLINE void MTL::IndirectCommandBufferDescriptor::setMaxObjectThreadgroupMemoryBindCount(NS::UInteger maxObjectThreadgroupMemoryBindCount)
+_MTL_INLINE void MTL::IndirectCommandBufferDescriptor::setMaxObjectThreadgroupMemoryBindCount(
+    NS::UInteger maxObjectThreadgroupMemoryBindCount)
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMaxObjectThreadgroupMemoryBindCount_), maxObjectThreadgroupMemoryBindCount);
+    Object::sendMessage<void>(
+        this, _MTL_PRIVATE_SEL(setMaxObjectThreadgroupMemoryBindCount_), maxObjectThreadgroupMemoryBindCount);
 }
 
-_MTL_INLINE void MTL::IndirectCommandBufferDescriptor::setMaxVertexBufferBindCount(NS::UInteger maxVertexBufferBindCount)
+_MTL_INLINE void MTL::IndirectCommandBufferDescriptor::setMaxVertexBufferBindCount(
+    NS::UInteger maxVertexBufferBindCount)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMaxVertexBufferBindCount_), maxVertexBufferBindCount);
 }
 
-_MTL_INLINE void MTL::IndirectCommandBufferDescriptor::setSupportColorAttachmentMapping(bool supportColorAttachmentMapping)
+_MTL_INLINE void MTL::IndirectCommandBufferDescriptor::setSupportColorAttachmentMapping(
+    bool supportColorAttachmentMapping)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setSupportColorAttachmentMapping_), supportColorAttachmentMapping);
 }
 
-_MTL_INLINE void MTL::IndirectCommandBufferDescriptor::setSupportDynamicAttributeStride(bool supportDynamicAttributeStride)
+_MTL_INLINE void MTL::IndirectCommandBufferDescriptor::setSupportDynamicAttributeStride(
+    bool supportDynamicAttributeStride)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setSupportDynamicAttributeStride_), supportDynamicAttributeStride);
 }
@@ -357,12 +368,14 @@ _MTL_INLINE MTL::ResourceID MTL::IndirectCommandBuffer::gpuResourceID() const
 
 _MTL_INLINE MTL::IndirectComputeCommand* MTL::IndirectCommandBuffer::indirectComputeCommand(NS::UInteger commandIndex)
 {
-    return Object::sendMessage<MTL::IndirectComputeCommand*>(this, _MTL_PRIVATE_SEL(indirectComputeCommandAtIndex_), commandIndex);
+    return Object::sendMessage<MTL::IndirectComputeCommand*>(
+        this, _MTL_PRIVATE_SEL(indirectComputeCommandAtIndex_), commandIndex);
 }
 
 _MTL_INLINE MTL::IndirectRenderCommand* MTL::IndirectCommandBuffer::indirectRenderCommand(NS::UInteger commandIndex)
 {
-    return Object::sendMessage<MTL::IndirectRenderCommand*>(this, _MTL_PRIVATE_SEL(indirectRenderCommandAtIndex_), commandIndex);
+    return Object::sendMessage<MTL::IndirectRenderCommand*>(
+        this, _MTL_PRIVATE_SEL(indirectRenderCommandAtIndex_), commandIndex);
 }
 
 _MTL_INLINE void MTL::IndirectCommandBuffer::reset(NS::Range range)

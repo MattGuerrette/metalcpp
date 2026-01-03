@@ -27,35 +27,35 @@
 
 namespace MTL4
 {
-class BinaryFunctionDescriptor;
-class FunctionDescriptor;
+    class BinaryFunctionDescriptor;
+    class FunctionDescriptor;
 
-_MTL_OPTIONS(NS::UInteger, BinaryFunctionOptions) {
-    BinaryFunctionOptionNone = 0,
-    BinaryFunctionOptionPipelineIndependent = 1 << 1,
-};
+    _MTL_OPTIONS(NS::UInteger, BinaryFunctionOptions){
+        BinaryFunctionOptionNone                = 0,
+        BinaryFunctionOptionPipelineIndependent = 1 << 1,
+    };
 
-class BinaryFunctionDescriptor : public NS::Copying<BinaryFunctionDescriptor>
-{
-public:
-    static BinaryFunctionDescriptor* alloc();
+    class BinaryFunctionDescriptor : public NS::Copying<BinaryFunctionDescriptor>
+    {
+    public:
+        static BinaryFunctionDescriptor* alloc();
 
-    FunctionDescriptor*              functionDescriptor() const;
+        FunctionDescriptor* functionDescriptor() const;
 
-    BinaryFunctionDescriptor*        init();
+        BinaryFunctionDescriptor* init();
 
-    NS::String*                      name() const;
+        NS::String* name() const;
 
-    BinaryFunctionOptions            options() const;
+        BinaryFunctionOptions options() const;
 
-    void                             setFunctionDescriptor(const MTL4::FunctionDescriptor* functionDescriptor);
+        void setFunctionDescriptor(const MTL4::FunctionDescriptor* functionDescriptor);
 
-    void                             setName(const NS::String* name);
+        void setName(const NS::String* name);
 
-    void                             setOptions(MTL4::BinaryFunctionOptions options);
-};
+        void setOptions(MTL4::BinaryFunctionOptions options);
+    };
 
-}
+} // namespace MTL4
 _MTL_INLINE MTL4::BinaryFunctionDescriptor* MTL4::BinaryFunctionDescriptor::alloc()
 {
     return NS::Object::alloc<MTL4::BinaryFunctionDescriptor>(_MTL_PRIVATE_CLS(MTL4BinaryFunctionDescriptor));
@@ -81,7 +81,8 @@ _MTL_INLINE MTL4::BinaryFunctionOptions MTL4::BinaryFunctionDescriptor::options(
     return Object::sendMessage<MTL4::BinaryFunctionOptions>(this, _MTL_PRIVATE_SEL(options));
 }
 
-_MTL_INLINE void MTL4::BinaryFunctionDescriptor::setFunctionDescriptor(const MTL4::FunctionDescriptor* functionDescriptor)
+_MTL_INLINE void MTL4::BinaryFunctionDescriptor::setFunctionDescriptor(
+    const MTL4::FunctionDescriptor* functionDescriptor)
 {
     Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setFunctionDescriptor_), functionDescriptor);
 }

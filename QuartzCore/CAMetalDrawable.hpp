@@ -32,13 +32,13 @@
 
 namespace CA
 {
-class MetalDrawable : public NS::Referencing<MetalDrawable, MTL::Drawable>
-{
-public:
-    class MetalLayer* layer() const;
-    MTL::Texture*     texture() const;
-};
-}
+    class MetalDrawable : public NS::Referencing<MetalDrawable, MTL::Drawable>
+    {
+    public:
+        class MetalLayer* layer() const;
+        MTL::Texture*     texture() const;
+    };
+} // namespace CA
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 

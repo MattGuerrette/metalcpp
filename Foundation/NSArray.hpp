@@ -18,98 +18,93 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+#include "NSEnumerator.hpp"
 #include "NSObject.hpp"
 #include "NSTypes.hpp"
-#include "NSEnumerator.hpp"
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 namespace NS
 {
-class Array : public Copying<Array>
-{
-public:
-    static Array* array();
-    static Array* array(const Object* pObject);
-    static Array* array(const Object* const* pObjects, UInteger count);
+    class Array : public Copying<Array>
+    {
+    public:
+        static Array* array();
+        static Array* array(const Object* pObject);
+        static Array* array(const Object* const* pObjects, UInteger count);
 
-    static Array* alloc();
+        static Array* alloc();
 
-    Array*        init();
-    Array*        init(const Object* const* pObjects, UInteger count);
-    Array*        init(const class Coder* pCoder);
+        Array* init();
+        Array* init(const Object* const* pObjects, UInteger count) const;
+        Array* init(const class Coder* pCoder) const;
 
-    template <class _Object = Object>
-    _Object*            object(UInteger index) const;
-    UInteger            count() const;
-    Enumerator<Object>* objectEnumerator() const;
-};
-}
+        template<class _Object = Object> // NOLINT(*-reserved-identifier)
+        _Object* object(UInteger index) const;
+
+        [[nodiscard]] UInteger            count() const;
+        [[nodiscard]] Enumerator<Object>* objectEnumerator() const;
+    };
+} // namespace NS
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 _NS_INLINE NS::Array* NS::Array::array()
 {
-    return Object::sendMessage<Array*>(_NS_PRIVATE_CLS(NSArray), _NS_PRIVATE_SEL(array));
+    return sendMessage<Array*>(_NS_PRIVATE_CLS(NSArray), _NS_PRIVATE_SEL(array));
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 _NS_INLINE NS::Array* NS::Array::array(const Object* pObject)
 {
-    return Object::sendMessage<Array*>(_NS_PRIVATE_CLS(NSArray), _NS_PRIVATE_SEL(arrayWithObject_), pObject);
+    return sendMessage<Array*>(_NS_PRIVATE_CLS(NSArray), _NS_PRIVATE_SEL(arrayWithObject_), pObject);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::Array* NS::Array::array(const Object* const* pObjects, UInteger count)
+_NS_INLINE NS::Array* NS::Array::array(const Object* const* pObjects, const UInteger count)
 {
-    return Object::sendMessage<Array*>(_NS_PRIVATE_CLS(NSArray), _NS_PRIVATE_SEL(arrayWithObjects_count_), pObjects, count);
+    return sendMessage<Array*>(_NS_PRIVATE_CLS(NSArray), _NS_PRIVATE_SEL(arrayWithObjects_count_), pObjects, count);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::Array* NS::Array::alloc()
+// ReSharper disable once CppRedundantQualifier
+_NS_INLINE NS::Array* NS::Array::alloc() { return Object::alloc<Array>(_NS_PRIVATE_CLS(NSArray)); }
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// ReSharper disable once CppRedundantQualifier
+_NS_INLINE NS::Array* NS::Array::init() { return Object::init<Array>(); }
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+_NS_INLINE NS::Array* NS::Array::init(const Object* const* pObjects, const UInteger count) const
 {
-    return NS::Object::alloc<Array>(_NS_PRIVATE_CLS(NSArray));
+    return sendMessage<Array*>(this, _NS_PRIVATE_SEL(initWithObjects_count_), pObjects, count);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::Array* NS::Array::init()
+_NS_INLINE NS::Array* NS::Array::init(const Coder* pCoder) const
 {
-    return NS::Object::init<Array>();
+    return sendMessage<Array*>(this, _NS_PRIVATE_SEL(initWithCoder_), pCoder);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::Array* NS::Array::init(const Object* const* pObjects, UInteger count)
-{
-    return Object::sendMessage<Array*>(this, _NS_PRIVATE_SEL(initWithObjects_count_), pObjects, count);
-}
+_NS_INLINE NS::UInteger NS::Array::count() const { return sendMessage<UInteger>(this, _NS_PRIVATE_SEL(count)); }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-_NS_INLINE NS::Array* NS::Array::init(const class Coder* pCoder)
-{
-    return Object::sendMessage<Array*>(this, _NS_PRIVATE_SEL(initWithCoder_), pCoder);
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-_NS_INLINE NS::UInteger NS::Array::count() const
-{
-    return Object::sendMessage<UInteger>(this, _NS_PRIVATE_SEL(count));
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-template <class _Object>
-_NS_INLINE _Object* NS::Array::object(UInteger index) const
+template<typename _Object> // NOLINT(*-reserved-identifier)
+_NS_INLINE _Object* NS::Array::object(const UInteger index) const
 {
     return Object::sendMessage<_Object*>(this, _NS_PRIVATE_SEL(objectAtIndex_), index);
 }
@@ -118,7 +113,7 @@ _NS_INLINE _Object* NS::Array::object(UInteger index) const
 
 _NS_INLINE NS::Enumerator<NS::Object>* NS::Array::objectEnumerator() const
 {
-    return NS::Object::sendMessage<Enumerator<NS::Object>*>(this, _NS_PRIVATE_SEL(objectEnumerator));
+    return sendMessage<Enumerator<Object>*>(this, _NS_PRIVATE_SEL(objectEnumerator));
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
