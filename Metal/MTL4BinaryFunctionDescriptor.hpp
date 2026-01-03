@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include "../Foundation/Foundation.hpp"
@@ -38,61 +39,63 @@ namespace MTL4
     class BinaryFunctionDescriptor : public NS::Copying<BinaryFunctionDescriptor>
     {
     public:
-        static BinaryFunctionDescriptor* alloc();
+        [[nodiscard]] static BinaryFunctionDescriptor* alloc();
 
-        FunctionDescriptor* functionDescriptor() const;
+        [[nodiscard]] FunctionDescriptor* functionDescriptor() const;
 
-        BinaryFunctionDescriptor* init();
+        [[nodiscard]] BinaryFunctionDescriptor* init();
 
-        NS::String* name() const;
+        [[nodiscard]] NS::String* name() const;
 
-        BinaryFunctionOptions options() const;
+        [[nodiscard]] BinaryFunctionOptions options() const;
 
-        void setFunctionDescriptor(const MTL4::FunctionDescriptor* functionDescriptor);
+        void setFunctionDescriptor(const FunctionDescriptor* functionDescriptor) const;
 
-        void setName(const NS::String* name);
+        void setName(const NS::String* name) const;
 
-        void setOptions(MTL4::BinaryFunctionOptions options);
+        void setOptions(BinaryFunctionOptions options) const;
     };
 
 } // namespace MTL4
 _MTL_INLINE MTL4::BinaryFunctionDescriptor* MTL4::BinaryFunctionDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL4::BinaryFunctionDescriptor>(_MTL_PRIVATE_CLS(MTL4BinaryFunctionDescriptor));
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<BinaryFunctionDescriptor>(_MTL_PRIVATE_CLS(MTL4BinaryFunctionDescriptor));
 }
 
 _MTL_INLINE MTL4::FunctionDescriptor* MTL4::BinaryFunctionDescriptor::functionDescriptor() const
 {
-    return Object::sendMessage<MTL4::FunctionDescriptor*>(this, _MTL_PRIVATE_SEL(functionDescriptor));
+    return sendMessage<FunctionDescriptor*>(this, _MTL_PRIVATE_SEL(functionDescriptor));
 }
 
 _MTL_INLINE MTL4::BinaryFunctionDescriptor* MTL4::BinaryFunctionDescriptor::init()
 {
-    return NS::Object::init<MTL4::BinaryFunctionDescriptor>();
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<BinaryFunctionDescriptor>();
 }
 
 _MTL_INLINE NS::String* MTL4::BinaryFunctionDescriptor::name() const
 {
-    return Object::sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(name));
+    return sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(name));
 }
 
 _MTL_INLINE MTL4::BinaryFunctionOptions MTL4::BinaryFunctionDescriptor::options() const
 {
-    return Object::sendMessage<MTL4::BinaryFunctionOptions>(this, _MTL_PRIVATE_SEL(options));
+    return sendMessage<BinaryFunctionOptions>(this, _MTL_PRIVATE_SEL(options));
 }
 
 _MTL_INLINE void MTL4::BinaryFunctionDescriptor::setFunctionDescriptor(
-    const MTL4::FunctionDescriptor* functionDescriptor)
+    const FunctionDescriptor* functionDescriptor) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setFunctionDescriptor_), functionDescriptor);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setFunctionDescriptor_), functionDescriptor);
 }
 
-_MTL_INLINE void MTL4::BinaryFunctionDescriptor::setName(const NS::String* name)
+_MTL_INLINE void MTL4::BinaryFunctionDescriptor::setName(const NS::String* name) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setName_), name);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setName_), name);
 }
 
-_MTL_INLINE void MTL4::BinaryFunctionDescriptor::setOptions(MTL4::BinaryFunctionOptions options)
+_MTL_INLINE void MTL4::BinaryFunctionDescriptor::setOptions(const BinaryFunctionOptions options) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setOptions_), options);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setOptions_), options);
 }

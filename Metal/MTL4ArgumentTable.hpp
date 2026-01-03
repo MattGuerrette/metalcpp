@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include "../Foundation/Foundation.hpp"
@@ -37,154 +38,161 @@ namespace MTL4
     class ArgumentTableDescriptor : public NS::Copying<ArgumentTableDescriptor>
     {
     public:
-        static ArgumentTableDescriptor* alloc();
+        [[nodiscard]] static ArgumentTableDescriptor* alloc();
 
-        ArgumentTableDescriptor* init();
-        bool                     initializeBindings() const;
+        [[nodiscard]] ArgumentTableDescriptor* init();
+        [[nodiscard]] bool                     initializeBindings() const;
 
-        NS::String* label() const;
+        [[nodiscard]] NS::String* label() const;
 
-        NS::UInteger maxBufferBindCount() const;
+        [[nodiscard]] NS::UInteger maxBufferBindCount() const;
 
-        NS::UInteger maxSamplerStateBindCount() const;
+        [[nodiscard]] NS::UInteger maxSamplerStateBindCount() const;
 
-        NS::UInteger maxTextureBindCount() const;
+        [[nodiscard]] NS::UInteger maxTextureBindCount() const;
 
-        void setInitializeBindings(bool initializeBindings);
+        [[nodiscard]] bool supportAttributeStrides() const;
 
-        void setLabel(const NS::String* label);
+        void setInitializeBindings(bool initializeBindings) const;
 
-        void setMaxBufferBindCount(NS::UInteger maxBufferBindCount);
+        void setLabel(const NS::String* label) const;
 
-        void setMaxSamplerStateBindCount(NS::UInteger maxSamplerStateBindCount);
+        void setMaxBufferBindCount(NS::UInteger maxBufferBindCount) const;
 
-        void setMaxTextureBindCount(NS::UInteger maxTextureBindCount);
+        void setMaxSamplerStateBindCount(NS::UInteger maxSamplerStateBindCount) const;
 
-        void setSupportAttributeStrides(bool supportAttributeStrides);
-        bool supportAttributeStrides() const;
+        void setMaxTextureBindCount(NS::UInteger maxTextureBindCount) const;
+
+        void setSupportAttributeStrides(bool supportAttributeStrides) const;
     };
     class ArgumentTable : public NS::Referencing<ArgumentTable>
     {
     public:
-        MTL::Device* device() const;
+        [[nodiscard]] MTL::Device* device() const;
 
-        NS::String* label() const;
+        [[nodiscard]] NS::String* label() const;
 
-        void setAddress(MTL::GPUAddress gpuAddress, NS::UInteger bindingIndex);
-        void setAddress(MTL::GPUAddress gpuAddress, NS::UInteger stride, NS::UInteger bindingIndex);
+        void setAddress(MTL::GPUAddress gpuAddress, NS::UInteger bindingIndex) const;
+        void setAddress(MTL::GPUAddress gpuAddress, NS::UInteger stride, NS::UInteger bindingIndex) const;
 
-        void setResource(MTL::ResourceID resourceID, NS::UInteger bindingIndex);
+        void setResource(MTL::ResourceID resourceID, NS::UInteger bindingIndex) const;
 
-        void setSamplerState(MTL::ResourceID resourceID, NS::UInteger bindingIndex);
+        void setSamplerState(MTL::ResourceID resourceID, NS::UInteger bindingIndex) const;
 
-        void setTexture(MTL::ResourceID resourceID, NS::UInteger bindingIndex);
+        void setTexture(MTL::ResourceID resourceID, NS::UInteger bindingIndex) const;
     };
 
 } // namespace MTL4
 _MTL_INLINE MTL4::ArgumentTableDescriptor* MTL4::ArgumentTableDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL4::ArgumentTableDescriptor>(_MTL_PRIVATE_CLS(MTL4ArgumentTableDescriptor));
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<ArgumentTableDescriptor>(_MTL_PRIVATE_CLS(MTL4ArgumentTableDescriptor));
 }
 
 _MTL_INLINE MTL4::ArgumentTableDescriptor* MTL4::ArgumentTableDescriptor::init()
 {
-    return NS::Object::init<MTL4::ArgumentTableDescriptor>();
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<ArgumentTableDescriptor>();
 }
 
 _MTL_INLINE bool MTL4::ArgumentTableDescriptor::initializeBindings() const
 {
-    return Object::sendMessage<bool>(this, _MTL_PRIVATE_SEL(initializeBindings));
+    return sendMessage<bool>(this, _MTL_PRIVATE_SEL(initializeBindings));
 }
 
 _MTL_INLINE NS::String* MTL4::ArgumentTableDescriptor::label() const
 {
-    return Object::sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
+    return sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
 }
 
 _MTL_INLINE NS::UInteger MTL4::ArgumentTableDescriptor::maxBufferBindCount() const
 {
-    return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(maxBufferBindCount));
+    return sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(maxBufferBindCount));
 }
 
 _MTL_INLINE NS::UInteger MTL4::ArgumentTableDescriptor::maxSamplerStateBindCount() const
 {
-    return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(maxSamplerStateBindCount));
+    return sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(maxSamplerStateBindCount));
 }
 
 _MTL_INLINE NS::UInteger MTL4::ArgumentTableDescriptor::maxTextureBindCount() const
 {
-    return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(maxTextureBindCount));
+    return sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(maxTextureBindCount));
 }
 
-_MTL_INLINE void MTL4::ArgumentTableDescriptor::setInitializeBindings(bool initializeBindings)
+_MTL_INLINE void MTL4::ArgumentTableDescriptor::setInitializeBindings(const bool initializeBindings) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setInitializeBindings_), initializeBindings);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setInitializeBindings_), initializeBindings);
 }
 
-_MTL_INLINE void MTL4::ArgumentTableDescriptor::setLabel(const NS::String* label)
+_MTL_INLINE void MTL4::ArgumentTableDescriptor::setLabel(const NS::String* label) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setLabel_), label);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setLabel_), label);
 }
 
-_MTL_INLINE void MTL4::ArgumentTableDescriptor::setMaxBufferBindCount(NS::UInteger maxBufferBindCount)
+_MTL_INLINE void MTL4::ArgumentTableDescriptor::setMaxBufferBindCount(const NS::UInteger maxBufferBindCount) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMaxBufferBindCount_), maxBufferBindCount);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setMaxBufferBindCount_), maxBufferBindCount);
 }
 
-_MTL_INLINE void MTL4::ArgumentTableDescriptor::setMaxSamplerStateBindCount(NS::UInteger maxSamplerStateBindCount)
+_MTL_INLINE void MTL4::ArgumentTableDescriptor::setMaxSamplerStateBindCount(
+    const NS::UInteger maxSamplerStateBindCount) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMaxSamplerStateBindCount_), maxSamplerStateBindCount);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setMaxSamplerStateBindCount_), maxSamplerStateBindCount);
 }
 
-_MTL_INLINE void MTL4::ArgumentTableDescriptor::setMaxTextureBindCount(NS::UInteger maxTextureBindCount)
+_MTL_INLINE void MTL4::ArgumentTableDescriptor::setMaxTextureBindCount(const NS::UInteger maxTextureBindCount) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setMaxTextureBindCount_), maxTextureBindCount);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setMaxTextureBindCount_), maxTextureBindCount);
 }
 
-_MTL_INLINE void MTL4::ArgumentTableDescriptor::setSupportAttributeStrides(bool supportAttributeStrides)
+_MTL_INLINE void MTL4::ArgumentTableDescriptor::setSupportAttributeStrides(const bool supportAttributeStrides) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setSupportAttributeStrides_), supportAttributeStrides);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setSupportAttributeStrides_), supportAttributeStrides);
 }
 
 _MTL_INLINE bool MTL4::ArgumentTableDescriptor::supportAttributeStrides() const
 {
-    return Object::sendMessageSafe<bool>(this, _MTL_PRIVATE_SEL(supportAttributeStrides));
+    return sendMessageSafe<bool>(this, _MTL_PRIVATE_SEL(supportAttributeStrides));
 }
 
 _MTL_INLINE MTL::Device* MTL4::ArgumentTable::device() const
 {
-    return Object::sendMessage<MTL::Device*>(this, _MTL_PRIVATE_SEL(device));
+    return sendMessage<MTL::Device*>(this, _MTL_PRIVATE_SEL(device));
 }
 
 _MTL_INLINE NS::String* MTL4::ArgumentTable::label() const
 {
-    return Object::sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
+    return sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
 }
 
-_MTL_INLINE void MTL4::ArgumentTable::setAddress(MTL::GPUAddress gpuAddress, NS::UInteger bindingIndex)
+_MTL_INLINE void MTL4::ArgumentTable::setAddress(const MTL::GPUAddress gpuAddress,
+                                                 const NS::UInteger    bindingIndex) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setAddress_atIndex_), gpuAddress, bindingIndex);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setAddress_atIndex_), gpuAddress, bindingIndex);
 }
 
-_MTL_INLINE void MTL4::ArgumentTable::setAddress(MTL::GPUAddress gpuAddress,
-                                                 NS::UInteger    stride,
-                                                 NS::UInteger    bindingIndex)
+_MTL_INLINE void MTL4::ArgumentTable::setAddress(const MTL::GPUAddress gpuAddress,
+                                                 const NS::UInteger    stride,
+                                                 const NS::UInteger    bindingIndex) const
 {
-    Object::sendMessage<void>(
-        this, _MTL_PRIVATE_SEL(setAddress_attributeStride_atIndex_), gpuAddress, stride, bindingIndex);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setAddress_attributeStride_atIndex_), gpuAddress, stride, bindingIndex);
 }
 
-_MTL_INLINE void MTL4::ArgumentTable::setResource(MTL::ResourceID resourceID, NS::UInteger bindingIndex)
+_MTL_INLINE void MTL4::ArgumentTable::setResource(const MTL::ResourceID resourceID,
+                                                  const NS::UInteger    bindingIndex) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setResource_atBufferIndex_), resourceID, bindingIndex);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setResource_atBufferIndex_), resourceID, bindingIndex);
 }
 
-_MTL_INLINE void MTL4::ArgumentTable::setSamplerState(MTL::ResourceID resourceID, NS::UInteger bindingIndex)
+_MTL_INLINE void MTL4::ArgumentTable::setSamplerState(const MTL::ResourceID resourceID,
+                                                      const NS::UInteger    bindingIndex) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setSamplerState_atIndex_), resourceID, bindingIndex);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setSamplerState_atIndex_), resourceID, bindingIndex);
 }
 
-_MTL_INLINE void MTL4::ArgumentTable::setTexture(MTL::ResourceID resourceID, NS::UInteger bindingIndex)
+_MTL_INLINE void MTL4::ArgumentTable::setTexture(const MTL::ResourceID resourceID,
+                                                 const NS::UInteger    bindingIndex) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setTexture_atIndex_), resourceID, bindingIndex);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setTexture_atIndex_), resourceID, bindingIndex);
 }

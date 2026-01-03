@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include "../Foundation/Foundation.hpp"
@@ -29,22 +30,23 @@
 namespace MTL4
 {
 
+    /// @see https://developer.apple.com/documentation/metal/mtl4binaryfunction
     class BinaryFunction : public NS::Referencing<BinaryFunction>
     {
     public:
-        MTL::FunctionType functionType() const;
+        [[nodiscard]] MTL::FunctionType functionType() const;
 
-        NS::String* name() const;
+        [[nodiscard]] NS::String* name() const;
     };
 
 } // namespace MTL4
 
 _MTL_INLINE MTL::FunctionType MTL4::BinaryFunction::functionType() const
 {
-    return Object::sendMessage<MTL::FunctionType>(this, _MTL_PRIVATE_SEL(functionType));
+    return sendMessage<MTL::FunctionType>(this, _MTL_PRIVATE_SEL(functionType));
 }
 
 _MTL_INLINE NS::String* MTL4::BinaryFunction::name() const
 {
-    return Object::sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(name));
+    return sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(name));
 }
