@@ -171,7 +171,8 @@ _MTL_INLINE void MTL4::PipelineStageDynamicLinkingDescriptor::setBinaryLinkedFun
     sendMessage<void>(this, _MTL_PRIVATE_SEL(setBinaryLinkedFunctions_), binaryLinkedFunctions);
 }
 
-_MTL_INLINE void MTL4::PipelineStageDynamicLinkingDescriptor::setMaxCallStackDepth(NS::UInteger maxCallStackDepth) const
+_MTL_INLINE void MTL4::PipelineStageDynamicLinkingDescriptor::setMaxCallStackDepth(
+    const NS::UInteger maxCallStackDepth) const
 {
     sendMessage<void>(this, _MTL_PRIVATE_SEL(setMaxCallStackDepth_), maxCallStackDepth);
 }

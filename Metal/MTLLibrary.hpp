@@ -273,7 +273,7 @@ namespace MTL
 
         void setPreserveInvariance(bool preserveInvariance) const;
 
-        void setRequiredThreadsPerThreadgroup(Size requiredThreadsPerThreadgroup) const;
+        void setRequiredThreadsPerThreadgroup(const Size& requiredThreadsPerThreadgroup) const;
     };
 
     /// @see https://developer.apple.com/documentation/metal/mtlfunctionreflection?language=objc
@@ -670,7 +670,7 @@ _MTL_INLINE void MTL::CompileOptions::setPreserveInvariance(const bool preserveI
     sendMessage<void>(this, _MTL_PRIVATE_SEL(setPreserveInvariance_), preserveInvariance);
 }
 
-_MTL_INLINE void MTL::CompileOptions::setRequiredThreadsPerThreadgroup(Size requiredThreadsPerThreadgroup) const
+_MTL_INLINE void MTL::CompileOptions::setRequiredThreadsPerThreadgroup(const Size& requiredThreadsPerThreadgroup) const
 {
     sendMessage<void>(this, _MTL_PRIVATE_SEL(setRequiredThreadsPerThreadgroup_), requiredThreadsPerThreadgroup);
 }

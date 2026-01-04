@@ -18,19 +18,19 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include "../Foundation/Foundation.hpp"
 #include "MTLDefines.hpp"
-#include "MTLHeaderBridge.hpp"
-#include "MTLPrivate.hpp"
 
 namespace MTL
 {
     struct SamplePosition;
 
-    using Coordinate2D = MTL::SamplePosition;
+    using Coordinate2D = SamplePosition;
 
+    /// @see https://developer.apple.com/documentation/metal/mtlorigin?language=objc
     struct Origin
     {
         Origin() = default;
@@ -44,19 +44,21 @@ namespace MTL
         NS::UInteger z;
     } _MTL_PACKED;
 
+    /// @see https://developer.apple.com/documentation/metal/mtlsize?language=objc
     struct Size
     {
         Size() = default;
 
         Size(NS::UInteger width, NS::UInteger height, NS::UInteger depth);
 
-        static Size Make(NS::UInteger width, NS::UInteger height, NS::UInteger depth);
+        [[nodiscard]] static Size Make(NS::UInteger width, NS::UInteger height, NS::UInteger depth);
 
         NS::UInteger width;
         NS::UInteger height;
         NS::UInteger depth;
     } _MTL_PACKED;
 
+    /// @see https://developer.apple.com/documentation/metal/mtlregion?language=objc
     struct Region
     {
         Region() = default;
@@ -72,79 +74,98 @@ namespace MTL
                NS::UInteger height,
                NS::UInteger depth);
 
-        static Region Make1D(NS::UInteger x, NS::UInteger width);
+        [[nodiscard]] static Region Make1D(NS::UInteger x, NS::UInteger width);
 
-        static Region Make2D(NS::UInteger x, NS::UInteger y, NS::UInteger width, NS::UInteger height);
+        [[nodiscard]] static Region Make2D(NS::UInteger x, NS::UInteger y, NS::UInteger width, NS::UInteger height);
 
-        static Region Make3D(NS::UInteger x,
-                             NS::UInteger y,
-                             NS::UInteger z,
-                             NS::UInteger width,
-                             NS::UInteger height,
-                             NS::UInteger depth);
+        [[nodiscard]] static Region Make3D(NS::UInteger x,
+                                           NS::UInteger y,
+                                           NS::UInteger z,
+                                           NS::UInteger width,
+                                           NS::UInteger height,
+                                           NS::UInteger depth);
 
-        MTL::Origin origin;
-        MTL::Size   size;
+        Origin origin;
+        Size   size;
     } _MTL_PACKED;
 
+    /// @see https://developer.apple.com/documentation/metal/mtlsampleposition?language=objc
     struct SamplePosition
     {
         SamplePosition() = default;
 
         SamplePosition(float x, float y);
 
-        static SamplePosition Make(float x, float y);
+        [[nodiscard]] static SamplePosition Make(float x, float y);
 
         float x;
         float y;
     } _MTL_PACKED;
 
+    /// @see https://developer.apple.com/documentation/metal/mtlresourceid?language=objc
     struct ResourceID
     {
         uint64_t _impl;
     } _MTL_PACKED;
 
 } // namespace MTL
-_MTL_INLINE MTL::Origin::Origin(NS::UInteger x, NS::UInteger y, NS::UInteger z) : x(x), y(y), z(z) {}
+_MTL_INLINE MTL::Origin::Origin(const NS::UInteger x, const NS::UInteger y, const NS::UInteger z) : x(x), y(y), z(z) {}
 
-_MTL_INLINE MTL::Origin MTL::Origin::Make(NS::UInteger x, NS::UInteger y, NS::UInteger z) { return Origin(x, y, z); }
+_MTL_INLINE MTL::Origin MTL::Origin::Make(const NS::UInteger x, const NS::UInteger y, const NS::UInteger z)
+{
+    return { x, y, z };
+}
 
-_MTL_INLINE MTL::Size::Size(NS::UInteger width, NS::UInteger height, NS::UInteger depth)
+_MTL_INLINE MTL::Size::Size(const NS::UInteger width, const NS::UInteger height, const NS::UInteger depth)
     : width(width), height(height), depth(depth)
 {
 }
 
-_MTL_INLINE MTL::Size MTL::Size::Make(NS::UInteger width, NS::UInteger height, NS::UInteger depth)
+_MTL_INLINE MTL::Size MTL::Size::Make(const NS::UInteger width, const NS::UInteger height, const NS::UInteger depth)
 {
-    return Size(width, height, depth);
+    return { width, height, depth };
 }
 
-_MTL_INLINE MTL::Region::Region(NS::UInteger x, NS::UInteger width) : origin(x, 0, 0), size(width, 1, 1) {}
+_MTL_INLINE MTL::Region::Region(const NS::UInteger x, const NS::UInteger width) : origin(x, 0, 0), size(width, 1, 1) {}
 
-_MTL_INLINE MTL::Region::Region(NS::UInteger x, NS::UInteger y, NS::UInteger width, NS::UInteger height)
+_MTL_INLINE MTL::Region::Region(const NS::UInteger x,
+                                const NS::UInteger y,
+                                const NS::UInteger width,
+                                const NS::UInteger height)
     : origin(x, y, 0), size(width, height, 1)
 {
 }
 
-_MTL_INLINE MTL::Region::Region(
-    NS::UInteger x, NS::UInteger y, NS::UInteger z, NS::UInteger width, NS::UInteger height, NS::UInteger depth)
+_MTL_INLINE MTL::Region::Region(const NS::UInteger x,
+                                const NS::UInteger y,
+                                const NS::UInteger z,
+                                const NS::UInteger width,
+                                const NS::UInteger height,
+                                const NS::UInteger depth)
     : origin(x, y, z), size(width, height, depth)
 {
 }
 
-_MTL_INLINE MTL::Region MTL::Region::Make1D(NS::UInteger x, NS::UInteger width) { return Region(x, width); }
+_MTL_INLINE MTL::Region MTL::Region::Make1D(const NS::UInteger x, const NS::UInteger width) { return { x, width }; }
 
-_MTL_INLINE MTL::Region MTL::Region::Make2D(NS::UInteger x, NS::UInteger y, NS::UInteger width, NS::UInteger height)
+_MTL_INLINE MTL::Region MTL::Region::Make2D(const NS::UInteger x,
+                                            const NS::UInteger y,
+                                            const NS::UInteger width,
+                                            const NS::UInteger height)
 {
-    return Region(x, y, width, height);
+    return { x, y, width, height };
 }
 
-_MTL_INLINE MTL::Region MTL::Region::Make3D(
-    NS::UInteger x, NS::UInteger y, NS::UInteger z, NS::UInteger width, NS::UInteger height, NS::UInteger depth)
+_MTL_INLINE MTL::Region MTL::Region::Make3D(const NS::UInteger x,
+                                            const NS::UInteger y,
+                                            const NS::UInteger z,
+                                            const NS::UInteger width,
+                                            const NS::UInteger height,
+                                            const NS::UInteger depth)
 {
-    return Region(x, y, z, width, height, depth);
+    return { x, y, z, width, height, depth };
 }
 
-_MTL_INLINE MTL::SamplePosition::SamplePosition(float x, float y) : x(x), y(y) {}
+_MTL_INLINE MTL::SamplePosition::SamplePosition(const float x, const float y) : x(x), y(y) {}
 
-_MTL_INLINE MTL::SamplePosition MTL::SamplePosition::Make(float x, float y) { return SamplePosition(x, y); }
+_MTL_INLINE MTL::SamplePosition MTL::SamplePosition::Make(const float x, const float y) { return { x, y }; }

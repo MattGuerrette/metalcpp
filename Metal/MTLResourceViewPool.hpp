@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include "../Foundation/Foundation.hpp"
@@ -32,96 +33,100 @@ namespace MTL
     class ResourceViewPool;
     class ResourceViewPoolDescriptor;
 
+    /// @see https://developer.apple.com/documentation/metal/mtlresourceviewpooldescriptor?language=objc
     class ResourceViewPoolDescriptor : public NS::Copying<ResourceViewPoolDescriptor>
     {
     public:
-        static ResourceViewPoolDescriptor* alloc();
+        [[nodiscard]] static ResourceViewPoolDescriptor* alloc();
 
-        ResourceViewPoolDescriptor* init();
+        [[nodiscard]] ResourceViewPoolDescriptor* init();
 
-        NS::String* label() const;
+        [[nodiscard]] NS::String* label() const;
 
-        NS::UInteger resourceViewCount() const;
+        [[nodiscard]] NS::UInteger resourceViewCount() const;
 
-        void setLabel(const NS::String* label);
+        void setLabel(const NS::String* label) const;
 
-        void setResourceViewCount(NS::UInteger resourceViewCount);
+        void setResourceViewCount(NS::UInteger resourceViewCount) const;
     };
+
+    /// @see https://developer.apple.com/documentation/metal/mtlresourceviewpool?language=objc
     class ResourceViewPool : public NS::Referencing<ResourceViewPool>
     {
     public:
-        ResourceID baseResourceID() const;
+        [[nodiscard]] ResourceID baseResourceID() const;
 
-        ResourceID copyResourceViewsFromPool(const MTL::ResourceViewPool* sourcePool,
-                                             NS::Range                    sourceRange,
-                                             NS::UInteger                 destinationIndex);
+        [[nodiscard]] ResourceID copyResourceViewsFromPool(const ResourceViewPool* sourcePool,
+                                                           NS::Range               sourceRange,
+                                                           NS::UInteger            destinationIndex) const;
 
-        Device* device() const;
+        [[nodiscard]] Device* device() const;
 
-        NS::String* label() const;
+        [[nodiscard]] NS::String* label() const;
 
-        NS::UInteger resourceViewCount() const;
+        [[nodiscard]] NS::UInteger resourceViewCount() const;
     };
 
 } // namespace MTL
 _MTL_INLINE MTL::ResourceViewPoolDescriptor* MTL::ResourceViewPoolDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL::ResourceViewPoolDescriptor>(_MTL_PRIVATE_CLS(MTLResourceViewPoolDescriptor));
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<ResourceViewPoolDescriptor>(_MTL_PRIVATE_CLS(MTLResourceViewPoolDescriptor));
 }
 
 _MTL_INLINE MTL::ResourceViewPoolDescriptor* MTL::ResourceViewPoolDescriptor::init()
 {
-    return NS::Object::init<MTL::ResourceViewPoolDescriptor>();
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<ResourceViewPoolDescriptor>();
 }
 
 _MTL_INLINE NS::String* MTL::ResourceViewPoolDescriptor::label() const
 {
-    return Object::sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
+    return sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
 }
 
 _MTL_INLINE NS::UInteger MTL::ResourceViewPoolDescriptor::resourceViewCount() const
 {
-    return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(resourceViewCount));
+    return sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(resourceViewCount));
 }
 
-_MTL_INLINE void MTL::ResourceViewPoolDescriptor::setLabel(const NS::String* label)
+_MTL_INLINE void MTL::ResourceViewPoolDescriptor::setLabel(const NS::String* label) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setLabel_), label);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setLabel_), label);
 }
 
-_MTL_INLINE void MTL::ResourceViewPoolDescriptor::setResourceViewCount(NS::UInteger resourceViewCount)
+_MTL_INLINE void MTL::ResourceViewPoolDescriptor::setResourceViewCount(const NS::UInteger resourceViewCount) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setResourceViewCount_), resourceViewCount);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setResourceViewCount_), resourceViewCount);
 }
 
 _MTL_INLINE MTL::ResourceID MTL::ResourceViewPool::baseResourceID() const
 {
-    return Object::sendMessage<MTL::ResourceID>(this, _MTL_PRIVATE_SEL(baseResourceID));
+    return sendMessage<ResourceID>(this, _MTL_PRIVATE_SEL(baseResourceID));
 }
 
-_MTL_INLINE MTL::ResourceID MTL::ResourceViewPool::copyResourceViewsFromPool(const MTL::ResourceViewPool* sourcePool,
-                                                                             NS::Range                    sourceRange,
-                                                                             NS::UInteger destinationIndex)
+_MTL_INLINE MTL::ResourceID MTL::ResourceViewPool::copyResourceViewsFromPool(const ResourceViewPool* sourcePool,
+                                                                             const NS::Range         sourceRange,
+                                                                             const NS::UInteger destinationIndex) const
 {
-    return Object::sendMessage<MTL::ResourceID>(
-        this,
-        _MTL_PRIVATE_SEL(copyResourceViewsFromPool_sourceRange_destinationIndex_),
-        sourcePool,
-        sourceRange,
-        destinationIndex);
+    return sendMessage<ResourceID>(this,
+                                   _MTL_PRIVATE_SEL(copyResourceViewsFromPool_sourceRange_destinationIndex_),
+                                   sourcePool,
+                                   sourceRange,
+                                   destinationIndex);
 }
 
 _MTL_INLINE MTL::Device* MTL::ResourceViewPool::device() const
 {
-    return Object::sendMessage<MTL::Device*>(this, _MTL_PRIVATE_SEL(device));
+    return sendMessage<Device*>(this, _MTL_PRIVATE_SEL(device));
 }
 
 _MTL_INLINE NS::String* MTL::ResourceViewPool::label() const
 {
-    return Object::sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
+    return sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
 }
 
 _MTL_INLINE NS::UInteger MTL::ResourceViewPool::resourceViewCount() const
 {
-    return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(resourceViewCount));
+    return sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(resourceViewCount));
 }

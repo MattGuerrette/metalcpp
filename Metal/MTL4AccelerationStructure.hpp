@@ -44,6 +44,7 @@ namespace MTL4
     class InstanceAccelerationStructureDescriptor;
     class PrimitiveAccelerationStructureDescriptor;
 
+    /// @see https://developer.apple.com/documentation/metal/mtl4accelerationstructuredescriptor?language=objc
     class AccelerationStructureDescriptor
         : public NS::Copying<AccelerationStructureDescriptor, MTL::AccelerationStructureDescriptor>
     {
@@ -52,6 +53,8 @@ namespace MTL4
 
         [[nodiscard]] AccelerationStructureDescriptor* init();
     };
+
+    /// @see https://developer.apple.com/documentation/metal/mtl4accelerationstructuregeometrydescriptor?language=objc
     class AccelerationStructureGeometryDescriptor : public NS::Copying<AccelerationStructureGeometryDescriptor>
     {
     public:
@@ -87,6 +90,8 @@ namespace MTL4
 
         void setPrimitiveDataStride(NS::UInteger primitiveDataStride) const;
     };
+
+    /// @see https://developer.apple.com/documentation/metal/mtl4primitiveaccelerationstructuredescriptor?language=objc
     class PrimitiveAccelerationStructureDescriptor
         : public NS::Copying<PrimitiveAccelerationStructureDescriptor, AccelerationStructureDescriptor>
     {
@@ -119,6 +124,9 @@ namespace MTL4
 
         void setMotionStartTime(float motionStartTime) const;
     };
+
+    /// @see
+    /// https://developer.apple.com/documentation/metal/mtl4accelerationstructuretrianglegeometrydescriptor?language=objc
     class AccelerationStructureTriangleGeometryDescriptor
         : public NS::Copying<AccelerationStructureTriangleGeometryDescriptor, AccelerationStructureGeometryDescriptor>
     {
@@ -159,6 +167,9 @@ namespace MTL4
 
         void setVertexStride(NS::UInteger vertexStride) const;
     };
+
+    /// @see
+    /// https://developer.apple.com/documentation/metal/mtl4accelerationstructureboundingboxgeometrydescriptor?language=objc
     class AccelerationStructureBoundingBoxGeometryDescriptor
         : public NS::Copying<AccelerationStructureBoundingBoxGeometryDescriptor,
                              AccelerationStructureGeometryDescriptor>
@@ -180,6 +191,9 @@ namespace MTL4
 
         void setBoundingBoxStride(NS::UInteger boundingBoxStride) const;
     };
+
+    /// @see
+    /// https://developer.apple.com/documentation/metal/mtl4accelerationstructuremotiontrianglegeometrydescriptor?language=objc
     class AccelerationStructureMotionTriangleGeometryDescriptor
         : public NS::Copying<AccelerationStructureMotionTriangleGeometryDescriptor,
                              AccelerationStructureGeometryDescriptor>
@@ -221,6 +235,9 @@ namespace MTL4
 
         void setVertexStride(NS::UInteger vertexStride) const;
     };
+
+    /// @see
+    /// https://developer.apple.com/documentation/metal/mtl4accelerationstructuremotionboundingboxgeometrydescriptor?language=objc
     class AccelerationStructureMotionBoundingBoxGeometryDescriptor
         : public NS::Copying<AccelerationStructureMotionBoundingBoxGeometryDescriptor,
                              AccelerationStructureGeometryDescriptor>
@@ -242,6 +259,9 @@ namespace MTL4
 
         void setBoundingBoxStride(NS::UInteger boundingBoxStride) const;
     };
+
+    /// @see
+    /// https://developer.apple.com/documentation/metal/mtl4accelerationstructurecurvegeometrydescriptor?language=objc
     class AccelerationStructureCurveGeometryDescriptor
         : public NS::Copying<AccelerationStructureCurveGeometryDescriptor, AccelerationStructureGeometryDescriptor>
     {
@@ -306,6 +326,9 @@ namespace MTL4
 
         void setSegmentCount(NS::UInteger segmentCount) const;
     };
+
+    /// @see
+    /// https://developer.apple.com/documentation/metal/mtl4accelerationstructuremotioncurvegeometrydescriptor?language=objc
     class AccelerationStructureMotionCurveGeometryDescriptor
         : public NS::Copying<AccelerationStructureMotionCurveGeometryDescriptor,
                              AccelerationStructureGeometryDescriptor>
@@ -371,6 +394,8 @@ namespace MTL4
 
         void setSegmentCount(NS::UInteger segmentCount) const;
     };
+
+    /// @see https://developer.apple.com/documentation/metal/mtl4instanceaccelerationstructuredescriptor?language=objc
     class InstanceAccelerationStructureDescriptor
         : public NS::Copying<InstanceAccelerationStructureDescriptor, AccelerationStructureDescriptor>
     {
@@ -415,6 +440,9 @@ namespace MTL4
 
         void setMotionTransformType(MTL::TransformType motionTransformType) const;
     };
+
+    /// @see
+    /// https://developer.apple.com/documentation/metal/mtl4indirectinstanceaccelerationstructuredescriptor?language=objc
     class IndirectInstanceAccelerationStructureDescriptor
         : public NS::Copying<IndirectInstanceAccelerationStructureDescriptor, AccelerationStructureDescriptor>
     {

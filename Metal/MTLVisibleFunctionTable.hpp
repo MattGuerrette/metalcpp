@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include "../Foundation/Foundation.hpp"
@@ -32,66 +33,72 @@ namespace MTL
     class FunctionHandle;
     class VisibleFunctionTableDescriptor;
 
+    /// @see https://developer.apple.com/documentation/metal/mtlvisiblefunctiontabledescriptor?language=objc
     class VisibleFunctionTableDescriptor : public NS::Copying<VisibleFunctionTableDescriptor>
     {
     public:
-        static VisibleFunctionTableDescriptor* alloc();
+        [[nodiscard]] static VisibleFunctionTableDescriptor* alloc();
 
-        NS::UInteger functionCount() const;
+        [[nodiscard]] NS::UInteger functionCount() const;
 
-        VisibleFunctionTableDescriptor* init();
+        [[nodiscard]] VisibleFunctionTableDescriptor* init();
 
-        void setFunctionCount(NS::UInteger functionCount);
+        void setFunctionCount(NS::UInteger functionCount) const;
 
-        static VisibleFunctionTableDescriptor* visibleFunctionTableDescriptor();
+        [[nodiscard]] static VisibleFunctionTableDescriptor* visibleFunctionTableDescriptor();
     };
+
+    /// @see https://developer.apple.com/documentation/metal/mtlvisiblefunctiontable?language=objc
     class VisibleFunctionTable : public NS::Referencing<VisibleFunctionTable, Resource>
     {
     public:
-        ResourceID gpuResourceID() const;
+        [[nodiscard]] ResourceID gpuResourceID() const;
 
-        void setFunction(const MTL::FunctionHandle* function, NS::UInteger index);
-        void setFunctions(const MTL::FunctionHandle* const functions[], NS::Range range);
+        void setFunction(const FunctionHandle* function, NS::UInteger index) const;
+        void setFunctions(const FunctionHandle* const functions[], NS::Range range) const;
     };
 
 } // namespace MTL
 _MTL_INLINE MTL::VisibleFunctionTableDescriptor* MTL::VisibleFunctionTableDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL::VisibleFunctionTableDescriptor>(_MTL_PRIVATE_CLS(MTLVisibleFunctionTableDescriptor));
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<VisibleFunctionTableDescriptor>(_MTL_PRIVATE_CLS(MTLVisibleFunctionTableDescriptor));
 }
 
 _MTL_INLINE NS::UInteger MTL::VisibleFunctionTableDescriptor::functionCount() const
 {
-    return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(functionCount));
+    return sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(functionCount));
 }
 
 _MTL_INLINE MTL::VisibleFunctionTableDescriptor* MTL::VisibleFunctionTableDescriptor::init()
 {
-    return NS::Object::init<MTL::VisibleFunctionTableDescriptor>();
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<VisibleFunctionTableDescriptor>();
 }
 
-_MTL_INLINE void MTL::VisibleFunctionTableDescriptor::setFunctionCount(NS::UInteger functionCount)
+_MTL_INLINE void MTL::VisibleFunctionTableDescriptor::setFunctionCount(const NS::UInteger functionCount) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setFunctionCount_), functionCount);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setFunctionCount_), functionCount);
 }
 
 _MTL_INLINE MTL::VisibleFunctionTableDescriptor* MTL::VisibleFunctionTableDescriptor::visibleFunctionTableDescriptor()
 {
-    return Object::sendMessage<MTL::VisibleFunctionTableDescriptor*>(
-        _MTL_PRIVATE_CLS(MTLVisibleFunctionTableDescriptor), _MTL_PRIVATE_SEL(visibleFunctionTableDescriptor));
+    return sendMessage<VisibleFunctionTableDescriptor*>(_MTL_PRIVATE_CLS(MTLVisibleFunctionTableDescriptor),
+                                                        _MTL_PRIVATE_SEL(visibleFunctionTableDescriptor));
 }
 
 _MTL_INLINE MTL::ResourceID MTL::VisibleFunctionTable::gpuResourceID() const
 {
-    return Object::sendMessage<MTL::ResourceID>(this, _MTL_PRIVATE_SEL(gpuResourceID));
+    return sendMessage<ResourceID>(this, _MTL_PRIVATE_SEL(gpuResourceID));
 }
 
-_MTL_INLINE void MTL::VisibleFunctionTable::setFunction(const MTL::FunctionHandle* function, NS::UInteger index)
+_MTL_INLINE void MTL::VisibleFunctionTable::setFunction(const FunctionHandle* function, const NS::UInteger index) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setFunction_atIndex_), function, index);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setFunction_atIndex_), function, index);
 }
 
-_MTL_INLINE void MTL::VisibleFunctionTable::setFunctions(const MTL::FunctionHandle* const functions[], NS::Range range)
+_MTL_INLINE void MTL::VisibleFunctionTable::setFunctions(const FunctionHandle* const functions[],
+                                                         const NS::Range             range) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setFunctions_withRange_), functions, range);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setFunctions_withRange_), functions, range);
 }

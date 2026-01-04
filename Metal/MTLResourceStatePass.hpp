@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include "../Foundation/Foundation.hpp"
@@ -32,141 +33,154 @@ namespace MTL
     class ResourceStatePassSampleBufferAttachmentDescriptor;
     class ResourceStatePassSampleBufferAttachmentDescriptorArray;
 
+    /// @see
+    /// https://developer.apple.com/documentation/metal/mtlresourcestatepasssamplebufferattachmentdescriptor?language=objc
     class ResourceStatePassSampleBufferAttachmentDescriptor
         : public NS::Copying<ResourceStatePassSampleBufferAttachmentDescriptor>
     {
     public:
-        static ResourceStatePassSampleBufferAttachmentDescriptor* alloc();
+        [[nodiscard]] static ResourceStatePassSampleBufferAttachmentDescriptor* alloc();
 
-        NS::UInteger endOfEncoderSampleIndex() const;
+        [[nodiscard]] NS::UInteger endOfEncoderSampleIndex() const;
 
-        ResourceStatePassSampleBufferAttachmentDescriptor* init();
+        [[nodiscard]] ResourceStatePassSampleBufferAttachmentDescriptor* init();
 
-        CounterSampleBuffer* sampleBuffer() const;
+        [[nodiscard]] CounterSampleBuffer* sampleBuffer() const;
 
-        void setEndOfEncoderSampleIndex(NS::UInteger endOfEncoderSampleIndex);
+        void setEndOfEncoderSampleIndex(NS::UInteger endOfEncoderSampleIndex) const;
 
-        void setSampleBuffer(const MTL::CounterSampleBuffer* sampleBuffer);
+        void setSampleBuffer(const CounterSampleBuffer* sampleBuffer) const;
 
-        void         setStartOfEncoderSampleIndex(NS::UInteger startOfEncoderSampleIndex);
-        NS::UInteger startOfEncoderSampleIndex() const;
+        void                       setStartOfEncoderSampleIndex(NS::UInteger startOfEncoderSampleIndex) const;
+        [[nodiscard]] NS::UInteger startOfEncoderSampleIndex() const;
     };
+
+    /// @see
+    /// https://developer.apple.com/documentation/metal/mtlresourcestatepasssamplebufferattachmentdescriptorarray?language=objc
     class ResourceStatePassSampleBufferAttachmentDescriptorArray
         : public NS::Referencing<ResourceStatePassSampleBufferAttachmentDescriptorArray>
     {
     public:
-        static ResourceStatePassSampleBufferAttachmentDescriptorArray* alloc();
+        [[nodiscard]] static ResourceStatePassSampleBufferAttachmentDescriptorArray* alloc();
 
-        ResourceStatePassSampleBufferAttachmentDescriptorArray* init();
+        [[nodiscard]] ResourceStatePassSampleBufferAttachmentDescriptorArray* init();
 
-        ResourceStatePassSampleBufferAttachmentDescriptor* object(NS::UInteger attachmentIndex);
-        void setObject(const MTL::ResourceStatePassSampleBufferAttachmentDescriptor* attachment,
-                       NS::UInteger                                                  attachmentIndex);
+        [[nodiscard]] ResourceStatePassSampleBufferAttachmentDescriptor* object(NS::UInteger attachmentIndex) const;
+        void setObject(const ResourceStatePassSampleBufferAttachmentDescriptor* attachment,
+                       NS::UInteger                                             attachmentIndex) const;
     };
+
+    /// @see https://developer.apple.com/documentation/metal/mtlresourcestatepassdescriptor?language=objc
     class ResourceStatePassDescriptor : public NS::Copying<ResourceStatePassDescriptor>
     {
     public:
-        static ResourceStatePassDescriptor* alloc();
+        [[nodiscard]] static ResourceStatePassDescriptor* alloc();
 
-        ResourceStatePassDescriptor* init();
+        [[nodiscard]] ResourceStatePassDescriptor* init();
 
-        static ResourceStatePassDescriptor* resourceStatePassDescriptor();
+        [[nodiscard]] static ResourceStatePassDescriptor* resourceStatePassDescriptor();
 
-        ResourceStatePassSampleBufferAttachmentDescriptorArray* sampleBufferAttachments() const;
+        [[nodiscard]] ResourceStatePassSampleBufferAttachmentDescriptorArray* sampleBufferAttachments() const;
     };
 
 } // namespace MTL
 _MTL_INLINE MTL::ResourceStatePassSampleBufferAttachmentDescriptor*
             MTL::ResourceStatePassSampleBufferAttachmentDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL::ResourceStatePassSampleBufferAttachmentDescriptor>(
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<ResourceStatePassSampleBufferAttachmentDescriptor>(
         _MTL_PRIVATE_CLS(MTLResourceStatePassSampleBufferAttachmentDescriptor));
 }
 
 _MTL_INLINE NS::UInteger MTL::ResourceStatePassSampleBufferAttachmentDescriptor::endOfEncoderSampleIndex() const
 {
-    return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(endOfEncoderSampleIndex));
+    return sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(endOfEncoderSampleIndex));
 }
 
 _MTL_INLINE MTL::ResourceStatePassSampleBufferAttachmentDescriptor*
             MTL::ResourceStatePassSampleBufferAttachmentDescriptor::init()
 {
-    return NS::Object::init<MTL::ResourceStatePassSampleBufferAttachmentDescriptor>();
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<ResourceStatePassSampleBufferAttachmentDescriptor>();
 }
 
 _MTL_INLINE MTL::CounterSampleBuffer* MTL::ResourceStatePassSampleBufferAttachmentDescriptor::sampleBuffer() const
 {
-    return Object::sendMessage<MTL::CounterSampleBuffer*>(this, _MTL_PRIVATE_SEL(sampleBuffer));
+    return sendMessage<CounterSampleBuffer*>(this, _MTL_PRIVATE_SEL(sampleBuffer));
 }
 
 _MTL_INLINE void MTL::ResourceStatePassSampleBufferAttachmentDescriptor::setEndOfEncoderSampleIndex(
-    NS::UInteger endOfEncoderSampleIndex)
+    const NS::UInteger endOfEncoderSampleIndex) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setEndOfEncoderSampleIndex_), endOfEncoderSampleIndex);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setEndOfEncoderSampleIndex_), endOfEncoderSampleIndex);
 }
 
 _MTL_INLINE void MTL::ResourceStatePassSampleBufferAttachmentDescriptor::setSampleBuffer(
-    const MTL::CounterSampleBuffer* sampleBuffer)
+    const CounterSampleBuffer* sampleBuffer) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setSampleBuffer_), sampleBuffer);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setSampleBuffer_), sampleBuffer);
 }
 
 _MTL_INLINE void MTL::ResourceStatePassSampleBufferAttachmentDescriptor::setStartOfEncoderSampleIndex(
-    NS::UInteger startOfEncoderSampleIndex)
+    const NS::UInteger startOfEncoderSampleIndex) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setStartOfEncoderSampleIndex_), startOfEncoderSampleIndex);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setStartOfEncoderSampleIndex_), startOfEncoderSampleIndex);
 }
 
 _MTL_INLINE NS::UInteger MTL::ResourceStatePassSampleBufferAttachmentDescriptor::startOfEncoderSampleIndex() const
 {
-    return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(startOfEncoderSampleIndex));
+    return sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(startOfEncoderSampleIndex));
 }
 
 _MTL_INLINE MTL::ResourceStatePassSampleBufferAttachmentDescriptorArray*
             MTL::ResourceStatePassSampleBufferAttachmentDescriptorArray::alloc()
 {
-    return NS::Object::alloc<MTL::ResourceStatePassSampleBufferAttachmentDescriptorArray>(
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<ResourceStatePassSampleBufferAttachmentDescriptorArray>(
         _MTL_PRIVATE_CLS(MTLResourceStatePassSampleBufferAttachmentDescriptorArray));
 }
 
 _MTL_INLINE MTL::ResourceStatePassSampleBufferAttachmentDescriptorArray*
             MTL::ResourceStatePassSampleBufferAttachmentDescriptorArray::init()
 {
-    return NS::Object::init<MTL::ResourceStatePassSampleBufferAttachmentDescriptorArray>();
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<ResourceStatePassSampleBufferAttachmentDescriptorArray>();
 }
 
 _MTL_INLINE MTL::ResourceStatePassSampleBufferAttachmentDescriptor*
-            MTL::ResourceStatePassSampleBufferAttachmentDescriptorArray::object(NS::UInteger attachmentIndex)
+MTL::ResourceStatePassSampleBufferAttachmentDescriptorArray::object(const NS::UInteger attachmentIndex) const
 {
-    return Object::sendMessage<MTL::ResourceStatePassSampleBufferAttachmentDescriptor*>(
+    return sendMessage<ResourceStatePassSampleBufferAttachmentDescriptor*>(
         this, _MTL_PRIVATE_SEL(objectAtIndexedSubscript_), attachmentIndex);
 }
 
 _MTL_INLINE void MTL::ResourceStatePassSampleBufferAttachmentDescriptorArray::setObject(
-    const MTL::ResourceStatePassSampleBufferAttachmentDescriptor* attachment, NS::UInteger attachmentIndex)
+    const ResourceStatePassSampleBufferAttachmentDescriptor* attachment, const NS::UInteger attachmentIndex) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setObject_atIndexedSubscript_), attachment, attachmentIndex);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setObject_atIndexedSubscript_), attachment, attachmentIndex);
 }
 
 _MTL_INLINE MTL::ResourceStatePassDescriptor* MTL::ResourceStatePassDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL::ResourceStatePassDescriptor>(_MTL_PRIVATE_CLS(MTLResourceStatePassDescriptor));
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<ResourceStatePassDescriptor>(_MTL_PRIVATE_CLS(MTLResourceStatePassDescriptor));
 }
 
 _MTL_INLINE MTL::ResourceStatePassDescriptor* MTL::ResourceStatePassDescriptor::init()
 {
-    return NS::Object::init<MTL::ResourceStatePassDescriptor>();
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<ResourceStatePassDescriptor>();
 }
 
 _MTL_INLINE MTL::ResourceStatePassDescriptor* MTL::ResourceStatePassDescriptor::resourceStatePassDescriptor()
 {
-    return Object::sendMessage<MTL::ResourceStatePassDescriptor*>(_MTL_PRIVATE_CLS(MTLResourceStatePassDescriptor),
-                                                                  _MTL_PRIVATE_SEL(resourceStatePassDescriptor));
+    return sendMessage<ResourceStatePassDescriptor*>(_MTL_PRIVATE_CLS(MTLResourceStatePassDescriptor),
+                                                     _MTL_PRIVATE_SEL(resourceStatePassDescriptor));
 }
 
 _MTL_INLINE MTL::ResourceStatePassSampleBufferAttachmentDescriptorArray*
             MTL::ResourceStatePassDescriptor::sampleBufferAttachments() const
 {
-    return Object::sendMessage<MTL::ResourceStatePassSampleBufferAttachmentDescriptorArray*>(
+    return sendMessage<ResourceStatePassSampleBufferAttachmentDescriptorArray*>(
         this, _MTL_PRIVATE_SEL(sampleBufferAttachments));
 }

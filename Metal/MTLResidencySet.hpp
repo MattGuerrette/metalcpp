@@ -18,6 +18,7 @@
 //
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable CppInconsistentNaming
 #pragma once
 
 #include <cstdint>
@@ -32,141 +33,149 @@ namespace MTL
     class Device;
     class ResidencySetDescriptor;
 
+    /// @see https://developer.apple.com/documentation/metal/mtlresidencysetdescriptor?language=objc
     class ResidencySetDescriptor : public NS::Copying<ResidencySetDescriptor>
     {
     public:
-        static ResidencySetDescriptor* alloc();
+        [[nodiscard]] static ResidencySetDescriptor* alloc();
 
-        ResidencySetDescriptor* init();
-        NS::UInteger            initialCapacity() const;
+        [[nodiscard]] ResidencySetDescriptor* init();
+        [[nodiscard]] NS::UInteger            initialCapacity() const;
 
-        NS::String* label() const;
+        [[nodiscard]] NS::String* label() const;
 
-        void setInitialCapacity(NS::UInteger initialCapacity);
+        void setInitialCapacity(NS::UInteger initialCapacity) const;
 
-        void setLabel(const NS::String* label);
+        void setLabel(const NS::String* label) const;
     };
+
+    /// @see https://developer.apple.com/documentation/metal/mtlresidencyset?language=objc
     class ResidencySet : public NS::Referencing<ResidencySet>
     {
     public:
-        void addAllocation(const MTL::Allocation* allocation);
-        void addAllocations(const MTL::Allocation* const allocations[], NS::UInteger count);
+        void addAllocation(const Allocation* allocation) const;
+        void addAllocations(const Allocation* const allocations[], NS::UInteger count) const;
 
-        NS::Array* allAllocations() const;
+        [[nodiscard]] NS::Array* allAllocations() const;
 
-        uint64_t allocatedSize() const;
+        [[nodiscard]] uint64_t allocatedSize() const;
 
-        NS::UInteger allocationCount() const;
+        [[nodiscard]] NS::UInteger allocationCount() const;
 
-        void commit();
+        void commit() const;
 
-        bool containsAllocation(const MTL::Allocation* anAllocation);
+        [[nodiscard]] bool containsAllocation(const Allocation* anAllocation) const;
 
-        Device* device() const;
+        [[nodiscard]] Device* device() const;
 
-        void endResidency();
+        void endResidency() const;
 
-        NS::String* label() const;
+        [[nodiscard]] NS::String* label() const;
 
-        void removeAllAllocations();
+        void removeAllAllocations() const;
 
-        void removeAllocation(const MTL::Allocation* allocation);
-        void removeAllocations(const MTL::Allocation* const allocations[], NS::UInteger count);
+        void removeAllocation(const Allocation* allocation) const;
+        void removeAllocations(const Allocation* const allocations[], NS::UInteger count) const;
 
-        void requestResidency();
+        void requestResidency() const;
     };
 
 } // namespace MTL
+
 _MTL_INLINE MTL::ResidencySetDescriptor* MTL::ResidencySetDescriptor::alloc()
 {
-    return NS::Object::alloc<MTL::ResidencySetDescriptor>(_MTL_PRIVATE_CLS(MTLResidencySetDescriptor));
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::alloc<ResidencySetDescriptor>(_MTL_PRIVATE_CLS(MTLResidencySetDescriptor));
 }
 
 _MTL_INLINE MTL::ResidencySetDescriptor* MTL::ResidencySetDescriptor::init()
 {
-    return NS::Object::init<MTL::ResidencySetDescriptor>();
+    // ReSharper disable once CppRedundantQualifier
+    return NS::Object::init<ResidencySetDescriptor>();
 }
 
 _MTL_INLINE NS::UInteger MTL::ResidencySetDescriptor::initialCapacity() const
 {
-    return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(initialCapacity));
+    return sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(initialCapacity));
 }
 
 _MTL_INLINE NS::String* MTL::ResidencySetDescriptor::label() const
 {
-    return Object::sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
+    return sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
 }
 
-_MTL_INLINE void MTL::ResidencySetDescriptor::setInitialCapacity(NS::UInteger initialCapacity)
+_MTL_INLINE void MTL::ResidencySetDescriptor::setInitialCapacity(const NS::UInteger initialCapacity) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setInitialCapacity_), initialCapacity);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setInitialCapacity_), initialCapacity);
 }
 
-_MTL_INLINE void MTL::ResidencySetDescriptor::setLabel(const NS::String* label)
+_MTL_INLINE void MTL::ResidencySetDescriptor::setLabel(const NS::String* label) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(setLabel_), label);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(setLabel_), label);
 }
 
-_MTL_INLINE void MTL::ResidencySet::addAllocation(const MTL::Allocation* allocation)
+_MTL_INLINE void MTL::ResidencySet::addAllocation(const Allocation* allocation) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(addAllocation_), allocation);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(addAllocation_), allocation);
 }
 
-_MTL_INLINE void MTL::ResidencySet::addAllocations(const MTL::Allocation* const allocations[], NS::UInteger count)
+_MTL_INLINE void MTL::ResidencySet::addAllocations(const Allocation* const allocations[],
+                                                   const NS::UInteger      count) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(addAllocations_count_), allocations, count);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(addAllocations_count_), allocations, count);
 }
 
 _MTL_INLINE NS::Array* MTL::ResidencySet::allAllocations() const
 {
-    return Object::sendMessage<NS::Array*>(this, _MTL_PRIVATE_SEL(allAllocations));
+    return sendMessage<NS::Array*>(this, _MTL_PRIVATE_SEL(allAllocations));
 }
 
 _MTL_INLINE uint64_t MTL::ResidencySet::allocatedSize() const
 {
-    return Object::sendMessage<uint64_t>(this, _MTL_PRIVATE_SEL(allocatedSize));
+    return sendMessage<uint64_t>(this, _MTL_PRIVATE_SEL(allocatedSize));
 }
 
 _MTL_INLINE NS::UInteger MTL::ResidencySet::allocationCount() const
 {
-    return Object::sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(allocationCount));
+    return sendMessage<NS::UInteger>(this, _MTL_PRIVATE_SEL(allocationCount));
 }
 
-_MTL_INLINE void MTL::ResidencySet::commit() { Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(commit)); }
+_MTL_INLINE void MTL::ResidencySet::commit() const { sendMessage<void>(this, _MTL_PRIVATE_SEL(commit)); }
 
-_MTL_INLINE bool MTL::ResidencySet::containsAllocation(const MTL::Allocation* anAllocation)
+_MTL_INLINE bool MTL::ResidencySet::containsAllocation(const Allocation* anAllocation) const
 {
-    return Object::sendMessage<bool>(this, _MTL_PRIVATE_SEL(containsAllocation_), anAllocation);
+    return sendMessage<bool>(this, _MTL_PRIVATE_SEL(containsAllocation_), anAllocation);
 }
 
 _MTL_INLINE MTL::Device* MTL::ResidencySet::device() const
 {
-    return Object::sendMessage<MTL::Device*>(this, _MTL_PRIVATE_SEL(device));
+    return sendMessage<Device*>(this, _MTL_PRIVATE_SEL(device));
 }
 
-_MTL_INLINE void MTL::ResidencySet::endResidency() { Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(endResidency)); }
+_MTL_INLINE void MTL::ResidencySet::endResidency() const { sendMessage<void>(this, _MTL_PRIVATE_SEL(endResidency)); }
 
 _MTL_INLINE NS::String* MTL::ResidencySet::label() const
 {
-    return Object::sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
+    return sendMessage<NS::String*>(this, _MTL_PRIVATE_SEL(label));
 }
 
-_MTL_INLINE void MTL::ResidencySet::removeAllAllocations()
+_MTL_INLINE void MTL::ResidencySet::removeAllAllocations() const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(removeAllAllocations));
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(removeAllAllocations));
 }
 
-_MTL_INLINE void MTL::ResidencySet::removeAllocation(const MTL::Allocation* allocation)
+_MTL_INLINE void MTL::ResidencySet::removeAllocation(const Allocation* allocation) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(removeAllocation_), allocation);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(removeAllocation_), allocation);
 }
 
-_MTL_INLINE void MTL::ResidencySet::removeAllocations(const MTL::Allocation* const allocations[], NS::UInteger count)
+_MTL_INLINE void MTL::ResidencySet::removeAllocations(const Allocation* const allocations[],
+                                                      const NS::UInteger      count) const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(removeAllocations_count_), allocations, count);
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(removeAllocations_count_), allocations, count);
 }
 
-_MTL_INLINE void MTL::ResidencySet::requestResidency()
+_MTL_INLINE void MTL::ResidencySet::requestResidency() const
 {
-    Object::sendMessage<void>(this, _MTL_PRIVATE_SEL(requestResidency));
+    sendMessage<void>(this, _MTL_PRIVATE_SEL(requestResidency));
 }
